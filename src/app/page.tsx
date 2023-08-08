@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { Key } from "react";
+import "../styles/scroll.scss"
 const Home = () => {
   const curlanguage = useSelector(language);
   const companyInfo = useSelector(company);
@@ -22,7 +23,7 @@ const Home = () => {
   const serviceList = companyInfo.data.value.product;
   const newList = companyInfo.data.value.companyNews;
   return (
-    <section>
+    <div className="w-full h-42 overflow-y-scroll no-scrollbar">
       <SeoMeta />
       <div
         className={`flex flex-col justify-between`}
@@ -196,7 +197,7 @@ const Home = () => {
           },
         )}
       </Grid>
-    </section>
+    </div>
   );
 };
 

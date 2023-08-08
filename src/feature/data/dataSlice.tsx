@@ -7,24 +7,24 @@ const initialState = {
     companyDescription: {
       content:
         "&nbsp;C&ocirc;ng ty Cổ Phần C&ocirc;ng Nghệ Li&ecirc;n Ph&aacute;t được th&agrave;nh lập từ đầu năm &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>2013, với nền tảng l&agrave; đội ngũ chuy&ecirc;n gia v&agrave; kỹ sư c&oacute; gần 10 năm &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>kinh nghiệm trong lĩnh vực C&ocirc;ng Nghệ Th&ocirc;ng Tin. Với thế mạnh của &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>một C&ocirc;ng ty h&agrave;ng đầu trong lĩnh vực cung cấp sản phẩm v&agrave; t&iacute;ch &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>hợp giải ph&aacute;p C&ocirc;ng Nghệ, ch&uacute;ng t&ocirc;i đ&atilde; cung cấp v&agrave; triển khai &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>th&agrave;nh c&ocirc;ng c&aacute;c g&oacute;i sản phẩm dịch vụ, giải ph&aacute;p v&agrave; t&iacute;ch hợp hệ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>thống cho Qu&yacute; kh&aacute;ch h&agrave;ng lớn trong nhiều lĩnh vực như: Ng&acirc;n &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>h&agrave;ng, chuỗi b&aacute;n lẻ, sản xuất, kho vận, c&aacute;c doanh nghiệp trong v&agrave; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>ngo&agrave;i nước&hellip;",
-      imgSrc: { type: "about", src: "/images/about/lpc_team.jpeg" },
+      imgSrc: { type: "about", src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg" },
     },
     companyDescriptionEn: {
       content:
         "&nbsp;C&ocirc;ng ty Cổ Phần C&ocirc;ng Nghệ Li&ecirc;n Ph&aacute;t được th&agrave;nh lập từ đầu năm &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>2013, với nền tảng l&agrave; đội ngũ chuy&ecirc;n gia v&agrave; kỹ sư c&oacute; gần 10 năm &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>kinh nghiệm trong lĩnh vực C&ocirc;ng Nghệ Th&ocirc;ng Tin. Với thế mạnh của &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>một C&ocirc;ng ty h&agrave;ng đầu trong lĩnh vực cung cấp sản phẩm v&agrave; t&iacute;ch &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>hợp giải ph&aacute;p C&ocirc;ng Nghệ, ch&uacute;ng t&ocirc;i đ&atilde; cung cấp v&agrave; triển khai &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>th&agrave;nh c&ocirc;ng c&aacute;c g&oacute;i sản phẩm dịch vụ, giải ph&aacute;p v&agrave; t&iacute;ch hợp hệ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>thống cho Qu&yacute; kh&aacute;ch h&agrave;ng lớn trong nhiều lĩnh vực như: Ng&acirc;n &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>h&agrave;ng, chuỗi b&aacute;n lẻ, sản xuất, kho vận, c&aacute;c doanh nghiệp trong v&agrave; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>ngo&agrave;i nước&hellip;",
-      imgSrc: { type: "about", src: "/images/about/lpc_team.jpeg" },
+      imgSrc: { type: "about", src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg" },
     },
     companyCore: {
       content:
         "LPC li&ecirc;n tục cải tiến trong mọi lĩnh vực hoạt động để ph&aacute;t triển &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>v&agrave; tạo ra những sản phẩm dịch vụ c&oacute; gi&aacute; trị hơn cho Kh&aacute;ch H&agrave;ng. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>Ch&uacute;ng t&ocirc;i lu&ocirc;n sẵn s&agrave;ng đ&aacute;p ứng c&ocirc;ng việc với sự chuy&ecirc;n nghiệp &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>cao v&agrave; chu đ&aacute;o đến từng chi tiết nhỏ. Mang lại sự gi&agrave;u c&oacute;, hạnh &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>ph&uacute;c cho mỗi th&agrave;nh vi&ecirc;n, đồng thời g&oacute;p phần v&agrave;o sự tiến bộ của &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>x&atilde; hội đ&oacute; cũng l&agrave; tr&aacute;ch nhiệm v&agrave; nghĩa vụ của ch&uacute;ng t&ocirc;i.",
-      imgSrc: { type: "about", src: "/images/about/lpc_teambuilding.jpeg" },
+      imgSrc: { type: "about", src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg" },
     },
     companyCoreEn: {
       content:
         "LPC li&ecirc;n tục cải tiến trong mọi lĩnh vực hoạt động để ph&aacute;t triển &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>v&agrave; tạo ra những sản phẩm dịch vụ c&oacute; gi&aacute; trị hơn cho Kh&aacute;ch H&agrave;ng. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>Ch&uacute;ng t&ocirc;i lu&ocirc;n sẵn s&agrave;ng đ&aacute;p ứng c&ocirc;ng việc với sự chuy&ecirc;n nghiệp &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>cao v&agrave; chu đ&aacute;o đến từng chi tiết nhỏ. Mang lại sự gi&agrave;u c&oacute;, hạnh &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>ph&uacute;c cho mỗi th&agrave;nh vi&ecirc;n, đồng thời g&oacute;p phần v&agrave;o sự tiến bộ của &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>x&atilde; hội đ&oacute; cũng l&agrave; tr&aacute;ch nhiệm v&agrave; nghĩa vụ của ch&uacute;ng t&ocirc;i.",
-      imgSrc: { type: "about", src: "/images/about/lpc_teambuilding.jpeg" },
+      imgSrc: { type: "about", src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg" },
     },
-    milestone: { type: "about", src: "/images/about/wm.png" },
+    milestone: { type: "about", src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg" },
     companyAddress: {
       address: [
         {
@@ -85,7 +85,7 @@ const initialState = {
         meta_title: "",
         description: "this is meta description",
         date: "2023-06-04T05:00:00Z",
-        image: "/images/news/news_1.png",
+        image: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
         categories: ["Events"],
         author: "Khoa Nguyễn",
         tags: ["FPT Smart Cloud", "LPC", "Chuyển đổi số"],
@@ -102,7 +102,7 @@ const initialState = {
         meta_title: "",
         description: "this is meta description",
         date: "2022-04-04T05:00:00Z",
-        image: "/images/news/news_2.jpg",
+        image: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
         categories: ["Security"],
         author: "Đang Lê",
         tags: ["VMware ESXi", "CVE-2021-21974", "Ransomware"],
@@ -119,7 +119,7 @@ const initialState = {
         meta_title: "",
         description: "this is meta description",
         date: "2022-04-04T05:00:00Z",
-        image: "/images/news/news_3.jpg",
+        image: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
         categories: ["Security"],
         author: "Bảo Võ",
         tags: ["Veeam", "CVE-2023-27532", "Lỗ hổng bảo mật"],
@@ -136,7 +136,7 @@ const initialState = {
         meta_title: "",
         description: "this is meta description",
         date: "2022-04-04T05:00:00Z",
-        image: "/images/news/news_4.jpg",
+        image: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
         categories: ["Events"],
         author: "Xưởng Lương",
         tags: ["LPC", "Palo Alto Networks", "Platinum Innovator"],
@@ -148,39 +148,39 @@ const initialState = {
       },
     ],
     customerList: [
-      { src: "/images/partners/asus.png", type: "Transistor" },
-      { src: "/images/partners/dell.png", type: "Reform" },
-      { src: "/images/partners/f5.png", type: "Tuple" },
-      { src: "/images/partners/ibm.png", type: "Transistor" },
-      { src: "/images/partners/lenovo.png", type: "Reform" },
-      { src: "/images/partners/microsoft.png", type: "Tuple" },
-      { src: "/images/partners/okta.png", type: "Transistor" },
-      { src: "/images/partners/paloalto.png", type: "Reform" },
-      { src: "/images/partners/splunk.png", type: "Tuple" },
-      { src: "/images/partners/trendmicro.png", type: "Transistor" },
-      { src: "/images/partners/veeam.jpg", type: "Reform" },
-      { src: "/images/partners/wmware.png", type: "Tuple" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Transistor" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Reform" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Tuple" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Transistor" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Reform" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Tuple" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Transistor" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Reform" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Tuple" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Transistor" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Reform" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Tuple" },
     ],
     partnerList: [
-      { src: "/images/customers/acb.png", type: "Transistor" },
-      { src: "/images/customers/aih.png", type: "Reform" },
-      { src: "/images/customers/bis1.png", type: "Tuple" },
-      { src: "/images/customers/bvgiaan115.jpg", type: "SavvyCal" },
-      { src: "/images/customers/bvqyq7.jpg", type: "Statamic" },
-      { src: "/images/customers/dhyd_hcm.png", type: "Statamic" },
-      { src: "/images/customers/emasi.jpg", type: "Statamic" },
-      { src: "/images/customers/eximbank.png", type: "Statamic" },
-      { src: "/images/customers/hanwhalife.png", type: "Statamic" },
-      { src: "/images/customers/manulife.png", type: "Statamic" },
-      { src: "/images/customers/namlong.png", type: "Statamic" },
-      { src: "/images/customers/ninjavan.png", type: "Statamic" },
-      { src: "/images/customers/rmit.png", type: "Statamic" },
-      { src: "/images/customers/sacombank.png", type: "Statamic" },
-      { src: "/images/customers/samsung.png", type: "Statamic" },
-      { src: "/images/customers/shinhanbank.jpg", type: "Statamic" },
-      { src: "/images/customers/ssi.png", type: "Statamic" },
-      { src: "/images/customers/tah.png", type: "Statamic" },
-      { src: "/images/customers/uob.png", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Transistor" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Reform" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Tuple" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "SavvyCal" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
+      { src: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg", type: "Statamic" },
     ],
     product: [
       {
@@ -197,7 +197,7 @@ const initialState = {
           "Doanh nghiệp hạ tầng viễn thông DUY NHẤT của Việt Nam có cổ đông nước ngoài: Tập đoàn TIME dotCom, tập đoàn viễn thông Top2 Malaysia.",
         descriptionEn2:
           "Chúng tôi tư vấn, cung cấp và triển khai tích hợp các hệ thống Mạng, Máy chủ, Storage, Cloud,...tùy vào quy mô và nhu cầu của mỗi khách hàng.",
-        image: "/images/services/s1.jpg",
+        image: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
         pros: [
           "Tiết kiệm thời gian và giảm thiểu chi phí",
           "Nâng cao hiệu quả và chất lượng dịch vụ",
@@ -219,7 +219,7 @@ const initialState = {
             content: "sp1",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/it_services/it_services1",
             description: [
               {
@@ -270,7 +270,7 @@ const initialState = {
             content: "sp2",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/it_services/it_services2",
             description: [
               {
@@ -321,7 +321,7 @@ const initialState = {
             content: "sp3",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/it_services/it_services3",
             description: [
               {
@@ -372,7 +372,7 @@ const initialState = {
             content: "sp4",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/it_services/it_services4",
             description: [
               {
@@ -423,7 +423,7 @@ const initialState = {
             content: "sp5",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/it_services/it_services5",
             description: [
               {
@@ -482,7 +482,7 @@ const initialState = {
         descriptionEn1: "LPC cung cấp các dịch vụ về mạng và an ninh mạng",
         descriptionEn2:
           "Chúng tôi cung cấp các giải pháp bảo mật an ninh mạng toàn diện, giúp doanh nghiệp ngăn chặn các cuộc tấn công mạng, bảo vệ dữ liệu và duy trì hoạt động kinh doanh ổn định.",
-        image: "/images/services/s2.jpg",
+        image: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
         pros: [
           "Ngăn ngừa các cuộc tấn công mạng.",
           "Tăng cường hiệu quả hoạt động doanh nghiệp.",
@@ -502,7 +502,7 @@ const initialState = {
             content: "sp1",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/cyber_security/cyber_security1",
             description: [
               {
@@ -553,7 +553,7 @@ const initialState = {
             content: "sp2",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/cyber_security/cyber_security2",
             description: [
               {
@@ -604,7 +604,7 @@ const initialState = {
             content: "sp3",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/cyber_security/cyber_security3",
             description: [
               {
@@ -655,7 +655,7 @@ const initialState = {
             content: "sp4",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/cyber_security/cyber_security4",
             description: [
               {
@@ -706,7 +706,7 @@ const initialState = {
             content: "sp5",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/cyber_security/cyber_security5",
             description: [
               {
@@ -767,7 +767,7 @@ const initialState = {
           "Dẫn đầu về tư vấn giải pháp chuyển đổi số (Digital Transformation) cho tổ chức, doanh nghiệp. Dẫn đầu về cung cấp giải pháp an ninh bảo mật và điện toán đám mây và dịch vụ dữ liệu.",
         descriptionEn2:
           "Chúng tôi đồng hành cùng doanh nghiệp trong việc ứng dụng công nghệ số tiên tiến để tối ưu hóa hoạt động, nâng cao hiệu quả và cải thiện trải nghiệm khách hàng.",
-        image: "/images/services/s3.jpg",
+        image: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
         pros: [
           "Tiết kiệm chi phí và tăng lợi nhuận.",
           "Nâng cao trải nghiệm khách hàng.",
@@ -789,7 +789,7 @@ const initialState = {
             content: "sp1",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/digital_information/sp1",
             description: [
               {
@@ -840,7 +840,7 @@ const initialState = {
             content: "sp2",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/digital_information/sp2",
             description: [
               {
@@ -891,7 +891,7 @@ const initialState = {
             content: "sp3",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/digital_information/sp3",
             description: [
               {
@@ -942,7 +942,7 @@ const initialState = {
             content: "sp4",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/digital_information/sp3",
             description: [
               {
@@ -993,7 +993,7 @@ const initialState = {
             content: "sp5",
             titleEn: "sp1",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/digital_information/sp3",
             description: [
               {
@@ -1054,7 +1054,7 @@ const initialState = {
           "Dẫn đầu về tư vấn giải pháp chuyển đổi số (Digital Transformation) cho tổ chức, doanh nghiệp. Dẫn đầu về cung cấp giải pháp an ninh bảo mật và điện toán đám mây và dịch vụ dữ liệu.",
         descriptionEn2:
           "Dẫn đầu về tư vấn giải pháp chuyển đổi số (Digital Transformation) cho tổ chức, doanh nghiệp. Dẫn đầu về cung cấp giải pháp an ninh bảo mật và điện toán đám mây và dịch vụ dữ liệu.",
-        image: "/images/services/s3.jpg",
+        image: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
         pros: [
           "Tiết kiệm chi phí và tăng lợi nhuận.",
           "Nâng cao trải nghiệm khách hàng.",
@@ -1076,7 +1076,7 @@ const initialState = {
             content: "sp1",
             titleEn: "system/network maintainence",
             contentEn: "sp1",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/services/system_maintain",
             description: [
               {
@@ -1127,7 +1127,7 @@ const initialState = {
             content: "sp2",
             titleEn: "IT relocation",
             contentEn: "sp2",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/services/system_relocation",
             description: [
               {
@@ -1178,7 +1178,7 @@ const initialState = {
             content: "sp3",
             titleEn: "Managed services",
             contentEn: "sp3",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/services/system_manage",
             description: [
               {
@@ -1229,7 +1229,7 @@ const initialState = {
             content: "sp4",
             titleEn: "System checking",
             contentEn: "sp4",
-            imgSrc: "/images/services/s1.jpg",
+            imgSrc: "https://res.cloudinary.com/derjssgq9/image/upload/v1690527395/banner5_w8mjkg.jpg",
             link: "/services/system_check",
             description: [
               {

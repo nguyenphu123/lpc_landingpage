@@ -124,7 +124,21 @@
       "name": "Related post",
       "description":""
      
+    },
+    "login_title":{
+      "name": "Login page",
+      "description":""
+     
+    },
+    "email":{
+      "name": "Email",
+      "description":""
+     
+    },
+    "password":{
+      "name": "Password",
+      "description":""
+     
     }
- 
  
 }

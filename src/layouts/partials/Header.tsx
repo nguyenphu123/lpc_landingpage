@@ -175,7 +175,9 @@ const Header = () => {
               className="btn btn-outline-primary btn-sm hidden lg:inline-block"
               href={navigation_button.link}
             >
-              {navigation_button.label}
+              {curlanguage.changeLanguage.value == "en"
+                ? navigation_button.labelEn
+                : navigation_button.label}
             </Link>
           )}
         </div>

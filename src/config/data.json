@@ -129,6 +129,21 @@
         "name": "Các bài liên quan",
         "description":""
        
+      },
+      "login_title":{
+        "name": "Đăng nhập",
+        "description":""
+       
+      },
+      "email":{
+        "name": "Email",
+        "description":""
+       
+      },
+      "password":{
+        "name": "Mật khẩu",
+        "description":""
+       
       }
   }
   

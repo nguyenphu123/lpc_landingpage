@@ -29,8 +29,9 @@
 
   "navigation_button": {
     "enable": true,
-    "label": "Get Started",
-    "link": "https://github.com/zeon-studio/nextplate"
+    "label": "Đăng nhập",
+    "labelEn": "Login",
+    "link": "/login"
   },
 
   "disqus": {

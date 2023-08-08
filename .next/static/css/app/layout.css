@@ -2308,11 +2308,11 @@ input#nav-toggle:checked ~ #nav-menu {
 .w-8 {
   width: 2rem;
 }
-.w-full {
-  width: 100%;
-}
 .w-\[30px\] {
   width: 30px;
+}
+.w-full {
+  width: 100%;
 }
 .max-w-5xl {
   max-width: 64rem;
@@ -2542,6 +2542,10 @@ input#nav-toggle:checked ~ #nav-menu {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
+.bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
@@ -2567,10 +2571,6 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 .bg-white\/50 {
   background-color: rgb(255 255 255 / 0.5);
-}
-.bg-gray-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
@@ -2760,6 +2760,9 @@ input#nav-toggle:checked ~ #nav-menu {
   font-size: 1.875rem;
   line-height: 2.25rem;
 }
+.text-\[12px\] {
+  font-size: 12px;
+}
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -2771,9 +2774,6 @@ input#nav-toggle:checked ~ #nav-menu {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
-}
-.text-\[12px\] {
-  font-size: 12px;
 }
 .font-bold {
   font-weight: 700;

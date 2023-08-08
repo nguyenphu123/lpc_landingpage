@@ -38,13 +38,15 @@ const RegularPages = () => {
   const curlanguage = useSelector(language);
   return (
     <section>
-      {/* <SeoMeta
+      <SeoMeta
         title={data.title}
         meta_title={data.meta_title}
         description={data.description}
         image={data.image}
       />
-      <PageHeader title={data.title} /> */}
+      <PageHeader title={ curlanguage.changeLanguage.value == "en"
+                            ? data.titleEn
+                            : data.title} />
       <div className="relative">
         <div className="border-b border-gray-200 dark:border-gray-700 sticky top-20 left-0 right-0 bg-white">
           <nav

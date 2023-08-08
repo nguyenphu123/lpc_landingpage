@@ -13,8 +13,7 @@ import { Grid } from "@mantine/core";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import { Key } from "react";
-import "../styles/scroll.scss"
+import "../styles/homepage.scss"
 const Home = () => {
   const curlanguage = useSelector(language);
   const companyInfo = useSelector(company);
@@ -23,7 +22,7 @@ const Home = () => {
   const serviceList = companyInfo.data.value.product;
   const newList = companyInfo.data.value.companyNews;
   return (
-    <div className="w-full h-42 overflow-y-scroll no-scrollbar">
+    <div className="container-snap">
       <SeoMeta />
       <div
         className={`flex flex-col justify-between`}
@@ -51,7 +50,7 @@ const Home = () => {
             svc: {
               descriptionEn1: any;
               titleEn: any;
-              id: Key | null | undefined;
+              id: any | null | undefined;
               image: any;
               title: any;
               description1: any;

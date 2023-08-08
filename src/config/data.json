@@ -1,0 +1,134 @@
+{
+    
+      "bannertext1":{
+        "name": "Tìm hiểu thêm",
+        "description":""
+      },
+      "bannertext2":{
+        "name": "Liên hệ",
+        "description":""
+      },
+      "quote1":{
+        "name": "Sẵn sàng, chuyên nghiệp và chu đáo",
+        "description":""
+      },
+      "quote2":{
+        "name": " Chúng tôi cam kết mang đến những giải pháp xuất sắc và dịch vụ tận tâm cho khách hàng",
+        "description":""
+      },
+      "product":{
+        "name": " Các sản phẩm của chúng tôi",
+        "description":""
+      },
+      "service_title":{
+        "name": "Các dịch vụ và giải pháp chúng tôi cung cấp",
+        "description":""
+    
+      },
+      "service_detail":{
+        "name": "Chi tiết",
+        "description":""
+    
+      },
+      "customer":{
+        "name": "Khách hàng tiêu biểu của Liên Phát",
+        "description":"Chúng tôi đã cung cấp và triển khai thành công các gói sản phẩm dịch vụ, giải pháp và tích hợp hệ thống cho Quý khách hàng lớn trong nhiều lĩnh vực."
+     
+      },
+      "partner":{
+        "name": "Đối tác",
+        "description":"Chúng tôi hân hạnh là đối tác với những công ty công nghệ hàng đầu."
+       
+      },
+      "news":{
+        "name": "Tin tức",
+        "description":""
+       
+      },
+      "text1":{
+        "name": "Xem thêm",
+        "description":""
+       
+      },
+      "text2":{
+        "name": "Xem tin",
+        "description":""
+       
+      },
+      "basic_moral":{
+        "name": "TƯ TƯỞNG CỐT LÕI",
+        "description":""
+       
+      },
+      "milestone":{
+        "name": "NHỮNG CỘT MỐC QUAN TRỌNG",
+        "description":"Liên Phát đã hoàn thành hơn 700 dự án"
+       
+      },
+      "projects":{
+        "name": "Dự án",
+        "description":""
+       
+      },
+      "contact":{
+        "name": "Hãy để lại chi tiết liên hệ",
+        "description":""
+       
+      }
+      ,
+      "name":{
+        "name": "Họ Tên",
+        "description":""
+       
+      }
+      ,
+      "note":{
+        "name": "Lời nhắn",
+        "description":""
+       
+      }
+      ,
+      "send":{
+        "name": "Gửi",
+        "description":""
+       
+      } ,
+      "aboutus":{
+        "name": "Về chúng tôi",
+        "description":""
+       
+      },
+      "customer2":{
+        "name": "Khách hàng",
+        "description":"ĐỒNG THỜI CH&Uacute;NG T&Ocirc;I TỰ H&Agrave;O L&Agrave; KH&Aacute;CH H&Agrave;NG TI&Ecirc;U BIỂU VỚI C&Aacute;C &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DOANH NGHIỆP TR&Ecirc;N"
+     
+      },
+      "text3":{
+        "name": "Bắt đầu ngay",
+        "description":""
+       
+      }
+      ,
+      "text4":{
+        "name": "Danh mục",
+        "description":""
+       
+      }
+      ,
+      "text5":{
+        "name": "Thẻ",
+        "description":""
+       
+      } ,
+      "text6":{
+        "name": "Chia sẻ",
+        "description":""
+       
+      } ,
+      "text7":{
+        "name": "Các bài liên quan",
+        "description":""
+       
+      }
+  }
+  

@@ -1,0 +1,130 @@
+{
+    
+    "bannertext1":{
+      "name": "Learn more",
+      "description":""
+    },
+    "bannertext2":{
+      "name": "Contact us",
+      "description":""
+    },
+    "quote1":{
+      "name": "Ready, professionel và polite",
+      "description":""
+    },
+    "quote2":{
+      "name": " We guarantee to bring you our best services and solutions",
+      "description":""
+    },
+    "product":{
+      "name": " Our product",
+      "description":""
+    },
+    "service_title":{
+      "name": "We provive the following services and solutions",
+      "description":""
+  
+    },
+    "service_detail":{
+      "name": "detail",
+      "description":""
+  
+    },
+    "customer":{
+      "name": "Some of Liên Phát customers",
+      "description":"Chúng tôi đã cung cấp và triển khai thành công các gói sản phẩm dịch vụ, giải pháp và tích hợp hệ thống cho Quý khách hàng lớn trong nhiều lĩnh vực."
+   
+    },
+    "partner":{
+      "name": "Our partner",
+      "description":"We are honored to partner with leading technology companies."
+     
+    },
+    "news":{
+      "name": "News",
+      "description":""
+     
+    },
+    "text1":{
+      "name": "See more",
+      "description":""
+     
+    },
+    "text2":{
+      "name": "View",
+      "description":""
+     
+    },
+    "basic_moral":{
+      "name": "OUR CORE THOUGHT",
+      "description":""
+     
+    },
+    "milestone":{
+      "name": "OUR IMPORTANT MILESTONES",
+      "description":"Liên Phát has completed over 700 projects"
+     
+    } ,
+    "projects":{
+      "name": "Projects",
+      "description":""
+     
+    },
+    "contact":{
+      "name": "Please leave your information",
+      "description":""
+     
+    },
+   
+    "name":{
+      "name": "Fullname",
+      "description":""
+     
+    }
+    ,
+    "note":{
+      "name": "Note",
+      "description":""
+     
+    }
+    ,
+    "send":{
+      "name": "Send",
+      "description":""
+     
+    },
+    "customer2":{
+      "name": "Customer",
+      "description":"ALWAYS PROUD TO BE A TYPICAL CUSTOMER For The Above Enterprises."
+   
+    },
+    "text3":{
+      "name": "Start now",
+      "description":""
+     
+    }
+    ,
+    "text4":{
+      "name": "Catagories",
+      "description":""
+     
+    }
+    ,
+    "text5":{
+      "name": "Tags",
+      "description":""
+     
+    } ,
+    "text6":{
+      "name": "Share",
+      "description":""
+     
+    },
+    "text7":{
+      "name": "Related post",
+      "description":""
+     
+    }
+ 
+ 
+}

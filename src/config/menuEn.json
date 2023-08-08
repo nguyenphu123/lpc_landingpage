@@ -1,0 +1,70 @@
+{
+  "main": [
+    {
+      "name": "Home",
+      "link": "/"
+    },
+    {
+      "name": "Solutions",
+      "link": "/solutions",
+      "hasChildren": true,
+      "children": []
+    },
+    {
+      "name": "Services",
+      "link": "/services",
+      "hasChildren": true,
+      "children": [ ]
+    },
+    {
+      "name": "News",  
+      "link": "/blog"
+    },
+    {
+      "name": "Contact Us",
+      "link": "/contact"
+    },
+    {
+      "name": "About Us",
+      "link": "/about"
+    }
+    
+  ],
+  "footer": [
+    {
+      "name": "Elements",
+      "url": "/elements"
+    },
+    {
+      "name": "Privacy Policy",
+      "url": "/privacy-policy"
+    },
+    {
+      "name": "Pages",
+      "url": "",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Elements",
+          "url": "/elements"
+        },
+        {
+          "name": "Blog",
+          "url": "/blog"
+        },
+        {
+          "name": "Categories",
+          "url": "/categories"
+        },
+        {
+          "name": "Search",
+          "url": "/search"
+        },
+        {
+          "name": "404 Page",
+          "url": "/404"
+        }
+      ]
+    }
+  ]
+}

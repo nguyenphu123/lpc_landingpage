@@ -8,33 +8,79 @@ import similerItems from "@/lib/utils/similarItems";
 import { humanize, markdownify, slugify } from "@/lib/utils/textConverter";
 import SeoMeta from "@/partials/SeoMeta";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { notFound, useRouter, useParams } from "next/navigation";
 import { FaRegClock, FaRegFolder } from "react-icons/fa/index.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
-import { news } from "@/feature/data/newSlice";
-import { useEffect } from "react";
-import { loadNewViaId } from "@/lib/loadData";
+import { companyNew, news } from "@/feature/data/newSlice";
+import { useEffect, useState } from "react";
+import { loadViaId, loadNews } from "@/lib/loadData";
+
 const PostSingle = () => {
   const newInfo = useSelector((rootState) => news(rootState));
   const posts: any[] = newInfo.newData.value.companyNews;
   const curlanguage = useSelector((rootState) => language(rootState));
   const params: any = useParams();
-  let data =
-    posts.length != 0
-      ? posts.filter((post) => post._id === params.single)[0]
-      : JSON.parse(window.localStorage.getItem("newList") || "[]").filter(
-          (post) => post._id === params.single,
-        )[0];
-  // let data = posts.filter((post) => post._id === params.single)[0];
+  let [data, setData] = useState(
+    posts.filter((post) => post._id === params.single)[0],
+  );
+  const post = data;
+  let [similarPosts, setSimilarPosts] = useState(
+    data && similerItems(data, posts, data._id!),
+  );
+  const dispatch = useDispatch();
+  const router = useRouter();
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
       if (data == undefined) {
-        const newsCheck = await loadNewViaId(params.single);
-        data = newsCheck.data;
+        if (
+          JSON.parse(window.localStorage.getItem("newList") || "[]").filter(
+            (post) => post._id === params.single,
+          )[0] == undefined
+        ) {
+          const newCheck = await loadViaId(params.single);
+          setData(newCheck.data);
+          const newsCheck = await loadNews("");
+          if (data == undefined) {
+            router.replace("http://localhost:3000/");
+          }
+          dispatch(companyNew(newsCheck));
+          setSimilarPosts(data && similerItems(data, newsCheck, data._id!));
+        } else {
+          setData(
+            JSON.parse(window.localStorage.getItem("newList") || "[]").filter(
+              (post) => post._id === params.single,
+            )[0],
+          );
+
+          setSimilarPosts(
+            data &&
+              similerItems(
+                data,
+                JSON.parse(window.localStorage.getItem("newList") || "[]"),
+                data._id!,
+              ),
+          );
+          if (data == undefined) {
+            router.replace("http://localhost:3000/");
+          }
+        }
       } else {
+        if (data == undefined) {
+          router.replace("http://localhost:3000/");
+        }
+        setSimilarPosts(
+          data &&
+            similerItems(
+              data,
+              posts.length == 0
+                ? JSON.parse(window.localStorage.getItem("newList") || "[]")
+                : posts,
+              data._id!,
+            ),
+        );
       }
     };
     // call the function
@@ -43,8 +89,6 @@ const PostSingle = () => {
       .catch(console.error);
   }, [data]);
 
-  const post = data;
-  const similarPosts = data && similerItems(data, posts, data._id!);
   return (
     data && (
       <>
@@ -157,11 +201,12 @@ const PostSingle = () => {
                   : Data["text7"].name}
               </h2>
               <div className="row justify-center">
-                {similarPosts.map((post) => (
-                  <div key={post.slug} className="lg:col-4">
-                    <BlogCard data={post} />
-                  </div>
-                ))}
+                {similarPosts &&
+                  similarPosts.map((post) => (
+                    <div key={post.slug} className="lg:col-4">
+                      <BlogCard data={post} />
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

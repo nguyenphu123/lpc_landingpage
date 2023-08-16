@@ -5,39 +5,33 @@ import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { company, companyData } from "@/feature/data/companySlice";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
-import { partner } from "@/feature/data/partnerSlice";
-import { customer } from "@/feature/data/customerSlice";
 import { useEffect, useState } from "react";
 import { loadCompanyInfo } from "@/lib/loadData";
+import PartnerListForAbout from "./partnerListForAbout";
+import CustomerListForAbout from "./customerListForAbout";
 export default function CompanyInfo() {
   const curlanguage = useSelector((rootState) => language(rootState));
   const companyInfo = useSelector((rootState) => company(rootState));
-  const partnerInfo = useSelector((rootState) => partner(rootState));
-  const customerInfo = useSelector((rootState) => customer(rootState));
-  let partnerList;
-  let customerList;
-  let companyDatas;
+
+  let companyDatas: any = companyInfo.companyData.value;
+
   const [isBusy, setBusy] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
-    partnerList =
-      partnerInfo.partnerData.value.partnerList.length != 0
-        ? partnerInfo.partnerData.value.partnerList
-        : JSON.parse(localStorage.getItem("partnerList") || "[]");
-    customerList =
-      customerInfo.customerData.value.customerList.length != 0
-        ? customerInfo.customerData.value.customerList
-        : JSON.parse(localStorage.getItem("customerList") || "[]");
-    companyDatas =
-      companyInfo.companyData.value != undefined
-        ? companyInfo.companyData.value
-        : JSON.parse(localStorage.getItem("companyInfo") || "{}");
     // declare the data fetching function
     async function fetchNew() {
       if (Object.keys(companyDatas).length == 0) {
-        const companyCheck = await loadCompanyInfo();
+        if (
+          JSON.parse(localStorage.getItem("companyInfo") || "[]").length == 1
+        ) {
+          const companyCheck = await loadCompanyInfo();
 
-        dispatch(companyData(companyCheck));
+          dispatch(companyData(companyCheck));
+        } else {
+          companyDatas = JSON.parse(
+            localStorage.getItem("companyInfo") || "[]",
+          )[0];
+        }
 
         setBusy(false);
       } else {
@@ -163,20 +157,7 @@ export default function CompanyInfo() {
                 ? DataEn["partner"].description
                 : Data["partner"].description}
             </h3>
-            <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-              {partnerList.map((img: { src: string; type: string }) => {
-                return (
-                  <Image
-                    key={img.src}
-                    className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                    src={img.src + ""}
-                    alt={img.type + ""}
-                    width={158}
-                    height={48}
-                  />
-                );
-              })}
-            </div>
+            <PartnerListForAbout />
           </div>
         </div>
         <div className="py-24 sm:py-32">
@@ -190,20 +171,7 @@ export default function CompanyInfo() {
                     : Data["customer2"].description,
               }}
             ></h3>
-            <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-              {customerList.map((img: { src: string; type: string }) => {
-                return (
-                  <Image
-                    key={img.src}
-                    className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                    src={img.src + ""}
-                    alt={img.type + ""}
-                    width={158}
-                    height={48}
-                  />
-                );
-              })}
-            </div>
+            <CustomerListForAbout />
           </div>
         </div>
       </div>

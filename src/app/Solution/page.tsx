@@ -4,20 +4,50 @@ import ImageFallback from "@/helpers/ImageFallback";
 import { markdownify } from "@/lib/utils/textConverter";
 import SeoMeta from "@/partials/SeoMeta";
 import { FaCheck } from "react-icons/fa/index.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import "../../styles/scroll.scss";
-import { product } from "@/feature/data/productSlice";
+import { companyProduct, product } from "@/feature/data/productSlice";
 import PageHeader from "@/partials/PageHeader";
 import Link from "next/link";
+import { useEffect } from "react";
+import { loadProduct } from "@/lib/loadData";
 const Solutions = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
   const productInfo = useSelector((rootState) => product(rootState));
 
-  const data = productInfo.productData.value.product.filter(
+  let data = productInfo.productData.value.product.filter(
     (item: { type: string }) => item.type == "Solution",
   );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // declare the data fetching function
+    const fetchSolution = async () => {
+      if (data.length == 0) {
+        if (
+          JSON.parse(localStorage.getItem("productList") || "[]").length == 1
+        ) {
+          const productCheck = await loadProduct();
+          dispatch(companyProduct(productCheck));
+          data = productCheck.filter(
+            (item: { type: string }) => item.type == "Solution",
+          );
+          
+        } else {
+          data = JSON.parse(localStorage.getItem("productList") || "[]").filter(
+            (item: { type: string }) => item.type == "Solution",
+          );
+        }
+      } else {
+      }
+    };
+    // call the function
+    fetchSolution()
+      // make sure to catch any error
+      .catch(console.error);
+  }, []);
   return (
     <>
       <SeoMeta />
@@ -128,7 +158,10 @@ const Solutions = () => {
                         ))}
                   </ul>
 
-                  <Link className="btn btn-primary mt-5" href={`/Solution/${feature._id}`}>
+                  <Link
+                    className="btn btn-primary mt-5"
+                    href={`/Solution/${feature._id}`}
+                  >
                     {curlanguage.changeLanguage.value == "en"
                       ? DataEn["text3"].name
                       : Data["text3"].name}

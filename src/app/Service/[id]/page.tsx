@@ -2,11 +2,13 @@
 import SeoMeta from "@/partials/SeoMeta";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
-import { useParams, redirect } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useParams, redirect, useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { product } from "@/feature/data/productSlice";
 import PageHeader from "@/partials/PageHeader";
+import { useEffect } from "react";
+import { loadViaId } from "@/lib/loadData";
 const RegularPages = () => {
   const params: any = useParams();
   const productInfo = useSelector((rootState) => product(rootState));
@@ -19,10 +21,41 @@ const RegularPages = () => {
     (item: { [x: string]: any; link: string; type: string }) =>
       params.id == item._id,
   );
-  if (service.length == 0) {
-    redirect("/");
-  }
-  data = service[0];
+  
+  const router = useRouter();
+  useEffect(() => {
+    // declare the data fetching function
+    const fetchData = async () => {
+      if (service.length == 0) {
+        if (
+          JSON.parse(localStorage.getItem("productList") || "[]").length == 0
+        ) {
+          const serviceCheck = await loadViaId(params.id);
+          data = serviceCheck.data;
+          if (data.length == 0) {
+            router.replace("http://localhost:3000/")
+          }
+        } else {
+          data = JSON.parse(localStorage.getItem("productList") || "[]")
+            .filter((item: { type: string }) => item.type == "Service")
+            .filter((post) => post._id === params.id)[0];
+          if (data.length == 0) {
+            router.replace("http://localhost:3000/")
+          }
+        }
+      } else {
+        data = service[0];
+        if (data.length == 0) {
+          router.replace("http://localhost:3000/")
+        }
+      }
+    };
+    // call the function
+    fetchData()
+      // make sure to catch any error
+      .catch(console.error);
+  }, [data]);
+
   const curlanguage = useSelector((rootState) => language(rootState));
   return (
     <section>

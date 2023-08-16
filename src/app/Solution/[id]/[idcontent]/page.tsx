@@ -3,11 +3,13 @@ import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import "../../../../styles/scroll.scss";
 import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
-import { useParams, redirect } from "next/navigation";
-import { useSelector } from "react-redux";
+import { redirect, useParams, useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
-import { product } from "@/feature/data/productSlice";
+import { companyProduct, product } from "@/feature/data/productSlice";
+import { loadProduct } from "@/lib/loadData";
+import { useEffect } from "react";
 const RegularPages = () => {
   const params: any = useParams();
   const productInfo = useSelector((rootState) => product(rootState));
@@ -25,11 +27,59 @@ const RegularPages = () => {
     (item: { [x: string]: any; link: string; type: string }) =>
       params.idcontent == item._id,
   );
-  if (contain.length == 0 || solution.length == 0) {
-    redirect("/");
-  }
-  data = contain[0];
-  resultData = data;
+  const dispatch = useDispatch();
+  const router = useRouter();
+  useEffect(() => {
+    // declare the data fetching function
+    const fetchSolution = async () => {
+      if (products.length == 0) {
+        if (
+          JSON.parse(localStorage.getItem("productList") || "[]").length == 1
+        ) {
+          const productCheck = await loadProduct();
+          dispatch(companyProduct(productCheck));
+          data = productCheck
+            .filter((item: { type: string }) => item.type == "Solution")
+            .filter(
+              (item: { [x: string]: any; link: string; type: string }) =>
+                params.id == item._id,
+            )[0]
+            .content.filter(
+              (item: { [x: string]: any; link: string; type: string }) =>
+                params.idcontent == item._id,
+            )[0];
+          if (data == undefined) {
+            router.replace("http://localhost:3000/");
+          }
+        } else {
+          data = JSON.parse(localStorage.getItem("productList") || "[]")
+            .filter((item: { type: string }) => item.type == "Solution")
+            .filter(
+              (item: { [x: string]: any; link: string; type: string }) =>
+                params.id == item._id,
+            )[0]
+            .content.filter(
+              (item: { [x: string]: any; link: string; type: string }) =>
+                params.idcontent == item._id,
+            )[0];
+          if (data == undefined) {
+            router.replace("http://localhost:3000/");
+          }
+        }
+      } else {
+        data = contain[0];
+        if (data == undefined) {
+          router.replace("http://localhost:3000/");
+        }
+        resultData = data;
+      }
+    };
+    // call the function
+    fetchSolution()
+      // make sure to catch any error
+      .catch(console.error);
+  }, []);
+
   const curlanguage = useSelector((rootState) => language(rootState));
   return (
     <section>

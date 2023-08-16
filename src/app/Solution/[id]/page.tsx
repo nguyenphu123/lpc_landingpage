@@ -3,11 +3,13 @@ import ProductCard from "../../../layouts/components/productCard";
 import SeoMeta from "@/partials/SeoMeta";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
-import { redirect, useParams } from "next/navigation";
-import { useSelector } from "react-redux";
+import { redirect, useParams, useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { product } from "@/feature/data/productSlice";
+import { companyProduct, product } from "@/feature/data/productSlice";
+import { useEffect } from "react";
+import { loadProduct } from "@/lib/loadData";
 
 const RegularPages = () => {
   const params: any = useParams();
@@ -21,11 +23,50 @@ const RegularPages = () => {
     (item: { [x: string]: any; link: string; type: string }) =>
       params.id == item._id,
   );
+  const dispatch = useDispatch();
+  const router = useRouter();
+  useEffect(() => {
+    // declare the data fetching function
+    const fetchSolution = async () => {
+      if (products.length == 0) {
+        if (
+          JSON.parse(localStorage.getItem("productList") || "[]").length == 1
+        ) {
+          const productCheck = await loadProduct();
+          dispatch(companyProduct(productCheck));
+          data = productCheck
+            .filter((item: { type: string }) => item.type == "Solution")
+            .filter(
+              (item: { [x: string]: any; link: string; type: string }) =>
+                params.id == item._id,
+            )[0];
+          if (data == undefined) {
+            router.replace("http://localhost:3000/");
+          }
+        } else {
+          data = JSON.parse(localStorage.getItem("productList") || "[]")
+            .filter((item: { type: string }) => item.type == "Solution")
+            .filter(
+              (item: { [x: string]: any; link: string; type: string }) =>
+                params.id == item._id,
+            )[0];
+          if (data == undefined) {
+            router.replace("http://localhost:3000/");
+          }
+        }
+      } else {
+        data = solution[0];
+        if (data == undefined) {
+          router.replace("http://localhost:3000/");
+        }
+      }
+    };
+    // call the function
+    fetchSolution()
+      // make sure to catch any error
+      .catch(console.error);
+  }, []);
 
-  if (solution.length == 0) {
-    redirect("/");
-  }
-  data = solution[0];
   const curlanguage = useSelector((rootState) => language(rootState));
   return (
     <section>

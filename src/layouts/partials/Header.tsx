@@ -1,4 +1,5 @@
 "use client";
+
 import { language } from "../../feature/changeLanguage/changeLanguageSlice";
 import Logo from "@/components/Logo";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
@@ -18,7 +19,7 @@ import { useDispatch } from "react-redux";
 //  child navigation link interface
 const Header = () => {
   const dispatch = useDispatch();
-  
+
   // distructuring the main menu from menu object
   const curlanguage = useSelector((rootState) => language(rootState));
   const { main } = curlanguage.changeLanguage.value == "en" ? menuEn : menu;
@@ -192,6 +193,8 @@ const Header = () => {
             </Link>
           )}
           <ThemeSwitcher className="mr-5" />
+         
+
           {navigation_button.enable && (
             <Link
               className="btn btn-outline-primary btn-sm hidden lg:inline-block"

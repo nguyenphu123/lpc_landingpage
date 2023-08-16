@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const Breadcrumbs = ({ className }: { className?: string }) => {
-  const pathname = usePathname();
+  const pathname : any = usePathname();
 
   const paths = pathname.split("/").filter((x) => x);
   let parts = [

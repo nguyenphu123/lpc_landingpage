@@ -21,7 +21,7 @@ const SeoMeta = ({
 }) => {
   const { meta_image, meta_author, meta_description } = config.metadata;
   const { base_url } = config.site;
-  const pathname = usePathname();
+  const pathname : any = usePathname();
 
   return (
     <>

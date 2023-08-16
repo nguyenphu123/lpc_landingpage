@@ -1,6 +1,5 @@
 import BlogCard from "@/components/BlogCard";
-import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import { company } from "@/feature/data/dataSlice";
+import { company } from "@/feature/data/companySlice";
 import taxonomyFilter from "@/lib/utils/taxonomyFilter";
 import { humanize } from "@/lib/utils/textConverter";
 import PageHeader from "@/partials/PageHeader";
@@ -10,10 +9,9 @@ import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { useParams } from "next/navigation";
 import { useSelector } from "react-redux";
 const TagSingle = () => {
-  const curlanguage = useSelector(language);
-  const params: Params = useParams();
+  const params : any = useParams();
 
-  const companyInfo = useSelector(company);
+  const companyInfo = useSelector((rootState) => company(rootState));
   const posts: Post[] = companyInfo.data.value.companyNews;
   const filterByTags = taxonomyFilter(posts, "tags", params.single);
 

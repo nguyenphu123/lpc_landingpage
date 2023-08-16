@@ -6,13 +6,13 @@
     },
     {
       "name": "Giải pháp",
-      "link": "/solutions",
+      "link": "/Solution",
       "hasChildren": true,
       "children": []
     },
     {
       "name": "Dịch vụ",
-      "link": "/services",
+      "link": "/Service",
       "hasChildren": true,
       "children": []
     },

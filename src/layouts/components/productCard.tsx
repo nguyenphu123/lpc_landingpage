@@ -1,15 +1,12 @@
 "use client";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 export default function ProductCard({ title, content, id, link, srcImg }: any) {
-  const params = useParams();
-  const curlanguage = useSelector(language);
+  const curlanguage = useSelector((rootState) => language(rootState));
   return (
-    
     <div
       key={id}
       className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"

@@ -1,13 +1,13 @@
 "use client";
 import config from "@/config/config.json";
 import theme from "@/config/theme.json";
-import TwSizeIndicator from "@/helpers/TwSizeIndicator";
 import Footer from "@/partials/Footer";
 import Header from "@/partials/Header";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 import "@/styles/main.scss";
-
+import { AuthProvider } from "./provider";
+import { usePathname } from "next/navigation";
 export default function RootLayout({
   children,
 }: {
@@ -16,7 +16,7 @@ export default function RootLayout({
   // import google font css
   const pf = theme.fonts.font_family.primary;
   const sf = theme.fonts.font_family.secondary;
-
+  const pathname = usePathname();
   return (
     <html suppressHydrationWarning={true} lang="en">
       <head>
@@ -58,10 +58,11 @@ export default function RootLayout({
 
       <body suppressHydrationWarning={true}>
         <Provider store={store}>
-          <TwSizeIndicator />
-          <Header />
-          <main>{children}</main>
-          <Footer />
+          <AuthProvider>
+            {pathname !== "/admin" && <Header />}
+            <main>{children}</main>
+            {pathname !== "/admin" && <Footer />}
+          </AuthProvider>
         </Provider>
       </body>
     </html>

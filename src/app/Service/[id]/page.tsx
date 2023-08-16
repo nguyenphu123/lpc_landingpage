@@ -1,52 +1,42 @@
 "use client";
-import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import "../../../styles/scroll.scss";
-import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
-import { useParams } from "next/navigation";
-import { useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
-import { company } from "@/feature/data/dataSlice";
-
+import { useParams, redirect } from "next/navigation";
+import { useSelector } from "react-redux";
+import { language } from "@/feature/changeLanguage/changeLanguageSlice";
+import { product } from "@/feature/data/productSlice";
+import PageHeader from "@/partials/PageHeader";
 const RegularPages = () => {
-  const params = useParams();
-  const companyInfo = useSelector(company);
-  let product = [];
+  const params: any = useParams();
+  const productInfo = useSelector((rootState) => product(rootState));
+  let products = [];
   let data: any = {};
-  let resultData: any = {};
-  if (params.products == "services") {
-    product = companyInfo.data.value.product.filter(
-      (item: { type: string }) => item.type == "service",
-    );
-    data = product[0];
-  } else {
-    product = companyInfo.data.value.product.filter(
-      (item: { type: string }) => item.type == "solution",
-    );
-    const solution = product.filter(
-      (item: { link: string; type: string }) =>
-        "/" + params.products == item.link,
-    );
-    data = solution[0];
-  }
-
-  resultData = data.content.filter(
-    (item: { id: string }) => item.id == params.id,
+  products = productInfo.productData.value.product.filter(
+    (item: { type: string }) => item.type == "Service",
   );
-
-  const curlanguage = useSelector(language);
+  const service = products.filter(
+    (item: { [x: string]: any; link: string; type: string }) =>
+      params.id == item._id,
+  );
+  if (service.length == 0) {
+    redirect("/");
+  }
+  data = service[0];
+  const curlanguage = useSelector((rootState) => language(rootState));
   return (
     <section>
       <SeoMeta
-        title={data.title}
-        meta_title={data.meta_title}
-        description={data.description}
-        image={data.image}
+        title={data?.title}
+        meta_title={data?.meta_title}
+        description={data?.content}
+        image={data?.image}
       />
-      <PageHeader title={ curlanguage.changeLanguage.value == "en"
-                            ? data.titleEn
-                            : data.title} />
+      <PageHeader
+        title={
+          curlanguage.changeLanguage.value == "en" ? data?.titleEn : data?.title
+        }
+      />
       <div className="relative">
         <div className="border-b border-gray-200 dark:border-gray-700 sticky top-20 left-0 right-0 bg-white">
           <nav
@@ -54,7 +44,7 @@ const RegularPages = () => {
             aria-label="Tabs"
             role="tablist"
           >
-            {resultData[0].description.map((content: any, i: any) => {
+            {data?.description.map((content: any, i: any) => {
               return (
                 <a
                   key={content.id}
@@ -76,8 +66,8 @@ const RegularPages = () => {
             <div className="text-center">
               <h1 className="text-white text-2xl font-semibold uppercase md:text-3xl">
                 {curlanguage.changeLanguage.value == "en"
-                  ? DataEn["service_detail"].name
-                  : Data["service_detail"].name}
+                  ? DataEn["service_detail"]?.name
+                  : Data["service_detail"]?.name}
               </h1>
             </div>
           </div>
@@ -85,7 +75,7 @@ const RegularPages = () => {
         <section className="section">
           <div className="container">
             <div className="content">
-              {resultData[0].description.map((content: any, i: any) => {
+              {data?.description.map((content: any, i: any) => {
                 return (
                   <div key={content.id}>
                     <h2

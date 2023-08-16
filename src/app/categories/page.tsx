@@ -1,19 +1,15 @@
-"use client"
-import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import { company } from "@/feature/data/dataSlice";
+"use client";
+import { news } from "@/feature/data/newSlice";
 import { humanize } from "@/lib/utils/textConverter";
 import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-
 const Categories = () => {
-  const curlanguage = useSelector(language);
-  const companyInfo = useSelector(company);
-  const posts: any[] = companyInfo.data.value.companyNews
- 
+  const newInfo = useSelector((rootState) => news(rootState));
+  const posts: any[] = newInfo.newData.value.companyNews;
+
   const categories = ["Events", "Security"];
- 
 
   return (
     <>
@@ -23,8 +19,8 @@ const Categories = () => {
         <div className="container text-center">
           <ul>
             {categories.map((category: string) => {
-              const count = posts.filter(
-                (c : any) => c.categories.some((item: string) =>item === category) 
+              const count = posts.filter((c: any) =>
+                c.categories.some((item: string) => item === category),
               ).length;
               return (
                 <li className="m-3 inline-block" key={category}>

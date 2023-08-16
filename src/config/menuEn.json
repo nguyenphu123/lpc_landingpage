@@ -6,13 +6,13 @@
     },
     {
       "name": "Solutions",
-      "link": "/solutions",
+      "link": "/Solution",
       "hasChildren": true,
       "children": []
     },
     {
       "name": "Services",
-      "link": "/services",
+      "link": "/Service",
       "hasChildren": true,
       "children": [ ]
     },

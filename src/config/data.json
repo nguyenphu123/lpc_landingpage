@@ -144,6 +144,11 @@
         "name": "Mật khẩu",
         "description":""
        
+      },
+      "solution":{
+        "name": "Các giải pháp",
+        "description":""
+       
       }
   }
   

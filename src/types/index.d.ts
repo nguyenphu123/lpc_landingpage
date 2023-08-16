@@ -12,6 +12,7 @@ export type RegularPage = {
 };
 
 export type Post = {
+  [x: string]: any;
   contentEn: string;
   id: any;
   title: string;

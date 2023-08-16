@@ -3,14 +3,14 @@ import dateFormat from "@/lib/utils/dateFormat";
 import { humanize, plainify, slugify } from "@/lib/utils/textConverter";
 import { Post } from "@/types";
 import Link from "next/link";
-import { FaRegFolder, FaRegUserCircle } from "react-icons/fa/index.js";
+import { FaRegFolder } from "react-icons/fa/index.js";
 import ImageFallback from "../helpers/ImageFallback";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 const BlogCard = ({ data }: { data: Post }) => {
-  const curlanguage = useSelector(language);
+  const curlanguage = useSelector((rootState) => language(rootState));
   return (
     <div className="bg-body dark:bg-darkmode-body">
       {data.image && (
@@ -49,7 +49,7 @@ const BlogCard = ({ data }: { data: Post }) => {
       ></p>
       <Link
         className="btn btn-outline-primary btn-sm"
-        href={`/blog/${data.id}`}
+        href={`/blog/${data._id}`}
       >
         {curlanguage.changeLanguage.value == "en"
           ? DataEn["text2"].name

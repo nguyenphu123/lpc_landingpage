@@ -2,16 +2,13 @@
 
 import config from "@/config/config.json";
 import { useTheme } from "next-themes";
-import router, { Router } from "next/dist/client/router";
-import Link from "next/link";
-import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { changeLanguage } from "../../feature/changeLanguage/changeLanguageSlice";
 const ThemeSwitcher = ({ className }: { className: string }) => {
   const { theme_switcher } = config.settings;
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
   useEffect(() => {
     setMounted(true);
   }, []);

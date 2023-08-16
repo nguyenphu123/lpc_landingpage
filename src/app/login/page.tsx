@@ -1,21 +1,45 @@
 "use client";
-import config from "@/config/config.json";
+import { redirect, useRouter } from "next/navigation";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import SeoMeta from "@/partials/SeoMeta";
 import PageHeader from "@/partials/PageHeader";
-
+import { signIn } from "next-auth/react";
+import { userLogin } from "@/feature/login/loginSlice";
 const Contact = () => {
-  const curlanguage = useSelector(language);
-
+  const curlanguage = useSelector((rootState) => language(rootState));
+  // let loginState = useSelector(loginStatus);
+  const router = useRouter();
+  const dispatch = useDispatch();
   const data = {
     title: "DỊCH VỤ IT",
     meta_title: "",
     description: "this is meta description",
     image: "",
   };
+
+  async function onsubmit(e: any) {
+    e.preventDefault();
+    const loginInfo: any = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+      redirect: false,
+    };
+    try {
+      const res: any = await signIn("credentials", loginInfo);
+
+      if (res.error != null || res.status != 200) {
+        //setError("Invalid Credentials");
+        return;
+      }
+      dispatch(userLogin(loginInfo));
+      router.push("/admin");
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <>
       <SeoMeta
@@ -50,7 +74,7 @@ const Contact = () => {
                   ? DataEn["login_title"].name
                   : Data["login_title"].name}
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form className="space-y-4 md:space-y-6" onSubmit={onsubmit}>
                 <div>
                   <label
                     htmlFor="email"
@@ -89,15 +113,7 @@ const Contact = () => {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-start">
-                    <div className="flex items-center h-5">
-                      <input
-                        id="remember"
-                        aria-describedby="remember"
-                        type="checkbox"
-                        className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                        required={true}
-                      />
-                    </div>
+                    <div className="flex items-center h-5"></div>
                   </div>
                 </div>
                 <button

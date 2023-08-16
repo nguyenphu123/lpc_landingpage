@@ -2,10 +2,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es6",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -22,13 +26,36 @@
       }
     ],
     "paths": {
-      "@/components/*": ["./src/layouts/components/*"],
-      "@/shortcodes/*": ["./src/layouts/shortcodes/*"],
-      "@/helpers/*": ["./src/layouts/helpers/*"],
-      "@/partials/*": ["./src/layouts/partials/*"],
-      "@/*": ["./src/*"]
-    }
+      "@/components/*": [
+        "./src/layouts/components/*"
+      ],
+      "@/shortcodes/*": [
+        "./src/layouts/shortcodes/*"
+      ],
+      "@/helpers/*": [
+        "./src/layouts/helpers/*"
+      ],
+      "@/partials/*": [
+        "./src/layouts/partials/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "strictNullChecks": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/pages/userApi/user.tsx",
+    "src/app/api/user/route.js",
+    "src/app/api/user/auth/[...nextauth]/route.js",
+    "src/lib/loginAuth.js",
+    "src/lib/createData.js"
+, "src/layouts/components/carousel.js"  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

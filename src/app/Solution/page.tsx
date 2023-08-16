@@ -8,16 +8,26 @@ import { useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import "../../styles/scroll.scss";
-import { company } from "@/feature/data/dataSlice";
+import { product } from "@/feature/data/productSlice";
+import PageHeader from "@/partials/PageHeader";
+import Link from "next/link";
 const Solutions = () => {
-  const curlanguage = useSelector(language);
-  const companyInfo = useSelector(company);
-  const data = companyInfo.data.value.product.filter(
-    (item: { type: string }) => item.type == "solution",
+  const curlanguage = useSelector((rootState) => language(rootState));
+  const productInfo = useSelector((rootState) => product(rootState));
+
+  const data = productInfo.productData.value.product.filter(
+    (item: { type: string }) => item.type == "Solution",
   );
   return (
     <>
       <SeoMeta />
+      <PageHeader
+        title={
+          curlanguage.changeLanguage.value == "en"
+            ? DataEn["solution"].name
+            : Data["solution"].name
+        }
+      />
       <div className="border-b border-gray-200 dark:border-gray-700 sticky top-20 left-0 right-0 bg-white">
         <nav
           className="-mb-0.5 flex justify-center space-x-6 sticky top-10"
@@ -27,8 +37,8 @@ const Solutions = () => {
           {data.map((content: any, i: any) => {
             return (
               <a
-                key={content.id}
-                href={`#${content.id}`}
+                key={content._id}
+                href={`#${content._id}`}
                 className="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600"
                 id="horizontal-alignment-item-2"
                 data-hs-tab="#horizontal-alignment-2"
@@ -50,7 +60,7 @@ const Solutions = () => {
             prosEn: any;
             descriptionEn2: string;
             titleEn: string;
-            id: string | undefined;
+            _id: string | undefined;
             image: any;
             title: string;
             description2: string;
@@ -63,7 +73,7 @@ const Solutions = () => {
             key={index}
             className={`section-sm ${index % 2 === 0 && "bg-gradient"}`}
           >
-            <div className="container" id={feature.id}>
+            <div className="container" id={feature._id}>
               <div className="row items-center justify-between">
                 <div
                   className={`mb:md-0 mb-6 md:col-5 ${
@@ -100,7 +110,7 @@ const Solutions = () => {
                   />
                   <ul>
                     {curlanguage.changeLanguage.value == "en"
-                      ? feature.pros.map((bullet: string) => (
+                      ? feature.prosEn.map((bullet: string) => (
                           <li className="relative mb-4 pl-6" key={bullet}>
                             <FaCheck className={"absolute left-0 top-1.5"} />
                             <span
@@ -108,7 +118,7 @@ const Solutions = () => {
                             />
                           </li>
                         ))
-                      : feature.prosEn.map((bullet: string) => (
+                      : feature.pros.map((bullet: string) => (
                           <li className="relative mb-4 pl-6" key={bullet}>
                             <FaCheck className={"absolute left-0 top-1.5"} />
                             <span
@@ -118,11 +128,11 @@ const Solutions = () => {
                         ))}
                   </ul>
 
-                  <a className="btn btn-primary mt-5" href={"/" + feature.link}>
+                  <Link className="btn btn-primary mt-5" href={`/Solution/${feature._id}`}>
                     {curlanguage.changeLanguage.value == "en"
                       ? DataEn["text3"].name
                       : Data["text3"].name}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

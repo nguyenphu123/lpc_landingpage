@@ -9,7 +9,7 @@ export const getTaxonomy = (folder: string, name: string): Array<string> => {
   for (let i = 0; i < taxonomyPages?.length; i++) {
     const taxonomyArray = taxonomyPages[i];
     for (let j = 0; j < taxonomyArray?.length; j++) {
-      taxonomies.push(slugify(taxonomyArray[j]));
+      taxonomies.push(slugify(taxonomyArray[j]) as never);
     }
   }
   const taxonomy = [...new Set(taxonomies)];
@@ -24,7 +24,7 @@ export const getAllTaxonomy = (folder: string, name: string) => {
   for (let i = 0; i < taxonomyPages?.length; i++) {
     const taxonomyArray = taxonomyPages[i];
     for (let j = 0; j < taxonomyArray?.length; j++) {
-      taxonomies.push(slugify(taxonomyArray[j]));
+      taxonomies.push(slugify(taxonomyArray[j]) as never);
     }
   }
 

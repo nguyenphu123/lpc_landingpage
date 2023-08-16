@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import BlogCard from "@/components/BlogCard";
 import Pagination from "@/components/Pagination";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
@@ -8,22 +8,31 @@ import PageHeader from "@/partials/PageHeader";
 import PostSidebar from "@/partials/PostSidebar";
 import SeoMeta from "@/partials/SeoMeta";
 import { useSelector } from "react-redux";
-import { company } from "@/feature/data/dataSlice";
+import { news } from "@/feature/data/newSlice";
 const Posts = () => {
-  const curlanguage = useSelector(language);
-  const companyInfo = useSelector(company);
-  const posts: any[] = companyInfo.data.value.companyNews
+  const curlanguage = useSelector((rootState) => language(rootState));
+  const newInfo = useSelector((rootState) => news(rootState));
+  const posts: any[] = newInfo.newData.value.companyNews;
   const metadata = {
-    title:"Sp1",
-    meta_title:"",
-    description:"this is meta description",
-    image:"",
-    
-} 
+    title: "Sp1",
+    meta_title: "",
+    description: "this is meta description",
+    image: "",
+  };
   const categories = ["Events", "Security"];
-  const tags = ["saasbox", "npm", "sass" ,"pug", "gulp" ,"css", "bootstrap", "html5", "jquery", "design"];
+  const tags = [
+    "saasbox",
+    "npm",
+    "sass",
+    "pug",
+    "gulp",
+    "css",
+    "bootstrap",
+    "html5",
+    "jquery",
+    "design",
+  ];
   const totalPages = Math.ceil(posts.length / 2);
-  
 
   return (
     <>
@@ -33,7 +42,13 @@ const Posts = () => {
         description={metadata.description}
         image={metadata.image}
       />
-      <PageHeader title= {curlanguage.changeLanguage.value == "en" ? DataEn['news'].name : Data['news'].name} />
+      <PageHeader
+        title={
+          curlanguage.changeLanguage.value == "en"
+            ? DataEn["news"].name
+            : Data["news"].name
+        }
+      />
       <section className="section">
         <div className="container">
           <div className="row gx-5">
@@ -41,9 +56,7 @@ const Posts = () => {
               <div className="row">
                 {posts.map((post: any, index: number) => (
                   <div key={index} className="mb-14 md:col-6">
-                    <BlogCard 
-                      data={post} 
-                    />
+                    <BlogCard data={post} />
                   </div>
                 ))}
               </div>

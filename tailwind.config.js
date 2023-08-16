@@ -30,7 +30,7 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  safelist: [{ pattern: /grid-cols-./ }, ],
+  safelist: [{ pattern: /grid-cols-./ }],
   darkMode: "class",
   theme: {
     screens: {

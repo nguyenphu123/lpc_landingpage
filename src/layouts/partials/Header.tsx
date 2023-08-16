@@ -6,38 +6,58 @@ import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import menuEn from "@/config/menuEn.json";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
-import React, { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5/index.js";
 import useScroll from "../../lib/utils/use-scroll";
 import { useSelector } from "react-redux";
-import { company } from "@/feature/data/dataSlice";
 import { UrlObject } from "url";
+import { companyProduct, product } from "@/feature/data/productSlice";
+import { loadProduct } from "@/lib/loadData";
+import { useDispatch } from "react-redux";
 //  child navigation link interface
-
 const Header = () => {
+  const dispatch = useDispatch();
+  
   // distructuring the main menu from menu object
-  const curlanguage = useSelector(language);
+  const curlanguage = useSelector((rootState) => language(rootState));
   const { main } = curlanguage.changeLanguage.value == "en" ? menuEn : menu;
 
-  const companyInfo = useSelector(company);
-  const servicesMenu = companyInfo.data.value.product.filter(
-    (item: { type: string }) => item.type == "service",
-  );
-  main[1].children = companyInfo.data.value.product.filter(
-    (item: { type: string }) => item.type == "solution",
-  );
-  main[2].children = servicesMenu[0].content;
+  const productInfo = useSelector((rootState) => product(rootState));
+  const pathname: any = usePathname();
+  let servicesMenu: any = [];
+  const scrolled = useScroll(50);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // declare the data fetching function
+    const fetchProduct = async () => {
+      if (productInfo.productData.value.product.length == 0) {
+        const productCheck = await loadProduct();
+        dispatch(companyProduct(productCheck));
+        servicesMenu = productInfo.productData.value.product.filter(
+          (item: { type: string }) => item.type == "Service",
+        );
+        main[1].children = productCheck.products.filter(
+          (item: { type: string }) => item.type == "Solution",
+        );
+        main[2].children = servicesMenu[0].content;
+      } else {
+        main[1].children = productInfo.productData.value.product.filter(
+          (item: { type: string }) => item.type == "Solution",
+        );
+        main[2].children = servicesMenu[0].content;
+      }
+    };
+    fetchProduct().catch(console.error);
+
+    // call the function
+
+    // make sure to catch any error
+  }, [main, pathname]);
 
   const { navigation_button, settings } = config;
   // get current path
-  const pathname = usePathname();
 
-  // scroll to top on route change
-  useEffect(() => {
-    window.scroll(0, 0);
-  }, [pathname]);
-  const scrolled = useScroll(50);
   return (
     <header
       className={`fixed top-0 w-full flex justify-center ${
@@ -108,18 +128,20 @@ const Header = () => {
                     {menu.children?.map(
                       (
                         child: {
+                          [x: string]: any;
                           titleEn: any;
                           link: string | UrlObject;
                           title: any;
+                          _id: any;
                         },
                         i: any,
                       ) => (
                         <li className="nav-dropdown-item" key={`children-${i}`}>
                           <Link
-                            href={child.link}
+                            href={`/${child.type}/${child._id}`}
                             className={`nav-dropdown-link block ${
-                              (pathname === `${child.link}/` ||
-                                pathname === child.link) &&
+                              (pathname === `${child._id}/` ||
+                                pathname === child._id) &&
                               "active"
                             }`}
                           >

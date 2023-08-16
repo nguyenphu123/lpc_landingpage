@@ -1,9 +1,6 @@
-"use client"
+"use client";
 import BlogCard from "@/components/BlogCard";
-import config from "@/config/config.json";
-import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import { company } from "@/feature/data/dataSlice";
-import { getTaxonomy } from "@/lib/taxonomyParser";
+import { news } from "@/feature/data/newSlice";
 import { humanize } from "@/lib/utils/textConverter";
 import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
@@ -11,20 +8,18 @@ import { Post } from "@/types";
 import { useParams } from "next/navigation";
 import { useSelector } from "react-redux";
 
-
-
 // remove dynamicParams
 export const dynamicParams = false;
 
 // generate static params
 
 const CategorySingle = () => {
-  const curlanguage = useSelector(language);
-  const companyInfo = useSelector(company);
-  const posts: any[] = companyInfo.data.value.companyNews
-  const params : any = useParams() 
-  const filterByCategories =  posts.filter((product) => product.categories.some((item: string) => item === params.single));
-  console.log(params.single)
+  const newInfo = useSelector((rootState) => news(rootState));
+  const posts: any[] = newInfo.newData.value.companyNews;
+  const params: any = useParams();
+  const filterByCategories = posts.filter((product) =>
+    product.categories.some((item: string) => item === params.single),
+  );
   return (
     <>
       <SeoMeta title={humanize(params.single)} />

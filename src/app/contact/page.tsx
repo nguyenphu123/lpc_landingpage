@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import config from "@/config/config.json";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { useSelector } from "react-redux";
@@ -7,24 +7,29 @@ import DataEn from "@/config/dataEn.json";
 import SeoMeta from "@/partials/SeoMeta";
 import PageHeader from "@/partials/PageHeader";
 const Contact = () => {
-  const curlanguage = useSelector(language);
-  
+  const curlanguage = useSelector((rootState) => language(rootState));
   const { contact_form_action } = config.params;
   const data = {
-    title:"DỊCH VỤ IT",
-    meta_title:"",
-    description:"this is meta description",
-    image:"",
-} 
+    title: "DỊCH VỤ IT",
+    meta_title: "",
+    description: "this is meta description",
+    image: "",
+  };
   return (
     <>
-       <SeoMeta
+      <SeoMeta
         title={data.title}
         meta_title={data.meta_title}
         description={data.description}
         image={data.image}
       />
-      <PageHeader title={curlanguage.changeLanguage.value == "en" ? DataEn['contact'].name : Data['contact'].name} />
+      <PageHeader
+        title={
+          curlanguage.changeLanguage.value == "en"
+            ? DataEn["contact"].name
+            : Data["contact"].name
+        }
+      />
       <section className="section-sm">
         <div className="container">
           <div className="row">
@@ -32,7 +37,10 @@ const Contact = () => {
               <form action={contact_form_action} method="POST">
                 <div className="mb-6">
                   <label htmlFor="name" className="form-label">
-                  {curlanguage.changeLanguage.value == "en" ? DataEn['name'].name : Data['name'].name} <span className="text-red-500">*</span>
+                    {curlanguage.changeLanguage.value == "en"
+                      ? DataEn["name"].name
+                      : Data["name"].name}{" "}
+                    <span className="text-red-500">*</span>
                   </label>
                   <input
                     id="name"
@@ -54,7 +62,10 @@ const Contact = () => {
                 </div>
                 <div className="mb-6">
                   <label htmlFor="message" className="form-label">
-                  {curlanguage.changeLanguage.value == "en" ? DataEn['note'].name : Data['note'].name} <span className="text-red-500">*</span>
+                    {curlanguage.changeLanguage.value == "en"
+                      ? DataEn["note"].name
+                      : Data["note"].name}{" "}
+                    <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     className="form-input"
@@ -64,7 +75,9 @@ const Contact = () => {
                   ></textarea>
                 </div>
                 <button type="submit" className="btn btn-primary">
-                {curlanguage.changeLanguage.value == "en" ? DataEn['send'].name : Data['send'].name}
+                  {curlanguage.changeLanguage.value == "en"
+                    ? DataEn["send"].name
+                    : Data["send"].name}
                 </button>
               </form>
             </div>

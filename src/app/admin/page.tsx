@@ -14,6 +14,7 @@ import Popup from "@/components/popup";
 import NewsTable from "@/components/admin/news/newTable";
 import CustomerTable from "@/components/admin/customers/customerTable";
 import PartnerTable from "@/components/admin/partners/partnerTable";
+import ProductTable from "@/components/admin/products/productTable";
 // import "../styles/homepage.scss"
 const Home = () => {
   const [showBanner, setShowBanner] = useState("visible");
@@ -280,6 +281,7 @@ const Home = () => {
             {" "}
             <ProductForm />
           </Popup>
+          <ProductTable />
         </div>
       </div>
     </div>

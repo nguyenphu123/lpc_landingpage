@@ -3,30 +3,23 @@ import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import "../../../../styles/scroll.scss";
 import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
-import { redirect, useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import { loadProduct } from "@/lib/loadData";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 const RegularPages = () => {
   const params: any = useParams();
   const productInfo = useSelector((rootState) => product(rootState));
   let products = [];
   let data: any = [];
-  let resultData: any = {};
+  let [resultData, setResultData]: any = useState({});
   products = productInfo.productData.value.product.filter(
     (item: { type: string }) => item.type == "Solution",
   );
-  const solution: any = products.filter(
-    (item: { [x: string]: any; link: string; type: string }) =>
-      params.id == item._id,
-  );
-  const contain = solution[0].content.filter(
-    (item: { [x: string]: any; link: string; type: string }) =>
-      params.idcontent == item._id,
-  );
+
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
@@ -38,7 +31,7 @@ const RegularPages = () => {
         ) {
           const productCheck = await loadProduct();
           dispatch(companyProduct(productCheck));
-          data = productCheck
+          data = productCheck.products
             .filter((item: { type: string }) => item.type == "Solution")
             .filter(
               (item: { [x: string]: any; link: string; type: string }) =>
@@ -47,7 +40,9 @@ const RegularPages = () => {
             .content.filter(
               (item: { [x: string]: any; link: string; type: string }) =>
                 params.idcontent == item._id,
-            )[0];
+            );
+         
+          setResultData(data);
           if (data == undefined) {
             router.replace("http://localhost:3000/");
           }
@@ -60,38 +55,49 @@ const RegularPages = () => {
             )[0]
             .content.filter(
               (item: { [x: string]: any; link: string; type: string }) =>
-                params.idcontent == item._id,
-            )[0];
+                params.idcontent == item.id,
+            );
+          setResultData(data);
           if (data == undefined) {
             router.replace("http://localhost:3000/");
           }
         }
       } else {
+        const solution: any = products.filter(
+          (item: { [x: string]: any; link: string; type: string }) =>
+            params.id == item._id,
+        );
+        const contain = solution[0].content.filter(
+          (item: { [x: string]: any; link: string; type: string }) =>
+            params.idcontent == item.id,
+        );
         data = contain[0];
         if (data == undefined) {
           router.replace("http://localhost:3000/");
         }
-        resultData = data;
+        setResultData(data);
       }
     };
     // call the function
     fetchSolution()
       // make sure to catch any error
       .catch(console.error);
-  }, []);
-
+  }, [resultData]);
+  console.log(resultData)
   const curlanguage = useSelector((rootState) => language(rootState));
-  return (
+  return resultData == undefined || Object.keys(resultData).length == 0 ? (
+    <></>
+  ) : (
     <section>
       <SeoMeta
-        title={data?.title}
-        meta_title={data?.meta_title}
-        description={data?.content}
-        image={data?.image}
+        title={resultData?.title}
+        meta_title={resultData?.meta_title}
+        description={resultData?.content}
+        image={resultData?.image}
       />
       <PageHeader
         title={
-          curlanguage.changeLanguage.value == "en" ? data?.titleEn : data?.title
+          curlanguage.changeLanguage.value == "en" ? resultData?.titleEn : resultData?.title
         }
       />
       <div className="relative">

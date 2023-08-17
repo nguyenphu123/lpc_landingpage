@@ -35,7 +35,7 @@ function ContactTable() {
   useEffect(() => {
     const fetchNew = async () => {
       const contactCheck = await loadContact();
-      setContactData(contactCheck);
+      setContactData(contactCheck.contact);
     };
     // call the function
     fetchNew()

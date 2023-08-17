@@ -11,7 +11,7 @@ import "../styles/homepage.scss";
 import ProductList from "@/components/productList";
 import PartnerList from "@/components/partnerList";
 import CustomerList from "@/components/customerList";
-import Carousel from "../layouts/components/carousel";
+
 const Home = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
   return (
@@ -21,14 +21,7 @@ const Home = () => {
         className={`flex flex-col justify-between`}
         style={{ height: "90vh" }}
       >
-        <Carousel loop>
-          <div className="flex-[0_0_100%] md:flex-[0_0_100%]">
-            <Banner />
-          </div>
-          <div className="flex-[0_0_100%] md:flex-[0_0_100%]">
-            <Banner />
-          </div>
-        </Carousel>
+        <Banner />
       </div>
 
       <h2 className="text-center text-3xl font-semibold leading-8 text-gray-900 mt-3">

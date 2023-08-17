@@ -2,21 +2,21 @@ import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { useSelector } from "react-redux";
-export default function BannerContent() {
+export default function BannerContent({ banner }) {
   const curlanguage = useSelector((rootState) => language(rootState));
   return (
     <div className="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-5 containerbanner">
       <div className="max-w-xl ltr:sm:text-left rtl:sm:text-right">
         <h1 className="text-3xl font-extrabold sm:text-5xl">
           {curlanguage.changeLanguage.value == "en"
-            ? DataEn["quote1"].name
-            : Data["quote1"].name}
+            ? banner.titleEn
+            : banner.title}
         </h1>
 
         <p className="mt-4 max-w-lg sm:text-xl/relaxed">
           {curlanguage.changeLanguage.value == "en"
-            ? DataEn["quote2"].name
-            : Data["quote2"].name}
+            ? banner.contentEn
+            : banner.content}
         </p>
 
         <div className="mt-8 flex flex-wrap gap-4 text-center">

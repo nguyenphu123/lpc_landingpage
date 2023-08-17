@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadPartner } from "@/lib/loadData";
 import "../../styles/slider.scss";
 import { companyPartner, partner } from "@/feature/data/partnerSlice";
@@ -9,19 +9,22 @@ export default function PartnerList() {
   // const newsCheck = await loadNews();
   const partnerInfo = useSelector((rootState) => partner(rootState));
   let partnerList = partnerInfo.partnerData.value.partnerList;
-
+  const [partners, setPartners] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
-      if (partnerList.length == 0) {
+      if (partners.length == 0) {
         if (
+          JSON.parse(localStorage.getItem("partnerList") || "[]").length == 0 ||
           JSON.parse(localStorage.getItem("partnerList") || "[]").length == 1
         ) {
           const partnerCheck = await loadPartner();
           dispatch(companyPartner(partnerCheck));
+          setPartners(partnerCheck.partner);
         } else {
           partnerList = JSON.parse(localStorage.getItem("partnerList") || "[]");
+          setPartners(partnerList);
         }
       } else {
       }
@@ -30,27 +33,27 @@ export default function PartnerList() {
     fetchNew()
       // make sure to catch any error
       .catch(console.error);
-  }, []);
-  return (
+  }, [partners]);
+  return partners.length == 0 ? (
+    <></>
+  ) : (
     <div className="h-48 grid  content-center">
       <div className="slider">
         <div className="slide-track">
-          {partnerList.map(
-            (img: { _id: string; src: string; type: string }) => {
-              return (
-                <div key={img._id} className="slide">
-                  <Image
-                    key={img.src}
-                    className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                    src={img.src + ""}
-                    alt={img.type + ""}
-                    width={158}
-                    height={60}
-                  />
-                </div>
-              );
-            },
-          )}
+          {partners.map((img: { _id: string; src: string; type: string }) => {
+            return (
+              <div key={img._id} className="slide">
+                <Image
+                  key={img.src}
+                  className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                  src={img.src + ""}
+                  alt={img.type + ""}
+                  width={158}
+                  height={60}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

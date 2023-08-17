@@ -32,8 +32,10 @@ function BannerTable() {
 
   useEffect(() => {
     const fetchNew = async () => {
-      const bannerCheck = await loadBanner();
-      setBannerData(bannerCheck.banner);
+      if (bannerData.length == 0) {
+        const bannerCheck = await loadBanner();
+        setBannerData(bannerCheck.banner);
+      }
     };
     // call the function
     fetchNew()

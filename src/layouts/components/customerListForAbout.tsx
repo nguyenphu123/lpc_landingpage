@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadCustomer } from "@/lib/loadData";
 import "../../styles/slider.scss";
 
@@ -11,22 +11,26 @@ export default function CustomerListForAbout() {
   const customerInfo = useSelector((rootState) => customer(rootState));
 
   let customerList = customerInfo.customerData.value.customerList;
-
+  const [customers, setCustomers] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
-      if (customerList.length == 0) {
+      if (customers.length == 0) {
         if (
-          JSON.parse(localStorage.getItem("customerList") || "[]").length == 1
+          JSON.parse(localStorage.getItem("customerList") || "[]").length ==
+            1 ||
+          JSON.parse(localStorage.getItem("productList") || "[]").length == 0
         ) {
           const customerCheck = await loadCustomer();
 
           dispatch(customerData(customerCheck));
+          setCustomers(customerCheck.customer);
         } else {
           customerList = JSON.parse(
             localStorage.getItem("customerList") || "[]",
           );
+          setCustomers(customerList);
         }
       } else {
       }
@@ -35,8 +39,10 @@ export default function CustomerListForAbout() {
     fetchNew()
       // make sure to catch any error
       .catch(console.error);
-  }, []);
-  return (
+  }, [customers]);
+  return customers.length == 0 ? (
+    <></>
+  ) : (
     <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
       {customerList.map((img: { src: string; type: string }) => {
         return (

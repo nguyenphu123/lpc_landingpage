@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadPartner } from "@/lib/loadData";
 import "../../styles/slider.scss";
 import { companyPartner, partner } from "@/feature/data/partnerSlice";
@@ -9,19 +9,22 @@ export default function PartnerListForAbout() {
   // const newsCheck = await loadNews();
   const partnerInfo = useSelector((rootState) => partner(rootState));
   let partnerList = partnerInfo.partnerData.value.partnerList;
-
+  const [partners, setPartners] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
-      if (partnerList.length == 0) {
+      if (partners.length == 0) {
         if (
-          JSON.parse(localStorage.getItem("partnerList") || "[]").length == 1
+          JSON.parse(localStorage.getItem("partnerList") || "[]").length == 1 ||
+          JSON.parse(localStorage.getItem("productList") || "[]").length == 0
         ) {
           const partnerCheck = await loadPartner();
           dispatch(companyPartner(partnerCheck));
+          setPartners(partnerCheck.partner);
         } else {
           partnerList = JSON.parse(localStorage.getItem("partnerList") || "[]");
+          setPartners(partnerList);
         }
       } else {
       }
@@ -30,8 +33,10 @@ export default function PartnerListForAbout() {
     fetchNew()
       // make sure to catch any error
       .catch(console.error);
-  }, []);
-  return (
+  }, [partners]);
+  return partners.length == 0 ? (
+    <></>
+  ) : (
     <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
       {partnerList.map((img: { src: string; type: string }) => {
         return (

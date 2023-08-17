@@ -34,8 +34,10 @@ function ContactTable() {
 
   useEffect(() => {
     const fetchNew = async () => {
-      const contactCheck = await loadContact();
-      setContactData(contactCheck.contact);
+      if (contactData.length == 0) {
+        const contactCheck = await loadContact();
+        setContactData(contactCheck.contact);
+      }
     };
     // call the function
     fetchNew()

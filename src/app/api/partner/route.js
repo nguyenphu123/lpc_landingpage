@@ -85,6 +85,7 @@ export async function GET() {
   try {
     await connectDB();
     const partner = await Partner.find({});
+   
     return NextResponse.json({ partner });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {

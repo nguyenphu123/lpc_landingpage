@@ -21,7 +21,8 @@ export default function ProductList() {
     const fetchNew = async () => {
       if (serviceList.length == 0) {
         if (
-          JSON.parse(localStorage.getItem("productList") || "[]").length == 0
+          JSON.parse(localStorage.getItem("productList") || "[]").length == 0 ||
+          JSON.parse(localStorage.getItem("productList") || "[]").length == 1
         ) {
           const productCheck = await loadProduct();
           dispatch(companyProduct(productCheck));

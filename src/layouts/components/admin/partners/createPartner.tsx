@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "@mantine/form";
 
 import { TextInput, Button, Box, Code } from "@mantine/core";
+import { addPartner } from "@/lib/createData";
 
 function PartnerForm() {
   const [submittedValues, setSubmittedValues] = useState("");
@@ -21,11 +22,7 @@ function PartnerForm() {
     <section className="section">
       <div className="container">
         <Box maw={400} mx="auto">
-          <form
-            onSubmit={form.onSubmit((values) =>
-              setSubmittedValues(JSON.stringify(values, null, 2)),
-            )}
-          >
+          <form onSubmit={form.onSubmit((values) => addPartner(values))}>
             <h3 className="flex justify-center">Add new partners</h3>
 
             <TextInput

@@ -54,13 +54,7 @@ const companySchema = new Schema({
     },
   ],
 
-  companyContact: [
-    { type: String, content: String },
-
-    { type: String, content: String },
-
-    { type: String, content: String },
-  ],
+  companyContact: [{ typeOfContact: String, contentOfContact: String }],
 
   companyWebsite: String,
 

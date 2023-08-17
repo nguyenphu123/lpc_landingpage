@@ -154,6 +154,7 @@ const Footer = () => {
                     <Link
                       href={companyLinks.addressLink}
                       className=" hover:underline"
+                      target="_blank"
                     >
                       {curlanguage.changeLanguage.value == "en"
                         ? companyLinks.addressEn

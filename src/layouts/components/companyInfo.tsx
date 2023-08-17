@@ -22,7 +22,8 @@ export default function CompanyInfo() {
     async function fetchNew() {
       if (Object.keys(companyDatas).length == 0) {
         if (
-          JSON.parse(localStorage.getItem("companyInfo") || "[]").length == 1
+          JSON.parse(localStorage.getItem("companyInfo") || "[]").length == 1 ||
+          JSON.parse(localStorage.getItem("companyInfo") || "[]").length == 0
         ) {
           const companyCheck = await loadCompanyInfo();
 

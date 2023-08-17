@@ -11,6 +11,7 @@ import "../styles/homepage.scss";
 import ProductList from "@/components/productList";
 import PartnerList from "@/components/partnerList";
 import CustomerList from "@/components/customerList";
+import { useEffect } from "react";
 
 const Home = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
@@ -18,6 +19,13 @@ const Home = () => {
   //   localStorage.clear
   //   return '';
   // };
+  useEffect(() => {
+    // declare the data fetching function
+    window.onbeforeunload = function () {
+      localStorage.clear();
+      return "";
+    };
+  }, []);
   return (
     <div className="container-snap">
       <SeoMeta />

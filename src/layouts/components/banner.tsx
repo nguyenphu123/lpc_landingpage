@@ -4,7 +4,7 @@ import BannerContent from "./bannerContent";
 import Carousel from "./carousel";
 import { loadBanner } from "@/lib/loadData";
 import "@/styles/main.scss";
-const banner = () => {
+const Banner = () => {
   const [banners, setBanners] = useState<any[]>([]);
   useEffect(() => {
     // declare the data fetching function
@@ -42,4 +42,4 @@ const banner = () => {
     </Carousel>
   );
 };
-export default banner;
+export default Banner;

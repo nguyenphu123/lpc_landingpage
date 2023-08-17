@@ -45,7 +45,7 @@ const Footer = () => {
                   </div>
                 </li>
                 {companyLinks.socialAccount.map((item) => (
-                  <li className="mb-4  ">
+                  <li key={item} className="mb-4  ">
                     <Link href={`${item}`} className=" hover:underline flex">
                       <svg
                         className="h-5 w-5 text-black"
@@ -72,7 +72,7 @@ const Footer = () => {
                 </h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
                   {footer.children.map((item) => (
-                    <li className="mb-4">
+                    <li key={item.link} className="mb-4">
                       <Link href={`${item.link}`} className=" hover:underline">
                         {item.name}
                       </Link>

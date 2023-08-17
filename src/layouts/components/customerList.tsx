@@ -19,7 +19,7 @@ export default function CustomerList() {
         if (
           JSON.parse(localStorage.getItem("customerList") || "[]").length ==
             1 ||
-          JSON.parse(localStorage.getItem("productList") || "[]").length == 0
+          JSON.parse(localStorage.getItem("customerList") || "[]").length == 0
         ) {
           const customerCheck = await loadCustomer();
 
@@ -38,29 +38,27 @@ export default function CustomerList() {
     fetchNew()
       // make sure to catch any error
       .catch(console.error);
-  }, []);
+  }, [customers]);
   return customers.length == 0 ? (
     <></>
   ) : (
     <div className="h-48 grid  content-center">
       <div className="slider">
         <div className="slide-track">
-          {customers.map(
-            (img: { _id: string; src: string; type: string }) => {
-              return (
-                <div key={img._id} className="slide">
-                  <Image
-                    key={img.src}
-                    className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                    src={img.src + ""}
-                    alt={img.type + ""}
-                    width={158}
-                    height={48}
-                  />
-                </div>
-              );
-            },
-          )}
+          {customers.map((img: { _id: string; src: string; type: string }) => {
+            return (
+              <div key={img._id} className="slide">
+                <Image
+                  key={img.src}
+                  className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                  src={img.src + ""}
+                  alt={img.type + ""}
+                  width={158}
+                  height={48}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

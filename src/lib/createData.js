@@ -58,6 +58,7 @@ export async function addCustomer(customer) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
+  customer["type"] = "Customer";
   const res = await fetch("http://localhost:3000/api/customer", {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -71,6 +72,7 @@ export async function addPartner(partner) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
+  partner["type"] = "Partner";
   const res = await fetch("http://localhost:3000/api/partner", {
     method: "post",
     headers: { "Content-Type": "application/json" },

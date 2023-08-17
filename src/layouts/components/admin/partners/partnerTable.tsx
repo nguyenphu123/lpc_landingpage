@@ -1,11 +1,7 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
 import { Table } from "@mantine/core";
-
 import Image from "next/image";
 import { loadPartner } from "@/lib/loadData";
-import { companyPartner, partner } from "@/feature/data/partnerSlice";
-import { useDispatch, useSelector } from "react-redux";
 
 interface Partner {
   _id: string;
@@ -16,21 +12,12 @@ interface Partner {
 }
 
 function PartnerTable() {
-  const partnerInfo = useSelector((rootState) => partner(rootState));
-  let partnerList = partnerInfo.partnerData.value.partnerList;
-
-  const dispatch = useDispatch();
+  const [partnerData, setPartnerData] = useState<Partner[]>([]);
   useEffect(() => {
     const fetchNew = async () => {
-      if (partnerList.length == 0) {
-        if (
-          JSON.parse(localStorage.getItem("partnerList") || "[]").length == 1
-        ) {
-          const partnerCheck = await loadPartner();
-          dispatch(companyPartner(partnerCheck));
-        } else {
-          partnerList = JSON.parse(localStorage.getItem("partnerList") || "[]");
-        }
+      if (partnerData.length == 0) {
+        const partnerCheck = await loadPartner();
+        setPartnerData(partnerCheck.partner);
       } else {
       }
     };
@@ -40,7 +27,7 @@ function PartnerTable() {
       .catch(console.error);
   }, []);
 
-  const rows = partnerList.map((partner, index) => (
+  const rows = partnerData.map((partner, index) => (
     <tr key={partner._id}>
       <td>{index + 1}</td>
 

@@ -14,6 +14,10 @@ import CustomerList from "@/components/customerList";
 
 const Home = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
+  window.onbeforeunload = function() {
+    localStorage.clear
+    return '';
+  };
   return (
     <div className="container-snap">
       <SeoMeta />

@@ -1,5 +1,4 @@
 export async function loadNews(role: any) {
-  
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()

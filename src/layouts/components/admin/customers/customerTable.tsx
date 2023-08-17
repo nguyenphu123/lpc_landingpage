@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
 import { Table } from "@mantine/core";
-
 import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
-import { customer, customerData } from "@/feature/data/customerSlice";
 import { loadCustomer } from "@/lib/loadData";
 
 interface Customer {
@@ -16,26 +12,13 @@ interface Customer {
 }
 
 function CustomerTable() {
-  const customerInfo = useSelector((rootState) => customer(rootState));
-
-  let customerList = customerInfo.customerData.value.customerList;
-
-  const dispatch = useDispatch();
+  const [custommerData, setCustomerData] = useState<Customer[]>([]);
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
-      if (customerList.length == 0) {
-        if (
-          JSON.parse(localStorage.getItem("customerList") || "[]").length == 1
-        ) {
-          const customerCheck = await loadCustomer();
-
-          dispatch(customerData(customerCheck));
-        } else {
-          customerList = JSON.parse(
-            localStorage.getItem("customerList") || "[]",
-          );
-        }
+      if (custommerData.length == 0) {
+        const customerCheck = await loadCustomer();
+        setCustomerData(customerCheck.customer);
       } else {
       }
     };
@@ -43,9 +26,9 @@ function CustomerTable() {
     fetchNew()
       // make sure to catch any error
       .catch(console.error);
-  }, []);
+  }, [custommerData]);
 
-  const rows = customerList.map((customer, index) => (
+  const rows = custommerData.map((customer, index) => (
     <tr key={customer._id}>
       <td>{index + 1}</td>
 

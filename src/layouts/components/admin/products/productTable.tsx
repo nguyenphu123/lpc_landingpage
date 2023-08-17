@@ -435,6 +435,4 @@ function ProductTable() {
 
 export default ProductTable;
 
-function dispatch(arg0: { payload: any; type: "search/companyProduct" }) {
-  throw new Error("Function not implemented.");
-}
+

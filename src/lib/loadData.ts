@@ -91,3 +91,13 @@ export async function loadBanner() {
   // will receive `posts` as a prop at build time
   return banners;
 }
+export async function loadContact() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  // const posts = await loadNews()
+  const res = await fetch("http://localhost:3000/api/contact");
+  const contacts = await res.json();
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return contacts;
+}

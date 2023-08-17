@@ -17,7 +17,7 @@
       "children": []
     },
     {
-      "name": "Tin tức",  
+      "name": "Tin tức",
       "link": "/blog"
     },
     {
@@ -28,43 +28,30 @@
       "name": "Về Liên Phát",
       "link": "/about"
     }
-    
   ],
-  "footer": [
-    {
-      "name": "Elements",
-      "url": "/elements"
-    },
-    {
-      "name": "Privacy Policy",
-      "url": "/privacy-policy"
-    },
-    {
-      "name": "Pages",
-      "url": "",
-      "hasChildren": true,
-      "children": [
-        {
-          "name": "Elements",
-          "url": "/elements"
-        },
-        {
-          "name": "Blog",
-          "url": "/blog"
-        },
-        {
-          "name": "Categories",
-          "url": "/categories"
-        },
-        {
-          "name": "Search",
-          "url": "/search"
-        },
-        {
-          "name": "404 Page",
-          "url": "/404"
-        }
-      ]
-    }
-  ]
+  "footer": {
+    "name": "Menu",
+    "children": [
+      {
+        "name": "Trang chủ",
+        "link": "/"
+      },
+      {
+        "name": "Về Liên Phát",
+        "link": "/about"
+      },
+      {
+        "name": "Tin tức",
+        "link": "/blog"
+      },
+      {
+        "name": "Dịch vụ",
+        "link": "/Service"
+      },
+      {
+        "name": "Giải pháp",
+        "link": "/Solution"
+      }
+    ]
+  }
 }

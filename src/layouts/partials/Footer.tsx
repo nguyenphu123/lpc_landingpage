@@ -1,34 +1,166 @@
 "use client";
-
 import Logo from "@/components/Logo";
-import Social from "@/components/Social";
 import config from "@/config/config.json";
 import menu from "@/config/menu.json";
-import social from "@/config/social.json";
+import menuEn from "@/config/menuEn.json";
+import { language } from "@/feature/changeLanguage/changeLanguageSlice";
+import { loadContact } from "@/lib/loadData";
 import { markdownify } from "@/lib/utils/textConverter";
 import Link from "next/link";
-
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 const Footer = () => {
   const { copyright } = config.params;
+  const curlanguage = useSelector((rootState) => language(rootState));
+  const { footer } = curlanguage.changeLanguage.value == "en" ? menuEn : menu;
 
-  return (
+  const [companyLinks, setCompanyLinks]: any = useState({});
+
+  useEffect(() => {
+    // declare the data fetching function
+    async function fetchNew() {
+      if (Object.keys(companyLinks).length == 0) {
+        const companyCheck = await loadContact();
+        setCompanyLinks(companyCheck.contact[0]);
+      }
+    }
+
+    // call the function
+    fetchNew()
+      // make sure to catch any error
+      .catch(console.error);
+  }, [companyLinks]);
+  return Object.keys(companyLinks).length == 0 ? (
+    <></>
+  ) : (
     <footer className="bg-theme-light dark:bg-darkmode-theme-light">
       <div className="container">
         <div className="row items-center py-10">
-          <div className="mb-8 text-center lg:col-3 lg:mb-0 lg:text-left">
-            <Logo />
-          </div>
-          <div className="mb-8 text-center lg:col-6 lg:mb-0">
-            <ul>
-              {menu.footer.map((menu) => (
-                <li className="m-3 inline-block" key={menu.name}>
-                  <Link href={menu.url}>{menu.name}</Link>
+          <div className="mx-auto w-fit max-w-screen-xl content-end">
+            <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-3 content-end">
+              <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                <li className="mb-4">
+                  <div className="mb-8 text-center lg:col-3 lg:mb-0 lg:text-left">
+                    <Logo />
+                  </div>
                 </li>
-              ))}
-            </ul>
-          </div>
-          <div className="mb-8 text-center lg:col-3 lg:mb-0 lg:mt-0 lg:text-right">
-            <Social source={social.main} className="social-icons" />
+                {companyLinks.socialAccount.map((item) => (
+                  <li className="mb-4  ">
+                    <Link href={`${item}`} className=" hover:underline flex">
+                      <svg
+                        className="h-5 w-5 text-black"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                        <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+                      </svg>
+                      LienPhat Technology Company
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div>
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                  {footer.name}
+                </h2>
+                <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                  {footer.children.map((item) => (
+                    <li className="mb-4">
+                      <Link href={`${item.link}`} className=" hover:underline">
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                  {curlanguage.changeLanguage.value == "en" ? (
+                    <>Contact</>
+                  ) : (
+                    <>Liên hệ</>
+                  )}
+                </h2>
+                <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                  <li className="mb-4 flex ">
+                    <svg
+                      className="h-5 w-5 text-black"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                      stroke="currentColor"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                      <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
+                    </svg>
+                    <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                      {companyLinks.phoneNumber.map((item) => (
+                        <li className="mb-4">{item}</li>
+                      ))}
+                    </ul>
+                  </li>
+                  <li className="mb-4 flex ">
+                    <svg
+                      className="h-5 w-5 text-black"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                      stroke="currentColor"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                      <rect x="3" y="5" width="18" height="14" rx="2" />{" "}
+                      <polyline points="3 7 12 13 21 7" />
+                    </svg>
+                    {companyLinks.email}
+                  </li>
+
+                  <li className="mb-4 flex ">
+                    <svg
+                      className="h-5 w-5 text-black"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                    <Link
+                      href={companyLinks.addressLink}
+                      className=" hover:underline"
+                    >
+                      {curlanguage.changeLanguage.value == "en"
+                        ? companyLinks.addressEn
+                        : companyLinks.address}
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -15,6 +15,8 @@ import NewsTable from "@/components/admin/news/newTable";
 import CustomerTable from "@/components/admin/customers/customerTable";
 import PartnerTable from "@/components/admin/partners/partnerTable";
 import ProductTable from "@/components/admin/products/productTable";
+import ContactTable from "@/components/admin/contact/tableContact";
+import BannerTable from "@/components/admin/banner/bannerTable";
 // import "../styles/homepage.scss"
 const Home = () => {
   const [showBanner, setShowBanner] = useState("visible");
@@ -222,6 +224,7 @@ const Home = () => {
             {" "}
             <BannerForm />
           </Popup>
+          <BannerTable />
         </div>
         <div
           className={`bg-gray-50 p-4 rounded-lg dark:bg-gray-800 ${showContact}`}
@@ -233,6 +236,7 @@ const Home = () => {
             {" "}
             <ContactForm />
           </Popup>
+          <ContactTable />
         </div>
         <div
           className={`bg-gray-50 p-4 rounded-lg dark:bg-gray-800 ${showCustomer}`}

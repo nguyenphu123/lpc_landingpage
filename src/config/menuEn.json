@@ -14,10 +14,10 @@
       "name": "Services",
       "link": "/Service",
       "hasChildren": true,
-      "children": [ ]
+      "children": []
     },
     {
-      "name": "News",  
+      "name": "News",
       "link": "/blog"
     },
     {
@@ -28,43 +28,30 @@
       "name": "About Us",
       "link": "/about"
     }
-    
   ],
-  "footer": [
-    {
-      "name": "Elements",
-      "url": "/elements"
-    },
-    {
-      "name": "Privacy Policy",
-      "url": "/privacy-policy"
-    },
-    {
-      "name": "Pages",
-      "url": "",
-      "hasChildren": true,
-      "children": [
-        {
-          "name": "Elements",
-          "url": "/elements"
-        },
-        {
-          "name": "Blog",
-          "url": "/blog"
-        },
-        {
-          "name": "Categories",
-          "url": "/categories"
-        },
-        {
-          "name": "Search",
-          "url": "/search"
-        },
-        {
-          "name": "404 Page",
-          "url": "/404"
-        }
-      ]
-    }
-  ]
+  "footer": {
+    "name": "Menu",
+    "children": [
+      {
+        "name": "Home",
+        "link": "/"
+      },
+      {
+        "name": "About Us",
+        "link": "/about"
+      },
+      {
+        "name": "News",
+        "link": "/blog"
+      },
+      {
+        "name": "Services",
+        "link": "/Service"
+      },
+      {
+        "name": "Solutions",
+        "link": "/Solution"
+      }
+    ]
+  }
 }

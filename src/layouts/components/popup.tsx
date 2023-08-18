@@ -19,9 +19,9 @@ const Popup = ({ children }) => {
       {isOpen ? (
         <div
           x-show="modalOpen"
-          className="overflow-auto fixed top-0 left-0 flex h-full min-h-screen w-full items-center justify-center bg-black bg-opacity-90 px-4 py-5"
+          className="overflow-auto overflow-y-scroll fixed top-0 left-0 flex h-full min-h-screen w-full items-center justify-center bg-black bg-opacity-90 px-4 py-5"
         >
-          <div className="w-full max-w-[570px] rounded-[20px] bg-white py-12 px-8 text-center md:py-[60px] md:px-[70px]">
+          <div className="w-full max-w-[90%] rounded-[20px] bg-white py-12 px-8 text-center md:py-[60px] md:px-[70px]">
             <span className="bg-primary mx-auto mb-6 inline-block h-1 w-[90px] rounded"></span>
             {children}
             <div className="-mx-3 flex flex-wrap">

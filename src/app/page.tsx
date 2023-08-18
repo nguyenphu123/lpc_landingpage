@@ -21,10 +21,10 @@ const Home = () => {
   // };
   useEffect(() => {
     // declare the data fetching function
-    window.onbeforeunload = function () {
-      localStorage.clear();
-      return "";
-    };
+    // window.onbeforeunload = function () {
+    //   localStorage.clear();
+    //   return "";
+    // };
   }, []);
   return (
     <div className="container-snap">

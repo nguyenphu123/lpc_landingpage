@@ -86,6 +86,30 @@ export async function addProduct(product) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
+  const data = {
+    title: product.title,
+
+    titleEn: product.titleEn,
+
+    type: product.type,
+
+    description1: product.description1,
+
+    description2: product.description2,
+
+    descriptionEn1: product.descriptionEn1,
+
+    descriptionEn2: product.descriptionEn2,
+
+    image: product.image,
+
+    pros: product.pros.split(/,/),
+
+    prosEn: product.prosEn.split(/,/),
+
+    content: product.content,
+  };
+  
   const res = await fetch("http://localhost:3000/api/product", {
     method: "post",
     headers: { "Content-Type": "application/json" },

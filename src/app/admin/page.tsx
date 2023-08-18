@@ -34,7 +34,7 @@ const Home = () => {
   });
   const pathname = usePathname();
   useEffect(() => {
-    onInactive(50000, function () {
+    onInactive(600000, function () {
       signOut();
     });
     function onInactive(ms, cb) {

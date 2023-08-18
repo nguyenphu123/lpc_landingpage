@@ -12,19 +12,36 @@ import {
   Grid,
   Col,
   Textarea,
+  Group,
+  Tabs,
 } from "@mantine/core";
+import { addProduct } from "@/lib/createData";
+import { randomId } from "@mantine/hooks";
 
+import TextEditor from "../RichTextEditor";
 interface ProductFormProps {}
 
 function ProductForm(props: ProductFormProps) {
   const [submittedValues, setSubmittedValues] = useState("");
-
+  const descriptionList: any = [];
   const [showContent, setShowContent] = useState(false);
-
   const [contentBoxes, setContentBoxes] = useState<Array<Record<string, any>>>([
     {},
   ]);
-
+  const onHandleChange = (e: any) => {
+    descriptionList.push(e);
+    // form.insertListItem(`content.${e.idcontent}.description.${e.id}`, e);
+  };
+  const onSubmitForm = (value) => {
+    for (let i = 0; i < value.content.length; i++) {
+      for (let j = 0; j < descriptionList.length; j++) {
+        if ((value.content[i].key = descriptionList[j].idcontent)) {
+          value.content[i].description.push(descriptionList[j]);
+        }
+      }
+    }
+    addProduct(value);
+  };
   const [showDescriptionForms, setShowDescriptionForms] = useState<
     Array<boolean>
   >(contentBoxes.map(() => false));
@@ -47,12 +64,13 @@ function ProductForm(props: ProductFormProps) {
 
       image: "",
 
-      pros: [],
+      pros: "",
 
-      prosEn: [],
+      prosEn: "",
 
       content: [
         {
+          key: randomId(),
           title: "",
 
           titleEn: "",
@@ -63,17 +81,7 @@ function ProductForm(props: ProductFormProps) {
 
           imgSrc: "",
 
-          description: [
-            {
-              title: "",
-
-              titleEn: "",
-
-              content: "",
-
-              contentEn: "",
-            },
-          ],
+          description: [],
         },
       ],
     },
@@ -110,14 +118,10 @@ function ProductForm(props: ProductFormProps) {
   };
 
   return (
-    <section className="section">
-      <div className="container">
-        <Box maw={600} mx="auto">
-          <form
-            onSubmit={form.onSubmit((values) =>
-              setSubmittedValues(JSON.stringify(values, null, 2)),
-            )}
-          >
+    <section className="section overflow-y-auto">
+      <div className="container overflow-y-auto">
+        <Box maw={"100%"} mx="auto">
+          <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
             <Grid gutter="lg">
               <Col span={6}>
                 <TextInput
@@ -215,14 +219,32 @@ function ProductForm(props: ProductFormProps) {
                 <div style={{ marginTop: "16px" }}>
                   <Button
                     type="button"
-                    onClick={addContentBox}
+                    onClick={() =>
+                      form.insertListItem("content", {
+                        key: randomId(),
+                        title: "",
+
+                        titleEn: "",
+
+                        content: "",
+
+                        contentEn: "",
+
+                        imgSrc: "",
+
+                        description: {
+                          vn: [],
+                          en: [],
+                        },
+                      })
+                    }
                     style={{ backgroundColor: "green", color: "white" }}
                   >
                     Add Content Box
                   </Button>
                 </div>
 
-                {contentBoxes.map((_, index) => (
+                {form.values.content.map((item, index) => (
                   <div
                     key={index}
                     style={{
@@ -234,107 +256,137 @@ function ProductForm(props: ProductFormProps) {
                     }}
                   >
                     <h3>Content Box {index + 1}</h3>
+                    <Group key={item.key} mt="xs">
+                      <TextInput
+                        label="Title"
+                        placeholder="Title"
+                        {...form.getInputProps(`content.${index}.title`)}
+                      />
 
-                    <TextInput
-                      label="Title"
-                      placeholder="Title"
-                      {...form.getInputProps(`content[${index}].title`)}
-                    />
+                      <TextInput
+                        label="Title (English)"
+                        placeholder="Title (English)"
+                        {...form.getInputProps(`content.${index}.titleEn`)}
+                      />
 
-                    <TextInput
-                      label="Title (English)"
-                      placeholder="Title (English)"
-                      {...form.getInputProps(`content[${index}].titleEn`)}
-                    />
+                      <Textarea
+                        label="Content"
+                        placeholder="Content"
+                        {...form.getInputProps(`content.${index}.content`)}
+                      />
 
-                    <Textarea
-                      label="Content"
-                      placeholder="Content"
-                      {...form.getInputProps(`content[${index}].content`)}
-                    />
+                      <Textarea
+                        label="Content (English)"
+                        placeholder="Content (English)"
+                        {...form.getInputProps(`content.${index}.contentEn`)}
+                      />
 
-                    <Textarea
-                      label="Content (English)"
-                      placeholder="Content (English)"
-                      {...form.getInputProps(`content[${index}].contentEn`)}
-                    />
+                      <TextInput
+                        label="Image URL"
+                        placeholder="Image URL"
+                        {...form.getInputProps(`content.${index}.imgSrc`)}
+                      />
 
-                    <TextInput
-                      label="Image URL"
-                      placeholder="Image URL"
-                      {...form.getInputProps(`content[${index}].imgSrc`)}
-                    />
+                      <h3>Content Box {index + 1}</h3>
 
-                    <h3>Content Box {index + 1}</h3>
+                      {/* ... Input fields for content */}
 
-                    {/* ... Input fields for content */}
+                      <Button
+                        type="button"
+                        onClick={() => toggleDescriptionForms(index)}
+                        style={{
+                          backgroundColor: "blue",
 
-                    <Button
-                      type="button"
-                      onClick={() => toggleDescriptionForms(index)}
-                      style={{
-                        backgroundColor: "blue",
+                          color: "white",
 
-                        color: "white",
+                          marginTop: "16px",
+                        }}
+                      >
+                        {showDescriptionForms[index] ? "Hide" : "Show"}{" "}
+                        Description
+                      </Button>
 
-                        marginTop: "16px",
-                      }}
-                    >
-                      {showDescriptionForms[index] ? "Hide" : "Show"}{" "}
-                      Description
-                    </Button>
+                      {showDescriptionForms[index] && (
+                        <Tabs defaultValue="goal">
+                          <div>
+                            {/* Description Form Inputs */}
+                            <Tabs.List>
+                              <Tabs.Tab value="goal">Mục tiêu</Tabs.Tab>
+                              <Tabs.Tab value="function">
+                                Chức năng và giá trị
+                              </Tabs.Tab>
+                              <Tabs.Tab value="product">Sản phẩm</Tabs.Tab>
+                              <Tabs.Tab value="service">Dịch vụ</Tabs.Tab>
+                              <Tabs.Tab value="caseStudy">Case study</Tabs.Tab>
+                            </Tabs.List>
+                            <Tabs.Panel value="goal" pt="xs">
+                              <TextEditor
+                                descriptionId="1"
+                                title={"Mục tiêu"}
+                                titleEn={"Goal"}
+                                onChange={onHandleChange}
+                                language="vn"
+                                id={item.key}
+                              />
+                            </Tabs.Panel>
+                            <Tabs.Panel value="function" pt="xs">
+                              <TextEditor
+                                descriptionId="2"
+                                title={"Chức năng và giá trị"}
+                                titleEn={"Function and value"}
+                                onChange={onHandleChange}
+                                language="vn"
+                                id={item.key}
+                              />
+                            </Tabs.Panel>
+                            <Tabs.Panel value="product" pt="xs">
+                              <TextEditor
+                                descriptionId="3"
+                                title={"Sản phẩm"}
+                                titleEn={"Product"}
+                                onChange={onHandleChange}
+                                language="vn"
+                                id={item.key}
+                              />
+                            </Tabs.Panel>
+                            <Tabs.Panel value="service" pt="xs">
+                              <TextEditor
+                                descriptionId="4"
+                                title={"Dịch vụ"}
+                                titleEn={"Service"}
+                                onChange={onHandleChange}
+                                language="vn"
+                                id={item.key}
+                              />
+                            </Tabs.Panel>
+                            <Tabs.Panel value="caseStudy" pt="xs">
+                              <TextEditor
+                                descriptionId="5"
+                                title={"Case study"}
+                                titleEn={"Case study"}
+                                onChange={onHandleChange}
+                                language="vn"
+                                id={item.key}
+                              />
+                            </Tabs.Panel>
+                          </div>
+                        </Tabs>
+                      )}
 
-                    {showDescriptionForms[index] && (
-                      <div>
-                        {/* Description Form Inputs */}
+                      <Button
+                        type="button"
+                        onClick={() => removeContentBox(index)}
+                        style={{
+                          backgroundColor: "red",
 
-                        <TextInput
-                          label="Title"
-                          placeholder="Title"
-                          {...form.getInputProps(
-                            `content[${index}].description[0].title`,
-                          )}
-                        />
+                          color: "white",
 
-                        <TextInput
-                          label="Title (English)"
-                          placeholder="Title (English)"
-                          {...form.getInputProps(
-                            `content[${index}].description[0].titleEn`,
-                          )}
-                        />
-
-                        <Textarea
-                          label="Content"
-                          placeholder="Content"
-                          {...form.getInputProps(
-                            `content[${index}].description[0].content`,
-                          )}
-                        />
-
-                        <Textarea
-                          label="Content (English)"
-                          placeholder="Content (English)"
-                          {...form.getInputProps(
-                            `content[${index}].description[0].contentEn`,
-                          )}
-                        />
-                      </div>
-                    )}
-
-                    <Button
-                      type="button"
-                      onClick={() => removeContentBox(index)}
-                      style={{
-                        backgroundColor: "red",
-
-                        color: "white",
-
-                        marginTop: "16px",
-                      }}
-                    >
-                      Delete
-                    </Button>
+                          marginTop: "16px",
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </Group>
                   </div>
                 ))}
               </div>

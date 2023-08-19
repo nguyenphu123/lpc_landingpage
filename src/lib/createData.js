@@ -103,9 +103,9 @@ export async function addProduct(product) {
 
     image: product.image,
 
-    pros: product.pros.split(/,/),
+    pros: product.pros.split(/\s*,\s*/),
 
-    prosEn: product.prosEn.split(/,/),
+    prosEn: product.prosEn.split(/\s*,\s*/),
 
     content: product.content,
   };
@@ -113,7 +113,7 @@ export async function addProduct(product) {
   const res = await fetch("http://localhost:3000/api/product", {
     method: "post",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(product),
+    body: JSON.stringify(data),
   });
 
   // By returning { props: { posts } }, the Blog component

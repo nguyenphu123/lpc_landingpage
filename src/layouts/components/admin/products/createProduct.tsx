@@ -23,7 +23,7 @@ interface ProductFormProps {}
 
 function ProductForm(props: ProductFormProps) {
   const [submittedValues, setSubmittedValues] = useState("");
-  const descriptionList: any = [];
+  let descriptionList: any = [];
   const [showContent, setShowContent] = useState(false);
   const [contentBoxes, setContentBoxes] = useState<Array<Record<string, any>>>([
     {},
@@ -40,6 +40,7 @@ function ProductForm(props: ProductFormProps) {
         }
       }
     }
+    descriptionList = []
     addProduct(value);
   };
   const [showDescriptionForms, setShowDescriptionForms] = useState<

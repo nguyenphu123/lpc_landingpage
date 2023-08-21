@@ -95,10 +95,9 @@ const Home = () => {
           : Data["news"].name}
       </h2>
       <Link href={"/blog"} className="float-right mr-14">
-        {" "}
         {curlanguage.changeLanguage.value == "en"
           ? DataEn["text1"].name
-          : Data["text1"].name}{" "}
+          : Data["text1"].name}
         &rarr;
       </Link>
       <hr className="w-4/5 h-px mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700" />

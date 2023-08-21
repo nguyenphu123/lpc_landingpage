@@ -141,7 +141,7 @@ const RegularPages = () => {
                           : content.content
                       }
                       id={content.id}
-                      link={`${data?._id}/${content.id}`}
+                      link={`${data?._id}/${content._id}`}
                     ></ProductCard>
                   );
                 },

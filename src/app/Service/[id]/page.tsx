@@ -110,9 +110,9 @@ const RegularPages = () => {
             <div className="content">
               {data?.description.map((content: any, i: any) => {
                 return (
-                  <div key={content.id}>
+                  <div key={content._id}>
                     <h2
-                      id={content.id}
+                      id={content._id}
                       className="text-3xl font-semibold leading-8 text-gray-900"
                     >
                       {i + 1}-

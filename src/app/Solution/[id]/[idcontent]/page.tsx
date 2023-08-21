@@ -55,7 +55,7 @@ const RegularPages = () => {
             )[0]
             .content.filter(
               (item: { [x: string]: any; link: string; type: string }) =>
-                params.idcontent == item.id,
+                params.idcontent == item._id,
             );
           setResultData(data);
           if (data == undefined) {
@@ -69,7 +69,7 @@ const RegularPages = () => {
         );
         const contain = solution[0].content.filter(
           (item: { [x: string]: any; link: string; type: string }) =>
-            params.idcontent == item.id,
+            params.idcontent == item._id,
         );
         data = contain[0];
         if (data == undefined) {
@@ -140,9 +140,9 @@ const RegularPages = () => {
             <div className="content">
               {resultData?.description.map((content: any, i: any) => {
                 return (
-                  <div key={content.id}>
+                  <div key={content._id}>
                     <h2
-                      id={content.id}
+                      id={content._id}
                       className="text-3xl font-semibold leading-8 text-gray-900"
                     >
                       {i + 1}-

@@ -35,7 +35,7 @@ const Header = () => {
       if (productInfo.productData.value.product.length == 0) {
         const productCheck = await loadProduct();
         dispatch(companyProduct(productCheck));
-        servicesMenu = productInfo.productData.value.product.filter(
+        servicesMenu = productCheck.products.filter(
           (item: { type: string }) => item.type == "Service",
         );
         main[1].children = productCheck.products.filter(
@@ -46,7 +46,9 @@ const Header = () => {
         main[1].children = productInfo.productData.value.product.filter(
           (item: { type: string }) => item.type == "Solution",
         );
-        main[2].children = servicesMenu[0].content;
+        main[2].children = productInfo.productData.value.product.filter(
+          (item: { type: string }) => item.type == "Service",
+        )[0].content;
       }
     };
     fetchProduct().catch(console.error);
@@ -193,7 +195,6 @@ const Header = () => {
             </Link>
           )}
           <ThemeSwitcher className="mr-5" />
-         
 
           {navigation_button.enable && (
             <Link

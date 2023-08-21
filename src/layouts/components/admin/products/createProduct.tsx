@@ -23,24 +23,26 @@ interface ProductFormProps {}
 
 function ProductForm(props: ProductFormProps) {
   const [submittedValues, setSubmittedValues] = useState("");
-  let descriptionList: any = [];
+  const [descriptionList, setDescriptionList]: any = useState("");
+
   const [showContent, setShowContent] = useState(false);
   const [contentBoxes, setContentBoxes] = useState<Array<Record<string, any>>>([
     {},
   ]);
   const onHandleChange = (e: any) => {
-    descriptionList.push(e);
+    setDescriptionList((oldArray) => [...oldArray, e]);
+
     // form.insertListItem(`content.${e.idcontent}.description.${e.id}`, e);
   };
   const onSubmitForm = (value) => {
     for (let i = 0; i < value.content.length; i++) {
       for (let j = 0; j < descriptionList.length; j++) {
-        if ((value.content[i].key = descriptionList[j].idcontent)) {
+        if ((value.content[i].key == descriptionList[j].idcontent)) {
           value.content[i].description.push(descriptionList[j]);
         }
       }
     }
-    descriptionList = []
+    setDescriptionList([]);
     addProduct(value);
   };
   const [showDescriptionForms, setShowDescriptionForms] = useState<
@@ -233,10 +235,7 @@ function ProductForm(props: ProductFormProps) {
 
                         imgSrc: "",
 
-                        description: {
-                          vn: [],
-                          en: [],
-                        },
+                        description: [],
                       })
                     }
                     style={{ backgroundColor: "green", color: "white" }}
@@ -247,7 +246,7 @@ function ProductForm(props: ProductFormProps) {
 
                 {form.values.content.map((item, index) => (
                   <div
-                    key={index}
+                    key={item.key}
                     style={{
                       marginTop: "16px",
 
@@ -256,7 +255,7 @@ function ProductForm(props: ProductFormProps) {
                       padding: "16px",
                     }}
                   >
-                    <h3>Content Box {index + 1}</h3>
+                    <h3>Content Box {item.key}</h3>
                     <Group key={item.key} mt="xs">
                       <TextInput
                         label="Title"

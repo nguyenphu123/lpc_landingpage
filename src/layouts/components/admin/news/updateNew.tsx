@@ -13,38 +13,15 @@ import {
   Col,
   Textarea,
 } from "@mantine/core";
-import { createNews } from "@/lib/createData";
-import { randomId } from "@mantine/hooks";
+import { updateNews } from "@/lib/updateData";
+
 import TextEditor from "../RichTextEditor";
-function AddNews() {
+function UpdateNew({ New }) {
   const [submittedValues, setSubmittedValues] = useState("");
-  const [content, setContent]: any = useState("");
-  const [contentEn, setContentEn]: any = useState("");
+  const [content, setContent]: any = useState(New.content);
+  const [contentEn, setContentEn]: any = useState(New.contentEn);
   const form = useForm({
-    initialValues: {
-      key: randomId(),
-      title: "",
-
-      titleEn: "",
-
-      meta_title: "",
-
-      description: "",
-
-      date: "",
-
-      image: "",
-
-      categories: [],
-
-      tags: [],
-
-      draft: false,
-
-      content: "",
-
-      contentEn: "",
-    },
+    initialValues: New,
   });
   const onHandleChange = (e: any) => {
     setContent(e.content);
@@ -52,11 +29,10 @@ function AddNews() {
     // form.insertListItem(`content.${e.idcontent}.description.${e.id}`, e);
   };
   const onSubmitForm = (value) => {
-    value.content = content;
-    value.contentEn = contentEn;
-    setContent("");
-    setContentEn("");
-    createNews(value);
+    let updateData = { ...value };
+    updateData["content"] = content;
+    updateData["contentEn"] = contentEn;
+    updateNews(updateData);
   };
   return (
     <section className="section">
@@ -137,8 +113,8 @@ function AddNews() {
                   onChange={onHandleChange}
                   language="vn"
                   id={form.values.key}
-                  content=""
-                  contentEn=""
+                  content={content}
+                  contentEn={contentEn}
                 />
               </Col>
 
@@ -179,4 +155,4 @@ function AddNews() {
   );
 }
 
-export default AddNews;
+export default UpdateNew;

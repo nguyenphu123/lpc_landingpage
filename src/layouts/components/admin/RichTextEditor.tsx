@@ -13,6 +13,8 @@ const RichTextEditor = ({
   onChange,
   language,
   descriptionId,
+  content,
+  contentEn,
 }) => {
   const [description, setDescription] = useState({});
   const [descriptionVn, setDescriptionVn]: any = useState({});
@@ -24,7 +26,8 @@ const RichTextEditor = ({
       setDescriptionVn(data);
     }
   };
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     const resultData = {
       id: descriptionId,
       title: descriptionVn.title,
@@ -38,10 +41,16 @@ const RichTextEditor = ({
     onChange(resultData);
   };
   return (
-    <>
-      <Button onClick={() => onSubmit()}>Done</Button>
+    <div>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={(e) => onSubmit(e)}
+      >
+        Done
+      </button>
       <p>Tiếng Việt</p>
       <SunEditor
+        defaultValue={content}
         onChange={(vn) => {
           const data = {
             id: descriptionId,
@@ -60,6 +69,7 @@ const RichTextEditor = ({
       <p> Tiếng Anh</p>
 
       <SunEditor
+        defaultValue={contentEn}
         onChange={(en) => {
           const data = {
             id: descriptionId,
@@ -75,7 +85,7 @@ const RichTextEditor = ({
         }}
         placeholder="Please type here..."
       />
-    </>
+    </div>
   );
 };
 

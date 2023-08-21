@@ -23,7 +23,7 @@ interface ProductFormProps {}
 
 function ProductForm(props: ProductFormProps) {
   const [submittedValues, setSubmittedValues] = useState("");
-  const [descriptionList, setDescriptionList]: any = useState("");
+  const [descriptionList, setDescriptionList]: any = useState([]);
 
   const [showContent, setShowContent] = useState(false);
   const [contentBoxes, setContentBoxes] = useState<Array<Record<string, any>>>([
@@ -37,7 +37,7 @@ function ProductForm(props: ProductFormProps) {
   const onSubmitForm = (value) => {
     for (let i = 0; i < value.content.length; i++) {
       for (let j = 0; j < descriptionList.length; j++) {
-        if ((value.content[i].key == descriptionList[j].idcontent)) {
+        if (value.content[i].key == descriptionList[j].idcontent) {
           value.content[i].description.push(descriptionList[j]);
         }
       }
@@ -327,6 +327,8 @@ function ProductForm(props: ProductFormProps) {
                                 onChange={onHandleChange}
                                 language="vn"
                                 id={item.key}
+                                content=""
+                                contentEn=""
                               />
                             </Tabs.Panel>
                             <Tabs.Panel value="function" pt="xs">
@@ -337,6 +339,8 @@ function ProductForm(props: ProductFormProps) {
                                 onChange={onHandleChange}
                                 language="vn"
                                 id={item.key}
+                                content=""
+                                contentEn=""
                               />
                             </Tabs.Panel>
                             <Tabs.Panel value="product" pt="xs">
@@ -347,6 +351,8 @@ function ProductForm(props: ProductFormProps) {
                                 onChange={onHandleChange}
                                 language="vn"
                                 id={item.key}
+                                content=""
+                                contentEn=""
                               />
                             </Tabs.Panel>
                             <Tabs.Panel value="service" pt="xs">
@@ -357,6 +363,8 @@ function ProductForm(props: ProductFormProps) {
                                 onChange={onHandleChange}
                                 language="vn"
                                 id={item.key}
+                                content=""
+                                contentEn=""
                               />
                             </Tabs.Panel>
                             <Tabs.Panel value="caseStudy" pt="xs">
@@ -367,6 +375,8 @@ function ProductForm(props: ProductFormProps) {
                                 onChange={onHandleChange}
                                 language="vn"
                                 id={item.key}
+                                content=""
+                                contentEn=""
                               />
                             </Tabs.Panel>
                           </div>

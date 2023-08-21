@@ -141,7 +141,9 @@ const Header = () => {
                       ) => (
                         <li className="nav-dropdown-item" key={`children-${i}`}>
                           <Link
-                            href={`/${child.type}/${child._id}`}
+                            href={`/${child.type ? "Solution" : "Service"}/${
+                              child._id
+                            }`}
                             className={`nav-dropdown-link block ${
                               (pathname === `${child._id}/` ||
                                 pathname === child._id) &&

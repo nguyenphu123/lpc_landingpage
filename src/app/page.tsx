@@ -37,17 +37,17 @@ const Home = () => {
       </div>
       <div className="bg-white py-5 sm:py-5 h-4/5">
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
-          <h2 className="text-center text-xl  leading-8 text-gray-500 mt-3">
+          <h2 className="text-center text-xl  leading-8 text-gray-500 mt-10">
             {curlanguage.changeLanguage.value == "en"
               ? DataEn["service_title1"].name
               : Data["service_title1"].name}
           </h2>
-          <h2 className="text-center text-4xl font-semibold leading-8 text-gray-900 mt-3">
+          <h2 className="text-center leading-9 text-4xl tracking-wide font-semibold  text-gray-900 mt-10">
             {curlanguage.changeLanguage.value == "en"
               ? DataEn["service_title"].name
               : Data["service_title"].name}
           </h2>
-          <p className="text-center mt-3">
+          <p className="text-center mt-10">
             {curlanguage.changeLanguage.value == "en"
               ? DataEn["service_title2"].name
               : Data["service_title2"].name}
@@ -64,7 +64,7 @@ const Home = () => {
               ? DataEn["customer"].name
               : Data["customer"].name}
           </h2>
-          <p className="text-center">
+          <p className="text-center mt-10">
             {curlanguage.changeLanguage.value == "en"
               ? DataEn["customer"].description
               : Data["customer"].description}
@@ -80,7 +80,7 @@ const Home = () => {
               ? DataEn["partner"].name
               : Data["partner"].name}
           </h2>
-          <p className="text-center">
+          <p className="text-center mt-10">
             {curlanguage.changeLanguage.value == "en"
               ? DataEn["partner"].description
               : Data["partner"].description}

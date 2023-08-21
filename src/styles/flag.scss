@@ -1,0 +1,8 @@
+.flag-icon-rounded {
+    border-radius: 50%;
+    height: 1.2em;
+    background-size: cover;
+    &.flag-icon-squared {
+      height: 1em;
+    }
+  }

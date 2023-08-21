@@ -8,7 +8,7 @@ import similerItems from "@/lib/utils/similarItems";
 import { humanize, markdownify, slugify } from "@/lib/utils/textConverter";
 import SeoMeta from "@/partials/SeoMeta";
 import Link from "next/link";
-import { notFound, useRouter, useParams } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { FaRegClock, FaRegFolder } from "react-icons/fa/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import Data from "@/config/data.json";
@@ -23,27 +23,29 @@ const PostSingle = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
   const params: any = useParams();
   let [data, setData] = useState(
-    posts.filter((post) => post._id === params.single)[0],
+    posts.filter((post) => post._id === params.single)[0] || {},
   );
   const post = data;
   let [similarPosts, setSimilarPosts] = useState(
-    data && similerItems(data, posts, data._id!),
+    (Object.keys(data).length != 0 && similerItems(data, posts, data._id!)) ||
+      [],
   );
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
-      if (data == undefined) {
+      if (Object.keys(data).length == 0) {
         if (
           JSON.parse(window.localStorage.getItem("newList") || "[]").filter(
             (post) => post._id === params.single,
           )[0] == undefined
         ) {
-          const newCheck = await loadViaId(params.single,"New");
+          const newCheck = await loadViaId(params.single, "New");
           setData(newCheck.data);
           const newsCheck = await loadNews("");
-          if (data == undefined) {
+
+          if (Object.keys(newCheck.data).length == 0) {
             router.replace("http://localhost:3000/");
           }
           dispatch(companyNew(newsCheck));
@@ -63,12 +65,13 @@ const PostSingle = () => {
                 data._id!,
               ),
           );
-          if (data == undefined) {
+          if (Object.keys(data).length == 0) {
+            debugger;
             router.replace("http://localhost:3000/");
           }
         }
       } else {
-        if (data == undefined) {
+        if (Object.keys(data).length == 0) {
           router.replace("http://localhost:3000/");
         }
         setSimilarPosts(
@@ -90,7 +93,7 @@ const PostSingle = () => {
   }, [data]);
 
   return (
-    data && (
+    Object.keys(data).length != 0 && (
       <>
         <SeoMeta
           title={data.title}

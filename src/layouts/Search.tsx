@@ -1,20 +1,23 @@
 "use client";
-
+import NewITem from "../layouts/components/newItem";
 import config from "@/config/config.json";
-import { humanize, plainify, slugify } from "@/lib/utils/textConverter";
+
 import Fuse from "fuse.js";
-import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  FaRegFolder,
-  FaRegUserCircle,
-  FaSearch,
-} from "react-icons/fa/index.js";
+
+import React, { Key, useEffect, useRef, useState } from "react";
+import { FaSearch } from "react-icons/fa/index.js";
 import ImageFallback from "./helpers/ImageFallback";
+import { useSelector } from "react-redux";
+import { news } from "@/feature/data/newSlice";
+import { Grid } from "@mantine/core";
+import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 
 const { summary_length, blog_folder } = config.settings;
 
 export type SearchItem = {
+  _id: any;
+  title: any;
+  image: React.JSX.Element;
   slug: string;
   frontmatter: any;
   content: any;
@@ -25,6 +28,10 @@ interface Props {
 }
 
 interface SearchResult {
+  _id: Key | null | undefined;
+  image: any;
+  titleEn: any;
+  title: any;
   item: SearchItem;
   refIndex: number;
 }
@@ -33,11 +40,22 @@ const Search = ({ searchList }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputVal, setInputVal] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-
+  const newInfo = useSelector((rootState) => news(rootState));
+  const posts: any[] = newInfo.newData.value.companyNews;
+  const curlanguage = useSelector((rootState) => language(rootState));
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setInputVal(e.currentTarget.value);
   };
-
+  const onSearch = () => {
+    const searchResult = posts.filter(
+      (item) =>
+        item.title.includes(inputVal) ||
+        item.titleEn.includes(inputVal) ||
+        item.catergories.includes(inputVal),
+    );
+    console.log(searchResult);
+    setSearchResults(searchResult);
+  };
   const fuse = new Fuse(searchList, {
     keys: ["frontmatter.title", "frontmatter.categories", "frontmatter.tags"],
     includeMatches: true,
@@ -57,7 +75,7 @@ const Search = ({ searchList }: Props) => {
   }, []);
 
   useEffect(() => {
-    let inputResult = inputVal.length > 2 ? fuse.search(inputVal) : [];
+    let inputResult: any = inputVal.length > 2 ? fuse.search(inputVal) : [];
     setSearchResults(inputResult);
 
     if (inputVal.length > 0) {
@@ -89,7 +107,11 @@ const Search = ({ searchList }: Props) => {
                 autoFocus
                 ref={inputRef}
               />
-              <button className="btn btn-primary rounded-l-none" type="submit">
+              <button
+                className="btn btn-primary rounded-l-none"
+                onClick={(e) => onSearch()}
+                type="submit"
+              >
                 <FaSearch />
               </button>
             </div>
@@ -125,60 +147,24 @@ const Search = ({ searchList }: Props) => {
               </p>
             </div>
           ) : (
-            searchResults?.map(({ item }, index) => (
-              <div className="mb-12 md:col-6 lg:col-4" key={`search-${index}`}>
-                <div className="bg-body dark:bg-darkmode-body">
-                  {item.frontmatter.image && (
-                    <ImageFallback
-                      className="mb-6 w-full rounded"
-                      src={item.frontmatter.image}
-                      alt={item.frontmatter.title}
-                      width={445}
-                      height={230}
+            <Grid className="flex justify-center" justify="center">
+              {searchResults.map((svc, i) => {
+                return (
+                  <Grid.Col key={svc._id} md={4} lg={2.5}>
+                    <NewITem
+                      src={svc.image}
+                      title={
+                        curlanguage.changeLanguage.value == "en"
+                          ? svc.titleEn
+                          : svc.title
+                      }
+                      id={svc._id}
+                      i={i}
                     />
-                  )}
-                  <h4 className="mb-3">
-                    <Link href={`/${blog_folder}/${item.slug}`}>
-                      {item.frontmatter.title}
-                    </Link>
-                  </h4>
-                  <ul className="mb-4">
-                    <li className="mr-4 inline-block">
-                      <a href={`/authors/${slugify(item.frontmatter.author)}`}>
-                        <FaRegUserCircle
-                          className={"-mt-1 mr-2 inline-block"}
-                        />
-                        {humanize(item.frontmatter.author)}
-                      </a>
-                    </li>
-                    <li className="mr-4 inline-block">
-                      <FaRegFolder className={"-mt-1 mr-2 inline-block"} />
-                      {item.frontmatter.categories.map(
-                        (category: string, index: number) => (
-                          <a
-                            href={`/categories/${slugify(category)}`}
-                            key={category}
-                          >
-                            {humanize(category)}
-                            {index !== item.frontmatter.categories.length - 1 &&
-                              ", "}
-                          </a>
-                        )
-                      )}
-                    </li>
-                  </ul>
-                  <p className="mb-6">
-                    {plainify(item.content?.slice(0, Number(summary_length)))}
-                  </p>
-                  <a
-                    className="btn btn-outline-primary btn-sm"
-                    href={`/${blog_folder}/${item.slug}`}
-                  >
-                    read more
-                  </a>
-                </div>
-              </div>
-            ))
+                  </Grid.Col>
+                );
+              })}
+            </Grid>
           )}
         </div>
       </div>

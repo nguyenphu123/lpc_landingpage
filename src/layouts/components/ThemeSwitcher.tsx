@@ -1,5 +1,5 @@
 "use client";
-import { US, VN } from "country-flag-icons/react/3x2";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 import config from "@/config/config.json";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import {
   changeLanguage,
   language,
 } from "../../feature/changeLanguage/changeLanguageSlice";
+import "../../styles/flag.scss"
 const ThemeSwitcher = ({ className }: { className: string }) => {
   const { theme_switcher } = config.settings;
   const [mounted, setMounted] = useState(false);
@@ -31,29 +32,12 @@ const ThemeSwitcher = ({ className }: { className: string }) => {
           />
           <label htmlFor="theme-switcher">
             <span className="sr-only">theme switcher</span>
-            <span>
-              {curlanguage.changeLanguage.value == "en" ? (
-                <svg
-                  className="absolute left-[4px] top-[4px] z-10 opacity-100 dark:opacity-0"
-                  viewBox="0 0 56 56"
-                  fill="#fff"
-                  height="16"
-                  width="16"
-                >
-                  <US title="United States" className="..." />{" "}
-                </svg>
-              ) : (
-                <svg
-                  className="absolute left-[4px] top-[4px] z-10 opacity-100 dark:opacity-0"
-                  viewBox="0 0 56 56"
-                  fill="#fff"
-                  height="16"
-                  width="16"
-                >
-                  <VN title="Viet Nam" className="..." />
-                </svg>
-              )}
-            </span>
+
+            {curlanguage.changeLanguage.value == "en" ? (
+              <span className="flag-icon-rounded fi fi-us"></span>
+            ) : (
+              <span className=" flag-icon-rounded fi fi-vn"></span>
+            )}
           </label>
         </div>
       )}

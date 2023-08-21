@@ -11,7 +11,13 @@ export async function POST(req) {
   const { _id, schema } = await req.json();
   try {
     await connectDB();
-    let data = await New.findOne({ _id: _id });
+    let data;
+    if (schema == "New") {
+      data = await New.findOne({ _id: _id });
+    } else if (data == "Product") {
+      data = await Product.findOne({ _id: _id });
+    }
+
     return NextResponse.json({ data });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {

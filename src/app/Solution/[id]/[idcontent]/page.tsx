@@ -41,7 +41,7 @@ const RegularPages = () => {
               (item: { [x: string]: any; link: string; type: string }) =>
                 params.idcontent == item._id,
             );
-         
+
           setResultData(data);
           if (data == undefined) {
             router.replace("http://localhost:3000/");
@@ -83,8 +83,13 @@ const RegularPages = () => {
       // make sure to catch any error
       .catch(console.error);
   }, [resultData]);
-  console.log(resultData)
+  console.log(resultData);
   const curlanguage = useSelector((rootState) => language(rootState));
+  const onClickAbout = (e, id) => {
+    e && e.preventDefault(); // to avoid the link from redirecting
+    var elementToView = document.getElementById(id);
+    if (elementToView) (elementToView as HTMLFormElement).scrollIntoView();
+  };
   return resultData == undefined || Object.keys(resultData).length == 0 ? (
     <></>
   ) : (
@@ -97,7 +102,9 @@ const RegularPages = () => {
       />
       <PageHeader
         title={
-          curlanguage.changeLanguage.value == "en" ? resultData?.titleEn : resultData?.title
+          curlanguage.changeLanguage.value == "en"
+            ? resultData?.titleEn
+            : resultData?.title
         }
       />
       <div className="relative">
@@ -110,13 +117,14 @@ const RegularPages = () => {
             {resultData?.description.map((content: any, i: any) => {
               return (
                 <a
-                  key={content.id}
-                  href={`#${content.id}`}
-                  className="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600"
+                  key={content._id}
+                  // href={`#${content._id}`}
+                  className="cursor-pointer hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600"
                   id="horizontal-alignment-item-2"
                   data-hs-tab="#horizontal-alignment-2"
                   aria-controls="horizontal-alignment-2"
                   role="tab"
+                  onClick={(e) => onClickAbout(e, content._id)}
                 >
                   {content.title}
                 </a>

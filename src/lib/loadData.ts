@@ -12,11 +12,11 @@ export async function loadNews(role: any) {
   // will receive `posts` as a prop at build time
   return news;
 }
-export async function loadViaId(id: any) {
+export async function loadViaId(id: any, schema) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const data = { _id: id, schema: "New" };
+  const data = { _id: id, schema: schema };
   const res = await fetch("http://localhost:3000/api/findById", {
     method: "POST",
     headers: new Headers({

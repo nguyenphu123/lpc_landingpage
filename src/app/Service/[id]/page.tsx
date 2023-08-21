@@ -2,62 +2,67 @@
 import SeoMeta from "@/partials/SeoMeta";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
-import { useParams, redirect, useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useParams, useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { product } from "@/feature/data/productSlice";
 import PageHeader from "@/partials/PageHeader";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadViaId } from "@/lib/loadData";
+import "../../../styles/scroll.scss";
 const RegularPages = () => {
   const params: any = useParams();
   const productInfo = useSelector((rootState) => product(rootState));
-  let products = [];
-  let data: any = {};
+  let products: any = [];
+  const [data, setData]: any = useState({});
   products = productInfo.productData.value.product.filter(
     (item: { type: string }) => item.type == "Service",
   );
-  const service = products.filter(
-    (item: { [x: string]: any; link: string; type: string }) =>
-      params.id == item._id,
-  );
-  
+
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   useEffect(() => {
     // declare the data fetching function
     const fetchData = async () => {
-      if (service.length == 0) {
+      if (products.length == 0) {
         if (
           JSON.parse(localStorage.getItem("productList") || "[]").length == 0
         ) {
-          const serviceCheck = await loadViaId(params.id);
-          data = serviceCheck.data;
-          if (data.length == 0) {
-            router.replace("http://localhost:3000/")
-          }
+          const serviceCheck = await loadViaId(params.id, "Product");
+          setData(serviceCheck.data);
+          setIsLoading(false);
         } else {
-          data = JSON.parse(localStorage.getItem("productList") || "[]")
-            .filter((item: { type: string }) => item.type == "Service")
-            .filter((post) => post._id === params.id)[0];
-          if (data.length == 0) {
-            router.replace("http://localhost:3000/")
-          }
+          setData(
+            JSON.parse(localStorage.getItem("productList") || "[]")
+              .filter((item: { type: string }) => item.type == "Service")[0]
+              .content.filter((post) => post._id === params.id)[0],
+          );
+
+          setIsLoading(false);
         }
       } else {
-        data = service[0];
-        if (data.length == 0) {
-          router.replace("http://localhost:3000/")
-        }
+        const service = products[0].content.filter(
+          (item: { [x: string]: any; link: string; type: string }) =>
+            params.id == item._id,
+        );
+        setData(service[0]);
+        setIsLoading(false);
       }
     };
     // call the function
     fetchData()
       // make sure to catch any error
       .catch(console.error);
-  }, [data]);
-
+  }, [setData, setIsLoading]);
+  const onClickAbout = (e, id) => {
+    e && e.preventDefault(); // to avoid the link from redirecting
+    var elementToView = document.getElementById(id);
+    if (elementToView) (elementToView as HTMLFormElement).scrollIntoView();
+  };
   const curlanguage = useSelector((rootState) => language(rootState));
-  return (
+  return isLoading ? (
+    <></>
+  ) : (
     <section>
       <SeoMeta
         title={data?.title}
@@ -80,13 +85,14 @@ const RegularPages = () => {
             {data?.description.map((content: any, i: any) => {
               return (
                 <a
-                  key={content.id}
-                  href={`#${content.id}`}
-                  className="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600"
+                  key={content._id}
+                  // href={`#${content._id}`}
+                  className=" cursor-pointer hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-2 border-b-[3px] border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600"
                   id="horizontal-alignment-item-2"
                   data-hs-tab="#horizontal-alignment-2"
                   aria-controls="horizontal-alignment-2"
                   role="tab"
+                  onClick={(e) => onClickAbout(e, content._id)}
                 >
                   {content.title}
                 </a>
@@ -111,16 +117,14 @@ const RegularPages = () => {
               {data?.description.map((content: any, i: any) => {
                 return (
                   <div key={content._id}>
-                    <h2
-                      id={content._id}
-                      className="text-3xl font-semibold leading-8 text-gray-900"
-                    >
+                    <h2 className="text-3xl font-semibold leading-8 text-gray-900">
                       {i + 1}-
                       {curlanguage.changeLanguage.value == "en"
                         ? content.titleEn
                         : content.title}
                     </h2>
                     <div
+                      id={content._id}
                       className="description"
                       dangerouslySetInnerHTML={{
                         __html:

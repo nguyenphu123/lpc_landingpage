@@ -40,7 +40,7 @@ const PostSingle = () => {
             (post) => post._id === params.single,
           )[0] == undefined
         ) {
-          const newCheck = await loadViaId(params.single);
+          const newCheck = await loadViaId(params.single,"New");
           setData(newCheck.data);
           const newsCheck = await loadNews("");
           if (data == undefined) {

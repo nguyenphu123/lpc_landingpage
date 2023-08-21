@@ -47,14 +47,14 @@ export default function CustomerList() {
         <div className="slide-track">
           {customers.map((img: { _id: string; src: string; type: string }) => {
             return (
-              <div key={img._id} className="slide">
+              <div key={img._id} className="slide flex items-center mx-3">
                 <Image
                   key={img.src}
-                  className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                  className="flex items-center col-span-2 max-h-16 w-full object-contain lg:col-span-1"
                   src={img.src + ""}
                   alt={img.type + ""}
                   width={158}
-                  height={48}
+                  height={100}
                 />
               </div>
             );

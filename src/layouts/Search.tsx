@@ -48,12 +48,7 @@ const Search = ({ searchList }: Props) => {
   };
   const onSearch = () => {
     const searchResult = posts.filter((item) => {
-      if (
-        item.title.includes(inputVal) ||
-        item.titleEn.includes(inputVal) ||
-        item.categories.filter((item) => item.includes(inputVal))
-      ) {
-        console.log(item)
+      if (item.title.includes(inputVal) || item.titleEn.includes(inputVal)) {
         return item;
       }
     });

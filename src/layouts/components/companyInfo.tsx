@@ -53,7 +53,6 @@ export default function CompanyInfo() {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-9 gap-x-20 pb-32">
           <div className="min-h-[200px] col-span-5">
             <h3 className="col-span-5">
-              {" "}
               {curlanguage.changeLanguage.value == "en"
                 ? DataEn["quote1"].name
                 : Data["quote1"].name}
@@ -108,7 +107,7 @@ export default function CompanyInfo() {
         <div className="min-h-[500px] grid grid-cols-3 h-full relative">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <Image
-              src={companyDatas.companyCore.image}
+              src={"https://res.cloudinary.com/derjssgq9/image/upload/v1692668701/LPC_Images/About/wm_1_jcg1xz.png"}
               height={400}
               width={400}
               alt="wm"

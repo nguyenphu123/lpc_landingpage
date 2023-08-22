@@ -47,13 +47,16 @@ const Search = ({ searchList }: Props) => {
     setInputVal(e.currentTarget.value);
   };
   const onSearch = () => {
-    const searchResult = posts.filter(
-      (item) =>
+    const searchResult = posts.filter((item) => {
+      if (
         item.title.includes(inputVal) ||
         item.titleEn.includes(inputVal) ||
-        item.catergories.includes(inputVal),
-    );
-    console.log(searchResult);
+        item.categories.filter((item) => item.includes(inputVal))
+      ) {
+        console.log(item)
+        return item;
+      }
+    });
     setSearchResults(searchResult);
   };
   const fuse = new Fuse(searchList, {

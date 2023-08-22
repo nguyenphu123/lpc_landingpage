@@ -48,7 +48,10 @@ const Search = ({ searchList }: Props) => {
   };
   const onSearch = () => {
     const searchResult = posts.filter((item) => {
-      if (item.title.includes(inputVal) || item.titleEn.includes(inputVal)) {
+      if (
+        item.title.toLowerCase().includes(inputVal.toLowerCase()) ||
+        item.titleEn.toLowerCase().includes(inputVal.toLowerCase())
+      ) {
         return item;
       }
     });
@@ -140,7 +143,7 @@ const Search = ({ searchList }: Props) => {
               </h1>
               <p>
                 {inputVal.length < 1
-                  ? "Search for posts by title, category, or tag."
+                  ? "Search for posts by title."
                   : "We couldn't find what you searched for. Try searching again."}
               </p>
             </div>

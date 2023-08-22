@@ -1,14 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
-import { TextInput, Button, Box, Code } from "@mantine/core";
+import { TextInput, Button, Box, Code, Grid, Col } from "@mantine/core";
+
 import { addPartner } from "@/lib/createData";
 
 function PartnerForm() {
-  const [submittedValues, setSubmittedValues] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
 
   const form = useForm({
     initialValues: {
@@ -18,48 +21,96 @@ function PartnerForm() {
     },
   });
 
+  const onImageChange = (e) => {
+    const file = e.target.files[0];
+
+    setSelectedImage(file);
+  };
+
+  const onSubmitForm = async (values) => {
+    if (selectedImage) {
+      const formData = new FormData();
+
+      formData.append("file", selectedImage);
+
+      formData.append("upload_preset", "ml_default");
+
+      try {
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/derjssgq9/image/upload",
+
+          {
+            method: "POST",
+
+            body: formData,
+          },
+        );
+
+        const data = await response.json();
+
+        values.src = data.secure_url; // Save the uploaded image URL to the form data
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    // Continue with the rest of the form submission
+
+    addPartner(values);
+
+    form.reset();
+
+    setSuccessMessage("Data added successfully!");
+
+    setTimeout(() => {
+      setSuccessMessage(null);
+    }, 5000);
+  };
+
   return (
-    <section className="section">
-      <div className="container">
-        <Box maw={400} mx="auto">
-          <form onSubmit={form.onSubmit((values) => addPartner(values))}>
-            <h3 className="flex justify-center">Add new partners</h3>
+    // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
-            <TextInput
-              label="Name"
-              placeholder="Name"
-              {...form.getInputProps("name")}
-            />
+    <div className="container">
+      <Box maw={"75%"} mx="auto">
+        <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
+          <h3 className="flex justify-center">Add new partners</h3>
 
-            <TextInput
-              label="Source Image"
-              placeholder="Source Image"
-              mt="md"
-              {...form.getInputProps("src")}
-            />
+          <Grid gutter="lg">
+            <Col span={12}>
+              <TextInput
+                label="Name"
+                placeholder="Name"
+                {...form.getInputProps("name")}
+              />
+            </Col>
 
-            <div
-              style={{
-                display: "flex",
+            <Col span={6}>
+              <input type="file" accept="image/*" onChange={onImageChange} />
+            </Col>
 
-                justifyContent: "flex-end",
+            <Col span={6} className="flex justify-end mt-6">
+              {/* Thêm class CSS để đặt nút submit ở góc phải */}
 
-                marginTop: "16px",
-              }}
-            >
               <Button
                 type="submit"
-                style={{ backgroundColor: "#007bff", color: "white" }}
+                style={{ backgroundColor: "blue" }}
+                size="md"
               >
                 Submit
               </Button>
-            </div>
-          </form>
+            </Col>
+          </Grid>
+        </form>
 
-          {submittedValues && <Code block>{submittedValues}</Code>}
-        </Box>
-      </div>
-    </section>
+        {successMessage && (
+          <div style={{ marginTop: "16px", color: "green" }}>
+            {successMessage}
+          </div>
+        )}
+      </Box>
+    </div>
+
+    // </div>
   );
 }
 

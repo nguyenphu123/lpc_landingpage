@@ -8,9 +8,11 @@ import SeoMeta from "@/partials/SeoMeta";
 import PageHeader from "@/partials/PageHeader";
 import { signIn } from "next-auth/react";
 import { userLogin } from "@/feature/login/loginSlice";
+import { useState } from "react";
 const Contact = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
   // let loginState = useSelector(loginStatus);
+  const [errorMessage, setErrorMessage] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const data = {
@@ -31,13 +33,14 @@ const Contact = () => {
       const res: any = await signIn("credentials", loginInfo);
 
       if (res.error != null || res.status != 200) {
+        setErrorMessage(true);
         //setError("Invalid Credentials");
         return;
       }
       dispatch(userLogin(loginInfo));
       router.push("/admin");
     } catch (error) {
-      console.log(error);
+      setErrorMessage(true);
     }
   }
   return (
@@ -56,7 +59,10 @@ const Contact = () => {
         }
       />
       <section className="bg-gray-50 dark:bg-gray-900">
-        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div
+          style={{ height: "60vh" }}
+          className="flex flex-col items-center px-6 mx-auto  lg:py-0"
+        >
           <a
             href="#"
             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
@@ -74,7 +80,7 @@ const Contact = () => {
                   ? DataEn["login_title"].name
                   : Data["login_title"].name}
               </h1>
-              <form className="space-y-4 md:space-y-6" onSubmit={onsubmit}>
+              <form className="space-y-4 md:space-y-3" onSubmit={onsubmit}>
                 <div>
                   <label
                     htmlFor="email"
@@ -116,6 +122,30 @@ const Contact = () => {
                     <div className="flex items-center h-5"></div>
                   </div>
                 </div>
+                {errorMessage ? (
+                  <div
+                    className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                    role="alert"
+                  >
+                    <strong className="font-bold">User error!</strong>
+                    <span className="block sm:inline">
+                      Please check your email or password
+                    </span>
+                    <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+                      <svg
+                        className="fill-current h-6 w-6 text-red-500"
+                        role="button"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                      >
+                        <title>Close</title>
+                        <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                      </svg>
+                    </span>
+                  </div>
+                ) : (
+                  <></>
+                )}
                 <button
                   type="submit"
                   className="w-full text-black bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"

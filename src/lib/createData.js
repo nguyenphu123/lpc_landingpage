@@ -109,7 +109,7 @@ export async function addProduct(product) {
 
     content: product.content,
   };
-  
+
   const res = await fetch("http://localhost:3000/api/product", {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -121,14 +121,32 @@ export async function addProduct(product) {
 }
 export async function addBanner(banner) {
   // Call an external API endpoint to get posts.
+
   // You can use any data fetching library
+
   // const posts = await loadNews()
+
+  const data = {
+    title: banner.title,
+
+    titleEn: banner.titleEn,
+
+    content: banner.content,
+
+    contentEn: banner.contentEn,
+
+    image: banner.image,
+  };
+
   const res = await fetch("http://localhost:3000/api/banner", {
     method: "post",
+
     headers: { "Content-Type": "application/json" },
+
     body: JSON.stringify(banner),
   });
 
   // By returning { props: { posts } }, the Blog component
+
   // will receive `posts` as a prop at build time
 }

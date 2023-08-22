@@ -1,5 +1,5 @@
 "use client";
-import Logo from "@/components/Logo";
+import Image from "next/image";
 import config from "@/config/config.json";
 import menu from "@/config/menu.json";
 import menuEn from "@/config/menuEn.json";
@@ -9,7 +9,7 @@ import { markdownify } from "@/lib/utils/textConverter";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-const Footer = () => {
+const Footer = ({ src }: { src?: string }) => {
   const { copyright } = config.params;
   const curlanguage = useSelector((rootState) => language(rootState));
   const { footer } = curlanguage.changeLanguage.value == "en" ? menuEn : menu;
@@ -35,44 +35,29 @@ const Footer = () => {
   ) : (
     <footer className="bg-theme-light dark:bg-darkmode-theme-light">
       <div className="container">
-        <div className="row items-center py-10">
-          <div className="mx-auto w-fit max-w-screen-xl content-end">
-            <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-3 content-end">
+        <div className="row items-center py-2">
+          <div className="w-fit max-w-screen-xl content-end">
+            <div className="grid grid-cols-6 gap-1 px-4 py-6 lg:py-8 md:grid-cols-6 content-end">
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <div className="mb-8 text-center lg:col-3 lg:mb-0 lg:text-left">
-                    <Logo />
-                  </div>
+                  <Link href="/" className="navbar-brand inline-block max-w-xs">
+                    <Image
+                      width="300"
+                      height="150"
+                      src="/images/logo.png"
+                      alt={""}
+                    />
+                  </Link>
                 </li>
-                {companyLinks.socialAccount.map((item) => (
-                  <li key={item} className="mb-4  ">
-                    <Link href={`${item}`} className=" hover:underline flex">
-                      <svg
-                        className="h-5 w-5 text-black"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                        <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
-                      </svg>
-                      LienPhat Technology Company
-                    </Link>
-                  </li>
-                ))}
               </ul>
               <div>
                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
                   {footer.name}
                 </h2>
-                <ul className="text-gray-500 dark:text-gray-400 font-medium">
+
+                <ul className="text-gray-500 dark:text-gray-400 font-medium grid grid-cols-2 gap-1 max-w-fit">
                   {footer.children.map((item) => (
-                    <li key={item.link} className="mb-4">
+                    <li key={item.link}>
                       <Link href={`${item.link}`} className=" hover:underline">
                         {item.name}
                       </Link>
@@ -80,15 +65,15 @@ const Footer = () => {
                   ))}
                 </ul>
               </div>
-              <div>
-                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+              <div className="col-span-2">
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white max-w-fit">
                   {curlanguage.changeLanguage.value == "en" ? (
                     <>Contact</>
                   ) : (
                     <>Liên hệ</>
                   )}
                 </h2>
-                <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                <ul className="text-gray-500 dark:text-gray-400 font-medium grid grid-cols-2 gap-1 max-w-fit ">
                   <li className="mb-4 flex ">
                     <svg
                       className="h-5 w-5 text-black"
@@ -130,10 +115,41 @@ const Footer = () => {
                     </svg>
                     {companyLinks.email}
                   </li>
-
+                </ul>
+              </div>
+              <div className="col-span-2">
+                <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                  <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
+                    {curlanguage.changeLanguage.value == "en" ? (
+                      <>Address</>
+                    ) : (
+                      <>Địa chỉ</>
+                    )}
+                  </h2>
+                  {companyLinks.socialAccount.map((item) => (
+                    <li key={item} className="mb-4  ">
+                      <Link href={`${item}`} className=" hover:underline flex">
+                        <svg
+                          className="h-5 w-5 text-black"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          strokeWidth="2"
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                          <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+                        </svg>
+                        LienPhat Technology Company
+                      </Link>
+                    </li>
+                  ))}
                   <li className="mb-4 flex ">
                     <svg
-                      className="h-5 w-5 text-black"
+                      className="h-10 w-10 text-black"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"

@@ -4,13 +4,27 @@ import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
-import { TextInput, Button, Box, Code } from "@mantine/core";
+import { addBanner } from "@/lib/createData";
+
+import { randomId } from "@mantine/hooks";
+
+import { TextInput, Button, Box, Code, Grid, Col } from "@mantine/core";
 
 const BannerForm = () => {
-  const [submittedValues, setSubmittedValues] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
+
+  const onImageChange = (e) => {
+    const file = e.target.files[0];
+
+    setSelectedImage(file);
+  };
 
   const form = useForm({
     initialValues: {
+      key: randomId(),
+
       title: "",
 
       titleEn: "",
@@ -23,60 +37,118 @@ const BannerForm = () => {
     },
   });
 
+  const onSubmitForm = async (values) => {
+    if (selectedImage) {
+      // Nếu có hình ảnh được chọn, tải lên trước
+
+      const formData = new FormData();
+
+      formData.append("file", selectedImage);
+
+      formData.append("upload_preset", "ml_default");
+
+      try {
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/derjssgq9/image/upload",
+
+          {
+            method: "POST",
+
+            body: formData,
+          },
+        );
+
+        const data = await response.json();
+
+        values.image = data.secure_url; // Lưu URL hình ảnh đã tải lên vào dữ liệu biểu mẫu
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    // Tiếp tục với phần còn lại của quá trình gửi biểu mẫu
+
+    addBanner(values);
+
+    form.reset();
+
+    setSuccessMessage("Data added successfully!");
+
+    setTimeout(() => {
+      setSuccessMessage(null);
+    }, 5000);
+  };
+
   return (
-    <section className="section">
-      <div className="container">
-        <Box maw={400} mx="auto">
-          <form
-            onSubmit={form.onSubmit((values) => {
-              setSubmittedValues(JSON.stringify(values, null, 2));
-            })}
-          >
-            <h3 className="flex justify-center">Update banner content</h3>
+    // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
-            <TextInput
-              label="Title"
-              placeholder="Title"
-              {...form.getInputProps("title")}
-            />
+    <div className="container">
+      <Box maw={"75%"} mx="auto">
+        <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
+          <h3 className="flex justify-center">Update banner content</h3>
 
-            <TextInput
-              label="Title (English)"
-              placeholder="Title (English)"
-              mt="md"
-              {...form.getInputProps("titleEn")}
-            />
+          <Grid gutter="lg">
+            <Col span={6}>
+              <TextInput
+                label="Title"
+                placeholder="Title"
+                {...form.getInputProps("title")}
+              />
+            </Col>
 
-            <TextInput
-              label="Content"
-              placeholder="Content"
-              mt="md"
-              {...form.getInputProps("content")}
-            />
+            <Col span={6}>
+              <TextInput
+                label="Title (English)"
+                placeholder="Title (English)"
+                {...form.getInputProps("titleEn")}
+              />
+            </Col>
 
-            <TextInput
-              label="Content (English)"
-              placeholder="Content (English)"
-              mt="md"
-              {...form.getInputProps("contentEn")}
-            />
+            <Col span={6}>
+              <TextInput
+                label="Content"
+                placeholder="Content"
+                mt="md"
+                {...form.getInputProps("content")}
+              />
+            </Col>
 
-            <TextInput
-              label="Image URL"
-              placeholder="Image URL"
-              mt="md"
-              {...form.getInputProps("image")}
-            />
+            <Col span={6}>
+              <TextInput
+                label="Content (English)"
+                placeholder="Content (English)"
+                mt="md"
+                {...form.getInputProps("contentEn")}
+              />
+            </Col>
 
-            <Button type="submit" mt="md">
-              Submit
-            </Button>
-          </form>
+            <Col span={6}>
+              <input type="file" accept="image/*" onChange={onImageChange} />
+            </Col>
 
-          {submittedValues && <Code block>{submittedValues}</Code>}
-        </Box>
-      </div>
-    </section>
+            <Col span={6} className="flex justify-end mt-6">
+              {/* Thêm class CSS để đặt nút submit ở góc phải */}
+
+              <Button
+                type="submit"
+                style={{ backgroundColor: "blue" }}
+                size="md"
+              >
+                Submit
+              </Button>
+            </Col>
+          </Grid>
+        </form>
+
+        {successMessage && (
+          <div style={{ marginTop: "16px", color: "green" }}>
+            {successMessage}
+          </div>
+        )}
+      </Box>
+    </div>
+
+    // </div>
   );
 };
 

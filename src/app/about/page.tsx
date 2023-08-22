@@ -25,8 +25,8 @@ const About = () => {
       <PageHeader
         title={
           curlanguage.changeLanguage.value == "en"
-            ? DataEn["contact"].name
-            : Data["contact"].name
+            ? DataEn["about"].name
+            : Data["about"].name
         }
       />
       <CompanyInfo />

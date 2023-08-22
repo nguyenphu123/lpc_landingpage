@@ -72,7 +72,10 @@
     "name": "Please leave your information",
     "description": ""
   },
-
+  "about": {
+    "name": "About us",
+    "description": ""
+  },
   "name": {
     "name": "Fullname",
     "description": ""

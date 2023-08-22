@@ -42,7 +42,7 @@ export default function RootLayout({
           media="(prefers-color-scheme: dark)"
           content="#000"
         />
-
+        <script src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_APIKEY}&callback=Function.prototype`}></script>
         {/* google font css */}
         <link
           rel="preconnect"

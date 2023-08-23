@@ -1,5 +1,4 @@
 "use client";
-import config from "@/config/config.json";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { useSelector } from "react-redux";
 import Data from "@/config/data.json";
@@ -7,43 +6,42 @@ import DataEn from "@/config/dataEn.json";
 import SeoMeta from "@/partials/SeoMeta";
 import PageHeader from "@/partials/PageHeader";
 import {
-  useLoadScript,
   GoogleMap,
-  LoadScript,
   MarkerF,
   useJsApiLoader,
+  DirectionsRenderer,
 } from "@react-google-maps/api";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import MapWithAMarker from "@/components/googleMap";
+
 const Contact = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
-  const { contact_form_action } = config.params;
   const data = {
     title: "DỊCH VỤ IT",
     meta_title: "",
     description: "this is meta description",
     image: "",
   };
-  const libraries = useMemo(() => ["drawing", "places"], []);
-  const mapCenter = useMemo(
-    () => ({ lat: 10.76795319886361, lng: 106.70024358650747 }),
-    [],
-  );
 
-  const mapOptions = useMemo<google.maps.MapOptions>(
-    () => ({
-      disableDefaultUI: true,
-      clickableIcons: true,
-      scrollwheel: false,
-    }),
-    [],
-  );
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.GOOGLE_MAP_APIKEY as string,
-    libraries: libraries as any,
-  });
+  async function onsubmit(e: any) {
+    e.preventDefault();
+    let data = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      mess: e.target.message.value,
+    };
+    try {
+      const res = await fetch("/api/sendMessage", {
+        method: "POST",
 
-  if (!isLoaded) {
-    return <p>Loading...</p>;
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (res.status === 200) {
+      }
+    } catch (err: any) {
+      console.error("Err", err);
+    }
   }
 
   return (
@@ -65,26 +63,11 @@ const Contact = () => {
         <div className="container">
           <div className="row">
             <div className="mx-auto md:col-10 lg:col-10 grid grid-cols-2 gap-1">
-              <div>
               
-                <GoogleMap
-                  
-                  options={mapOptions}
-                  zoom={14}
-                  center={mapCenter}
-                  mapTypeId={google.maps.MapTypeId.ROADMAP}
-                  mapContainerStyle={{ width: "95%", height: "100%" }}
-                  onLoad={(map) => console.log("Map Loaded")}
-                >
-                  <MarkerF
-                    position={mapCenter}
-                    onLoad={() => console.log("Marker Loaded")}
-                  />
-                </GoogleMap>
-                
-              </div>
+                <MapWithAMarker />
+              
               <div>
-                <form action={contact_form_action} method="POST">
+                <form onSubmit={(e) => onsubmit(e)}>
                   <div className="mb-6">
                     <label htmlFor="name" className="form-label">
                       {curlanguage.changeLanguage.value == "en"
@@ -94,6 +77,7 @@ const Contact = () => {
                     </label>
                     <input
                       id="name"
+                      name="name"
                       className="form-input"
                       placeholder="Nguyễn Văn A"
                       type="text"
@@ -104,7 +88,8 @@ const Contact = () => {
                       Email <span className="text-red-500">*</span>
                     </label>
                     <input
-                      id="mail"
+                      id="email"
+                      name="email"
                       className="form-input"
                       placeholder="john.doe@email.com"
                       type="email"
@@ -121,6 +106,7 @@ const Contact = () => {
                       className="form-input"
                       placeholder="Message goes here..."
                       id="message"
+                      name="message"
                       rows={8}
                     ></textarea>
                   </div>

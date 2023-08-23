@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 
+import Image from "next/image";
+
 import { useForm } from "@mantine/form";
 
 import {
@@ -14,27 +16,73 @@ import {
   Textarea,
   Group,
   Tabs,
+  Select,
 } from "@mantine/core";
+
 import { addProduct } from "@/lib/createData";
+
 import { randomId } from "@mantine/hooks";
 
 import TextEditor from "../RichTextEditor";
+
 interface ProductFormProps {}
 
 function ProductForm(props: ProductFormProps) {
   const [submittedValues, setSubmittedValues] = useState("");
+
   const [descriptionList, setDescriptionList]: any = useState([]);
 
   const [showContent, setShowContent] = useState(false);
+
+  const [showCols, setShowCols] = useState(true);
+
   const [contentBoxes, setContentBoxes] = useState<Array<Record<string, any>>>([
     {},
   ]);
+
+  // Thêm state để lưu trữ hình ảnh đã chọn
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const onHandleChange = (e: any) => {
     setDescriptionList((oldArray) => [...oldArray, e]);
 
     // form.insertListItem(`content.${e.idcontent}.description.${e.id}`, e);
   };
-  const onSubmitForm = (value) => {
+
+  const onImageChange = (e) => {
+    const file = e.target.files[0];
+
+    setSelectedImage(file);
+  };
+
+  const onSubmitForm = async (value) => {
+    if (selectedImage) {
+      const formData = new FormData();
+
+      formData.append("file", selectedImage);
+
+      formData.append("upload_preset", "ml_default");
+
+      try {
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/derjssgq9/image/upload",
+
+          {
+            method: "POST",
+
+            body: formData,
+          },
+        );
+
+        const data = await response.json();
+
+        value.image = data.secure_url;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
     for (let i = 0; i < value.content.length; i++) {
       for (let j = 0; j < descriptionList.length; j++) {
         if (value.content[i].key == descriptionList[j].idcontent) {
@@ -42,9 +90,12 @@ function ProductForm(props: ProductFormProps) {
         }
       }
     }
+
     setDescriptionList([]);
+
     addProduct(value);
   };
+
   const [showDescriptionForms, setShowDescriptionForms] = useState<
     Array<boolean>
   >(contentBoxes.map(() => false));
@@ -74,6 +125,7 @@ function ProductForm(props: ProductFormProps) {
       content: [
         {
           key: randomId(),
+
           title: "",
 
           titleEn: "",
@@ -92,6 +144,8 @@ function ProductForm(props: ProductFormProps) {
 
   const toggleShowContent = () => {
     setShowContent(!showContent);
+
+    setShowCols(!showCols);
   };
 
   const addContentBox = () => {
@@ -101,6 +155,10 @@ function ProductForm(props: ProductFormProps) {
   };
 
   const removeContentBox = (index: number) => {
+    debugger;
+
+    console.log("Deleting content box at index:", index);
+
     const updatedContentBoxes = contentBoxes.filter((_, i) => i !== index);
 
     setContentBoxes(updatedContentBoxes);
@@ -121,90 +179,146 @@ function ProductForm(props: ProductFormProps) {
   };
 
   return (
-    <section className="section overflow-y-auto">
-      <div className="container overflow-y-auto">
+    <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+      <div className="container">
         <Box maw={"100%"} mx="auto">
           <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
             <Grid gutter="lg">
-              <Col span={6}>
-                <TextInput
-                  label="Title"
-                  placeholder="Title"
-                  {...form.getInputProps("title")}
-                />
-              </Col>
+              {showCols && (
+                <>
+                  <Col span={12}>
+                    <label>Choose Image</label>
 
-              <Col span={6}>
-                <TextInput
-                  label="Title (English)"
-                  placeholder="Title (English)"
-                  {...form.getInputProps("titleEn")}
-                />
-              </Col>
+                    {/* Trường input tệp ẩn */}
 
-              <Col span={6}>
-                <TextInput
-                  label="Type"
-                  placeholder="Type"
-                  {...form.getInputProps("type")}
-                />
-              </Col>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={onImageChange}
+                      style={{ display: "none" }}
+                      id="imageInput"
+                    />
 
-              <Col span={6}>
-                <TextInput
-                  label="Description 1"
-                  placeholder="Description 1"
-                  {...form.getInputProps("description1")}
-                />
-              </Col>
+                    {/* Nút thay thế */}
 
-              <Col span={6}>
-                <TextInput
-                  label="Description 2"
-                  placeholder="Description 2"
-                  {...form.getInputProps("description2")}
-                />
-              </Col>
+                    <label
+                      htmlFor="imageInput"
+                      style={{
+                        cursor: "pointer",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "100%",
 
-              <Col span={6}>
-                <TextInput
-                  label="Description 1 (English)"
-                  placeholder="Description 1 (English)"
-                  {...form.getInputProps("descriptionEn1")}
-                />
-              </Col>
+                          height: "100px",
 
-              <Col span={6}>
-                <TextInput
-                  label="Description 2 (English)"
-                  placeholder="Description 2 (English)"
-                  {...form.getInputProps("descriptionEn2")}
-                />
-              </Col>
+                          backgroundColor: "#f0f0f0",
 
-              <Col span={6}>
-                <TextInput
-                  label="Image URL"
-                  placeholder="Image URL"
-                  {...form.getInputProps("image")}
-                />
-              </Col>
+                          display: "flex",
 
-              <Col span={6}>
-                <TextInput
-                  label="Pros (comma-separated)"
-                  placeholder="Pros"
-                  {...form.getInputProps("pros")}
-                />
-              </Col>
+                          alignItems: "center",
 
-              <Col span={6}>
-                <TextInput
-                  label="Pros (English, comma-separated)"
-                  placeholder="Pros (English)"
-                  {...form.getInputProps("prosEn")}
-                />
-              </Col>
+                          justifyContent: "center",
+
+                          border: "2px dashed #ccc",
+
+                          borderRadius: "8px",
+                        }}
+                      >
+                        {selectedImage ? (
+                          <Image
+                            src={URL.createObjectURL(selectedImage)}
+                            alt="Selected Image"
+                            width={150}
+                            height={150}
+                          />
+                        ) : (
+                          <span>Click to choose an image</span>
+                        )}
+                      </div>
+                    </label>
+                  </Col>
+
+                  <Col span={4}>
+                    <label>Type</label>
+
+                    <Select
+                      data={[
+                        { label: "Solution", value: "Solution" },
+
+                        { label: "Service", value: "Service" },
+                      ]}
+                      placeholder="Select Type"
+                      {...form.getInputProps("type")}
+                    />
+                  </Col>
+
+                  <Col span={4}>
+                    <TextInput
+                      label="Title"
+                      placeholder="Title"
+                      {...form.getInputProps("title")}
+                    />
+                  </Col>
+
+                  <Col span={4}>
+                    <TextInput
+                      label="Title (English)"
+                      placeholder="Title (English)"
+                      {...form.getInputProps("titleEn")}
+                    />
+                  </Col>
+
+                  <Col span={6}>
+                    <TextInput
+                      label="General content"
+                      placeholder="General content"
+                      {...form.getInputProps("description1")}
+                    />
+                  </Col>
+
+                  <Col span={6}>
+                    <TextInput
+                      label="General content (English)"
+                      placeholder="General content (English)"
+                      {...form.getInputProps("descriptionEn1")}
+                    />
+                  </Col>
+
+                  <Col span={6}>
+                    <TextInput
+                      label="Details"
+                      placeholder="Details"
+                      {...form.getInputProps("description2")}
+                    />
+                  </Col>
+
+                  <Col span={6}>
+                    <TextInput
+                      label="Details (English)"
+                      placeholder="Details (English)"
+                      {...form.getInputProps("descriptionEn2")}
+                    />
+                  </Col>
+
+                  <Col span={6}>
+                    <TextInput
+                      label="Pros (comma-separated)"
+                      placeholder="Pros"
+                      {...form.getInputProps("pros")}
+                    />
+                  </Col>
+
+                  <Col span={6}>
+                    <TextInput
+                      label="Pros (English, comma-separated)"
+                      placeholder="Pros (English)"
+                      {...form.getInputProps("prosEn")}
+                    />
+                  </Col>
+                </>
+              )}
             </Grid>
 
             <div style={{ marginTop: "16px" }}>
@@ -225,6 +339,7 @@ function ProductForm(props: ProductFormProps) {
                     onClick={() =>
                       form.insertListItem("content", {
                         key: randomId(),
+
                         title: "",
 
                         titleEn: "",
@@ -240,7 +355,7 @@ function ProductForm(props: ProductFormProps) {
                     }
                     style={{ backgroundColor: "green", color: "white" }}
                   >
-                    Add Content Box
+                    Add Product Overview
                   </Button>
                 </div>
 
@@ -255,39 +370,52 @@ function ProductForm(props: ProductFormProps) {
                       padding: "16px",
                     }}
                   >
-                    <h3>Content Box {item.key}</h3>
+                    <h3>Product Overview {item.key}</h3>
+
                     <Group key={item.key} mt="xs">
-                      <TextInput
-                        label="Title"
-                        placeholder="Title"
-                        {...form.getInputProps(`content.${index}.title`)}
-                      />
+                      <Grid gutter="lg">
+                        <Col span={4}>
+                          <TextInput
+                            label="Title"
+                            placeholder="Title"
+                            {...form.getInputProps(`content.${index}.title`)}
+                          />
+                        </Col>
 
-                      <TextInput
-                        label="Title (English)"
-                        placeholder="Title (English)"
-                        {...form.getInputProps(`content.${index}.titleEn`)}
-                      />
+                        <Col span={4}>
+                          <TextInput
+                            label="Title (English)"
+                            placeholder="Title (English)"
+                            {...form.getInputProps(`content.${index}.titleEn`)}
+                          />
+                        </Col>
 
-                      <Textarea
-                        label="Content"
-                        placeholder="Content"
-                        {...form.getInputProps(`content.${index}.content`)}
-                      />
+                        <Col span={4}>
+                          <TextInput
+                            label="Image URL"
+                            placeholder="Image URL"
+                            {...form.getInputProps(`content.${index}.imgSrc`)}
+                          />
+                        </Col>
 
-                      <Textarea
-                        label="Content (English)"
-                        placeholder="Content (English)"
-                        {...form.getInputProps(`content.${index}.contentEn`)}
-                      />
+                        <Col span={6}>
+                          <Textarea
+                            label="Content"
+                            placeholder="Content"
+                            {...form.getInputProps(`content.${index}.content`)}
+                          />
+                        </Col>
 
-                      <TextInput
-                        label="Image URL"
-                        placeholder="Image URL"
-                        {...form.getInputProps(`content.${index}.imgSrc`)}
-                      />
-
-                      <h3>Content Box {index + 1}</h3>
+                        <Col span={6}>
+                          <Textarea
+                            label="Content (English)"
+                            placeholder="Content (English)"
+                            {...form.getInputProps(
+                              `content.${index}.contentEn`,
+                            )}
+                          />
+                        </Col>
+                      </Grid>
 
                       {/* ... Input fields for content */}
 
@@ -310,15 +438,21 @@ function ProductForm(props: ProductFormProps) {
                         <Tabs defaultValue="goal">
                           <div>
                             {/* Description Form Inputs */}
+
                             <Tabs.List>
                               <Tabs.Tab value="goal">Mục tiêu</Tabs.Tab>
+
                               <Tabs.Tab value="function">
-                                Chức năng và giá trị
+                                Chức năng và giá trị mang lại
                               </Tabs.Tab>
+
                               <Tabs.Tab value="product">Sản phẩm</Tabs.Tab>
+
                               <Tabs.Tab value="service">Dịch vụ</Tabs.Tab>
+
                               <Tabs.Tab value="caseStudy">Case study</Tabs.Tab>
                             </Tabs.List>
+
                             <Tabs.Panel value="goal" pt="xs">
                               <TextEditor
                                 descriptionId="1"
@@ -331,6 +465,7 @@ function ProductForm(props: ProductFormProps) {
                                 contentEn=""
                               />
                             </Tabs.Panel>
+
                             <Tabs.Panel value="function" pt="xs">
                               <TextEditor
                                 descriptionId="2"
@@ -343,6 +478,7 @@ function ProductForm(props: ProductFormProps) {
                                 contentEn=""
                               />
                             </Tabs.Panel>
+
                             <Tabs.Panel value="product" pt="xs">
                               <TextEditor
                                 descriptionId="3"
@@ -355,6 +491,7 @@ function ProductForm(props: ProductFormProps) {
                                 contentEn=""
                               />
                             </Tabs.Panel>
+
                             <Tabs.Panel value="service" pt="xs">
                               <TextEditor
                                 descriptionId="4"
@@ -367,6 +504,7 @@ function ProductForm(props: ProductFormProps) {
                                 contentEn=""
                               />
                             </Tabs.Panel>
+
                             <Tabs.Panel value="caseStudy" pt="xs">
                               <TextEditor
                                 descriptionId="5"
@@ -423,7 +561,7 @@ function ProductForm(props: ProductFormProps) {
           {submittedValues && <Code block>{submittedValues}</Code>}
         </Box>
       </div>
-    </section>
+    </div>
   );
 }
 

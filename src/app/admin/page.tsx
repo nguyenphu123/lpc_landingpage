@@ -232,10 +232,10 @@ const Home = () => {
           role="tabpanel"
           aria-labelledby="company-tab"
         >
-          <Popup>
+          {/* <Popup>
             {" "}
             <ContactForm />
-          </Popup>
+          </Popup> */}
           <ContactTable />
         </div>
         <div

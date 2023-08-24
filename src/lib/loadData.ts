@@ -70,6 +70,16 @@ export async function loadPartner() {
   // will receive `posts` as a prop at build time
   return partners;
 }
+export async function loadMessage() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  // const posts = await loadNews()
+  const res = await fetch("http://localhost:3000/api/sendMessage");
+  const messages = await res.json();
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return messages;
+}
 export async function loadProduct() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library

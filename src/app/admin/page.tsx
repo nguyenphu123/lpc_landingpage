@@ -17,12 +17,14 @@ import PartnerTable from "@/components/admin/partners/partnerTable";
 import ProductTable from "@/components/admin/products/productTable";
 import ContactTable from "@/components/admin/contact/tableContact";
 import BannerTable from "@/components/admin/banner/bannerTable";
+import MessageTable from "@/components/admin/message/messageTable";
 // import "../styles/homepage.scss"
 const Home = () => {
   const [showBanner, setShowBanner] = useState("visible");
   const [showContact, setShowContact] = useState("hidden");
   const [showCustomer, setShowCustomer] = useState("hidden");
   const [showNew, setShowNew] = useState("hidden");
+  const [showMessage, setShowMessage] = useState("hidden");
   const [showPartner, setShowPartner] = useState("hidden");
   const [showProduct, setShowProduct] = useState("hidden");
   const curlanguage = useSelector(language);
@@ -60,6 +62,7 @@ const Home = () => {
         setShowContact("hidden");
         setShowCustomer("hidden");
         setShowNew("hidden");
+        setShowMessage("hidden");
         setShowPartner("hidden");
         setShowProduct("hidden");
         break;
@@ -68,6 +71,7 @@ const Home = () => {
         setShowContact("visible");
         setShowCustomer("hidden");
         setShowNew("hidden");
+        setShowMessage("hidden");
         setShowPartner("hidden");
         setShowProduct("hidden");
         break;
@@ -76,6 +80,7 @@ const Home = () => {
         setShowContact("hidden");
         setShowCustomer("visible");
         setShowNew("hidden");
+        setShowMessage("hidden");
         setShowPartner("hidden");
         setShowProduct("hidden");
         break;
@@ -84,6 +89,16 @@ const Home = () => {
         setShowContact("hidden");
         setShowCustomer("hidden");
         setShowNew("visible");
+        setShowMessage("hidden");
+        setShowPartner("hidden");
+        setShowProduct("hidden");
+        break;
+      case "new":
+        setShowBanner("hidden");
+        setShowContact("hidden");
+        setShowCustomer("hidden");
+        setShowNew("hidden");
+        setShowMessage("visible");
         setShowPartner("hidden");
         setShowProduct("hidden");
         break;
@@ -92,6 +107,7 @@ const Home = () => {
         setShowContact("hidden");
         setShowCustomer("hidden");
         setShowNew("hidden");
+        setShowMessage("hidden");
         setShowPartner("visible");
         setShowProduct("hidden");
         break;
@@ -100,6 +116,7 @@ const Home = () => {
         setShowContact("hidden");
         setShowCustomer("hidden");
         setShowNew("hidden");
+        setShowMessage("hidden");
         setShowPartner("hidden");
         setShowProduct("visible");
         break;
@@ -167,7 +184,21 @@ const Home = () => {
               aria-selected="false"
               onClick={(e) => onClick("new")}
             >
-              New
+              News
+            </button>
+          </li>
+          <li role="presentation">
+            <button
+              className="inline-block text-gray-500 active:text-gray-600 active:border-gray-300 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300"
+              id="message-tab"
+              data-tabs-target="#message"
+              type="button"
+              role="tab"
+              aria-controls="message"
+              aria-selected="false"
+              onClick={(e) => onClick("message")}
+            >
+              Messages
             </button>
           </li>
           <li role="presentation">
@@ -262,6 +293,14 @@ const Home = () => {
             <AddNews />
           </Popup>
           <NewsTable />
+        </div>
+        <div
+          className={`bg-gray-50 p-4 rounded-lg dark:bg-gray-800 ${showMessage}`}
+          id="message"
+          role="tabpanel"
+          aria-labelledby="message-tab"
+        >
+          <MessageTable />
         </div>
         <div
           className={`bg-gray-50 p-4 rounded-lg dark:bg-gray-800 ${showPartner}`}

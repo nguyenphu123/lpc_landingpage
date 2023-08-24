@@ -3,21 +3,56 @@ import ProductCard from "../../layouts/components/productCard";
 import SeoMeta from "@/partials/SeoMeta";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { product } from "@/feature/data/productSlice";
+import { companyProduct, product } from "@/feature/data/productSlice";
 import PageHeader from "@/partials/PageHeader";
+import { loadProduct } from "@/lib/loadData";
+import { useEffect, useState } from "react";
 const RegularPages = () => {
   const productInfo = useSelector((rootState) => product(rootState));
   let products = [];
-  let data: any = {};
+  let [data, setData]: any = useState({});
   products = productInfo.productData.value.product.filter(
     (item: { type: string }) => item.type == "Service",
   );
-  data = products[0];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // declare the data fetching function
+    const fetchSolution = async () => {
+      if (data.length == 0) {
+        if (
+          JSON.parse(localStorage.getItem("productList") || "[]").length == 1
+        ) {
+          const productCheck = await loadProduct();
+          dispatch(companyProduct(productCheck));
+          setData(
+            productCheck.filter(
+              (item: { type: string }) => item.type == "Service",
+            )[0],
+          );
+        } else {
+          setData(
+            JSON.parse(localStorage.getItem("productList") || "[]").filter(
+              (item: { type: string }) => item.type == "Service",
+            )[0],
+          );
+        }
+      } else {
+        setData(products[0]);
+      }
+    };
+    // call the function
+    fetchSolution()
+      // make sure to catch any error
+      .catch(console.error);
+  }, []);
+
   const curlanguage = useSelector((rootState) => language(rootState));
-  return (
+  return data == undefined || Object.keys(data).length == 0 ? (
+    <></>
+  ) : (
     <section>
       <SeoMeta
         title={data?.title}

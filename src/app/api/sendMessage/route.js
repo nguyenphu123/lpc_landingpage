@@ -4,11 +4,7 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 const nodemailer = require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport");
-const email = process.env.GMAIL_EMAIL_ADDRESS;
-export const mailOptions = {
-  from: email,
-  to: email,
-};
+
 export async function POST(req, res) {
   const {
     name,
@@ -51,7 +47,7 @@ export async function POST(req, res) {
     smtpTransport({
       host: "smtp.gmail.com",
       name: "Example",
-      service: 'gmail',
+      service: "gmail",
       port: 587,
       secure: false, // use SSL
       auth: {

@@ -1,7 +1,7 @@
 import {
   GoogleMap,
   Marker,
-  useJsApiLoader,
+  LoadScript,
   InfoWindow,
 } from "@react-google-maps/api";
 import { Loader } from "@googlemaps/js-api-loader";
@@ -62,7 +62,7 @@ export default function MapWithAMarker() {
         "Lien Phat Technology Corporation (Công Ty Cổ Phần Công Nghệ Liên Phát)",
       fields: ["name", "geometry", "formatted_address"],
     };
-    service.findPlaceFromQuery(request, function (results, status) {
+    await service.findPlaceFromQuery(request, function (results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         setSelectedElement(results[0]);
 
@@ -76,6 +76,7 @@ export default function MapWithAMarker() {
   ) : (
     <div className="static ">
       <div id="map"></div>
+
       <GoogleMap
         options={{
           disableDefaultUI: true,

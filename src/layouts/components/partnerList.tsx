@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { loadPartner } from "@/lib/loadData";
-import "../../styles/slider.scss";
+import "../../styles/slider2.scss";
 import { companyPartner, partner } from "@/feature/data/partnerSlice";
 // posts will be populated at build time by getStaticProps()
 export default function PartnerList() {

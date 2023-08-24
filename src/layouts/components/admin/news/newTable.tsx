@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 
 import { Table, Modal, Button } from "@mantine/core"; // Import thêm Button
+
 import { useDispatch, useSelector } from "react-redux";
+
 import { companyNew, news } from "@/feature/data/newSlice";
+
 import { loadNews } from "@/lib/loadData";
+
 import UpdateNew from "./updateNew";
+
 import Popup from "@/components/popup";
 
 // import axios from "axios";
@@ -29,44 +34,54 @@ function NewsTable() {
   const [selectedNews, setSelectedNews] = useState<News | null>(null);
 
   const [editNewsVisible, setEditNewsVisible] = useState(false);
+
   const [readOnlyNew, setReadOnlyNew] = useState(false);
+
   const newInfo = useSelector((rootState) => news(rootState));
 
   const newList = newInfo.newData.value.companyNews;
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     // declare the data fetching function
+
     const fetchNew = async () => {
       let role = "admin";
+
       if (newList.length == 0) {
         const newsCheck = await loadNews(role);
+
         dispatch(companyNew(newsCheck));
       } else {
       }
     };
+
     // call the function
+
     fetchNew()
       // make sure to catch any error
+
       .catch(console.error);
-  }, []);
+  }, [dispatch, newList.length]);
 
   const handleEditClick = (news: News) => {
     setSelectedNews(news);
 
     setEditNewsVisible(true);
   };
+
   const handleOnClose = () => {
     setSelectedNews(null);
 
     setEditNewsVisible(false);
   };
+
   const rows = newList.map((news, index) => (
     <tr key={news._id}>
       <td>{index + 1}</td>
 
       <td>{news.title}</td>
-
-      <td>{news.description}</td>
 
       <td
         className=""
@@ -86,18 +101,19 @@ function NewsTable() {
         <button
           onClick={() => {
             setSelectedNews(news);
+
             setReadOnlyNew(true);
           }}
         >
           View
-        </button>
-
+        </button>{" "}
+        | <button onClick={() => handleEditClick(news)}>Edit</button>
         {/* <button>Edit</button> */}
       </td>
 
-      <td>
-        <button onClick={() => handleEditClick(news)}>Edit</button>
-      </td>
+      {/* <td>
+
+      </td> */}
     </tr>
   ));
 
@@ -109,8 +125,6 @@ function NewsTable() {
             <th>#</th>
 
             <th>Title</th>
-
-            <th>Description</th>
 
             <th>Content</th>
 
@@ -130,6 +144,7 @@ function NewsTable() {
         opened={Boolean(selectedNews)}
         onClose={() => {
           setSelectedNews(null);
+
           setReadOnlyNew(false);
         }}
       >
@@ -143,23 +158,22 @@ function NewsTable() {
           </div>
         )}
       </Modal>
+
       <Modal
         size="1000px"
         opened={Boolean(selectedNews)}
         onClose={() => {
           setSelectedNews(null);
+
           setEditNewsVisible(false);
         }}
       >
         {selectedNews && editNewsVisible && (
           <div>
-           <UpdateNew New={selectedNews} />
+            <UpdateNew New={selectedNews} />
           </div>
         )}
       </Modal>
-     
-        
-     
     </div>
   );
 }

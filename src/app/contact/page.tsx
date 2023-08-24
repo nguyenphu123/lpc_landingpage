@@ -28,7 +28,7 @@ const Contact = () => {
     let data = {
       name: e.target.name.value,
       email: e.target.email.value,
-      mess: e.target.message.value,
+      message: e.target.message.value,
     };
     try {
       const res = await fetch("/api/sendMessage", {

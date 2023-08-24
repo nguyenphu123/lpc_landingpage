@@ -3,6 +3,7 @@ import Message from "@/models/message";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 const nodemailer = require("nodemailer");
+const smtpTransport = require("nodemailer-smtp-transport");
 const email = process.env.GMAIL_EMAIL_ADDRESS;
 export const mailOptions = {
   from: email,
@@ -41,29 +42,31 @@ export async function POST(req, res) {
   const mess = {
     from: email,
     to: process.env.GMAIL_EMAIL_ADDRESS,
-    subject: name,
+    subject: `you have received a message from ${name}`,
     text: message,
-    html: `<p>${message}</p>`,
+    html: `<html><p>${message}</p></html>`,
   };
 
-  let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true, // use SSL
-    auth: {
-      user: "phunguyen12111998@gmail.com",
-      pass: "lhxeqazhutcfxcrf",
-    },
-  });
+  let transporter = nodemailer.createTransport(
+    smtpTransport({
+      name: "Example",
+      service: 'gmail',
+      port: 587,
+      secure: false, // use SSL
+      auth: {
+        user: "phunguyen12111998@gmail.com",
+        pass: "lhxeqazhutcfxcrf",
+      },
+      //   tls: {
+      //     ciphers: "SSLv3",
+      //   },
+    }),
+  );
 
   try {
-    const res = await transporter.sendMail({
-      ...mailOptions,
-      mess,
-      subject: mess,
-    });
+    const res = await transporter.sendMail(mess);
 
-    return res.status(200).json({ success: true });
+    // return res.status(200).json({ success: true });
   } catch (err) {
     console.log(err);
   }

@@ -60,6 +60,8 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         <script
           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_APIKEY}&libraries=places`}
+          async
+          defer
         ></script>
         <ScrollToTopButton />
         <Provider store={store}>

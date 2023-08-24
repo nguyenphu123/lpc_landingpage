@@ -5,14 +5,9 @@ import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import SeoMeta from "@/partials/SeoMeta";
 import PageHeader from "@/partials/PageHeader";
-import {
-  GoogleMap,
-  MarkerF,
-  useJsApiLoader,
-  DirectionsRenderer,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
 import { useMemo, useState } from "react";
-import MapWithAMarker from "@/components/googleMap";
+import Map from "@/components/Map";
 
 const Contact = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
@@ -63,9 +58,8 @@ const Contact = () => {
         <div className="container">
           <div className="row">
             <div className="mx-auto md:col-10 lg:col-10 grid grid-cols-2 gap-1">
-              
-                <MapWithAMarker />
-              
+
+              <Map></Map>
               <div>
                 <form onSubmit={(e) => onsubmit(e)}>
                   <div className="mb-6">

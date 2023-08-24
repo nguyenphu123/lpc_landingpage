@@ -108,7 +108,7 @@ const RegularPages = () => {
         }
       />
       <div className="relative">
-        <div className="border-b border-gray-200 dark:border-gray-700 sticky top-20 left-0 right-0 bg-white">
+        {/* <div className="border-b border-gray-200 dark:border-gray-700 sticky top-20 left-0 right-0 bg-white">
           <nav
             className="-mb-0.5 flex justify-center space-x-6 sticky top-10"
             aria-label="Tabs"
@@ -131,7 +131,7 @@ const RegularPages = () => {
               );
             })}
           </nav>
-        </div>
+        </div> */}
         <div className="h-52 w-full bg-cover  bg-[url(https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80)]">
           <div className="flex items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
             <div className="text-center">

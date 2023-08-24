@@ -4,6 +4,8 @@ import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
+import Image from "next/image";
+
 import { addBanner } from "@/lib/createData";
 
 import { randomId } from "@mantine/hooks";
@@ -13,12 +15,18 @@ import { TextInput, Button, Box, Code, Grid, Col } from "@mantine/core";
 const BannerForm = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const [imagePreview, setImagePreview] = useState("");
+
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
 
   const onImageChange = (e) => {
     const file = e.target.files[0];
 
     setSelectedImage(file);
+
+    const imageUrl = URL.createObjectURL(file);
+
+    setImagePreview(imageUrl);
   };
 
   const form = useForm({
@@ -85,7 +93,20 @@ const BannerForm = () => {
     <div className="container">
       <Box maw={"75%"} mx="auto">
         <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
-          <h3 className="flex justify-center">Update banner content</h3>
+          <h3 className="flex justify-center">Add banner content</h3>
+
+          {/* Hiển thị xem trước ảnh */}
+
+          {imagePreview && (
+            <div className="flex justify-center">
+              <Image
+                src={imagePreview}
+                alt="Preview"
+                width="350"
+                height="350"
+              />
+            </div>
+          )}
 
           <Grid gutter="lg">
             <Col span={6}>

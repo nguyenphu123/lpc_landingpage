@@ -17,8 +17,6 @@ export async function createNews(newInfo) {
 
     categories: newInfo.categories.split(/,/),
 
-    tags: newInfo.tags.split(/,/),
-
     draft: newInfo.draft,
 
     content: newInfo.content,

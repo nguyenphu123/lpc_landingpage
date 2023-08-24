@@ -49,6 +49,7 @@ export async function POST(req, res) {
 
   let transporter = nodemailer.createTransport(
     smtpTransport({
+      host: "smtp.gmail.com",
       name: "Example",
       service: 'gmail',
       port: 587,

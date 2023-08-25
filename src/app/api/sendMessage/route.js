@@ -39,7 +39,7 @@ export async function POST(req, res) {
     from: email,
     to: process.env.GMAIL_EMAIL_ADDRESS,
     subject: `you have received a message from ${name}`,
-    text: message,
+    text: `<html><p>${message}</p>from ${email}</html>`,
     html: `<html><p>${message}</p>from ${email}</html>`,
   };
 

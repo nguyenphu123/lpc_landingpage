@@ -58,7 +58,6 @@ const Contact = () => {
         <div className="container">
           <div className="row">
             <div className="mx-auto md:col-10 lg:col-10 grid grid-cols-2 gap-1">
-
               <Map></Map>
               <div>
                 <form onSubmit={(e) => onsubmit(e)}>
@@ -97,6 +96,7 @@ const Contact = () => {
                       <span className="text-red-500">*</span>
                     </label>
                     <textarea
+                      maxLength={200}
                       className="form-input"
                       placeholder="Message goes here..."
                       id="message"

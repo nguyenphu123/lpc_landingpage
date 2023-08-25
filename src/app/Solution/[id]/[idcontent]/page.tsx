@@ -31,6 +31,16 @@ const RegularPages = () => {
         ) {
           const productCheck = await loadProduct();
           dispatch(companyProduct(productCheck));
+          if (
+            productCheck.products
+              .filter((item: { type: string }) => item.type == "Solution")
+              .filter(
+                (item: { [x: string]: any; link: string; type: string }) =>
+                  params.id == item._id,
+              )[0] == undefined
+          ) {
+            router.replace("http://localhost:3000/");
+          }
           data = productCheck.products
             .filter((item: { type: string }) => item.type == "Solution")
             .filter(
@@ -47,6 +57,16 @@ const RegularPages = () => {
             router.replace("http://localhost:3000/");
           }
         } else {
+          if (
+            JSON.parse(localStorage.getItem("productList") || "[]")
+              .filter((item: { type: string }) => item.type == "Solution")
+              .filter(
+                (item: { [x: string]: any; link: string; type: string }) =>
+                  params.id == item._id,
+              )[0] == undefined
+          ) {
+            router.replace("http://localhost:3000/");
+          }
           data = JSON.parse(localStorage.getItem("productList") || "[]")
             .filter((item: { type: string }) => item.type == "Solution")
             .filter(
@@ -67,6 +87,9 @@ const RegularPages = () => {
           (item: { [x: string]: any; link: string; type: string }) =>
             params.id == item._id,
         );
+        if (solution[0] == undefined) {
+          router.replace("http://localhost:3000/");
+        }
         const contain = solution[0].content.filter(
           (item: { [x: string]: any; link: string; type: string }) =>
             params.idcontent == item._id,

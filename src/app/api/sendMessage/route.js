@@ -40,7 +40,7 @@ export async function POST(req, res) {
     to: process.env.GMAIL_EMAIL_ADDRESS,
     subject: `you have received a message from ${name}`,
     text: message,
-    html: `<html><p>${message}</p></html>`,
+    html: `<html><p>${message}</p>from ${email}</html>`,
   };
 
   let transporter = nodemailer.createTransport(

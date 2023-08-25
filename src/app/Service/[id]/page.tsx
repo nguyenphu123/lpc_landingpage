@@ -30,22 +30,37 @@ const RegularPages = () => {
         ) {
           const serviceCheck = await loadViaId(params.id, "Product");
           setData(serviceCheck.data);
+          if (Object.keys(serviceCheck.data).length == 0) {
+            router.replace("http://localhost:3000/");
+          }
           setIsLoading(false);
         } else {
-          setData(
+          if (
             JSON.parse(localStorage.getItem("productList") || "[]")
               .filter((item: { type: string }) => item.type == "Service")[0]
-              .content.filter((post) => post._id === params.id)[0],
-          );
+              .content.filter((post) => post._id === params.id)[0] == undefined
+          ) {
+            router.replace("http://localhost:3000/");
+          } else {
+            setData(
+              JSON.parse(localStorage.getItem("productList") || "[]")
+                .filter((item: { type: string }) => item.type == "Service")[0]
+                .content.filter((post) => post._id === params.id)[0],
+            );
 
-          setIsLoading(false);
+            setIsLoading(false);
+          }
         }
       } else {
         const service = products[0].content.filter(
           (item: { [x: string]: any; link: string; type: string }) =>
             params.id == item._id,
         );
+        if (Object.keys(service[0]).length == 0) {
+          router.replace("http://localhost:3000/");
+        }
         setData(service[0]);
+
         setIsLoading(false);
       }
     };

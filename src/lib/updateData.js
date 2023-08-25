@@ -92,6 +92,7 @@ export async function updateProduct(product) {
   // You can use any data fetching library
   // const posts = await loadNews()
   const data = {
+    _id: product._id,
     title: product.title,
 
     titleEn: product.titleEn,
@@ -108,13 +109,13 @@ export async function updateProduct(product) {
 
     image: product.image,
 
-    pros: product.pros.split(/\s*,\s*/),
+    pros: product.pros,
 
-    prosEn: product.prosEn.split(/\s*,\s*/),
+    prosEn: product.prosEn,
 
     content: product.content,
   };
-
+  
   const res = await fetch("http://localhost:3000/api/product", {
     method: "put",
     headers: { "Content-Type": "application/json" },

@@ -7,59 +7,27 @@ const SunEditor = dynamic(() => import("suneditor-react"), {
 });
 
 const RichTextEditor = ({
-  id,
-  title,
-  titleEn,
   onChange,
-  language,
-  descriptionId,
+
   content,
   contentEn,
 }) => {
-  const [description, setDescription] = useState({});
-  const [descriptionVn, setDescriptionVn]: any = useState({});
-  const [descriptionEn, setDescriptionEn]: any = useState({});
   const finishWrite = (data) => {
-    if (data.language == "en") {
-      setDescriptionEn(data);
-    } else {
-      setDescriptionVn(data);
-    }
-  };
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const resultData = {
-      id: descriptionId,
-      title: descriptionVn.title,
-      titleEn: descriptionEn.titleEn,
-
-      content: descriptionVn.content,
-      contentEn: descriptionEn.contentEn,
-      show: true,
-      idcontent: id,
+    const returnValue = {
+      data: data.data,
+      language: data.language,
     };
-    onChange(resultData);
+    onChange(returnValue);
   };
+
   return (
     <div>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={(e) => onSubmit(e)}
-      >
-        Done
-      </button>
       <p>Tiếng Việt</p>
       <SunEditor
         defaultValue={content}
         onChange={(vn) => {
           const data = {
-            id: descriptionId,
-            title: title,
-
-            content: vn,
-
-            show: true,
-            idcontent: id,
+            data: vn,
             language: "vn",
           };
           finishWrite(data);
@@ -72,13 +40,7 @@ const RichTextEditor = ({
         defaultValue={contentEn}
         onChange={(en) => {
           const data = {
-            id: descriptionId,
-
-            titleEn: titleEn,
-
-            contentEn: en,
-            show: true,
-            idcontent: id,
+            data: en,
             language: "en",
           };
           finishWrite(data);

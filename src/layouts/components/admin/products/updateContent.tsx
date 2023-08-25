@@ -14,27 +14,34 @@ import {
   Grid,
   Col,
   Textarea,
-  Group,
-  Tabs,
-  Select,
 } from "@mantine/core";
-
-import { addProduct } from "@/lib/createData";
 
 import { randomId } from "@mantine/hooks";
 
 import TextEditor from "../RichTextEditor";
+import { updateProduct } from "@/lib/updateData";
 
-interface ProductFormProps {}
+interface ContentFormProps {}
 
-function ProductForm(props: ProductFormProps) {
+function UpdateContentForm({ product, content }) {
   const [submittedValues, setSubmittedValues] = useState("");
 
-  const [showCols, setShowCols] = useState(true);
+  const [descriptionEn, setDescriptionEn]: any = useState({});
+  const [description, setDescription]: any = useState({});
 
   // Thêm state để lưu trữ hình ảnh đã chọn
 
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const onHandleChange = (e: any) => {
+    if (e.language == "vn") {
+      setDescription(e.data);
+    } else {
+      setDescriptionEn(e.data);
+    }
+
+    // form.insertListItem(`content.${e.idcontent}.description.${e.id}`, e);
+  };
 
   const onImageChange = (e) => {
     const file = e.target.files[0];
@@ -68,34 +75,20 @@ function ProductForm(props: ProductFormProps) {
         console.error(error);
       }
     }
-
-    addProduct(value);
+    value.description = description;
+    value.descriptionEn = descriptionEn;
+    product.content.push(value);
+    var array = [...product.content]; // make a separate copy of the array
+    var index = array.indexOf(value._id);
+    if (index !== -1) {
+      array.splice(index, 1);
+      product.content == array;
+    }
+    updateProduct(product);
   };
 
   const form = useForm({
-    initialValues: {
-      title: "",
-
-      titleEn: "",
-
-      type: "",
-
-      description1: "",
-
-      description2: "",
-
-      descriptionEn1: "",
-
-      descriptionEn2: "",
-
-      image: "",
-
-      pros: "",
-
-      prosEn: "",
-
-      content: [],
-    },
+    initialValues: content,
   });
 
   return (
@@ -103,9 +96,35 @@ function ProductForm(props: ProductFormProps) {
       <div className="container">
         <Box maw={"100%"} mx="auto">
           <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
-            <Grid gutter="lg">
-              {showCols && (
-                <>
+            <div>
+              <div
+                style={{
+                  marginTop: "16px",
+
+                  border: "1px solid gray",
+
+                  padding: "16px",
+                }}
+              >
+                <h3>Product Overview</h3>
+
+                <Grid gutter="lg">
+                  <Col span={4}>
+                    <TextInput
+                      label="Title"
+                      placeholder="Title"
+                      {...form.getInputProps(`title`)}
+                    />
+                  </Col>
+
+                  <Col span={4}>
+                    <TextInput
+                      label="Title (English)"
+                      placeholder="Title (English)"
+                      {...form.getInputProps(`titleEn`)}
+                    />
+                  </Col>
+
                   <Col span={12}>
                     <label>Choose Image</label>
 
@@ -160,86 +179,41 @@ function ProductForm(props: ProductFormProps) {
                     </label>
                   </Col>
 
-                  <Col span={4}>
-                    <label>Type</label>
-
-                    <Select
-                      data={[
-                        { label: "Solution", value: "Solution" },
-
-                        { label: "Service", value: "Service" },
-                      ]}
-                      placeholder="Select Type"
-                      {...form.getInputProps("type")}
-                    />
-                  </Col>
-
-                  <Col span={4}>
-                    <TextInput
-                      label="Title"
-                      placeholder="Title"
-                      {...form.getInputProps("title")}
-                    />
-                  </Col>
-
-                  <Col span={4}>
-                    <TextInput
-                      label="Title (English)"
-                      placeholder="Title (English)"
-                      {...form.getInputProps("titleEn")}
+                  <Col span={6}>
+                    <Textarea
+                      label="Content"
+                      placeholder="Content"
+                      {...form.getInputProps(`content`)}
                     />
                   </Col>
 
                   <Col span={6}>
-                    <TextInput
-                      label="General content"
-                      placeholder="General content"
-                      {...form.getInputProps("description1")}
+                    <Textarea
+                      label="Content (English)"
+                      placeholder="Content (English)"
+                      {...form.getInputProps(`contentEn`)}
+                    />
+                  </Col>
+                  <Col span={6}>
+                    <TextEditor
+                      onChange={onHandleChange}
+                      content={undefined}
+                      contentEn={undefined}
                     />
                   </Col>
 
                   <Col span={6}>
-                    <TextInput
-                      label="General content (English)"
-                      placeholder="General content (English)"
-                      {...form.getInputProps("descriptionEn1")}
+                    <TextEditor
+                      onChange={onHandleChange}
+                      content={undefined}
+                      contentEn={undefined}
                     />
                   </Col>
+                </Grid>
 
-                  <Col span={6}>
-                    <TextInput
-                      label="Details"
-                      placeholder="Details"
-                      {...form.getInputProps("description2")}
-                    />
-                  </Col>
-
-                  <Col span={6}>
-                    <TextInput
-                      label="Details (English)"
-                      placeholder="Details (English)"
-                      {...form.getInputProps("descriptionEn2")}
-                    />
-                  </Col>
-
-                  <Col span={6}>
-                    <TextInput
-                      label="Pros (comma-separated)"
-                      placeholder="Pros"
-                      {...form.getInputProps("pros")}
-                    />
-                  </Col>
-
-                  <Col span={6}>
-                    <TextInput
-                      label="Pros (English, comma-separated)"
-                      placeholder="Pros (English)"
-                      {...form.getInputProps("prosEn")}
-                    />
-                  </Col>
-                </>
-              )}
-            </Grid>
+                {/* ... Input fields for content */}
+              </div>
+            </div>
 
             <div
               style={{
@@ -266,4 +240,4 @@ function ProductForm(props: ProductFormProps) {
   );
 }
 
-export default ProductForm;
+export default UpdateContentForm;

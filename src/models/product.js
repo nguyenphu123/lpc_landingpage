@@ -4,18 +4,6 @@ const { Schema } = mongoose;
 
 // Schema for description inside product content
 
-const DescriptionSchema = new Schema({
-  id: String,
-
-  title: String,
-
-  titleEn: String,
-
-  content: String,
-
-  contentEn: String,
-});
-
 // Schema for content inside product
 
 const ProductContentSchema = new Schema({
@@ -31,7 +19,8 @@ const ProductContentSchema = new Schema({
 
   imgSrc: String,
 
-  description: [DescriptionSchema],
+  descriptionEn: String,
+  description: String,
 });
 
 // Schema for product

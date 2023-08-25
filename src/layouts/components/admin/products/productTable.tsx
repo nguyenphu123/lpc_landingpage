@@ -6,6 +6,7 @@ import Image from "next/image";
 import { loadProduct } from "@/lib/loadData";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import { useDispatch, useSelector } from "react-redux";
+import ContentTable from "./contentTable";
 
 interface Product {
   _id: string;
@@ -37,7 +38,7 @@ function ProductTable() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const [isEditMode, setIsEditMode] = useState(false);
-
+  const [contentView, setContentView] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const productInfo = useSelector((rootState) => product(rootState));
 
@@ -60,7 +61,11 @@ function ProductTable() {
 
     setIsEditMode(selectedProduct === product); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
   };
+  const viewContent = (product: Product) => {
+    setSelectedProduct(product);
 
+    setShowContent(true); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
+  };
   const handleSaveClick = () => {
     // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
 
@@ -70,7 +75,7 @@ function ProductTable() {
   const handleViewClick = (product: Product) => {
     setSelectedProduct(product);
 
-    setIsEditMode(false); // Chuyển sang chế độ xem
+    setContentView(true); // Chuyển sang chế độ xem
   };
 
   const toggleShowContent = () => {
@@ -101,6 +106,7 @@ function ProductTable() {
         <button onClick={() => setSelectedProduct(product)}>View</button>
 
         <button onClick={() => handleEditClick(product)}>Edit</button>
+        <button onClick={() => viewContent(product)}>View content</button>
       </td>
     </tr>
   ));
@@ -136,7 +142,7 @@ function ProductTable() {
           setIsEditMode(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
         }}
       >
-        {selectedProduct && (
+        {selectedProduct && !showContent && (
           <section className="section">
             <div className="container">
               <h3 className="flex justify-center">
@@ -429,10 +435,26 @@ function ProductTable() {
           </section>
         )}
       </Modal>
+      <Modal
+        size="1000px"
+        opened={Boolean(selectedProduct)}
+        onClose={() => {
+          setSelectedProduct(null);
+          setShowContent(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
+        }}
+      >
+        <section className="section">
+          <div className="container">
+            <h3 className="flex justify-center">Content</h3>
+
+            <Box maw={800} mx="auto">
+              {showContent ? <ContentTable product={selectedProduct} /> : <></>}
+            </Box>
+          </div>{" "}
+        </section>
+      </Modal>
     </div>
   );
 }
 
 export default ProductTable;
-
-

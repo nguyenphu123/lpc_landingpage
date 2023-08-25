@@ -1,0 +1,177 @@
+import React, { useState } from "react";
+
+import { Table, Modal, Button, Box, Grid, Col } from "@mantine/core";
+
+import Image from "next/image";
+import Popup from "@/components/popup";
+import ContentForm from "./createContent";
+import UpdateContentForm from "./updateContent";
+
+interface Product {
+  _id: string;
+
+  title: string;
+
+  titleEn: string;
+
+  description1: string;
+
+  description2: string;
+
+  descriptionEn1: string;
+
+  descriptionEn2: string;
+
+  type: string;
+
+  image: string;
+
+  pros: string[];
+
+  prosEn: string[];
+
+  content: Array<Record<string, any>>;
+}
+
+function ContentTable({ product }) {
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const [showContent, setShowContent] = useState(false);
+
+  const handleEditClick = (product: Product) => {
+    setSelectedProduct(product);
+
+    setIsEditMode(selectedProduct === product); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
+  };
+
+  const handleSaveClick = () => {
+    // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
+
+    setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
+  };
+
+  const handleViewClick = (product: Product) => {
+    setSelectedProduct(product);
+
+    setIsEditMode(false); // Chuyển sang chế độ xem
+  };
+
+  const toggleShowContent = () => {
+    setShowContent(!showContent);
+  };
+  let rows:
+    | string
+    | number
+    | boolean
+    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+    | Iterable<React.ReactNode>
+    | React.ReactPortal
+    | React.PromiseLikeOfReactNode
+    | null
+    | undefined;
+  if (product != undefined) {
+    rows = product.content.map((item, index) => (
+      <tr key={item._id}>
+        <td>{index + 1}</td>
+
+        <td>{item.title}</td>
+        <td>{item.titleEn}</td>
+        <td>
+          {item.content.length > 150
+            ? `${item.content.slice(0, 150)}...`
+            : item.content}
+        </td>
+
+        <td>
+          {item.contentEn.length > 150
+            ? `${item.contentEn.slice(0, 150)}...`
+            : item.contentEn}
+        </td>
+
+        <td>
+          <Image src={item.imgSrc} alt={item.imgSrc} width={100} height={100} />
+        </td>
+
+        <td>
+          <button onClick={() => setSelectedProduct(item)}>View</button>
+
+          <button onClick={() => handleEditClick(item)}>Edit</button>
+        </td>
+      </tr>
+    ));
+  }
+
+  return (
+    <div>
+      <Popup>
+        {" "}
+        <ContentForm product={product} />
+      </Popup>
+      <Table>
+        <thead>
+          <tr>
+            <th>#</th>
+
+            <th>Name</th>
+
+            <th>General</th>
+
+            <th>Introduce</th>
+
+            <th>Status</th>
+
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>{rows}</tbody>
+      </Table>
+
+      <Modal
+        size="1000px"
+        opened={Boolean(selectedProduct)}
+        onClose={() => {
+          setSelectedProduct(null);
+
+          setIsEditMode(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
+        }}
+      >
+        {selectedProduct && (
+          <section className="section">
+            <div className="container">
+              <h3 className="flex justify-center">
+                {isEditMode ? "Edit Product" : "Product Details"}
+              </h3>
+
+              <UpdateContentForm product={product} content={selectedProduct} />
+
+              <div style={{ marginTop: "16px" }}>
+                {isEditMode ? (
+                  <Button
+                    type="button"
+                    onClick={handleSaveClick}
+                    style={{ backgroundColor: "#28a745", color: "white" }}
+                  >
+                    Save
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={() => setIsEditMode(true)}
+                    style={{ backgroundColor: "#007bff", color: "white" }}
+                  >
+                    Edit
+                  </Button>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+      </Modal>
+    </div>
+  );
+}
+
+export default ContentTable;

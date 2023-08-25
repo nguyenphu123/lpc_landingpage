@@ -24,8 +24,12 @@ function UpdateNew({ New }) {
     initialValues: New,
   });
   const onHandleChange = (e: any) => {
-    setContent(e.content);
-    setContentEn(e.contentEn);
+    if (e.language == "vn") {
+      setContent(e.data);
+    } else {
+      setContentEn(e.data);
+    }
+
     // form.insertListItem(`content.${e.idcontent}.description.${e.id}`, e);
   };
   const onSubmitForm = (value) => {
@@ -107,12 +111,7 @@ function UpdateNew({ New }) {
 
               <Col span={12}>
                 <TextEditor
-                  descriptionId="1"
-                  title={""}
-                  titleEn={""}
                   onChange={onHandleChange}
-                  language="vn"
-                  id={form.values.key}
                   content={content}
                   contentEn={contentEn}
                 />

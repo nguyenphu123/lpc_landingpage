@@ -99,9 +99,8 @@ export async function PUT(req) {
 
   try {
     await connectDB();
-
-    await Product.findByIdAndUpdate(
-      _id,
+    await Product.findOneAndUpdate(
+      { _id: _id },
       {
         title,
 
@@ -141,7 +140,7 @@ export async function PUT(req) {
       // console.log(errorList);
       return NextResponse.json({ msg: errorList });
     } else {
-      return NextResponse.json({ msg: ["Unable to send message."] });
+      return NextResponse.json({ msg: error });
     }
   }
 }

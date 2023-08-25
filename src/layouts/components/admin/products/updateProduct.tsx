@@ -6,28 +6,13 @@ import Image from "next/image";
 
 import { useForm } from "@mantine/form";
 
-import {
-  TextInput,
-  Button,
-  Box,
-  Code,
-  Grid,
-  Col,
-  Textarea,
-  Group,
-  Tabs,
-  Select,
-} from "@mantine/core";
+import { TextInput, Button, Box, Code, Grid, Col, Select } from "@mantine/core";
 
-import { addProduct } from "@/lib/createData";
-
-import { randomId } from "@mantine/hooks";
-
-import TextEditor from "../RichTextEditor";
+import { updateProduct } from "@/lib/updateData";
 
 interface ProductFormProps {}
 
-function ProductForm(props: ProductFormProps) {
+function UpdateProductForm(props: ProductFormProps, { product }) {
   const [submittedValues, setSubmittedValues] = useState("");
 
   const [showCols, setShowCols] = useState(true);
@@ -69,33 +54,11 @@ function ProductForm(props: ProductFormProps) {
       }
     }
 
-    addProduct(value);
+    updateProduct(value);
   };
 
   const form = useForm({
-    initialValues: {
-      title: "",
-
-      titleEn: "",
-
-      type: "",
-
-      description1: "",
-
-      description2: "",
-
-      descriptionEn1: "",
-
-      descriptionEn2: "",
-
-      image: "",
-
-      pros: "",
-
-      prosEn: "",
-
-      content: [],
-    },
+    initialValues: product,
   });
 
   return (
@@ -266,4 +229,4 @@ function ProductForm(props: ProductFormProps) {
   );
 }
 
-export default ProductForm;
+export default UpdateProductForm;

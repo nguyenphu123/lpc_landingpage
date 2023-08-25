@@ -93,7 +93,7 @@ const Home = () => {
         setShowPartner("hidden");
         setShowProduct("hidden");
         break;
-      case "new":
+      case "message":
         setShowBanner("hidden");
         setShowContact("hidden");
         setShowCustomer("hidden");

@@ -16,8 +16,8 @@ function MessageTable() {
   useEffect(() => {
     const fetchNew = async () => {
       if (messageData.length == 0) {
-        const partnerCheck = await loadMessage();
-        setMessageData(partnerCheck.partner);
+        const messageCheck = await loadMessage();
+        setMessageData(messageCheck.messages);
       } else {
       }
     };

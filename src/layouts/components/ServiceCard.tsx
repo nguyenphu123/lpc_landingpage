@@ -42,6 +42,7 @@ export default function ServiceCard({ src, title, description, link, i }: any) {
                 <img
                   className="card-img bg-cover bg-center bg-no-repeat"
                   src={src}
+                  alt=""
                 />
                 <div className="centered-title">{title}</div>
               </div>

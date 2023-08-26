@@ -41,10 +41,10 @@ export const authOptions = {
   ],
   session: {
     jwt: true,
-    maxAge: 2 * 60 * 60,
+    maxAge: 60 * 60 * 60,
   },
   jwt: {
-    maxAge: 2 * 60 * 60, // Time in seconds, similar to have you have configured it in the userFlow in Azure AD B2C
+    maxAge: 60 * 60 * 60, // Time in seconds, similar to have you have configured it in the userFlow in Azure AD B2C
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {

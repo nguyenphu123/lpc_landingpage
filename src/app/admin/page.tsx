@@ -37,7 +37,7 @@ const Home = () => {
   const pathname = usePathname();
   useEffect(() => {
     onInactive(600000, function () {
-      signOut();
+      //signOut();
     });
     function onInactive(ms, cb) {
       var wait = setTimeout(cb, ms);

@@ -303,16 +303,7 @@ function AddNews() {
               </Col> */}
 
               <Col span={12} className="height:900px">
-                <TextEditor
-                  descriptionId="1"
-                  title={""}
-                  titleEn={""}
-                  onChange={onHandleChange}
-                  language="vn"
-                  id={form.values.key}
-                  content=""
-                  contentEn=""
-                />
+                <TextEditor onChange={onHandleChange} content="" contentEn="" />
               </Col>
 
               <Col span={6}>

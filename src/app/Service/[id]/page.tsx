@@ -128,8 +128,16 @@ const RegularPages = () => {
         </div>
         <section className="section">
           <div className="container">
-            <div className="content">
-              {data?.description.map((content: any, i: any) => {
+            <div
+              className="content"
+              dangerouslySetInnerHTML={{
+                __html:
+                  curlanguage.changeLanguage.value == "en"
+                    ? data.descriptionEn
+                    : data.description,
+              }}
+            >
+              {/* {data?.description.map((content: any, i: any) => {
                 return (
                   <div key={content._id}>
                     <h2 className="text-3xl font-semibold leading-8 text-gray-900">
@@ -150,7 +158,7 @@ const RegularPages = () => {
                     ></div>
                   </div>
                 );
-              })}
+              })} */}
             </div>
           </div>
         </section>

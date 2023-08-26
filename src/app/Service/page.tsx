@@ -21,7 +21,7 @@ const RegularPages = () => {
   useEffect(() => {
     // declare the data fetching function
     const fetchSolution = async () => {
-      if (data.length == 0) {
+      if (products.length == 0) {
         if (
           JSON.parse(localStorage.getItem("productList") || "[]").length == 1
         ) {

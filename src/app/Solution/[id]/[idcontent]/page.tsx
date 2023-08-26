@@ -168,8 +168,16 @@ const RegularPages = () => {
         </div>
         <section className="section">
           <div className="container">
-            <div className="content">
-              {resultData?.description.map((content: any, i: any) => {
+            <div
+              className="content"
+              dangerouslySetInnerHTML={{
+                __html:
+                  curlanguage.changeLanguage.value == "en"
+                    ? resultData.descriptionEn
+                    : resultData.description,
+              }}
+            >
+              {/* {resultData?.description.map((content: any, i: any) => {
                 return (
                   <div key={content._id}>
                     <h2
@@ -192,7 +200,7 @@ const RegularPages = () => {
                     ></div>
                   </div>
                 );
-              })}
+              })} */}
             </div>
           </div>
         </section>

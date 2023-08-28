@@ -84,7 +84,7 @@ const RegularPages = () => {
       <section className="section">
         <div className="container">
           <div className="content">
-            <div className={`grid grid-cols-${data?.content.length} gap-4`}>
+            <div className={`grid grid-cols-4 gap-4`}>
               {data?.content.map(
                 (
                   content: {

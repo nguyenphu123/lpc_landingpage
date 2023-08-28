@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import BannerContent from "./bannerContent";
 import Carousel from "./carousel";
 import { loadBanner } from "@/lib/loadData";
+import Image from "next/image";
 import "@/styles/main.scss";
 const Banner = () => {
   const [banners, setBanners] = useState<any[]>([]);
@@ -25,18 +26,17 @@ const Banner = () => {
   ) : (
     <Carousel loop>
       {banners.map((banner) => (
-        <div key={banner._id} className="flex-[0_0_100%] md:flex-[0_0_100%]">
-          <section
-            style={{
-              width: "auto",
-              height: "auto",
-              backgroundImage: `url('${banner.image}')`,
-            }}
-            placeholder="blur"
-            className={`relative bg-cover bg-center bg-no-repeat `}
-          >
+        <div key={banner._id} className="flex-[0_0_100%] md:flex-[0_0_100%] relative">
+          <Image
+            fill
+            blurDataURL="blur"
+            className={`bg-cover bg-center bg-no-repeat `}
+            priority
+            src={`${banner.image}`}
+            alt={""}
+          />
             <BannerContent banner={banner} />
-          </section>
+          {/* </Image> */}
         </div>
       ))}
     </Carousel>

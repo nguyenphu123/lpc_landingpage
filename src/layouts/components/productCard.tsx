@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
+import Image from "next/image";
 export default function ProductCard({ title, content, id, link, srcImg }: any) {
   const curlanguage = useSelector((rootState) => language(rootState));
   return (
@@ -11,7 +12,7 @@ export default function ProductCard({ title, content, id, link, srcImg }: any) {
       key={id}
       className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
     >
-      <img className="rounded-t-lg" src={srcImg} alt="" />
+      <Image className="rounded-t-lg" src={srcImg} alt="" />
       <span>
         <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
           {title}

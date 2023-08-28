@@ -106,13 +106,7 @@ const RegularPages = () => {
       // make sure to catch any error
       .catch(console.error);
   }, [resultData]);
-  console.log(resultData);
   const curlanguage = useSelector((rootState) => language(rootState));
-  const onClickAbout = (e, id) => {
-    e && e.preventDefault(); // to avoid the link from redirecting
-    var elementToView = document.getElementById(id);
-    if (elementToView) (elementToView as HTMLFormElement).scrollIntoView();
-  };
   return resultData == undefined || Object.keys(resultData).length == 0 ? (
     <></>
   ) : (

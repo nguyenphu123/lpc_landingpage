@@ -154,8 +154,8 @@ export default function CompanyInfo() {
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <h3 className="text-center">
               {curlanguage.changeLanguage.value == "en"
-                ? DataEn["partner"].description
-                : Data["partner"].description}
+                ? DataEn["partner"].description.toUpperCase()
+                : Data["partner"].description.toUpperCase()}
             </h3>
             <PartnerListForAbout />
           </div>
@@ -167,8 +167,8 @@ export default function CompanyInfo() {
               dangerouslySetInnerHTML={{
                 __html:
                   curlanguage.changeLanguage.value == "en"
-                    ? DataEn["customer2"].description
-                    : Data["customer2"].description,
+                    ? DataEn["customer2"].description.toUpperCase()
+                    : Data["customer2"].description.toUpperCase(),
               }}
             ></h3>
             <CustomerListForAbout />

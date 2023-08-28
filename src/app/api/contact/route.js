@@ -76,21 +76,21 @@ export async function PUT(req) {
   try {
     await connectDB();
 
-    await Contact.findByIdAndUpdate(
-      _id,
+    await Contact.findOneAndUpdate(
+      { _id: _id },
       {
         address,
 
         addressEn,
-    
+
         addressLink,
-    
+
         email,
-    
+
         phoneNumber,
-    
+
         linkWebsite,
-    
+
         socialAccount,
       },
       { new: true },

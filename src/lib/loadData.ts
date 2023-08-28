@@ -2,7 +2,7 @@ export async function loadNews(role: any) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  let url = "http://localhost:3000/api/new";
+  let url = "api/new";
   if (role == "admin") {
     url = "api/getall/new";
   }
@@ -17,7 +17,7 @@ export async function loadViaId(id: any, schema) {
   // You can use any data fetching library
   // const posts = await loadNews()
   const data = { _id: id, schema: schema };
-  const res = await fetch("http://localhost:3000/api/findById", {
+  const res = await fetch("api/findById", {
     method: "POST",
     headers: new Headers({
       "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export async function loadUsers() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("http://localhost:3000/api/user");
+  const res = await fetch("api/user");
   const users = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
@@ -44,7 +44,7 @@ export async function loadCompanyInfo() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("http://localhost:3000/api/company");
+  const res = await fetch("api/company");
   const info = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
@@ -54,7 +54,7 @@ export async function loadCustomer() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("http://localhost:3000/api/customer");
+  const res = await fetch("api/customer");
   const customers = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
@@ -64,7 +64,7 @@ export async function loadPartner() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("http://localhost:3000/api/partner");
+  const res = await fetch("api/partner");
   const partners = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
@@ -74,7 +74,7 @@ export async function loadMessage() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("http://localhost:3000/api/sendMessage");
+  const res = await fetch("api/sendMessage");
   const messages = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
@@ -84,7 +84,7 @@ export async function loadProduct() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("http://localhost:3000/api/product");
+  const res = await fetch("api/product");
   const products = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
@@ -94,7 +94,7 @@ export async function loadBanner() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("http://localhost:3000/api/banner");
+  const res = await fetch("api/banner");
   const banners = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
@@ -104,7 +104,7 @@ export async function loadContact() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("http://localhost:3000/api/contact");
+  const res = await fetch("api/contact");
   const contacts = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time

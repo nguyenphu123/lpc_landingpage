@@ -94,8 +94,8 @@ export async function PUT(req) {
   try {
     await connectDB();
 
-    await New.findByIdAndUpdate(
-      _id,
+    await New.findOneAndUpdate(
+      { _id: _id },
       {
         title,
 
@@ -140,7 +140,7 @@ export async function GET() {
   try {
     await connectDB();
     let news = await New.find({ draft: false });
-    
+
     return NextResponse.json({ news });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {

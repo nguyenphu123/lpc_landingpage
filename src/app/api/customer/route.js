@@ -49,8 +49,8 @@ export async function PUT(req) {
   try {
     await connectDB();
 
-    await Customer.findByIdAndUpdate(
-      _id,
+    await Customer.findOneAndUpdate(
+      { _id: _id },
       {
         src,
 

@@ -18,10 +18,7 @@ export const searchProduct = createSlice({
 
       state.value.product = payload.payload.products;
 
-      window.localStorage.setItem(
-        "productList",
-        JSON.stringify(payload.payload.products),
-      );
+      window.localStorage.setItem("productList", JSON.stringify([]));
     },
   },
 });

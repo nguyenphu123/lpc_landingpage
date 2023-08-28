@@ -18,7 +18,7 @@ export const searchCustomer = createSlice({
       state.value.customerList = payload.payload.customer;
       window.localStorage.setItem(
         "customerList",
-        JSON.stringify(payload.payload.customer),
+        JSON.stringify([]),
       );
     },
   },

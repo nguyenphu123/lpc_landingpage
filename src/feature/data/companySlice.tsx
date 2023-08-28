@@ -14,11 +14,8 @@ export const searchCompany = createSlice({
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
       state.value = payload.payload.company[0];
-      console.log(payload.payload.company[0])
-      window.localStorage.setItem(
-        "companyInfo",
-        JSON.stringify(payload.payload.company),
-      );
+
+      window.localStorage.setItem("companyInfo", JSON.stringify([]));
     },
   },
 });

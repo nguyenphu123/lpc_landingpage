@@ -64,8 +64,8 @@ export async function PUT(req) {
   try {
     await connectDB();
 
-    await Banner.findByIdAndUpdate(
-      _id,
+    await Banner.findOneAndUpdate(
+      { _id: _id },
       {
         title,
 

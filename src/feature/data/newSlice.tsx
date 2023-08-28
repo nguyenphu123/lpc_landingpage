@@ -18,7 +18,7 @@ export const searchNew = createSlice({
       state.value.companyNews = payload.payload.news;
       window.localStorage.setItem(
         "newList",
-        JSON.stringify(payload.payload.news),
+        JSON.stringify([]),
       );
     },
   },

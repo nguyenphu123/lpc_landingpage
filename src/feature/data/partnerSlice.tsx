@@ -18,7 +18,7 @@ export const searchPartner = createSlice({
       state.value.partnerList = payload.payload.partner;
       window.localStorage.setItem(
         "partnerList",
-        JSON.stringify(payload.payload.partner),
+        JSON.stringify([]),
       );
     },
   },

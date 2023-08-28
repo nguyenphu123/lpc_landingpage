@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
+import Image from "next/image";
 export default function ServiceCard({ src, title, description, link, i }: any) {
   const curlanguage = useSelector((rootState) => language(rootState));
   return (
@@ -39,7 +40,7 @@ export default function ServiceCard({ src, title, description, link, i }: any) {
           <div className="container-fluid" style={{ height: "100%" }}>
             <div className="row " style={{ height: "100%" }}>
               <div className="col-xs-6" style={{ height: "100%" }}>
-                <img
+                <Image
                   className="card-img bg-cover bg-center bg-no-repeat"
                   src={src}
                   alt=""

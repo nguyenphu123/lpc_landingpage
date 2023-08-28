@@ -28,7 +28,7 @@ export default function RootLayout({
         />
 
         {/* favicon */}
-        <link rel="shortcut icon" href={config.site.favicon} />
+        <link  rel="shortcut icon" href={config.site.favicon} />
         {/* theme meta */}
         <meta name="theme-name" content="nextplate" />
         <meta name="msapplication-TileColor" content="#000000" />
@@ -57,7 +57,7 @@ export default function RootLayout({
           href={`https://fonts.googleapis.com/css2?family=${pf}${
             sf ? "&family=" + sf : ""
           }&display=swap`}
-          rel="stylesheet"
+          rel="stylesheet preconnect"
         />
       </head>
 

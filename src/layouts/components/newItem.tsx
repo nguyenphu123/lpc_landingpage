@@ -19,6 +19,7 @@ export default function NewItem({ src, title, id, i }: any) {
         <div className="h-5/5">
           <div className="relative max-w-xs overflow-hidden bg-cover bg-no-repeat h-3/5 w-full">
             <Image
+              fill
               src={src}
               className="transition duration-300 ease-in-out group-hover:scale-110 img-newitem h-2/5 w-full"
               alt="Louvre"

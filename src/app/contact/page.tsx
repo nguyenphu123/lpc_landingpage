@@ -16,7 +16,7 @@ import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
 
 import { useMemo, useState } from "react";
 
-import Map from "@/components/Map";
+import Map from "../../layouts/components/map";
 
 const Contact = () => {
   const curlanguage = useSelector((rootState) => language(rootState));

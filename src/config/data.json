@@ -41,7 +41,7 @@
   },
   "partner": {
     "name": "Đối tác",
-    "description": "Chúng tôi hân hạnh là đối tác với những công ty công nghệ hàng đầu."
+    "description": "Chúng tôi là đối tác với những công ty công nghệ <br/> hàng đầu thế giới."
   },
   "news": {
     "name": "Tin tức",
@@ -93,7 +93,7 @@
   },
   "customer2": {
     "name": "Khách hàng",
-    "description": "ĐỒNG THỜI CHÚNG TÔI TỰ HÀO LÀ KHÁCH HÀNG TIÊU BIỂU VỚI CÁC DOANH NGHIỆP TRÊN."
+    "description": "ĐỒNG THỜI CHÚNG TÔI TỰ HÀO LÀ KHÁCH HÀNG TIÊU BIỂU <br/> VỚI CÁC DOANH NGHIỆP TRÊN."
   },
   "text3": {
     "name": "Bắt đầu ngay",

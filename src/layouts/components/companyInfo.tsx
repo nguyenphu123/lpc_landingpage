@@ -154,11 +154,15 @@ export default function CompanyInfo() {
         </div>
         <div className="py-24 sm:py-32">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <h3 className="text-center">
-              {curlanguage.changeLanguage.value == "en"
-                ? DataEn["partner"].description.toUpperCase()
-                : Data["partner"].description.toUpperCase()}
-            </h3>
+            <h3
+              className="text-center"
+              dangerouslySetInnerHTML={{
+                __html:
+                  curlanguage.changeLanguage.value == "en"
+                    ? DataEn["partner"].description.toUpperCase()
+                    : Data["partner"].description.toUpperCase(),
+              }}
+            ></h3>
             <PartnerListForAbout />
           </div>
         </div>

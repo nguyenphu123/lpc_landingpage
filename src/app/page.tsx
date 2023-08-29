@@ -80,11 +80,15 @@ const Home = () => {
               ? DataEn["partner"].name
               : Data["partner"].name}
           </h2>
-          <p className="text-center mt-10">
-            {curlanguage.changeLanguage.value == "en"
-              ? DataEn["partner"].description
-              : Data["partner"].description}
-          </p>
+          <p
+            className="text-center mt-10"
+            dangerouslySetInnerHTML={{
+              __html:
+                curlanguage.changeLanguage.value == "en"
+                  ? DataEn["partner"].description
+                  : Data["partner"].description,
+            }}
+          ></p>
         </div>
       </div>
       <PartnerList />

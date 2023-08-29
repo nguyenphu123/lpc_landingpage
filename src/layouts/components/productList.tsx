@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { Grid } from "@mantine/core";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadProduct } from "@/lib/loadData";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import ServiceCard from "./ServiceCard";
@@ -12,7 +12,9 @@ export default function ProductList() {
   // const newsCheck = await loadNews();
   const productInfo = useSelector((rootState) => product(rootState));
 
-  let serviceList = productInfo.productData.value.product;
+  let [serviceList, setServiceList] = useState(
+    productInfo.productData.value.product,
+  );
 
   const dispatch = useDispatch();
 
@@ -20,15 +22,9 @@ export default function ProductList() {
     // declare the data fetching function
     const fetchNew = async () => {
       if (serviceList.length == 0) {
-        if (
-          JSON.parse(localStorage.getItem("productList") || "[]").length == 0 ||
-          JSON.parse(localStorage.getItem("productList") || "[]").length == 1
-        ) {
-          const productCheck = await loadProduct();
-          dispatch(companyProduct(productCheck));
-        } else {
-          serviceList = JSON.parse(localStorage.getItem("productList") || "[]");
-        }
+        const productCheck = await loadProduct("");
+        dispatch(companyProduct(productCheck.products));
+        setServiceList(productCheck.products);
       } else {
       }
     };
@@ -36,9 +32,11 @@ export default function ProductList() {
     fetchNew()
       // make sure to catch any error
       .catch(console.error);
-  }, []);
-  return (
-    <Grid className="flex justify-center" justify="center">
+  }, [serviceList]);
+  return serviceList.length == 0 ? (
+    <></>
+  ) : (
+    <Grid className="w-3/4" justify="center" grow gutter="xs">
       {serviceList.map(
         (
           svc: {

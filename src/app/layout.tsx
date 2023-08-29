@@ -28,7 +28,7 @@ export default function RootLayout({
         />
 
         {/* favicon */}
-        <link  rel="shortcut icon" href={config.site.favicon} />
+        <link rel="shortcut icon" href={config.site.favicon} />
         {/* theme meta */}
         <meta name="theme-name" content="nextplate" />
         <meta name="msapplication-TileColor" content="#000000" />
@@ -65,9 +65,9 @@ export default function RootLayout({
         <ScrollToTopButton />
         <Provider store={store}>
           <AuthProvider>
-            {pathname !== "/admin" && <Header />}
+            {pathname == "/admin" ? <></> : <Header />}
             <main>{children}</main>
-            {pathname !== "/admin" && <Footer />}
+            {pathname == "/admin" ? <></> : <Footer />}
           </AuthProvider>
         </Provider>
       </body>

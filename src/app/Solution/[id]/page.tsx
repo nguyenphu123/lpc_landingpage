@@ -16,13 +16,12 @@ const RegularPages = () => {
   const productInfo = useSelector((rootState) => product(rootState));
   let products = [];
   let [data, setData]: any = useState({});
-  products = productInfo.productData.value.product.filter(
-    (item: { type: string }) => item.type == "Solution",
-  );
-  const solution = products.filter(
-    (item: { [x: string]: any; link: string; type: string }) =>
-      params.id == item._id,
-  );
+  products =
+    productInfo.productData.value.product != undefined
+      ? productInfo.productData.value.product.filter(
+          (item: { type: string }) => item.type == "Solution",
+        )
+      : [];
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -30,37 +29,22 @@ const RegularPages = () => {
     // declare the data fetching function
     const fetchSolution = async () => {
       if (products.length == 0) {
-        if (
-          JSON.parse(localStorage.getItem("productList") || "[]").length == 1
-        ) {
-          const productCheck = await loadProduct();
-          dispatch(companyProduct(productCheck));
-          const result = productCheck.products.filter(
-            (item: { type: string }) => item.type == "Solution",
-          );
-          setData(
-            result.filter(
-              (item: { [x: string]: any; link: string; type: string }) =>
-                params.id == item._id,
-            )[0],
-          );
-          if (data == undefined) {
-            router.replace("http://localhost:3000/");
-          }
-        } else {
-          setData(
-            JSON.parse(localStorage.getItem("productList") || "[]")
-              .filter((item: { type: string }) => item.type == "Solution")
-              .filter(
-                (item: { [x: string]: any; link: string; type: string }) =>
-                  params.id == item._id,
-              )[0],
-          );
-          if (data == undefined) {
-            router.replace("http://localhost:3000/");
-          }
-        }
+        const productCheck = await loadProduct("");
+        dispatch(companyProduct(productCheck));
+        const result = productCheck.products.filter(
+          (item: { type: string }) => item.type == "Solution",
+        );
+        setData(
+          result.filter(
+            (item: { [x: string]: any; link: string; type: string }) =>
+              params.id == item._id,
+          )[0],
+        );
       } else {
+        const solution = products.filter(
+          (item: { [x: string]: any; link: string; type: string }) =>
+            params.id == item._id,
+        );
         setData(solution[0]);
         if (data == undefined) {
           router.replace("http://localhost:3000/");
@@ -72,7 +56,7 @@ const RegularPages = () => {
       // make sure to catch any error
       .catch(console.error);
   }, [data]);
-  
+
   const curlanguage = useSelector((rootState) => language(rootState));
   return data == undefined || Object.keys(data).length == 0 ? (
     <></>

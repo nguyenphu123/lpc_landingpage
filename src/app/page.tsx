@@ -54,8 +54,9 @@ const Home = () => {
           </p>
         </div>
       </div>
-
-      <ProductList />
+      <div className="flex justify-center w-full ">
+        <ProductList />
+      </div>
 
       <div className="bg-white py-5 sm:py-5 h-4/5">
         <div className="mx-auto max-w-5xl px-6 lg:px-8">
@@ -69,10 +70,9 @@ const Home = () => {
               ? DataEn["customer"].description
               : Data["customer"].description}
           </p>
-          <CustomerList />
         </div>
       </div>
-
+      <CustomerList />
       <div className="bg-white py-5 sm:py-5">
         <div className="mx-auto max-w-5xl px-6 lg:px-8">
           <h2 className="text-center text-3xl font-semibold leading-8 text-gray-900">
@@ -85,23 +85,24 @@ const Home = () => {
               ? DataEn["partner"].description
               : Data["partner"].description}
           </p>
-          <PartnerList />
         </div>
       </div>
-
+      <PartnerList />
       <h2 className="text-center text-3xl font-semibold leading-8 text-gray-900">
         {curlanguage.changeLanguage.value == "en"
           ? DataEn["news"].name
           : Data["news"].name}
       </h2>
-      <Link href={"/blog"} className="float-right mr-14">
+      <Link href={"/blog"} className="float-right mr-60">
         {curlanguage.changeLanguage.value == "en"
           ? DataEn["text1"].name
           : Data["text1"].name}
         &rarr;
       </Link>
-      <hr className="w-4/5 h-px mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700" />
-      <NewList />
+      <hr className="w-3/4 h-px mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700" />
+      <div className="flex justify-center w-full ">
+        <NewList />
+      </div>
     </div>
   );
 };

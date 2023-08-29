@@ -26,16 +26,20 @@ const Banner = () => {
   ) : (
     <Carousel loop>
       {banners.map((banner) => (
-        <div key={banner._id} className="flex-[0_0_100%] md:flex-[0_0_100%] relative">
+        <div
+          key={banner._id}
+          className="flex-[0_0_100%] md:flex-[0_0_100%] relative"
+        >
           <Image
             fill
+            style={{ objectFit: "cover" }}
             blurDataURL="blur"
             className={`bg-cover bg-center bg-no-repeat `}
             priority
             src={`${banner.image}`}
             alt={""}
           />
-            <BannerContent banner={banner} />
+          <BannerContent banner={banner} />
           {/* </Image> */}
         </div>
       ))}

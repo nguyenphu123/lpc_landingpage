@@ -14,31 +14,24 @@ const RegularPages = () => {
   const productInfo = useSelector((rootState) => product(rootState));
   let products = [];
   let [data, setData]: any = useState({});
-  products = productInfo.productData.value.product.filter(
-    (item: { type: string }) => item.type == "Service",
-  );
+  products =
+    productInfo.productData.value.product != undefined
+      ? productInfo.productData.value.product.filter(
+          (item: { type: string }) => item.type == "Service",
+        )
+      : [];
   const dispatch = useDispatch();
   useEffect(() => {
     // declare the data fetching function
     const fetchSolution = async () => {
       if (products.length == 0) {
-        if (
-          JSON.parse(localStorage.getItem("productList") || "[]").length == 1
-        ) {
-          const productCheck = await loadProduct();
-          dispatch(companyProduct(productCheck));
-          setData(
-            productCheck.filter(
-              (item: { type: string }) => item.type == "Service",
-            )[0],
-          );
-        } else {
-          setData(
-            JSON.parse(localStorage.getItem("productList") || "[]").filter(
-              (item: { type: string }) => item.type == "Service",
-            )[0],
-          );
-        }
+        const productCheck = await loadProduct("");
+        dispatch(companyProduct(productCheck));
+        setData(
+          productCheck.products.filter(
+            (item: { type: string }) => item.type == "Service",
+          )[0],
+        );
       } else {
         setData(products[0]);
       }

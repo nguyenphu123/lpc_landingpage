@@ -28,8 +28,8 @@ export default function Blog() {
       .catch(console.error);
   }, []);
   return (
-    <Grid className="flex justify-center" justify="center">
-      {newList.slice(0,4).map(
+    <Grid className="w-3/4" justify="center" grow gutter="sm">
+      {newList.slice(0, 4).map(
         (
           svc: {
             [x: string]: any;

@@ -80,11 +80,17 @@ export async function loadMessage() {
   // will receive `posts` as a prop at build time
   return messages;
 }
-export async function loadProduct() {
+export async function loadProduct(path) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("api/product");
+  let res;
+  if (path != "") {
+    res = await fetch("api/product");
+  } else {
+    res = await fetch("api/product");
+  }
+
   const products = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time

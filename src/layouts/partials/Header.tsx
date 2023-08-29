@@ -33,7 +33,7 @@ const Header = () => {
     // declare the data fetching function
     const fetchProduct = async () => {
       if (productInfo.productData.value.product.length == 0) {
-        const productCheck = await loadProduct();
+        const productCheck = await loadProduct("");
         dispatch(companyProduct(productCheck));
         servicesMenu = productCheck.products.filter(
           (item: { type: string }) => item.type == "Service",

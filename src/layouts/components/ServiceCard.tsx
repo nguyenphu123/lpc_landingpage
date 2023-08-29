@@ -39,9 +39,10 @@ export default function ServiceCard({ src, title, description, link, i }: any) {
         <div className="card-side side-front">
           <div className="container-fluid" style={{ height: "100%" }}>
             <div className="row " style={{ height: "100%" }}>
-              <div className="col-xs-6" style={{ height: "100%" }}>
+              <div className="relative col-xs-6" style={{ height: "100%" }}>
                 <Image
                   fill
+                  style={{ objectFit: "cover" }}
                   className="card-img bg-cover bg-center bg-no-repeat"
                   src={src}
                   alt=""

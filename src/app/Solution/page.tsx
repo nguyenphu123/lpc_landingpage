@@ -17,9 +17,12 @@ const Solutions = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
   const productInfo = useSelector((rootState) => product(rootState));
 
-  let data = productInfo.productData.value.product.filter(
-    (item: { type: string }) => item.type == "Solution",
-  );
+  let data =
+    productInfo.productData.value.product != undefined
+      ? productInfo.productData.value.product.filter(
+          (item: { type: string }) => item.type == "Solution",
+        )
+      : [];
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,12 +32,11 @@ const Solutions = () => {
         if (
           JSON.parse(localStorage.getItem("productList") || "[]").length == 1
         ) {
-          const productCheck = await loadProduct();
+          const productCheck = await loadProduct("");
           dispatch(companyProduct(productCheck));
           data = productCheck.filter(
             (item: { type: string }) => item.type == "Solution",
           );
-          
         } else {
           data = JSON.parse(localStorage.getItem("productList") || "[]").filter(
             (item: { type: string }) => item.type == "Solution",

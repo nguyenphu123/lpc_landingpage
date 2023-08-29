@@ -47,7 +47,7 @@ function ProductTable() {
 
   useEffect(() => {
     const fetchNew = async () => {
-      const productCheck = await loadProduct();
+      const productCheck = await loadProduct("");
       dispatch(companyProduct(productCheck));
     };
     // call the function

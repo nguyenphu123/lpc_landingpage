@@ -5,9 +5,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const Breadcrumbs = ({ className }: { className?: string }) => {
-  const pathname : any = usePathname();
+  const pathname: any = usePathname();
 
-  const paths = pathname.split("/").filter((x) => x);
+  const paths = pathname
+    .split("/")
+    .filter(
+      (x) =>
+        x == "Service" ||
+        x == "Solution" ||
+        x == "contact" ||
+        x == "blog" ||
+        x == "about" ||
+        x == "categories" ||
+        x == "contact" ||
+        x == "login" ||
+        x == "search",
+    );
   let parts = [
     {
       label: "Home",
@@ -17,11 +30,24 @@ const Breadcrumbs = ({ className }: { className?: string }) => {
   ];
 
   paths.forEach((label: string, i: number) => {
-    const href = `/${paths.slice(0, i + 1).join("/")}`;
+    const href = `${paths.slice(0, i + 1)}`;
+
     label !== "page" &&
       parts.push({
-        label: humanize(label.replace(/[-_]/g, " ")) || "",
+        label:
+          humanize(label.replace(/[-_]/g, " ")) == "Service" ||
+          humanize(label.replace(/[-_]/g, " ")) == "Solution" ||
+          humanize(label.replace(/[-_]/g, " ")) == "contact" ||
+          humanize(label.replace(/[-_]/g, " ")) == "blog" ||
+          humanize(label.replace(/[-_]/g, " ")) == "about" ||
+          humanize(label.replace(/[-_]/g, " ")) == "categories" ||
+          humanize(label.replace(/[-_]/g, " ")) == "contact" ||
+          humanize(label.replace(/[-_]/g, " ")) == "login" ||
+          humanize(label.replace(/[-_]/g, " ")) == "search"
+            ? humanize(label.replace(/[-_]/g, " "))
+            : "" || "",
         href,
+
         "aria-label": pathname === href ? "page" : undefined,
       });
   });

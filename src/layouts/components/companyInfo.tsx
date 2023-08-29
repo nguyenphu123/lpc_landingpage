@@ -107,7 +107,9 @@ export default function CompanyInfo() {
         <div className="min-h-[500px] grid grid-cols-3 h-full relative">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <Image
-              src={"https://res.cloudinary.com/derjssgq9/image/upload/v1692668701/LPC_Images/About/wm_1_jcg1xz.png"}
+              src={
+                "https://res.cloudinary.com/derjssgq9/image/upload/v1692668701/LPC_Images/About/wm_1_jcg1xz.png"
+              }
               height={400}
               width={400}
               alt="wm"
@@ -173,6 +175,16 @@ export default function CompanyInfo() {
             ></h3>
             <CustomerListForAbout />
           </div>
+        </div>
+
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <Image
+            src="https://res.cloudinary.com/derjssgq9/image/upload/v1693284851/lpc_revenue_lcetzq.webp"
+            width={1200}
+            height={700}
+            alt="LPC team"
+            objectFit="cover"
+          />
         </div>
       </div>
     </section>

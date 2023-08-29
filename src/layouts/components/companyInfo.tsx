@@ -128,7 +128,7 @@ export default function CompanyInfo() {
             </h2>
           </div>
           <div className="min-h-[50px] col-span-1 flex flex-col items-center justify-center">
-            <h2 className="mb-1">700+</h2>
+            <h2 className="mb-1">1000+</h2>
             <h6>
               {curlanguage.changeLanguage.value == "en"
                 ? DataEn["projects"].name
@@ -136,7 +136,7 @@ export default function CompanyInfo() {
             </h6>
           </div>
           <div className="min-h-[50px] col-span-1 flex flex-col items-center justify-center">
-            <h2 className="mb-1">&gt;30</h2>
+            <h2 className="mb-1">&gt;100</h2>
             <h6>
               {curlanguage.changeLanguage.value == "en"
                 ? DataEn["partner"].name
@@ -144,7 +144,7 @@ export default function CompanyInfo() {
             </h6>
           </div>
           <div className="min-h-[50px] col-span-1 flex flex-col items-center justify-center">
-            <h2 className="mb-1">36</h2>
+            <h2 className="mb-1">500</h2>
             <h6>
               {curlanguage.changeLanguage.value == "en"
                 ? DataEn["customer2"].name

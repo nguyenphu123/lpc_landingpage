@@ -10,6 +10,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import { useEffect, useState } from "react";
 import { loadProduct } from "@/lib/loadData";
+import PageHeader from "@/partials/PageHeader";
 
 const RegularPages = () => {
   const params: any = useParams();
@@ -68,17 +69,13 @@ const RegularPages = () => {
         description={data?.description}
         image={data?.image}
       />
-
-      <div className="container text-center">
-        <div className="rounded-2xl bg-gradient-to-b from-body to-theme-light px-8 py-14 dark:from-darkmode-body dark:to-darkmode-theme-light">
-          <h1>
-            {curlanguage.changeLanguage.value == "en"
-              ? data?.titleEn.toUpperCase()
-              : data?.title.toUpperCase()}
-          </h1>
-          <Breadcrumbs className="mt-6" />
-        </div>
-      </div>
+      <PageHeader
+        title={
+          curlanguage.changeLanguage.value == "en"
+            ? data?.titleEn.toUpperCase()
+            : data?.title.toUpperCase()
+        }
+      />
 
       <div className="h-52 w-full bg-cover  bg-[url(https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80)]">
         <div className="flex items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">

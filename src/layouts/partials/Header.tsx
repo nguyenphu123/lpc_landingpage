@@ -53,7 +53,6 @@ const Header = () => {
           (item: { type: string }) => item.type == "Solution",
         );
         main[2].children = servicesMenu[0].content;
-        setLoading(false);
       } else {
         main[1].children = productInfo.productData.value.product.filter(
           (item: { type: string }) => item.type == "Solution",
@@ -61,7 +60,6 @@ const Header = () => {
         main[2].children = productInfo.productData.value.product.filter(
           (item: { type: string }) => item.type == "Service",
         )[0].content;
-        setLoading(false);
       }
     };
     fetchProduct().catch(console.error);
@@ -69,23 +67,17 @@ const Header = () => {
     // call the function
 
     // make sure to catch any error
-  }, [loading, main]);
-  useEffect(() => {
-    // call the function
-    window.scrollTo(0, 0);
-    // make sure to catch any error
-  }, [pathname]);
+  }, [main]);
+
   const { navigation_button, settings } = config;
   // get current path
 
-  return loading ? (
-    <></>
-  ) : (
+  return (
     <header
       className={`fixed top-0 w-full flex justify-center ${
         scrolled
           ? "border-b border-gray-200 bg-white/50 backdrop-blur-xl"
-          : "bg-transparent"
+          : "bg-white/0"
       } z-30 transition-all`}
     >
       <nav className="navbar container">

@@ -1,10 +1,7 @@
 "use client";
-
 import { companyNew, news } from "@/feature/data/newSlice";
 import { loadNews } from "@/lib/loadData";
-import { humanize } from "@/lib/utils/textConverter";
 import PageHeader from "@/partials/PageHeader";
-
 import { Post } from "@/types";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -72,8 +69,8 @@ const CategorySingle = () => {
     <></>
   ) : (
     <>
-      <SeoMeta title={humanize(params.single)} />
-      <PageHeader title={humanize(params.single)} />
+      <SeoMeta title={params.single} />
+      <PageHeader title={params.single} />
       <div className="section-sm pb-0">
         <div className="container">
           <div className="row">

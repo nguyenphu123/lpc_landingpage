@@ -68,7 +68,7 @@ const Solutions = () => {
     <></>
   ) : (
     <>
-      <SeoMeta />
+      <SeoMeta title="Solution"/>
       <PageHeader
         title={
           curlanguage.changeLanguage.value == "en"

@@ -21,7 +21,7 @@ const Contact = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
 
   const data = {
-    title: "DỊCH VỤ IT",
+    title: "Liên Hệ",
 
     meta_title: "",
 

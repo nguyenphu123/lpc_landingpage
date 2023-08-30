@@ -10,7 +10,7 @@ import { useUrl } from "nextjs-current-url";
 
 // posts will be populated at build time by getStaticProps()
 export default function ProductList() {
-  const { pathname, href } = useUrl() ?? {};
+  const { href } = useUrl() ?? {};
   const curlanguage = useSelector((rootState) => language(rootState));
   // const newsCheck = await loadNews();
   const productInfo = useSelector((rootState) => product(rootState));

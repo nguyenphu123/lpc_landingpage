@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 const About = () => {
   const data = {
-    title: "DỊCH VỤ IT",
+    title: "About us",
     meta_title: "",
     description: "this is meta description",
     image: "",

@@ -18,7 +18,7 @@ const Home = () => {
 
   return (
     <div className="container-snap">
-      <SeoMeta />
+      <SeoMeta title="Home page" />
 
       <div
         // className={`flex flex-col justify-between`}

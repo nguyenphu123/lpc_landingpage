@@ -38,8 +38,6 @@ const Posts = () => {
             titleEn: 1,
             image: 1,
             categories: 1,
-            description: 1,
-            meta_title: 1,
             content: 1,
             contentEn: 1,
             date: 1,
@@ -59,7 +57,7 @@ const Posts = () => {
 
   const posts: any[] = newInfo.newData.value.companyNews;
   const metadata = {
-    title: "Sp1",
+    title: "Tin tức",
     meta_title: "",
     description: "this is meta description",
     image: "",
@@ -96,11 +94,15 @@ const Posts = () => {
                   </div>
                 ))}
               </div>
-              <Pagination
-                section={"blog"}
-                currentPage={1}
-                totalPages={totalPages}
-              />
+              {posts.length > 9 ? (
+                <Pagination
+                  section={"blog"}
+                  currentPage={1}
+                  totalPages={totalPages}
+                />
+              ) : (
+                <></>
+              )}
             </div>
 
             <PostSidebar categories={categories} allCategories={posts} />

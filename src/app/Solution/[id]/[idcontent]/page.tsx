@@ -2,7 +2,7 @@
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import "../../../../styles/scroll.scss";
 import PageHeader from "@/partials/PageHeader";
-import SeoMeta from "@/partials/SeoMeta";
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Data from "@/config/data.json";
@@ -11,6 +11,7 @@ import { companyProduct, product } from "@/feature/data/productSlice";
 import { loadProduct } from "@/lib/loadData";
 import { useEffect, useState } from "react";
 import { useUrl } from "nextjs-current-url";
+import dynamic from "next/dynamic";
 const RegularPages = () => {
   const params: any = useParams();
   const productInfo = useSelector((rootState) => product(rootState));

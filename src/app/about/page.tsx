@@ -1,11 +1,13 @@
 "use client";
-import SeoMeta from "@/partials/SeoMeta";
+
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import CompanyInfo from "@/components/companyInfo";
 import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import PageHeader from "@/partials/PageHeader";
+import dynamic from "next/dynamic";
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 const About = () => {
   const data = {
     title: "DỊCH VỤ IT",

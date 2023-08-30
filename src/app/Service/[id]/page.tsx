@@ -1,5 +1,5 @@
 "use client";
-import SeoMeta from "@/partials/SeoMeta";
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import { useParams, useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { loadProduct } from "@/lib/loadData";
 import "../../../styles/scroll.scss";
 import { useUrl } from "nextjs-current-url";
+import dynamic from "next/dynamic";
 const RegularPages = () => {
   const { href } = useUrl() ?? {};
   const params: any = useParams();

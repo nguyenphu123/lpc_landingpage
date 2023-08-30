@@ -10,13 +10,13 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useUrl } from "nextjs-current-url";
-const Footer = ({ src }: { src?: string }) => {
+const Footer = () => {
   const { copyright } = config.params;
   const curlanguage = useSelector((rootState) => language(rootState));
   const { footer } = curlanguage.changeLanguage.value == "en" ? menuEn : menu;
 
   const [companyLinks, setCompanyLinks]: any = useState({});
-  const { pathname, href } = useUrl() ?? {};
+  const { href } = useUrl() ?? {};
   useEffect(() => {
     // declare the data fetching function
     async function fetchNew() {

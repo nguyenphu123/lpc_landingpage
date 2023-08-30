@@ -10,7 +10,7 @@ export default function PartnerListForAbout() {
   // const newsCheck = await loadNews();
   const partnerInfo = useSelector((rootState) => partner(rootState));
   let partnerList = partnerInfo.partnerData.value.partnerList;
-  const [partners, setPartners] = useState([]);
+  const [partners, setPartners] = useState(partnerList);
   const dispatch = useDispatch();
   const { pathname, href } = useUrl() ?? {};
   useEffect(() => {

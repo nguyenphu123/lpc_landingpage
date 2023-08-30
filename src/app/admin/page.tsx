@@ -252,7 +252,6 @@ const Home = () => {
           aria-labelledby="banner-tab"
         >
           <Popup>
-            {" "}
             <BannerForm />
           </Popup>
           <BannerTable />
@@ -263,10 +262,6 @@ const Home = () => {
           role="tabpanel"
           aria-labelledby="company-tab"
         >
-          {/* <Popup>
-            {" "}
-            <ContactForm />
-          </Popup> */}
           <ContactTable />
         </div>
         <div
@@ -275,9 +270,7 @@ const Home = () => {
           role="tabpanel"
           aria-labelledby="customer-tab"
         >
-          {" "}
           <Popup>
-            {" "}
             <CustomerForm />
           </Popup>
           <CustomerTable />
@@ -309,7 +302,6 @@ const Home = () => {
           aria-labelledby="partner-tab"
         >
           <Popup>
-            {" "}
             <PartnerForm />
           </Popup>
           <PartnerTable />
@@ -321,7 +313,6 @@ const Home = () => {
           aria-labelledby="product-tab"
         >
           <Popup>
-            {" "}
             <ProductForm />
           </Popup>
           <ProductTable />

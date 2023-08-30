@@ -4,12 +4,13 @@ import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import PageHeader from "@/partials/PageHeader";
 import PostSidebar from "@/partials/PostSidebar";
-import SeoMeta from "@/partials/SeoMeta";
+
 import { useSelector } from "react-redux";
 import { news } from "@/feature/data/newSlice";
 import dynamic from "next/dynamic";
 const BlogCard = dynamic(() => import("@/components/BlogCard"));
 const Pagination = dynamic(() => import("@/components/Pagination"));
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 const Posts = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
   const newInfo = useSelector((rootState) => news(rootState));

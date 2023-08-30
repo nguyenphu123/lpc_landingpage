@@ -3,15 +3,17 @@ import { companyNew, news } from "@/feature/data/newSlice";
 import { loadNews } from "@/lib/loadData";
 import { humanize } from "@/lib/utils/textConverter";
 import PageHeader from "@/partials/PageHeader";
-import SeoMeta from "@/partials/SeoMeta";
+
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useUrl } from "nextjs-current-url";
+import dynamic from "next/dynamic";
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 const Categories = () => {
   const { href } = useUrl() ?? {};
   const newInfo = useSelector((rootState) => news(rootState));
-  let posts: any[] = newInfo.newData.value.companyNews;
+  let [posts, setPosts]: any[] = useState(newInfo.newData.value.companyNews);
 
   const categories = ["Events", "Security"];
   const dispatch = useDispatch();
@@ -36,7 +38,7 @@ const Categories = () => {
           href,
         );
         dispatch(companyNew(newsCheck));
-        posts = newsCheck.news;
+        setPosts(newsCheck.news);
       } else {
       }
     };
@@ -44,8 +46,10 @@ const Categories = () => {
     fetchNew()
       // make sure to catch any error
       .catch(console.error);
-  }, []);
-  return (
+  }, [posts]);
+  return posts.length == 0 ? (
+    <></>
+  ) : (
     <>
       <SeoMeta title={"Categories"} />
       <PageHeader title={"Categories"} />

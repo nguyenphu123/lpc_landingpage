@@ -1,10 +1,10 @@
 "use client";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { Grid } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { loadProduct } from "@/lib/loadData";
-import { companyProduct, product } from "@/feature/data/productSlice";
+import { product } from "@/feature/data/productSlice";
 import ServiceCard from "./ServiceCard";
 import { useUrl } from "nextjs-current-url";
 
@@ -18,8 +18,6 @@ export default function ProductList() {
   let [serviceList, setServiceList] = useState(
     productInfo.productData.value.product,
   );
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     // declare the data fetching function

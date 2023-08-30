@@ -1,7 +1,8 @@
 "use client";
 
 import Search, { SearchItem } from "@/layouts/Search";
-import SeoMeta from "@/partials/SeoMeta";
+import dynamic from "next/dynamic";
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 
 const SearchPage = () => {
   const searchList: SearchItem[] = [];

@@ -2,7 +2,7 @@
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import ImageFallback from "@/helpers/ImageFallback";
 import { markdownify } from "@/lib/utils/textConverter";
-import SeoMeta from "@/partials/SeoMeta";
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import { FaCheck } from "react-icons/fa/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import Data from "@/config/data.json";
@@ -14,9 +14,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { loadProduct } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
+import dynamic from "next/dynamic";
 
 const Solutions = () => {
-  const { pathname, href } = useUrl() ?? {};
+  const { href } = useUrl() ?? {};
   const curlanguage = useSelector((rootState) => language(rootState));
   const productInfo = useSelector((rootState) => product(rootState));
 
@@ -82,7 +83,7 @@ const Solutions = () => {
           aria-label="Tabs"
           role="tablist"
         >
-          {data.map((content: any, i: any) => {
+          {data.map((content: any) => {
             return (
               <a
                 key={content._id}

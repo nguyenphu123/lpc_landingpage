@@ -11,29 +11,17 @@ export default function CustomerList() {
   const customerInfo = useSelector((rootState) => customer(rootState));
 
   let customerList = customerInfo.customerData.value.customerList;
-  const [customers, setCustomers] = useState([]);
+  const [customers, setCustomers] = useState(customerList);
   const dispatch = useDispatch();
-  const { pathname, href } = useUrl() ?? {};
+  const { href } = useUrl() ?? {};
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
-
       if (customers.length == 0) {
-        if (
-          JSON.parse(localStorage.getItem("customerList") || "[]").length ==
-            1 ||
-          JSON.parse(localStorage.getItem("customerList") || "[]").length == 0
-        ) {
-          const customerCheck = await loadCustomer(href);
+        const customerCheck = await loadCustomer(href);
 
-          dispatch(customerData(customerCheck));
-          setCustomers(customerCheck.customer);
-        } else {
-          customerList = JSON.parse(
-            localStorage.getItem("customerList") || "[]",
-          );
-          setCustomers(customerList);
-        }
+        dispatch(customerData(customerCheck));
+        setCustomers(customerCheck.customer);
       } else {
       }
     };
@@ -52,10 +40,9 @@ export default function CustomerList() {
             return (
               <div key={img._id} className="slide flex items-center mx-3">
                 <Image
-                  key={img.src}
                   className="flex items-center col-span-2 max-h-16 w-full object-contain lg:col-span-1"
-                  src={img.src + ""}
-                  alt={img.type + ""}
+                  src={img.src}
+                  alt={img.type}
                   width={158}
                   height={100}
                 />

@@ -8,13 +8,11 @@ import Data from "@/config/data.json";
 
 import DataEn from "@/config/dataEn.json";
 
-import SeoMeta from "@/partials/SeoMeta";
-
 import PageHeader from "@/partials/PageHeader";
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 const MapWithAMarker = dynamic(
   () => import("../../layouts/components/googleMap"),
 );
@@ -95,6 +93,11 @@ const Contact = () => {
         <div className="container">
           <div className="row">
             <div className="mx-auto md:col-10 lg:col-10 grid grid-cols-2 gap-1">
+              <script
+                src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCLgzxMVWNCYs0IjGBx2LGjaCTT2i9zxPo&libraries=places`}
+                defer
+                async
+              ></script>
               <MapWithAMarker />
 
               <div>

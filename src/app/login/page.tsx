@@ -1,14 +1,15 @@
 "use client";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
-import SeoMeta from "@/partials/SeoMeta";
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import PageHeader from "@/partials/PageHeader";
 import { signIn } from "next-auth/react";
 import { userLogin } from "@/feature/login/loginSlice";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 const Contact = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
   // let loginState = useSelector(loginStatus);

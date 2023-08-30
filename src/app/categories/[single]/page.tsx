@@ -4,7 +4,7 @@ import { companyNew, news } from "@/feature/data/newSlice";
 import { loadNews } from "@/lib/loadData";
 import { humanize } from "@/lib/utils/textConverter";
 import PageHeader from "@/partials/PageHeader";
-import SeoMeta from "@/partials/SeoMeta";
+
 import { Post } from "@/types";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import dynamic from "next/dynamic";
 import { useUrl } from "nextjs-current-url";
 const BlogCard = dynamic(() => import("@/components/BlogCard"));
-
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 const CategorySingle = () => {
   const { href } = useUrl() ?? {};
   const newInfo = useSelector((rootState) => news(rootState));

@@ -1,17 +1,17 @@
 "use client";
 import ProductCard from "../../../layouts/components/productCard";
-import SeoMeta from "@/partials/SeoMeta";
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import { useEffect, useState } from "react";
 import { loadProduct } from "@/lib/loadData";
 import PageHeader from "@/partials/PageHeader";
 import { useUrl } from "nextjs-current-url";
+import dynamic from "next/dynamic";
 const RegularPages = () => {
   const params: any = useParams();
   const productInfo = useSelector((rootState) => product(rootState));

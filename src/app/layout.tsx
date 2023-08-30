@@ -6,6 +6,7 @@ import { store } from "../store/store";
 import "@/styles/main.scss";
 import { AuthProvider } from "./provider";
 import { usePathname } from "next/navigation";
+
 import dynamic from "next/dynamic";
 const Header = dynamic(() => import("@/partials/Header"));
 const Footer = dynamic(() => import("@/partials/Footer"));
@@ -31,7 +32,7 @@ export default function RootLayout({
         />
 
         {/* favicon */}
-        <link rel="shortcut icon" href={config.site.favicon} />
+        <link rel="shortcut icon preload" href={config.site.favicon} />
         {/* theme meta */}
         <meta name="theme-name" content="nextplate" />
         <meta name="msapplication-TileColor" content="#000000" />
@@ -45,22 +46,18 @@ export default function RootLayout({
           media="(prefers-color-scheme: dark)"
           content="#000"
         />
-        <script
-          src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCLgzxMVWNCYs0IjGBx2LGjaCTT2i9zxPo&libraries=places`}
-          defer
-          async
-        ></script>
+
         {/* google font css */}
-        <link
+        {/* <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
-        />
+        /> */}
         <link
           href={`https://fonts.googleapis.com/css2?family=${pf}${
             sf ? "&family=" + sf : ""
           }&display=swap`}
-          rel="stylesheet preconnect"
+          rel="stylesheet preload"
         />
       </head>
 

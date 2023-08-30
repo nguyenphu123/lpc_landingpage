@@ -10,7 +10,7 @@ import { useUrl } from "nextjs-current-url";
 
 const Carousel = dynamic(() => import("./carousel"));
 const Banner = () => {
-  const { pathname, href } = useUrl() ?? {};
+  const { href } = useUrl() ?? {};
   const [banners, setBanners] = useState<any[]>([]);
   useEffect(() => {
     // declare the data fetching function

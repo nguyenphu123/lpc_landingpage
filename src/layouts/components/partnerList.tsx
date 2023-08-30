@@ -12,7 +12,7 @@ export default function PartnerList() {
   // const newsCheck = await loadNews();
   const partnerInfo = useSelector((rootState) => partner(rootState));
   let partnerList = partnerInfo.partnerData.value.partnerList;
-  const [partners, setPartners] = useState([]);
+  const [partners, setPartners] = useState(partnerList);
   const dispatch = useDispatch();
   useEffect(() => {
     // declare the data fetching function
@@ -39,10 +39,9 @@ export default function PartnerList() {
             return (
               <div key={img._id} className="slide flex items-center mx-3">
                 <Image
-                  key={img.src}
                   className="flex items-center col-span-2 max-h-16 w-full object-contain lg:col-span-1"
-                  src={img.src + ""}
-                  alt={img.type + ""}
+                  src={img.src}
+                  alt={img.type}
                   width={158}
                   height={100}
                 />

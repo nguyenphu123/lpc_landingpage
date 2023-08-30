@@ -4,7 +4,7 @@ import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import PageHeader from "@/partials/PageHeader";
 import PostSidebar from "@/partials/PostSidebar";
-import SeoMeta from "@/partials/SeoMeta";
+
 import { useDispatch, useSelector } from "react-redux";
 import { companyNew, news } from "@/feature/data/newSlice";
 import { useEffect } from "react";
@@ -13,6 +13,7 @@ import dynamic from "next/dynamic";
 import { useUrl } from "nextjs-current-url";
 const BlogCard = dynamic(() => import("@/components/BlogCard"));
 const Pagination = dynamic(() => import("@/components/Pagination"));
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 // for all regular pages
 const Posts = () => {
   const { href } = useUrl() ?? {};

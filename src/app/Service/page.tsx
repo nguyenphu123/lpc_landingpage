@@ -1,6 +1,6 @@
 "use client";
 import ProductCard from "../../layouts/components/productCard";
-import SeoMeta from "@/partials/SeoMeta";
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import PageHeader from "@/partials/PageHeader";
 import { loadProduct } from "@/lib/loadData";
 import { useEffect, useState } from "react";
 import { useUrl } from "nextjs-current-url";
+import dynamic from "next/dynamic";
 const RegularPages = () => {
   const { href } = useUrl() ?? {};
   const productInfo = useSelector((rootState) => product(rootState));

@@ -12,7 +12,7 @@ export default function CustomerListForAbout() {
   const customerInfo = useSelector((rootState) => customer(rootState));
 
   let customerList = customerInfo.customerData.value.customerList;
-  const [customers, setCustomers] = useState([]);
+  const [customers, setCustomers] = useState(customerList);
   const dispatch = useDispatch();
   const { pathname, href } = useUrl() ?? {};
   useEffect(() => {

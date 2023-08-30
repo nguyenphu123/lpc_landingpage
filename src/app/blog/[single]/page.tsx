@@ -1,7 +1,5 @@
 "use client";
 
-import Share from "@/components/Share";
-
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 
 import dateFormat from "@/lib/utils/dateFormat";
@@ -9,8 +7,6 @@ import dateFormat from "@/lib/utils/dateFormat";
 import similerItems from "@/lib/utils/similarItems";
 
 import { humanize, markdownify, slugify } from "@/lib/utils/textConverter";
-
-import SeoMeta from "@/partials/SeoMeta";
 
 import Link from "next/link";
 
@@ -31,6 +27,8 @@ import { useUrl } from "nextjs-current-url";
 import { loadNews } from "@/lib/loadData";
 import dynamic from "next/dynamic";
 const BlogCard = dynamic(() => import("@/components/BlogCard"));
+// const Share = dynamic(() => import("@/components/Share"));
+const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 const PostSingle = () => {
   const { href } = useUrl() ?? {};
   const newInfo = useSelector((rootState) => news(rootState));
@@ -69,8 +67,7 @@ const PostSingle = () => {
             titleEn: 1,
             image: 1,
             categories: 1,
-            description: 1,
-            meta_title: 1,
+
             content: 1,
             contentEn: 1,
             date: 1,
@@ -78,13 +75,13 @@ const PostSingle = () => {
           href,
         );
 
-        if (newsCheck.length == 0) {
+        if (newsCheck.news.length == 0) {
           router.replace("http://localhost:3000/");
         }
 
         dispatch(companyNew(newsCheck));
-        setData(newsCheck.news.filter((item) => item._id == params.single));
-        setSimilarPosts(data && similerItems(data, newsCheck, data._id!));
+        setData(newsCheck.news.filter((item) => item._id == params.single)[0]);
+        setSimilarPosts(data && similerItems(data, newsCheck.news, data._id!));
       } else {
         if (Object.keys(data).length == 0) {
           router.replace("http://localhost:3000/");
@@ -116,8 +113,8 @@ const PostSingle = () => {
       <>
         <SeoMeta
           title={data.title}
-          meta_title={data.meta_title}
-          description={data.description}
+          meta_title={""}
+          description={""}
           image={data.image}
         />
 
@@ -176,20 +173,20 @@ const PostSingle = () => {
                     <h5 className="mr-3">
                       {curlanguage.changeLanguage.value == "en"
                         ? DataEn["text6"].name
-                        : Data["text6"].name}{" "}
+                        : Data["text6"].name}
                       :
                     </h5>
 
-                    <Share
+                    {/* <Share
                       className="social-icons"
                       title={
                         curlanguage.changeLanguage.value == "en"
                           ? data.titleEn
                           : data.title
                       }
-                      description={data.description}
+                      description={""}
                       slug={post.slug!}
-                    />
+                    /> */}
                   </div>
                 </div>
 

@@ -46,7 +46,12 @@ export default function RootLayout({
           media="(prefers-color-scheme: dark)"
           content="#000"
         />
-
+        <script
+          rel=" preload "
+          src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCLgzxMVWNCYs0IjGBx2LGjaCTT2i9zxPo&libraries=places`}
+          defer
+          async
+        ></script>
         {/* google font css */}
         {/* <link
           rel="preconnect"

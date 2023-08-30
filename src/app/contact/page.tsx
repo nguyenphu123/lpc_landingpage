@@ -93,11 +93,7 @@ const Contact = () => {
         <div className="container">
           <div className="row">
             <div className="mx-auto md:col-10 lg:col-10 grid grid-cols-2 gap-1">
-              <script
-                src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCLgzxMVWNCYs0IjGBx2LGjaCTT2i9zxPo&libraries=places`}
-                defer
-                async
-              ></script>
+            
               <MapWithAMarker />
 
               <div>

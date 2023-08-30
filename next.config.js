@@ -8,6 +8,24 @@ const nextConfig = {
   images: {
     domains: ["res.cloudinary.com"],
   },
+  optimization: {
+    mergeDuplicateChunks: true,
+  },
+  webpack(config, { isServer }) {
+    if (!isServer) {
+      config.optimization.splitChunks.cacheGroups = {
+        ...config.optimization.splitChunks.cacheGroups,
+        "@sentry": {
+          test: /[\\/]node_modules[\\/](@sentry)[\\/]/,
+          name: "@sentry",
+          priority: 10,
+          reuseExistingChunk: false,
+        },
+      };
+    }
+
+    return config;
+  },
   async headers() {
     return [
       {
@@ -17,6 +35,11 @@ const nextConfig = {
           {
             key: "Cache-Control",
             value: "public, max-age=9999999999, must-revalidate",
+          },
+          { key: "Access-Control-Allow-Credentials", value: "true" },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "http://localhost:3000/",
           },
         ],
       },

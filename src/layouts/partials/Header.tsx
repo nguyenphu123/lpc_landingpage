@@ -68,7 +68,11 @@ const Header = () => {
 
     // make sure to catch any error
   }, [main]);
-
+  useEffect(() => {
+    // call the function
+    window.scrollTo(0, 0);
+    // make sure to catch any error
+  }, [pathname]);
   const { navigation_button, settings } = config;
   // get current path
 

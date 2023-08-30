@@ -17,8 +17,6 @@ export const searchProduct = createSlice({
       // immutable state based off those changes
 
       state.value.product = payload.payload.products;
-
-      window.localStorage.setItem("productList", JSON.stringify([]));
     },
   },
 });

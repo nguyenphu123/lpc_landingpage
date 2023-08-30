@@ -13,14 +13,13 @@ import { IoSearch } from "react-icons/io5/index.js";
 import useScroll from "../../lib/utils/use-scroll";
 import { useSelector } from "react-redux";
 import { UrlObject } from "url";
-import { companyProduct, product } from "@/feature/data/productSlice";
+import { product } from "@/feature/data/productSlice";
 import { loadProduct } from "@/lib/loadData";
 import { useDispatch } from "react-redux";
 import { useUrl } from "nextjs-current-url";
 
 //  child navigation link interface
 const Header = () => {
-  const dispatch = useDispatch();
   const { href } = useUrl() ?? {};
   // distructuring the main menu from menu object
   const curlanguage = useSelector((rootState) => language(rootState));
@@ -31,7 +30,7 @@ const Header = () => {
   let servicesMenu: any = [];
   const scrolled = useScroll(50);
   useEffect(() => {
-    window.scrollTo(0, 0);
+   
     // declare the data fetching function
     const fetchProduct = async () => {
       if (productInfo.productData.value.product.length == 0) {
@@ -65,7 +64,7 @@ const Header = () => {
     fetchProduct().catch(console.error);
 
     // call the function
-
+    window.scrollTo(0, 0);
     // make sure to catch any error
   }, [main, pathname]);
 
@@ -77,7 +76,7 @@ const Header = () => {
       className={`fixed top-0 w-full flex justify-center ${
         scrolled
           ? "border-b border-gray-200 bg-white/50 backdrop-blur-xl"
-          : "bg-white/0"
+          : "bg-transparent"
       } z-30 transition-all`}
     >
       <nav className="navbar container">

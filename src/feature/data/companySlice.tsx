@@ -15,7 +15,7 @@ export const searchCompany = createSlice({
       // immutable state based off those changes
       state.value = payload.payload.company[0];
 
-      window.localStorage.setItem("companyInfo", JSON.stringify([]));
+    
     },
   },
 });

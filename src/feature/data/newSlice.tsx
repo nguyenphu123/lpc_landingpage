@@ -16,10 +16,7 @@ export const searchNew = createSlice({
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
       state.value.companyNews = payload.payload.news;
-      window.localStorage.setItem(
-        "newList",
-        JSON.stringify([]),
-      );
+     
     },
   },
 });

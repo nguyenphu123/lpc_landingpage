@@ -16,10 +16,7 @@ export const searchPartner = createSlice({
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
       state.value.partnerList = payload.payload.partner;
-      window.localStorage.setItem(
-        "partnerList",
-        JSON.stringify([]),
-      );
+      
     },
   },
 });

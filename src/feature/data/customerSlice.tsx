@@ -16,10 +16,7 @@ export const searchCustomer = createSlice({
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
       state.value.customerList = payload.payload.customer;
-      window.localStorage.setItem(
-        "customerList",
-        JSON.stringify([]),
-      );
+     
     },
   },
 });

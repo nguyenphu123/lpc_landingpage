@@ -24,7 +24,7 @@ const Header = () => {
   // distructuring the main menu from menu object
   const curlanguage = useSelector((rootState) => language(rootState));
   const { main } = curlanguage.changeLanguage.value == "en" ? menuEn : menu;
-
+  let [loading, setLoading] = useState(true);
   const productInfo = useSelector((rootState) => product(rootState));
   const pathname: any = usePathname();
   let servicesMenu: any = [];
@@ -39,7 +39,9 @@ const Header = () => {
             _id: 1,
             type: 1,
             titleEn: 1,
-            content: 1,
+            "content._id": 1,
+            "content.title": 1,
+            "content.titleEn": 1,
           },
           href,
         );
@@ -51,6 +53,7 @@ const Header = () => {
           (item: { type: string }) => item.type == "Solution",
         );
         main[2].children = servicesMenu[0].content;
+        setLoading(false);
       } else {
         main[1].children = productInfo.productData.value.product.filter(
           (item: { type: string }) => item.type == "Solution",
@@ -58,6 +61,7 @@ const Header = () => {
         main[2].children = productInfo.productData.value.product.filter(
           (item: { type: string }) => item.type == "Service",
         )[0].content;
+        setLoading(false);
       }
     };
     fetchProduct().catch(console.error);
@@ -65,7 +69,7 @@ const Header = () => {
     // call the function
 
     // make sure to catch any error
-  }, []);
+  }, [loading]);
   useEffect(() => {
     // call the function
     window.scrollTo(0, 0);
@@ -74,7 +78,9 @@ const Header = () => {
   const { navigation_button, settings } = config;
   // get current path
 
-  return (
+  return loading ? (
+    <></>
+  ) : (
     <header
       className={`fixed top-0 w-full flex justify-center ${
         scrolled

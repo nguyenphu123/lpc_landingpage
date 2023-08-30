@@ -57,7 +57,7 @@ export default function RootLayout({
           href={`https://fonts.googleapis.com/css2?family=${pf}${
             sf ? "&family=" + sf : ""
           }&display=swap`}
-          rel="stylesheet preload"
+          rel="stylesheet preload preconnect"
         />
       </head>
 

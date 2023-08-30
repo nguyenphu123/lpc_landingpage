@@ -49,7 +49,6 @@ const RegularPages = () => {
           },
           href,
         );
-        dispatch(companyProduct(serviceCheck));
         const result = serviceCheck.products.filter(
           (item: { type: string }) => item.type == "Service",
         );
@@ -64,6 +63,7 @@ const RegularPages = () => {
           )[0],
         );
         setIsLoading(false);
+        dispatch(companyProduct(serviceCheck));
       } else {
         const service = products[0].content.filter(
           (item: { [x: string]: any; link: string; type: string }) =>

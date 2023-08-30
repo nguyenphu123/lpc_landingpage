@@ -46,8 +46,6 @@ const CategorySingle = () => {
           },
           href,
         );
-        dispatch(companyNew(newsCheck));
-
         posts = newsCheck.news;
 
         setFilterByCategories(
@@ -55,6 +53,7 @@ const CategorySingle = () => {
             product.categories.some((item: string) => item === params.single),
           ),
         );
+        dispatch(companyNew(newsCheck));
       } else {
         setFilterByCategories(
           posts.filter((product) =>

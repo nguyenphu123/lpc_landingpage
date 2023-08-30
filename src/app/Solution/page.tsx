@@ -1,7 +1,6 @@
 "use client";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import ImageFallback from "@/helpers/ImageFallback";
-import { markdownify } from "@/lib/utils/textConverter";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import { FaCheck } from "react-icons/fa/index.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,12 +50,12 @@ const Solutions = () => {
           },
           href,
         );
-        dispatch(companyProduct(productCheck));
         setData(
           productCheck.products.filter(
             (item: { type: string }) => item.type == "Solution",
           ),
         );
+        dispatch(companyProduct(productCheck));
       } else {
       }
     };
@@ -143,19 +142,21 @@ const Solutions = () => {
                 >
                   <h2
                     className="mb-4"
-                    dangerouslySetInnerHTML={markdownify(
-                      curlanguage.changeLanguage.value == "en"
-                        ? feature.titleEn
-                        : feature.title,
-                    )}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        curlanguage.changeLanguage.value == "en"
+                          ? feature.titleEn
+                          : feature.title,
+                    }}
                   />
                   <p
                     className="mb-8 text-lg"
-                    dangerouslySetInnerHTML={markdownify(
-                      curlanguage.changeLanguage.value == "en"
-                        ? feature.descriptionEn2
-                        : feature.description2,
-                    )}
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        curlanguage.changeLanguage.value == "en"
+                          ? feature.descriptionEn2
+                          : feature.description2,
+                    }}
                   />
                   <ul>
                     {curlanguage.changeLanguage.value == "en"
@@ -163,7 +164,9 @@ const Solutions = () => {
                           <li className="relative mb-4 pl-6" key={bullet}>
                             <FaCheck className={"absolute left-0 top-1.5"} />
                             <span
-                              dangerouslySetInnerHTML={markdownify(bullet)}
+                              dangerouslySetInnerHTML={{
+                                __html: bullet,
+                              }}
                             />
                           </li>
                         ))
@@ -171,7 +174,9 @@ const Solutions = () => {
                           <li className="relative mb-4 pl-6" key={bullet}>
                             <FaCheck className={"absolute left-0 top-1.5"} />
                             <span
-                              dangerouslySetInnerHTML={markdownify(bullet)}
+                              dangerouslySetInnerHTML={{
+                                __html: bullet,
+                              }}
                             />
                           </li>
                         ))}

@@ -30,7 +30,6 @@ const Header = () => {
   let servicesMenu: any = [];
   const scrolled = useScroll(50);
   useEffect(() => {
-   
     // declare the data fetching function
     const fetchProduct = async () => {
       if (productInfo.productData.value.product.length == 0) {
@@ -64,10 +63,14 @@ const Header = () => {
     fetchProduct().catch(console.error);
 
     // call the function
+
+    // make sure to catch any error
+  }, []);
+  useEffect(() => {
+    // call the function
     window.scrollTo(0, 0);
     // make sure to catch any error
-  }, [main, pathname]);
-
+  }, [pathname]);
   const { navigation_button, settings } = config;
   // get current path
 

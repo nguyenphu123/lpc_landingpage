@@ -20,9 +20,8 @@ export default function CustomerListForAbout() {
     const fetchNew = async () => {
       if (customers.length == 0) {
         const customerCheck = await loadCustomer(href);
-
-        dispatch(customerData(customerCheck));
         setCustomers(customerCheck.customer);
+        dispatch(customerData(customerCheck));
       } else {
       }
     };

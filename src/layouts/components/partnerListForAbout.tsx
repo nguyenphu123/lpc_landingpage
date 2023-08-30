@@ -18,8 +18,8 @@ export default function PartnerListForAbout() {
     const fetchNew = async () => {
       if (partners.length == 0) {
         const partnerCheck = await loadPartner(href);
-        dispatch(companyPartner(partnerCheck));
         setPartners(partnerCheck.partner);
+        dispatch(companyPartner(partnerCheck));
       } else {
       }
     };

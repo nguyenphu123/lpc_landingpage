@@ -44,12 +44,12 @@ const RegularPages = () => {
           },
           href,
         );
-        dispatch(companyProduct(productCheck));
         setData(
           productCheck.products.filter(
             (item: { type: string }) => item.type == "Service",
           )[0],
         );
+        dispatch(companyProduct(productCheck));
       } else {
         setData(products[0]);
       }

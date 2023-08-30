@@ -1,3 +1,4 @@
+"use client";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -19,8 +20,8 @@ export default function PartnerList() {
     const fetchNew = async () => {
       if (partners.length == 0) {
         const partnerCheck = await loadPartner(href);
-        dispatch(companyPartner(partnerCheck));
         setPartners(partnerCheck.partner);
+        dispatch(companyPartner(partnerCheck));
       } else {
       }
     };

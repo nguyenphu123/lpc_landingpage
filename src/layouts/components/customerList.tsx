@@ -1,3 +1,4 @@
+"use client";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -19,9 +20,8 @@ export default function CustomerList() {
     const fetchNew = async () => {
       if (customers.length == 0) {
         const customerCheck = await loadCustomer(href);
-
-        dispatch(customerData(customerCheck));
         setCustomers(customerCheck.customer);
+        dispatch(customerData(customerCheck));
       } else {
       }
     };

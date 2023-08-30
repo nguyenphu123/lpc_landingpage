@@ -45,7 +45,6 @@ const RegularPages = () => {
           },
           href,
         );
-        dispatch(companyProduct(productCheck));
         if (
           productCheck.products
             .filter((item: { type: string }) => item.type == "Solution")
@@ -68,6 +67,8 @@ const RegularPages = () => {
           );
 
         setResultData(data[0]);
+        dispatch(companyProduct(productCheck));
+
         if (data == undefined) {
           router.replace("http://localhost:3000/");
         }

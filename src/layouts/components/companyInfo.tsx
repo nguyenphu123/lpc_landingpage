@@ -15,7 +15,9 @@ export default function CompanyInfo() {
   const curlanguage = useSelector((rootState) => language(rootState));
   const companyInfo = useSelector((rootState) => company(rootState));
 
-  let [companyDatas, setCompanyDatas]: any = useState(companyInfo.companyData.value);
+  let [companyDatas, setCompanyDatas]: any = useState(
+    companyInfo.companyData.value,
+  );
 
   const [isBusy, setBusy] = useState(true);
   const dispatch = useDispatch();
@@ -24,10 +26,9 @@ export default function CompanyInfo() {
     async function fetchNew() {
       if (Object.keys(companyDatas).length == 0) {
         const companyCheck = await loadCompanyInfo(href);
-
-        dispatch(companyData(companyCheck));
-        setCompanyDatas(companyCheck.company[0])
+        setCompanyDatas(companyCheck.company[0]);
         setBusy(false);
+        dispatch(companyData(companyCheck));
       } else {
         setBusy(false);
       }

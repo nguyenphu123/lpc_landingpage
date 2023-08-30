@@ -1,7 +1,7 @@
+"use client";
 import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { Grid } from "@mantine/core";
-
 import { useEffect, useState } from "react";
 import { loadNews } from "@/lib/loadData";
 import dynamic from "next/dynamic";
@@ -9,7 +9,7 @@ import { useUrl } from "nextjs-current-url";
 const NewITem = dynamic(() => import("./newItem"));
 // posts will be populated at build time by getStaticProps()
 export default function Blog() {
-  const { pathname, href } = useUrl() ?? {};
+  const { href } = useUrl() ?? {};
   const curlanguage = useSelector((rootState) => language(rootState));
   // const newsCheck = await loadNews();
 

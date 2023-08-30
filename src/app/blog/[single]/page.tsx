@@ -6,13 +6,9 @@ import dateFormat from "@/lib/utils/dateFormat";
 
 import similerItems from "@/lib/utils/similarItems";
 
-import { humanize, markdownify, slugify } from "@/lib/utils/textConverter";
-
 import Link from "next/link";
 
 import { useRouter, useParams } from "next/navigation";
-
-import { FaRegClock, FaRegFolder } from "react-icons/fa/index.js";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -42,8 +38,6 @@ const PostSingle = () => {
   let [data, setData] = useState(
     posts.filter((post) => post._id === params.single)[0] || {},
   );
-
-  const post = data;
 
   let [similarPosts, setSimilarPosts] = useState(
     (Object.keys(data).length != 0 && similerItems(data, posts, data._id!)) ||
@@ -78,10 +72,9 @@ const PostSingle = () => {
         if (newsCheck.news.length == 0) {
           router.replace("http://localhost:3000/");
         }
-
-        dispatch(companyNew(newsCheck));
         setData(newsCheck.news.filter((item) => item._id == params.single)[0]);
         setSimilarPosts(data && similerItems(data, newsCheck.news, data._id!));
+        dispatch(companyNew(newsCheck));
       } else {
         if (Object.keys(data).length == 0) {
           router.replace("http://localhost:3000/");
@@ -125,24 +118,22 @@ const PostSingle = () => {
                 <div style={{ margin: "200px" }}></div>
 
                 <h1
-                  dangerouslySetInnerHTML={markdownify(
-                    curlanguage.changeLanguage.value == "en"
-                      ? data.titleEn
-                      : data.title,
-                  )}
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      curlanguage.changeLanguage.value == "en"
+                        ? data.titleEn
+                        : data.title,
+                  }}
                   className="h3 mb-4"
                 />
 
                 <ul className="mb-4">
                   <li className="mr-4 inline-block">
-                    <FaRegFolder className={"-mt-1 mr-2 inline-block"} />
+                    {/* <FaRegFolder className={"-mt-1 mr-2 inline-block"} /> */}
 
                     {data.categories?.map((category: string, index: number) => (
-                      <Link
-                        key={category}
-                        href={`/categories/${slugify(category)}`}
-                      >
-                        {humanize(category)}
+                      <Link key={category} href={`/categories/${category}`}>
+                        {category}
 
                         {index !== data.categories.length - 1 && ", "}
                       </Link>
@@ -151,7 +142,7 @@ const PostSingle = () => {
 
                   {data.date && (
                     <li className="mr-4 inline-block">
-                      <FaRegClock className="-mt-1 mr-2 inline-block" />
+                      {/* <FaRegClock className="-mt-1 mr-2 inline-block" /> */}
 
                       {dateFormat(data.date)}
                     </li>

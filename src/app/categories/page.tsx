@@ -37,8 +37,8 @@ const Categories = () => {
           },
           href,
         );
-        dispatch(companyNew(newsCheck));
         setPosts(newsCheck.news);
+        dispatch(companyNew(newsCheck));
       } else {
       }
     };

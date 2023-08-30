@@ -69,7 +69,7 @@ const Header = () => {
     // call the function
 
     // make sure to catch any error
-  }, [loading]);
+  }, [loading, main]);
   useEffect(() => {
     // call the function
     window.scrollTo(0, 0);

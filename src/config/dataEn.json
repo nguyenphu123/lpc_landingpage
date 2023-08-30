@@ -15,8 +15,12 @@
     "name": " We guarantee to bring you our best services and solutions",
     "description": ""
   },
-  "product": {
-    "name": " Our product",
+  "product_solution": {
+    "name": " We provide the following solutions",
+    "description": ""
+  },
+  "product_service": {
+    "name": " We provide the following services",
     "description": ""
   },
   "service_title": {

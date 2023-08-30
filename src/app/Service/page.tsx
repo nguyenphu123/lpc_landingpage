@@ -85,8 +85,8 @@ const RegularPages = () => {
           <div className="text-center">
             <h1 className="text-white text-2xl font-semibold uppercase md:text-3xl">
               {curlanguage.changeLanguage.value == "en"
-                ? DataEn["product"]?.name
-                : Data["product"]?.name}
+                ? DataEn["product_service"]?.name
+                : Data["product_service"]?.name}
             </h1>
           </div>
         </div>

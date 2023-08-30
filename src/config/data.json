@@ -15,8 +15,12 @@
     "name": " Chúng tôi cam kết mang đến những giải pháp xuất sắc và dịch vụ tận tâm cho khách hàng",
     "description": ""
   },
-  "product": {
-    "name": " Các sản phẩm của chúng tôi",
+  "product_solution": {
+    "name": " Các giải pháp của chúng tôi",
+    "description": ""
+  },
+  "product_service": {
+    "name": " Các dịch vụ của chúng tôi",
     "description": ""
   },
   "service_title": {

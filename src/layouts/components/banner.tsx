@@ -1,17 +1,22 @@
 "use client";
 import { useEffect, useState } from "react";
 import BannerContent from "./bannerContent";
-
 import { loadBanner } from "@/lib/loadData";
 import Image from "next/image";
 import "@/styles/main.scss";
-import dynamic from "next/dynamic";
 import { useUrl } from "nextjs-current-url";
-
-const Carousel = dynamic(() => import("./carousel"));
+const delay = 5000;
 const Banner = () => {
   const { href } = useUrl() ?? {};
   const [banners, setBanners] = useState<any[]>([]);
+  const [index, setIndex] = useState(0);
+  const timeoutRef: any = useState(null);
+  function resetTimeout() {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  }
+
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
@@ -21,32 +26,48 @@ const Banner = () => {
       } else {
       }
     };
+
     // call the function
     fetchNew()
       // make sure to catch any error
       .catch(console.error);
   }, [banners]);
+  useEffect(() => {
+    resetTimeout();
+    timeoutRef.current = setTimeout(
+      () =>
+        setIndex((prevIndex) =>
+          prevIndex === banners.length - 1 ? 0 : prevIndex + 1,
+        ),
+      delay,
+    );
+
+    return () => {
+      resetTimeout();
+    };
+  }, [index, banners]);
   return banners.length == 0 ? (
     <></>
   ) : (
-    <Carousel loop>
-      {banners.map((banner) => (
-        <div
-          key={banner._id}
-          className="flex-[0_0_100%] md:flex-[0_0_100%] relative"
-        >
-          <Image
-            fill
-            className={`bg-cover bg-center bg-no-repeat`}
-            src={`${banner.image}`}
-            alt={""}
-            priority
-          />
-          <BannerContent banner={banner} />
-          {/* </Image> */}
-        </div>
-      ))}
-    </Carousel>
+    <div className="slideshow">
+      <div
+        className="slideshowSlider"
+        style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
+      >
+        {banners.map((banner) => (
+          <div key={banner._id} className="slide">
+            <Image
+              fill
+              className={`bg-cover bg-center bg-no-repeat `}
+              src={`${banner.image}`}
+              alt={""}
+              priority
+            />
+            <BannerContent banner={banner} />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 export default Banner;

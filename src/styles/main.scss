@@ -18,3 +18,21 @@
 body {
   overflow-x: hidden;
 }
+.slideshow {
+  margin: 0 auto;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.slideshowSlider {
+  white-space: nowrap;
+  transition: ease 1000ms;
+}
+
+.slide {
+  display: inline-block;
+  position: relative;
+  height: 90vh;
+  width: 100%;
+  border-radius: 40px;
+}

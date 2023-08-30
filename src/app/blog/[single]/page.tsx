@@ -39,10 +39,7 @@ const PostSingle = () => {
     posts.filter((post) => post._id === params.single)[0] || {},
   );
 
-  let [similarPosts, setSimilarPosts] = useState(
-    (Object.keys(data).length != 0 && similerItems(data, posts, data._id!)) ||
-      [],
-  );
+  let [similarPosts, setSimilarPosts]: any = useState([]);
 
   const dispatch = useDispatch();
 
@@ -52,16 +49,14 @@ const PostSingle = () => {
     // declare the data fetching function
 
     const fetchNew = async () => {
-      if (Object.keys(data).length == 0) {
+      if (posts.length == 0) {
         const newsCheck = await loadNews(
           "",
           {
             _id: 1,
             title: 1,
             titleEn: 1,
-            image: 1,
             categories: 1,
-
             content: 1,
             contentEn: 1,
             date: 1,
@@ -79,7 +74,6 @@ const PostSingle = () => {
         if (Object.keys(data).length == 0) {
           router.replace("http://localhost:3000/");
         }
-
         setSimilarPosts(
           data &&
             similerItems(
@@ -102,7 +96,7 @@ const PostSingle = () => {
   }, [data]);
 
   return (
-    Object.keys(data).length != 0 && (
+    posts.length != 0 && (
       <>
         <SeoMeta
           title={data.title}
@@ -167,17 +161,6 @@ const PostSingle = () => {
                         : Data["text6"].name}
                       :
                     </h5>
-
-                    {/* <Share
-                      className="social-icons"
-                      title={
-                        curlanguage.changeLanguage.value == "en"
-                          ? data.titleEn
-                          : data.title
-                      }
-                      description={""}
-                      slug={post.slug!}
-                    /> */}
                   </div>
                 </div>
 

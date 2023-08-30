@@ -1,9 +1,4 @@
-import {
-  GoogleMap,
-  Marker,
-  LoadScript,
-  InfoWindow,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 import { Loader } from "@googlemaps/js-api-loader";
 import { useMemo, useState, useEffect } from "react";
 import { loadContact } from "@/lib/loadData";
@@ -13,7 +8,7 @@ export default function MapWithAMarker() {
   let map;
   const libraries = useMemo(() => ["drawing", "places"], []);
   const [selectedElement, setSelectedElement] = useState(null);
-  const [showInfoWindow, setShowInfoWindow] = useState(true);
+
   const [mapCenter, setMapCenter] = useState({
     lat: 10.767964178711825,
     lng: 106.70014735582092,

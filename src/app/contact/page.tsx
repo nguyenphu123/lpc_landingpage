@@ -12,11 +12,12 @@ import SeoMeta from "@/partials/SeoMeta";
 
 import PageHeader from "@/partials/PageHeader";
 
-import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
+import { useState } from "react";
+import dynamic from "next/dynamic";
 
-import { useMemo, useState } from "react";
-
-import Map from "../../layouts/components/map";
+const MapWithAMarker = dynamic(
+  () => import("../../layouts/components/googleMap"),
+);
 
 const Contact = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
@@ -94,7 +95,7 @@ const Contact = () => {
         <div className="container">
           <div className="row">
             <div className="mx-auto md:col-10 lg:col-10 grid grid-cols-2 gap-1">
-              <Map></Map>
+              <MapWithAMarker />
 
               <div>
                 <form onSubmit={(e) => onsubmit(e)}>

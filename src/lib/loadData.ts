@@ -1,4 +1,4 @@
-export async function loadNews(role: any) {
+export async function loadNews(role: any, searchField, href) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -6,111 +6,202 @@ export async function loadNews(role: any) {
   if (role == "admin") {
     url = "api/getall/new";
   }
-  const res = await fetch(url);
+  const res = await fetch(
+    window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":" +
+      window.location.port +
+      "/" +
+      url,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        searchField: searchField,
+      }),
+    },
+  );
   const news = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return news;
 }
-export async function loadViaId(id: any, schema) {
+
+export async function loadUsers(href) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const data = { _id: id, schema: schema };
-  const res = await fetch("api/findById", {
-    method: "POST",
-    headers: new Headers({
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    }),
-    body: JSON.stringify(data),
-  });
-  const datas = await res.json();
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  return datas;
-}
-export async function loadUsers() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
-  // const posts = await loadNews()
-  const res = await fetch("api/user");
+  const res = await fetch(
+    window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":" +
+      window.location.port +
+      "/" +
+      "api/user",
+  );
   const users = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return users;
 }
-export async function loadCompanyInfo() {
+export async function loadCompanyInfo(href) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("api/company");
+  const res = await fetch(
+    window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":" +
+      window.location.port +
+      "/" +
+      "api/company",
+  );
   const info = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return info;
 }
-export async function loadCustomer() {
+export async function loadCustomer(href) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("api/customer");
+  const res = await fetch(
+    window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":" +
+      window.location.port +
+      "/" +
+      "api/customer",
+  );
   const customers = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return customers;
 }
-export async function loadPartner() {
+export async function loadPartner(href) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("api/partner");
+  const res = await fetch(
+    window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":" +
+      window.location.port +
+      "/" +
+      "api/partner",
+  );
   const partners = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return partners;
 }
-export async function loadMessage() {
+export async function loadMessage(href) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("api/sendMessage");
+  const res = await fetch(
+    window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":" +
+      window.location.port +
+      "/" +
+      "api/sendMessage",
+  );
   const messages = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return messages;
 }
-export async function loadProduct(path) {
+export async function loadProduct(searchField, href) {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  // const posts = await loadNews()
+
+  const res = await fetch(
+    window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":" +
+      window.location.port +
+      "/" +
+      "api/product",
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        searchField: searchField,
+      }),
+    },
+  );
+  const products = await res.json();
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return products;
+}
+export async function loadNewHomePage(href) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
   let res;
-  if (path != "") {
-    res = await fetch("api/product");
-  } else {
-    res = await fetch("api/product");
-  }
+  res = await fetch(
+    window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":" +
+      window.location.port +
+      "/" +
+      "api/getNewForHomePage",
+  );
 
   const products = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return products;
 }
-export async function loadBanner() {
+
+export async function loadBanner(href) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("api/banner");
+  const res = await fetch(
+    window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":" +
+      window.location.port +
+      "/" +
+      "api/banner",
+  );
   const banners = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return banners;
 }
-export async function loadContact() {
+export async function loadContact(href) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("api/contact");
+  const res = await fetch(
+    window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":" +
+      window.location.port +
+      "/" +
+      "api/contact",
+  );
   const contacts = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time

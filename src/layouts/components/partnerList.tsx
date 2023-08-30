@@ -2,10 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { loadPartner } from "@/lib/loadData";
-import "../../styles/slider2.scss";
+import "../../styles/slider.scss";
 import { companyPartner, partner } from "@/feature/data/partnerSlice";
+import { useUrl } from "nextjs-current-url";
+
 // posts will be populated at build time by getStaticProps()
 export default function PartnerList() {
+  const { pathname, href } = useUrl() ?? {};
   // const newsCheck = await loadNews();
   const partnerInfo = useSelector((rootState) => partner(rootState));
   let partnerList = partnerInfo.partnerData.value.partnerList;
@@ -15,17 +18,9 @@ export default function PartnerList() {
     // declare the data fetching function
     const fetchNew = async () => {
       if (partners.length == 0) {
-        if (
-          JSON.parse(localStorage.getItem("partnerList") || "[]").length == 0 ||
-          JSON.parse(localStorage.getItem("partnerList") || "[]").length == 1
-        ) {
-          const partnerCheck = await loadPartner();
-          dispatch(companyPartner(partnerCheck));
-          setPartners(partnerCheck.partner);
-        } else {
-          partnerList = JSON.parse(localStorage.getItem("partnerList") || "[]");
-          setPartners(partnerList);
-        }
+        const partnerCheck = await loadPartner(href);
+        dispatch(companyPartner(partnerCheck));
+        setPartners(partnerCheck.partner);
       } else {
       }
     };

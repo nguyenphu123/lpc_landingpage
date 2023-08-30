@@ -11,37 +11,51 @@ import "../../styles/scroll.scss";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import PageHeader from "@/partials/PageHeader";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadProduct } from "@/lib/loadData";
+import { useUrl } from "nextjs-current-url";
+
 const Solutions = () => {
+  const { pathname, href } = useUrl() ?? {};
   const curlanguage = useSelector((rootState) => language(rootState));
   const productInfo = useSelector((rootState) => product(rootState));
 
-  let data =
+  let [data, setData] = useState(
     productInfo.productData.value.product != undefined
       ? productInfo.productData.value.product.filter(
           (item: { type: string }) => item.type == "Solution",
         )
-      : [];
+      : [],
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     // declare the data fetching function
     const fetchSolution = async () => {
       if (data.length == 0) {
-        if (
-          JSON.parse(localStorage.getItem("productList") || "[]").length == 1
-        ) {
-          const productCheck = await loadProduct("");
-          dispatch(companyProduct(productCheck));
-          data = productCheck.filter(
+        const productCheck = await loadProduct(
+          {
+            title: 1,
+            _id: 1,
+            type: 1,
+            titleEn: 1,
+            image: 1,
+            descriptionEn1: 1,
+            description1: 1,
+            pros: 1,
+            prosEn: 1,
+            content: 1,
+            description2: 1,
+            descriptionEn2: 1,
+          },
+          href,
+        );
+        dispatch(companyProduct(productCheck));
+        setData(
+          productCheck.products.filter(
             (item: { type: string }) => item.type == "Solution",
-          );
-        } else {
-          data = JSON.parse(localStorage.getItem("productList") || "[]").filter(
-            (item: { type: string }) => item.type == "Solution",
-          );
-        }
+          ),
+        );
       } else {
       }
     };
@@ -49,8 +63,10 @@ const Solutions = () => {
     fetchSolution()
       // make sure to catch any error
       .catch(console.error);
-  }, []);
-  return (
+  }, [data]);
+  return data.length == 0 ? (
+    <></>
+  ) : (
     <>
       <SeoMeta />
       <PageHeader

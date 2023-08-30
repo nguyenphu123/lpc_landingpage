@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table } from "@mantine/core";
 import Image from "next/image";
 import { loadPartner } from "@/lib/loadData";
+import { useUrl } from "nextjs-current-url";
 
 interface Partner {
   _id: string;
@@ -12,11 +13,12 @@ interface Partner {
 }
 
 function PartnerTable() {
+  const { href } = useUrl() ?? {};
   const [partnerData, setPartnerData] = useState<Partner[]>([]);
   useEffect(() => {
     const fetchNew = async () => {
       if (partnerData.length == 0) {
-        const partnerCheck = await loadPartner();
+        const partnerCheck = await loadPartner(href);
         setPartnerData(partnerCheck.partner);
       } else {
       }

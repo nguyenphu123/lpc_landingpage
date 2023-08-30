@@ -9,7 +9,9 @@ import { useEffect, useState } from "react";
 import { loadCompanyInfo } from "@/lib/loadData";
 import PartnerListForAbout from "./partnerListForAbout";
 import CustomerListForAbout from "./customerListForAbout";
+import { useUrl } from "nextjs-current-url";
 export default function CompanyInfo() {
+  const { href } = useUrl() ?? {};
   const curlanguage = useSelector((rootState) => language(rootState));
   const companyInfo = useSelector((rootState) => company(rootState));
 
@@ -25,7 +27,7 @@ export default function CompanyInfo() {
           JSON.parse(localStorage.getItem("companyInfo") || "[]").length == 1 ||
           JSON.parse(localStorage.getItem("companyInfo") || "[]").length == 0
         ) {
-          const companyCheck = await loadCompanyInfo();
+          const companyCheck = await loadCompanyInfo(href);
 
           dispatch(companyData(companyCheck));
         } else {

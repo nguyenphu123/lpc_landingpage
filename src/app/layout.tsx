@@ -1,14 +1,17 @@
 "use client";
 import config from "@/config/config.json";
 import theme from "@/config/theme.json";
-import Footer from "@/partials/Footer";
-import Header from "@/partials/Header";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 import "@/styles/main.scss";
 import { AuthProvider } from "./provider";
 import { usePathname } from "next/navigation";
-import ScrollToTopButton from "@/components/scrollToTopButton";
+import dynamic from "next/dynamic";
+const Header = dynamic(() => import("@/partials/Header"));
+const Footer = dynamic(() => import("@/partials/Footer"));
+const ScrollToTopButton = dynamic(
+  () => import("@/components/scrollToTopButton"),
+);
 export default function RootLayout({
   children,
 }: {

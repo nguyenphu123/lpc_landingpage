@@ -9,18 +9,19 @@ import { markdownify } from "@/lib/utils/textConverter";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useUrl } from "nextjs-current-url";
 const Footer = ({ src }: { src?: string }) => {
   const { copyright } = config.params;
   const curlanguage = useSelector((rootState) => language(rootState));
   const { footer } = curlanguage.changeLanguage.value == "en" ? menuEn : menu;
 
   const [companyLinks, setCompanyLinks]: any = useState({});
-
+  const { pathname, href } = useUrl() ?? {};
   useEffect(() => {
     // declare the data fetching function
     async function fetchNew() {
       if (Object.keys(companyLinks).length == 0) {
-        const companyCheck = await loadContact();
+        const companyCheck = await loadContact(href);
         setCompanyLinks(companyCheck.contact[0]);
       }
     }

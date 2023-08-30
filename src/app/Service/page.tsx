@@ -5,12 +5,13 @@ import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import { useDispatch, useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import PageHeader from "@/partials/PageHeader";
 import { loadProduct } from "@/lib/loadData";
 import { useEffect, useState } from "react";
+import { useUrl } from "nextjs-current-url";
 const RegularPages = () => {
+  const { href } = useUrl() ?? {};
   const productInfo = useSelector((rootState) => product(rootState));
   let products = [];
   let [data, setData]: any = useState({});
@@ -25,7 +26,23 @@ const RegularPages = () => {
     // declare the data fetching function
     const fetchSolution = async () => {
       if (products.length == 0) {
-        const productCheck = await loadProduct("");
+        const productCheck = await loadProduct(
+          {
+            title: 1,
+            _id: 1,
+            type: 1,
+            titleEn: 1,
+            image: 1,
+            descriptionEn1: 1,
+            description1: 1,
+            pros: 1,
+            prosEn: 1,
+            content: 1,
+            description2: 1,
+            descriptionEn2: 1,
+          },
+          href,
+        );
         dispatch(companyProduct(productCheck));
         setData(
           productCheck.products.filter(

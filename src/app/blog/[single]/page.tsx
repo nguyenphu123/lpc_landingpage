@@ -1,12 +1,8 @@
 "use client";
 
-import BlogCard from "@/components/BlogCard";
-
 import Share from "@/components/Share";
 
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-
-import ImageFallback from "@/helpers/ImageFallback";
 
 import dateFormat from "@/lib/utils/dateFormat";
 
@@ -31,10 +27,12 @@ import DataEn from "@/config/dataEn.json";
 import { companyNew, news } from "@/feature/data/newSlice";
 
 import { useEffect, useState } from "react";
-
-import { loadViaId, loadNews } from "@/lib/loadData";
-
+import { useUrl } from "nextjs-current-url";
+import { loadNews } from "@/lib/loadData";
+import dynamic from "next/dynamic";
+const BlogCard = dynamic(() => import("@/components/BlogCard"));
 const PostSingle = () => {
+  const { href } = useUrl() ?? {};
   const newInfo = useSelector((rootState) => news(rootState));
 
   const posts: any[] = newInfo.newData.value.companyNews;
@@ -63,48 +61,30 @@ const PostSingle = () => {
 
     const fetchNew = async () => {
       if (Object.keys(data).length == 0) {
-        if (
-          JSON.parse(window.localStorage.getItem("newList") || "[]").filter(
-            (post) => post._id === params.single,
-          )[0] == undefined
-        ) {
-          const newCheck = await loadViaId(params.single, "New");
+        const newsCheck = await loadNews(
+          "",
+          {
+            _id: 1,
+            title: 1,
+            titleEn: 1,
+            image: 1,
+            categories: 1,
+            description: 1,
+            meta_title: 1,
+            content: 1,
+            contentEn: 1,
+            date: 1,
+          },
+          href,
+        );
 
-          setData(newCheck.data);
-
-          const newsCheck = await loadNews("");
-
-          if (Object.keys(newCheck.data).length == 0) {
-            router.replace("http://localhost:3000/");
-          }
-
-          dispatch(companyNew(newsCheck));
-
-          setSimilarPosts(data && similerItems(data, newsCheck, data._id!));
-        } else {
-          setData(
-            JSON.parse(window.localStorage.getItem("newList") || "[]").filter(
-              (post) => post._id === params.single,
-            )[0],
-          );
-
-          setSimilarPosts(
-            data &&
-              similerItems(
-                data,
-
-                JSON.parse(window.localStorage.getItem("newList") || "[]"),
-
-                data._id!,
-              ),
-          );
-
-          if (Object.keys(data).length == 0) {
-            debugger;
-
-            router.replace("http://localhost:3000/");
-          }
+        if (newsCheck.length == 0) {
+          router.replace("http://localhost:3000/");
         }
+
+        dispatch(companyNew(newsCheck));
+        setData(newsCheck.news.filter((item) => item._id == params.single));
+        setSimilarPosts(data && similerItems(data, newsCheck, data._id!));
       } else {
         if (Object.keys(data).length == 0) {
           router.replace("http://localhost:3000/");
@@ -115,9 +95,7 @@ const PostSingle = () => {
             similerItems(
               data,
 
-              posts.length == 0
-                ? JSON.parse(window.localStorage.getItem("newList") || "[]")
-                : posts,
+              posts,
 
               data._id!,
             ),
@@ -147,28 +125,6 @@ const PostSingle = () => {
           <div className="container">
             <div className="row justify-center">
               <article className="lg:col-10">
-                {/* {data.image && (
-
-                  <div className="mb-10">
-
-                    <ImageFallback
-
-                      src={data.image}
-
-                      height={500}
-
-                      width={1200}
-
-                      alt={data.title}
-
-                      className="w-full rounded"
-
-                    />
-
-                  </div>
-
-                )} */}
-
                 <div style={{ margin: "200px" }}></div>
 
                 <h1
@@ -216,27 +172,6 @@ const PostSingle = () => {
                 ></div>
 
                 <div className="row items-start justify-between">
-                  <div className="mb-10 flex items-center lg:col-5 lg:mb-0">
-                    <h5 className="mr-3">
-                      {curlanguage.changeLanguage.value == "en"
-                        ? DataEn["text5"].name
-                        : Data["text5"].name}
-                    </h5>
-
-                    <ul>
-                      {data.tags?.map((tag: string) => (
-                        <li key={tag} className="inline-block">
-                          <Link
-                            className="m-1 block rounded bg-theme-light px-3 py-1 hover:bg-primary hover:text-white dark:bg-darkmode-theme-light dark:hover:bg-darkmode-primary dark:hover:text-dark"
-                            href={`/tags/${slugify(tag)}`}
-                          >
-                            {humanize(tag)}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
                   <div className="flex items-center lg:col-4">
                     <h5 className="mr-3">
                       {curlanguage.changeLanguage.value == "en"

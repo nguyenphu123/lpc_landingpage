@@ -1,5 +1,5 @@
 "use client";
-import BlogCard from "@/components/BlogCard";
+
 import { companyNew, news } from "@/feature/data/newSlice";
 import { loadNews } from "@/lib/loadData";
 import { humanize } from "@/lib/utils/textConverter";
@@ -9,13 +9,12 @@ import { Post } from "@/types";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-// remove dynamicParams
-export const dynamicParams = false;
-
-// generate static params
+import dynamic from "next/dynamic";
+import { useUrl } from "nextjs-current-url";
+const BlogCard = dynamic(() => import("@/components/BlogCard"));
 
 const CategorySingle = () => {
+  const { href } = useUrl() ?? {};
   const newInfo = useSelector((rootState) => news(rootState));
   let posts: any[] = newInfo.newData.value.companyNews;
   const params: any = useParams();
@@ -31,7 +30,22 @@ const CategorySingle = () => {
     // declare the data fetching function
     const fetchNew = async () => {
       if (filterByCategories.length == 0) {
-        const newsCheck = await loadNews("");
+        const newsCheck = await loadNews(
+          "",
+          {
+            _id: 1,
+            title: 1,
+            titleEn: 1,
+            image: 1,
+            categories: 1,
+            description: 1,
+            meta_title: 1,
+            content: 1,
+            contentEn: 1,
+            date: 1,
+          },
+          href,
+        );
         dispatch(companyNew(newsCheck));
 
         posts = newsCheck.news;

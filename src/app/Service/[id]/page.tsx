@@ -10,7 +10,9 @@ import PageHeader from "@/partials/PageHeader";
 import { useEffect, useState } from "react";
 import { loadProduct } from "@/lib/loadData";
 import "../../../styles/scroll.scss";
+import { useUrl } from "nextjs-current-url";
 const RegularPages = () => {
+  const { href } = useUrl() ?? {};
   const params: any = useParams();
   const productInfo = useSelector((rootState) => product(rootState));
   let products: any = [];
@@ -29,7 +31,23 @@ const RegularPages = () => {
     // declare the data fetching function
     const fetchData = async () => {
       if (products.length == 0) {
-        const serviceCheck = await loadProduct("");
+        const serviceCheck = await loadProduct(
+          {
+            title: 1,
+            _id: 1,
+            type: 1,
+            titleEn: 1,
+            image: 1,
+            descriptionEn1: 1,
+            description1: 1,
+            pros: 1,
+            prosEn: 1,
+            content: 1,
+            description2: 1,
+            descriptionEn2: 1,
+          },
+          href,
+        );
         dispatch(companyProduct(serviceCheck));
         const result = serviceCheck.products.filter(
           (item: { type: string }) => item.type == "Service",

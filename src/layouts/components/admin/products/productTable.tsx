@@ -7,6 +7,7 @@ import { loadProduct } from "@/lib/loadData";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ContentTable from "./contentTable";
+import { useUrl } from "nextjs-current-url";
 
 interface Product {
   _id: string;
@@ -36,7 +37,7 @@ interface Product {
 
 function ProductTable() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
+  const { href } = useUrl() ?? {};
   const [isEditMode, setIsEditMode] = useState(false);
   const [contentView, setContentView] = useState(false);
   const [showContent, setShowContent] = useState(false);
@@ -47,7 +48,20 @@ function ProductTable() {
 
   useEffect(() => {
     const fetchNew = async () => {
-      const productCheck = await loadProduct("");
+      const productCheck = await loadProduct({
+        title: 1,
+        _id: 1,
+        type: 1,
+        titleEn: 1,
+        image: 1,
+        descriptionEn1: 1,
+        description1: 1,
+        pros: 1,
+        prosEn: 1,
+        content: 1,
+        description2: 1,
+        descriptionEn2: 1,
+      },href);
       dispatch(companyProduct(productCheck));
     };
     // call the function

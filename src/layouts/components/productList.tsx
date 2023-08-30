@@ -6,8 +6,11 @@ import { useEffect, useState } from "react";
 import { loadProduct } from "@/lib/loadData";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import ServiceCard from "./ServiceCard";
+import { useUrl } from "nextjs-current-url";
+
 // posts will be populated at build time by getStaticProps()
 export default function ProductList() {
+  const { pathname, href } = useUrl() ?? {};
   const curlanguage = useSelector((rootState) => language(rootState));
   // const newsCheck = await loadNews();
   const productInfo = useSelector((rootState) => product(rootState));
@@ -22,8 +25,19 @@ export default function ProductList() {
     // declare the data fetching function
     const fetchNew = async () => {
       if (serviceList.length == 0) {
-        const productCheck = await loadProduct("");
-        dispatch(companyProduct(productCheck.products));
+        const productCheck = await loadProduct(
+          {
+            title: 1,
+            _id: 1,
+            type: 1,
+            titleEn: 1,
+            image: 1,
+            descriptionEn1: 1,
+            description1: 1,
+          },
+          href,
+        );
+        // dispatch(companyProduct(productCheck.products));
         setServiceList(productCheck.products);
       } else {
       }

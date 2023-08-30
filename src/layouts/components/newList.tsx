@@ -1,24 +1,31 @@
-import NewITem from "./newItem";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { Grid } from "@mantine/core";
-import { companyNew, news } from "@/feature/data/newSlice";
-import { useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import { loadNews } from "@/lib/loadData";
+import dynamic from "next/dynamic";
+import { useUrl } from "nextjs-current-url";
+const NewITem = dynamic(() => import("./newItem"));
 // posts will be populated at build time by getStaticProps()
 export default function Blog() {
+  const { pathname, href } = useUrl() ?? {};
   const curlanguage = useSelector((rootState) => language(rootState));
   // const newsCheck = await loadNews();
-  const newInfo = useSelector((rootState) => news(rootState));
 
-  const newList = newInfo.newData.value.companyNews;
-  const dispatch = useDispatch();
+  let [newList, setNewList]: any = useState([]);
+
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
       if (newList.length == 0) {
-        const newsCheck = await loadNews("");
-        dispatch(companyNew(newsCheck));
+        const newsCheck = await loadNews("", {
+          _id: 1,
+          title: 1,
+          titleEn: 1,
+          image: 1,
+        },href);
+        setNewList(newsCheck.news);
       } else {
       }
     };
@@ -26,8 +33,10 @@ export default function Blog() {
     fetchNew()
       // make sure to catch any error
       .catch(console.error);
-  }, []);
-  return (
+  }, [newList]);
+  return newList.length == 0 ? (
+    <></>
+  ) : (
     <Grid className="w-3/4" justify="center" grow gutter="sm">
       {newList.slice(0, 4).map(
         (

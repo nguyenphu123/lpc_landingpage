@@ -1,6 +1,4 @@
 "use client";
-import BlogCard from "@/components/BlogCard";
-import Pagination from "@/components/Pagination";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
@@ -11,18 +9,41 @@ import { useDispatch, useSelector } from "react-redux";
 import { companyNew, news } from "@/feature/data/newSlice";
 import { useEffect } from "react";
 import { loadNews } from "@/lib/loadData";
+import dynamic from "next/dynamic";
+import { useUrl } from "nextjs-current-url";
+const BlogCard = dynamic(() => import("@/components/BlogCard"));
+const Pagination = dynamic(() => import("@/components/Pagination"));
 // for all regular pages
 const Posts = () => {
+  const { href } = useUrl() ?? {};
   const curlanguage = useSelector((rootState) => language(rootState));
   const newInfo = useSelector((rootState) => news(rootState));
 
-  const newList = newInfo.newData.value.companyNews;
+  const newList =
+    newInfo.newData.value.companyNews == undefined
+      ? newInfo.newData.value.companyNews
+      : [];
   const dispatch = useDispatch();
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
       if (newList.length == 0) {
-        const newsCheck = await loadNews("");
+        const newsCheck = await loadNews(
+          "",
+          {
+            _id: 1,
+            title: 1,
+            titleEn: 1,
+            image: 1,
+            categories: 1,
+            description: 1,
+            meta_title: 1,
+            content: 1,
+            contentEn: 1,
+            date: 1,
+          },
+          href,
+        );
         dispatch(companyNew(newsCheck));
       } else {
       }
@@ -41,18 +62,7 @@ const Posts = () => {
     image: "",
   };
   const categories = ["Events", "Security"];
-  const tags = [
-    "saasbox",
-    "npm",
-    "sass",
-    "pug",
-    "gulp",
-    "css",
-    "bootstrap",
-    "html5",
-    "jquery",
-    "design",
-  ];
+
   const totalPages = Math.ceil(posts.length / 2);
 
   return (
@@ -88,11 +98,7 @@ const Posts = () => {
               />
             </div>
 
-            <PostSidebar
-              categories={categories}
-              tags={tags}
-              allCategories={posts}
-            />
+            <PostSidebar categories={categories} allCategories={posts} />
           </div>
         </div>
       </section>

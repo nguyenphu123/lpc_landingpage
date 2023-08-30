@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Table, Modal, Button, Box, Grid, Col, TextInput } from "@mantine/core"; // Import thêm Button
 import { loadContact } from "@/lib/loadData";
+import { useUrl } from "nextjs-current-url";
 
 interface Contact {
   _id: string;
@@ -22,6 +23,7 @@ interface Contact {
 }
 
 function ContactTable() {
+  const { pathname, href } = useUrl() ?? {};
   const [contactData, setContactData] = useState<Contact[]>([]);
 
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
@@ -35,7 +37,7 @@ function ContactTable() {
   useEffect(() => {
     const fetchNew = async () => {
       if (contactData.length == 0) {
-        const contactCheck = await loadContact();
+        const contactCheck = await loadContact(href);
         setContactData(contactCheck.contact);
       }
     };

@@ -5,6 +5,7 @@ import { loadCustomer } from "@/lib/loadData";
 import "../../styles/slider.scss";
 
 import { customer, customerData } from "@/feature/data/customerSlice";
+import { useUrl } from "nextjs-current-url";
 // posts will be populated at build time by getStaticProps()
 export default function CustomerListForAbout() {
   // const newsCheck = await loadNews();
@@ -13,25 +14,15 @@ export default function CustomerListForAbout() {
   let customerList = customerInfo.customerData.value.customerList;
   const [customers, setCustomers] = useState([]);
   const dispatch = useDispatch();
+  const { pathname, href } = useUrl() ?? {};
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
       if (customers.length == 0) {
-        if (
-          JSON.parse(localStorage.getItem("customerList") || "[]").length ==
-            1 ||
-          JSON.parse(localStorage.getItem("productList") || "[]").length == 0
-        ) {
-          const customerCheck = await loadCustomer();
+        const customerCheck = await loadCustomer(href);
 
-          dispatch(customerData(customerCheck));
-          setCustomers(customerCheck.customer);
-        } else {
-          customerList = JSON.parse(
-            localStorage.getItem("customerList") || "[]",
-          );
-          setCustomers(customerList);
-        }
+        dispatch(customerData(customerCheck));
+        setCustomers(customerCheck.customer);
       } else {
       }
     };

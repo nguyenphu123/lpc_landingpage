@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table } from "@mantine/core";
 import Image from "next/image";
 import { loadCustomer } from "@/lib/loadData";
+import { useUrl } from "nextjs-current-url";
 
 interface Customer {
   _id: string;
@@ -12,12 +13,13 @@ interface Customer {
 }
 
 function CustomerTable() {
+  const { pathname, href } = useUrl() ?? {};
   const [custommerData, setCustomerData] = useState<Customer[]>([]);
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
       if (custommerData.length == 0) {
-        const customerCheck = await loadCustomer();
+        const customerCheck = await loadCustomer(href);
         setCustomerData(customerCheck.customer);
       } else {
       }

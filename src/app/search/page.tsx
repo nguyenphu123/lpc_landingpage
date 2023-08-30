@@ -1,15 +1,10 @@
-"use client"
-import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import { news } from "@/feature/data/newSlice";
+"use client";
+
 import Search, { SearchItem } from "@/layouts/Search";
 import SeoMeta from "@/partials/SeoMeta";
-import { useSelector } from "react-redux";
-
 
 const SearchPage = () => {
-  const curlanguage = useSelector(language);
- 
-  const searchList: SearchItem[] = []
+  const searchList: SearchItem[] = [];
   return (
     <>
       <SeoMeta title={"Search"} />

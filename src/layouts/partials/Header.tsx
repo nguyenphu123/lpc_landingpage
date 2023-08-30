@@ -16,10 +16,12 @@ import { UrlObject } from "url";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import { loadProduct } from "@/lib/loadData";
 import { useDispatch } from "react-redux";
+import { useUrl } from "nextjs-current-url";
+
 //  child navigation link interface
 const Header = () => {
   const dispatch = useDispatch();
-
+  const { href } = useUrl() ?? {};
   // distructuring the main menu from menu object
   const curlanguage = useSelector((rootState) => language(rootState));
   const { main } = curlanguage.changeLanguage.value == "en" ? menuEn : menu;
@@ -33,8 +35,17 @@ const Header = () => {
     // declare the data fetching function
     const fetchProduct = async () => {
       if (productInfo.productData.value.product.length == 0) {
-        const productCheck = await loadProduct("");
-        dispatch(companyProduct(productCheck));
+        const productCheck = await loadProduct(
+          {
+            title: 1,
+            _id: 1,
+            type: 1,
+            titleEn: 1,
+            content: 1,
+          },
+          href,
+        );
+        // dispatch(companyProduct(productCheck));
         servicesMenu = productCheck.products.filter(
           (item: { type: string }) => item.type == "Service",
         );

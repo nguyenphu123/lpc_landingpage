@@ -4,6 +4,7 @@ import { Table, Modal, Button, Box, Grid, Col } from "@mantine/core"; // Import 
 
 import Image from "next/image";
 import { loadBanner } from "@/lib/loadData";
+import { useUrl } from "nextjs-current-url";
 
 interface Banner {
   _id: string;
@@ -20,6 +21,7 @@ interface Banner {
 }
 
 function BannerTable() {
+  const { pathname, href } = useUrl() ?? {};
   const [bannerData, setBannerData] = useState<Banner[]>([]);
 
   const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
@@ -33,7 +35,7 @@ function BannerTable() {
   useEffect(() => {
     const fetchNew = async () => {
       if (bannerData.length == 0) {
-        const bannerCheck = await loadBanner();
+        const bannerCheck = await loadBanner(href);
         setBannerData(bannerCheck.banner);
       }
     };

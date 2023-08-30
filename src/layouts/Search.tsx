@@ -1,19 +1,14 @@
 "use client";
-import NewITem from "../layouts/components/newItem";
-import config from "@/config/config.json";
-
 import Fuse from "fuse.js";
-
 import React, { Key, useEffect, useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa/index.js";
-import ImageFallback from "./helpers/ImageFallback";
 import { useSelector } from "react-redux";
 import { news } from "@/feature/data/newSlice";
 import { Grid } from "@mantine/core";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-
-const { summary_length, blog_folder } = config.settings;
-
+import dynamic from "next/dynamic";
+const ImageFallback = dynamic(() => import("./helpers/ImageFallback"));
+const NewITem = dynamic(() => import("../layouts/components/newItem"));
 export type SearchItem = {
   _id: any;
   title: any;
@@ -119,15 +114,6 @@ const Search = ({ searchList }: Props) => {
           </div>
         </div>
 
-        {/* {inputVal.length > 1 && (
-          <div className="mt-8">
-            Found {searchResults?.length}
-            {searchResults?.length && searchResults?.length === 1
-              ? " result"
-              : " results"}{" "}
-            for '{inputVal}'
-          </div>
-        )} */}
         <div className="row">
           {searchResults?.length < 1 ? (
             <div className="mx-auto pt-5 text-center">

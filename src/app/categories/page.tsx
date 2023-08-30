@@ -7,7 +7,9 @@ import SeoMeta from "@/partials/SeoMeta";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useUrl } from "nextjs-current-url";
 const Categories = () => {
+  const { href } = useUrl() ?? {};
   const newInfo = useSelector((rootState) => news(rootState));
   let posts: any[] = newInfo.newData.value.companyNews;
 
@@ -17,7 +19,22 @@ const Categories = () => {
     // declare the data fetching function
     const fetchNew = async () => {
       if (posts.length == 0) {
-        const newsCheck = await loadNews("");
+        const newsCheck = await loadNews(
+          "",
+          {
+            _id: 1,
+            title: 1,
+            titleEn: 1,
+            image: 1,
+            categories: 1,
+            description: 1,
+            meta_title: 1,
+            content: 1,
+            contentEn: 1,
+            date: 1,
+          },
+          href,
+        );
         dispatch(companyNew(newsCheck));
         posts = newsCheck.news;
       } else {

@@ -1,6 +1,4 @@
 "use client";
-import BlogCard from "@/components/BlogCard";
-import Pagination from "@/components/Pagination";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
@@ -9,6 +7,9 @@ import PostSidebar from "@/partials/PostSidebar";
 import SeoMeta from "@/partials/SeoMeta";
 import { useSelector } from "react-redux";
 import { news } from "@/feature/data/newSlice";
+import dynamic from "next/dynamic";
+const BlogCard = dynamic(() => import("@/components/BlogCard"));
+const Pagination = dynamic(() => import("@/components/Pagination"));
 const Posts = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
   const newInfo = useSelector((rootState) => news(rootState));
@@ -20,18 +21,7 @@ const Posts = () => {
     image: "",
   };
   const categories = ["Events", "Security"];
-  const tags = [
-    "saasbox",
-    "npm",
-    "sass",
-    "pug",
-    "gulp",
-    "css",
-    "bootstrap",
-    "html5",
-    "jquery",
-    "design",
-  ];
+
   const totalPages = Math.ceil(posts.length / 2);
 
   return (
@@ -67,11 +57,7 @@ const Posts = () => {
               />
             </div>
 
-            <PostSidebar
-              categories={categories}
-              tags={tags}
-              allCategories={posts}
-            />
+            <PostSidebar categories={categories} allCategories={posts} />
           </div>
         </div>
       </section>

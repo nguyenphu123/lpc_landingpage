@@ -12,9 +12,8 @@ import UpdateNew from "./updateNew";
 
 import Popup from "@/components/popup";
 
-// import axios from "axios";
+import { useUrl } from "nextjs-current-url";
 
-// import Demo from "../../app/dashboard/news/page";
 
 interface News {
   _id: string;
@@ -31,6 +30,7 @@ interface News {
 }
 
 function NewsTable() {
+  const { pathname, href } = useUrl() ?? {};
   const [selectedNews, setSelectedNews] = useState<News | null>(null);
 
   const [editNewsVisible, setEditNewsVisible] = useState(false);
@@ -50,7 +50,18 @@ function NewsTable() {
       let role = "admin";
 
       if (newList.length == 0) {
-        const newsCheck = await loadNews(role);
+        const newsCheck = await loadNews(role, {
+          _id: 1,
+          title: 1,
+          titleEn: 1,
+          image: 1,
+          categories: 1,
+          description: 1,
+          meta_title: 1,
+          content: 1,
+          contentEn: 1,
+          date: 1,
+        },href);
 
         dispatch(companyNew(newsCheck));
       } else {

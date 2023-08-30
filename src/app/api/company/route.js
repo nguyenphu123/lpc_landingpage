@@ -75,7 +75,17 @@ export async function PUT(req) {
 export async function GET() {
   try {
     await connectDB();
-    const company = await Company.find({});
+    const company = await Company.find(
+      {},
+      {
+        companyName: 1,
+        companyDescription: 1,
+        companyDescriptionEn: 1,
+        companyCore: 1,
+        companyCoreEn: 1,
+        companyImage: 1,
+      },
+    );
     return NextResponse.json({ company });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {

@@ -10,6 +10,7 @@ import DataEn from "@/config/dataEn.json";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import { loadProduct } from "@/lib/loadData";
 import { useEffect, useState } from "react";
+import { useUrl } from "nextjs-current-url";
 const RegularPages = () => {
   const params: any = useParams();
   const productInfo = useSelector((rootState) => product(rootState));
@@ -19,14 +20,30 @@ const RegularPages = () => {
   products = productInfo.productData.value.product.filter(
     (item: { type: string }) => item.type == "Solution",
   );
-
+  const { href } = useUrl() ?? {};
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
     // declare the data fetching function
     const fetchSolution = async () => {
       if (products.length == 0) {
-        const productCheck = await loadProduct("");
+        const productCheck = await loadProduct(
+          {
+            title: 1,
+            _id: 1,
+            type: 1,
+            titleEn: 1,
+            image: 1,
+            descriptionEn1: 1,
+            description1: 1,
+            pros: 1,
+            prosEn: 1,
+            content: 1,
+            description2: 1,
+            descriptionEn2: 1,
+          },
+          href,
+        );
         dispatch(companyProduct(productCheck));
         if (
           productCheck.products

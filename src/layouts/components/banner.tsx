@@ -1,17 +1,22 @@
 "use client";
 import { useEffect, useState } from "react";
 import BannerContent from "./bannerContent";
-import Carousel from "./carousel";
+
 import { loadBanner } from "@/lib/loadData";
 import Image from "next/image";
 import "@/styles/main.scss";
+import dynamic from "next/dynamic";
+import { useUrl } from "nextjs-current-url";
+
+const Carousel = dynamic(() => import("./carousel"));
 const Banner = () => {
+  const { pathname, href } = useUrl() ?? {};
   const [banners, setBanners] = useState<any[]>([]);
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
       if (banners.length == 0) {
-        const bannerCheck = await loadBanner();
+        const bannerCheck = await loadBanner(href);
         setBanners(bannerCheck.banner);
       } else {
       }
@@ -32,12 +37,10 @@ const Banner = () => {
         >
           <Image
             fill
-            style={{ objectFit: "cover" }}
-            blurDataURL="blur"
-            className={`bg-cover bg-center bg-no-repeat `}
-            priority
+            className={`bg-cover bg-center bg-no-repeat`}
             src={`${banner.image}`}
             alt={""}
+            priority
           />
           <BannerContent banner={banner} />
           {/* </Image> */}

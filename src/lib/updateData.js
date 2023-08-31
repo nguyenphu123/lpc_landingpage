@@ -115,8 +115,8 @@ export async function updateProduct(product) {
 
     content: product.content,
   };
-  
-  const res = await fetch("api/product", {
+
+  const res = await fetch("api/getall/product", {
     method: "put",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),

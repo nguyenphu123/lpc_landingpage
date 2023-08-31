@@ -8,19 +8,31 @@ import {
   changeLanguage,
   language,
 } from "../../feature/changeLanguage/changeLanguageSlice";
-import "../../styles/flag.scss"
+import "../../styles/flag.scss";
 const ThemeSwitcher = ({ className }: { className: string }) => {
   const { theme_switcher } = config.settings;
   const [mounted, setMounted] = useState(false);
   const { theme, resolvedTheme } = useTheme();
-  useEffect(() => {
-    setMounted(true);
-  }, []);
   const curlanguage = useSelector((rootState) => language(rootState));
+  useEffect(() => {
+    if (curlanguage.changeLanguage.value == "en") {
+      setMounted(true);
+    } else {
+      setMounted(false);
+    }
+  }, [curlanguage]);
+
   const dispatch = useDispatch();
   return (
     <>
-      {theme_switcher && (
+      <button className="" onClick={() => dispatch(changeLanguage())}>
+        {curlanguage.changeLanguage.value == "en" ? (
+          <span className="flag-icon-rounded fi fi-us"></span>
+        ) : (
+          <span className=" flag-icon-rounded fi fi-vn"></span>
+        )}
+      </button>
+      {/* {theme_switcher && (
         <div className={`theme-switcher ${className}`}>
           <input
             id="theme-switcher"
@@ -40,7 +52,7 @@ const ThemeSwitcher = ({ className }: { className: string }) => {
             )}
           </label>
         </div>
-      )}
+      )} */}
     </>
   );
 };

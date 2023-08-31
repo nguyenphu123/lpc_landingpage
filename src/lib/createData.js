@@ -23,7 +23,7 @@ export async function createNews(newInfo) {
 
     contentEn: newInfo.contentEn,
   };
-  const res = await fetch("api/new", {
+  const res = await fetch("api/getall/new", {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -108,7 +108,7 @@ export async function addProduct(product) {
     content: product.content,
   };
 
-  const res = await fetch("api/product", {
+  const res = await fetch("api/getall/product", {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),

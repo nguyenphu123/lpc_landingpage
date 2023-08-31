@@ -24,14 +24,15 @@ const Header = () => {
   // distructuring the main menu from menu object
   const curlanguage = useSelector((rootState) => language(rootState));
   const { main } = curlanguage.changeLanguage.value == "en" ? menuEn : menu;
-  let [loading, setLoading] = useState(true);
   const productInfo = useSelector((rootState) => product(rootState));
+  let [isLoading, setIsLoading] = useState(true);
   const pathname: any = usePathname();
   let servicesMenu: any = [];
-  const scrolled = useScroll(50);
+  const scrolled = useScroll(25);
   useEffect(() => {
     // declare the data fetching function
     const fetchProduct = async () => {
+      setIsLoading(true);
       if (productInfo.productData.value.product.length == 0) {
         const productCheck = await loadProduct(
           {
@@ -53,6 +54,7 @@ const Header = () => {
           (item: { type: string }) => item.type == "Solution",
         );
         main[2].children = servicesMenu[0].content;
+        setIsLoading(false);
       } else {
         main[1].children = productInfo.productData.value.product.filter(
           (item: { type: string }) => item.type == "Solution",
@@ -60,6 +62,7 @@ const Header = () => {
         main[2].children = productInfo.productData.value.product.filter(
           (item: { type: string }) => item.type == "Service",
         )[0].content;
+        setIsLoading(false);
       }
     };
     fetchProduct().catch(console.error);
@@ -70,13 +73,17 @@ const Header = () => {
   }, [main]);
   useEffect(() => {
     // call the function
+
     window.scrollTo(0, 0);
     // make sure to catch any error
   }, [pathname]);
+
   const { navigation_button, settings } = config;
   // get current path
 
-  return (
+  return isLoading ? (
+    <></>
+  ) : (
     <header
       className={`fixed top-0 w-full flex justify-center ${
         scrolled

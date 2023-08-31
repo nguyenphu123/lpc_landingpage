@@ -4,10 +4,15 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
 export async function POST(req, res) {
-  const { searchField } = await req.json();
+  const { searchField, role } = await req.json();
   try {
     await connectDB();
-    let news = await New.find({ draft: false }, searchField);
+    let news;
+    if (role == "admin") {
+      news = await New.find({}, searchField);
+    } else {
+      news = await New.find({ draft: false }, searchField);
+    }
 
     return NextResponse.json({ news });
   } catch (error) {

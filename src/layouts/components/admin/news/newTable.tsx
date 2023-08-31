@@ -14,7 +14,6 @@ import Popup from "@/components/popup";
 
 import { useUrl } from "nextjs-current-url";
 
-
 interface News {
   _id: string;
 
@@ -50,18 +49,22 @@ function NewsTable() {
       let role = "admin";
 
       if (newList.length == 0) {
-        const newsCheck = await loadNews(role, {
-          _id: 1,
-          title: 1,
-          titleEn: 1,
-          image: 1,
-          categories: 1,
-          description: 1,
-          meta_title: 1,
-          content: 1,
-          contentEn: 1,
-          date: 1,
-        },href);
+        const newsCheck = await loadNews(
+          role,
+          {
+            _id: 1,
+            title: 1,
+            titleEn: 1,
+            image: 1,
+            categories: 1,
+            description: 1,
+            meta_title: 1,
+            content: 1,
+            contentEn: 1,
+            date: 1,
+          },
+          href,
+        );
 
         dispatch(companyNew(newsCheck));
       } else {
@@ -74,19 +77,7 @@ function NewsTable() {
       // make sure to catch any error
 
       .catch(console.error);
-  }, [dispatch, newList.length]);
-
-  const handleEditClick = (news: News) => {
-    setSelectedNews(news);
-
-    setEditNewsVisible(true);
-  };
-
-  const handleOnClose = () => {
-    setSelectedNews(null);
-
-    setEditNewsVisible(false);
-  };
+  }, []);
 
   const rows = newList.map((news, index) => (
     <tr key={news._id}>
@@ -127,6 +118,17 @@ function NewsTable() {
       </td> */}
     </tr>
   ));
+  const handleEditClick = (news: News) => {
+    setSelectedNews(news);
+
+    setEditNewsVisible(true);
+  };
+
+  const handleOnClose = () => {
+    setSelectedNews(null);
+
+    setEditNewsVisible(false);
+  };
 
   return (
     <div>

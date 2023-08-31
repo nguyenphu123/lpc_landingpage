@@ -3,9 +3,7 @@ export async function loadNews(role: any, searchField, href) {
   // You can use any data fetching library
   // const posts = await loadNews()
   let url = "api/new";
-  if (role == "admin") {
-    url = "api/getall/new";
-  }
+
   const res = await fetch(
     window.location.protocol +
       "//" +
@@ -22,6 +20,7 @@ export async function loadNews(role: any, searchField, href) {
       },
       body: JSON.stringify({
         searchField: searchField,
+        role: role,
       }),
     },
   );

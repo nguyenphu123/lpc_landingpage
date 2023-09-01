@@ -34,6 +34,9 @@ const RegularPages = () => {
             _id: 1,
             titleEn: 1,
             content: 1,
+            contentEn:1,
+            descriptionEn:1,
+            imgSrc:1,
           },
           href,params.id,params.idcontent
         );
@@ -125,7 +128,7 @@ const RegularPages = () => {
         title={resultData?.title}
         meta_title={resultData?.meta_title}
         description={resultData?.content}
-        image={resultData?.image}
+        image={resultData?.imgSrc}
       />
       <PageHeader
         title={

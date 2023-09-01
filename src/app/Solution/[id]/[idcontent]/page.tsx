@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import { companyProduct, product } from "@/feature/data/productSlice";
-import { loadProduct } from "@/lib/loadData";
+import { loadProduct, loadSolutionContentDescription } from "@/lib/loadData";
 import { useEffect, useState } from "react";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
@@ -28,6 +28,21 @@ const RegularPages = () => {
     // declare the data fetching function
     const fetchSolution = async () => {
       if (products.length == 0) {
+        const solutionCheck = await loadSolutionContentDescription(
+          {
+            title: 1,
+            _id: 1,
+            titleEn: 1,
+            content: 1,
+          },
+          href,params.id,params.idcontent
+        );
+        if (
+          solutionCheck.products[0] == undefined
+        ) {
+          router.replace("http://localhost:3000/");
+        }
+        setResultData(solutionCheck.products[0]);
         const productCheck = await loadProduct(
           {
             title: 1,
@@ -45,33 +60,9 @@ const RegularPages = () => {
           },
           href,
         );
-        if (
-          productCheck.products
-            .filter((item: { type: string }) => item.type == "Solution")
-            .filter(
-              (item: { [x: string]: any; link: string; type: string }) =>
-                params.id == item._id,
-            )[0] == undefined
-        ) {
-          router.replace("http://localhost:3000/");
-        }
-        data = productCheck.products
-          .filter((item: { type: string }) => item.type == "Solution")
-          .filter(
-            (item: { [x: string]: any; link: string; type: string }) =>
-              params.id == item._id,
-          )[0]
-          .content.filter(
-            (item: { [x: string]: any; link: string; type: string }) =>
-              params.idcontent == item._id,
-          );
-
-        setResultData(data[0]);
+      
         dispatch(companyProduct(productCheck));
 
-        if (data == undefined) {
-          router.replace("http://localhost:3000/");
-        }
       } else {
         const solution: any = products.filter(
           (item: { [x: string]: any; link: string; type: string }) =>

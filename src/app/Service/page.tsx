@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import PageHeader from "@/partials/PageHeader";
-import { loadProduct } from "@/lib/loadData";
+import { loadProduct, loadService } from "@/lib/loadData";
 import { useEffect, useState } from "react";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
@@ -27,7 +27,7 @@ const RegularPages = () => {
     // declare the data fetching function
     const fetchSolution = async () => {
       if (products.length == 0) {
-        const productCheck = await loadProduct(
+        const serviceCheck = await loadService(
           {
             title: 1,
             _id: 1,
@@ -45,10 +45,26 @@ const RegularPages = () => {
           href,
         );
         setData(
-          productCheck.products.filter(
-            (item: { type: string }) => item.type == "Service",
-          )[0],
+          serviceCheck.products[0],
         );
+        const productCheck = await loadProduct(
+          {
+            title: 1,
+            _id: 1,
+            type: 1,
+            titleEn: 1,
+            image: 1,
+            descriptionEn1: 1,
+            description1: 1,
+            pros: 1,
+            prosEn: 1,
+            content: 1,
+            description2: 1,
+            descriptionEn2: 1,
+          },
+          href,
+        );
+        
         dispatch(companyProduct(productCheck));
       } else {
         setData(products[0]);

@@ -8,7 +8,7 @@ import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import PageHeader from "@/partials/PageHeader";
 import { useEffect, useState } from "react";
-import { loadProduct } from "@/lib/loadData";
+import { loadProduct, loadServiceContent } from "@/lib/loadData";
 import "../../../styles/scroll.scss";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
@@ -32,6 +32,29 @@ const RegularPages = () => {
     // declare the data fetching function
     const fetchData = async () => {
       if (products.length == 0) {
+        const serviceContentCheck = await loadServiceContent(params.id,
+          {
+            title: 1,
+            _id: 1,
+            titleEn: 1,
+            imgSrc: 1,
+            descriptionEn: 1,
+            description: 1,
+           
+            content: 1,
+            contentEn: 1,
+          },
+          href,
+        );
+       
+
+        if (serviceContentCheck.products.length == 0) {
+          router.replace("http://localhost:3000/");
+        }
+        setData(
+          serviceContentCheck.products[0],
+        );
+        setIsLoading(false);
         const serviceCheck = await loadProduct(
           {
             title: 1,
@@ -49,20 +72,6 @@ const RegularPages = () => {
           },
           href,
         );
-        const result = serviceCheck.products.filter(
-          (item: { type: string }) => item.type == "Service",
-        );
-
-        if (result.length == 0) {
-          router.replace("http://localhost:3000/");
-        }
-        setData(
-          result[0].content.filter(
-            (item: { [x: string]: any; link: string; type: string }) =>
-              params.id == item._id,
-          )[0],
-        );
-        setIsLoading(false);
         dispatch(companyProduct(serviceCheck));
       } else {
         const service = products[0].content.filter(

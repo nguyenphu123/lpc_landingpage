@@ -20,7 +20,7 @@ import { companyNew, news } from "@/feature/data/newSlice";
 
 import { useEffect, useState } from "react";
 import { useUrl } from "nextjs-current-url";
-import { loadNews } from "@/lib/loadData";
+import { loadNew, loadNews } from "@/lib/loadData";
 import dynamic from "next/dynamic";
 const BlogCard = dynamic(() => import("@/components/BlogCard"));
 // const Share = dynamic(() => import("@/components/Share"));
@@ -50,6 +50,25 @@ const PostSingle = () => {
 
     const fetchNew = async () => {
       if (posts.length == 0) {
+        const newCheck = await loadNew(
+          "",
+          {
+            _id: 1,
+            title: 1,
+            titleEn: 1,
+            categories: 1,
+            content: 1,
+            contentEn: 1,
+            date: 1,
+            image: 1,
+          },
+          href,params.single
+        );
+        if (newCheck.news.length == 0) {
+          router.replace("http://localhost:3000/");
+        }
+        setData(newCheck.news[0]);
+        setBusy(false);
         const newsCheck = await loadNews(
           "",
           {
@@ -64,11 +83,7 @@ const PostSingle = () => {
           },
           href,
         );
-
-        if (newsCheck.news.length == 0) {
-          router.replace("http://localhost:3000/");
-        }
-        setData(newsCheck.news.filter((item) => item._id == params.single)[0]);
+        dispatch(companyNew(newsCheck));
         setSimilarPosts(
           data &&
             similerItems(
@@ -78,8 +93,6 @@ const PostSingle = () => {
                 ._id!,
             ),
         );
-        setBusy(false);
-        dispatch(companyNew(newsCheck));
       } else {
         if (Object.keys(data).length == 0) {
           router.replace("http://localhost:3000/");

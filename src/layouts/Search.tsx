@@ -7,6 +7,8 @@ import { news } from "@/feature/data/newSlice";
 import { Grid } from "@mantine/core";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import dynamic from "next/dynamic";
+import { searchNews } from "@/lib/loadData";
+import { useUrl } from "nextjs-current-url";
 const ImageFallback = dynamic(() => import("./helpers/ImageFallback"));
 const NewITem = dynamic(() => import("../layouts/components/newItem"));
 export type SearchItem = {
@@ -36,21 +38,27 @@ const Search = ({ searchList }: Props) => {
   const [inputVal, setInputVal] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const newInfo = useSelector((rootState) => news(rootState));
-  const posts: any[] = newInfo.newData.value.companyNews;
+  const { href } = useUrl() ?? {};
   const curlanguage = useSelector((rootState) => language(rootState));
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setInputVal(e.currentTarget.value);
   };
-  const onSearch = () => {
-    const searchResult = posts.filter((item) => {
-      if (
-        item.title.toLowerCase().includes(inputVal.toLowerCase()) ||
-        item.titleEn.toLowerCase().includes(inputVal.toLowerCase())
-      ) {
-        return item;
-      }
-    });
-    setSearchResults(searchResult);
+  const onSearch = async () => {
+    const searchResult =  await searchNews(
+     
+      {
+        _id: 1,
+        title: 1,
+        titleEn: 1,
+        categories: 1,
+        content: 1,
+        contentEn: 1,
+        date: 1,
+        image: 1,
+      },
+     
+    );
+    setSearchResults(searchResult.news);
   };
   const fuse = new Fuse(searchList, {
     keys: ["frontmatter.title", "frontmatter.categories", "frontmatter.tags"],

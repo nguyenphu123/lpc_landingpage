@@ -1,25 +1,21 @@
 import connectDB from "@/lib/mongodb";
-import Partner from "@/models/partner";
+import User from "@/models/user";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 export async function POST(req) {
   const {
-    src,
+    email,
 
-    type,
-
-    name,
+    password,
   } = await req.json();
 
   try {
     await connectDB();
 
-    await Partner.create({
-      src,
+    await User.create({
+      email,
 
-      type,
-
-      name,
+      password,
     });
 
     return NextResponse.json({
@@ -42,24 +38,55 @@ export async function POST(req) {
 export async function PUT(req) {
   const {
     _id,
-    src,
+    title,
+
+    titleEn,
 
     type,
 
-    name,
+    description1,
+
+    description2,
+
+    descriptionEn1,
+
+    descriptionEn2,
+
+    image,
+
+    pros,
+
+    prosEn,
+
+    content,
   } = await req.json();
 
   try {
     await connectDB();
-
-    await Partner.findOneAndUpdate(
+    await Product.findOneAndUpdate(
       { _id: _id },
       {
-        src,
+        title,
+
+        titleEn,
 
         type,
 
-        name,
+        description1,
+
+        description2,
+
+        descriptionEn1,
+
+        descriptionEn2,
+
+        image,
+
+        pros,
+
+        prosEn,
+
+        content,
       },
       { new: true },
     );
@@ -77,16 +104,16 @@ export async function PUT(req) {
       // console.log(errorList);
       return NextResponse.json({ msg: errorList });
     } else {
-      return NextResponse.json({ msg: ["Unable to send message."] });
+      return NextResponse.json({ msg: error });
     }
   }
 }
+
 export async function GET() {
   try {
     await connectDB();
-    const partner = await Partner.find({});
-   
-    return NextResponse.json({ partner });
+    const user = await User.find({});
+    return NextResponse.json({ user });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let errorList = [];

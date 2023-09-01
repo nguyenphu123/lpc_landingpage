@@ -23,7 +23,7 @@ export async function createNews(newInfo) {
 
     contentEn: newInfo.contentEn,
   };
-  const res = await fetch("api/getall/new", {
+  const res = await fetch("api/admin/new", {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -36,7 +36,7 @@ export async function addUsers(user) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("api/user");
+  const res = await fetch("api/admin/user");
   const users = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
@@ -46,7 +46,7 @@ export async function addCompanyInfo(company) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  const res = await fetch("api/company");
+  const res = await fetch("api/admin/company");
   const info = await res.json();
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
@@ -57,7 +57,7 @@ export async function addCustomer(customer) {
   // You can use any data fetching library
   // const posts = await loadNews()
   customer["type"] = "Customer";
-  const res = await fetch("api/customer", {
+  const res = await fetch("api/admin/customer", {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(customer),
@@ -71,7 +71,7 @@ export async function addPartner(partner) {
   // You can use any data fetching library
   // const posts = await loadNews()
   partner["type"] = "Partner";
-  const res = await fetch("api/partner", {
+  const res = await fetch("api/admin/partner", {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(partner),
@@ -108,7 +108,7 @@ export async function addProduct(product) {
     content: product.content,
   };
 
-  const res = await fetch("api/getall/product", {
+  const res = await fetch("api/admin/product", {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -136,7 +136,7 @@ export async function addBanner(banner) {
     image: banner.image,
   };
 
-  const res = await fetch("api/banner", {
+  const res = await fetch("api/admin/banner", {
     method: "post",
 
     headers: { "Content-Type": "application/json" },

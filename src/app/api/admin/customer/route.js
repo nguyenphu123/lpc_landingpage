@@ -1,41 +1,23 @@
 import connectDB from "@/lib/mongodb";
-import Contact from "@/models/contact";
+import Customer from "@/models/customer";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 export async function POST(req) {
   const {
-    address,
+    src,
 
-    addressEn,
-
-    addressLink,
-
-    email,
-
-    phoneNumber,
-
-    linkWebsite,
-
-    socialAccount,
+    type,
+    name,
   } = await req.json();
 
   try {
     await connectDB();
 
-    await Contact.create({
-      address,
+    await Customer.create({
+      src,
 
-      addressEn,
-
-      addressLink,
-
-      email,
-
-      phoneNumber,
-
-      linkWebsite,
-
-      socialAccount,
+      type,
+      name,
     });
 
     return NextResponse.json({
@@ -58,40 +40,22 @@ export async function POST(req) {
 export async function PUT(req) {
   const {
     _id,
-    address,
+    src,
 
-    addressEn,
-
-    addressLink,
-
-    email,
-
-    phoneNumber,
-
-    linkWebsite,
-
-    socialAccount,
+    type,
+    name,
   } = await req.json();
 
   try {
     await connectDB();
 
-    await Contact.findOneAndUpdate(
+    await Customer.findOneAndUpdate(
       { _id: _id },
       {
-        address,
+        src,
 
-        addressEn,
-
-        addressLink,
-
-        email,
-
-        phoneNumber,
-
-        linkWebsite,
-
-        socialAccount,
+        type,
+        name,
       },
       { new: true },
     );
@@ -107,24 +71,6 @@ export async function PUT(req) {
         errorList.push(error.errors[e].message);
       }
       // console.log(errorList);
-      return NextResponse.json({ msg: errorList });
-    } else {
-      return NextResponse.json({ msg: ["Unable to send message."] });
-    }
-  }
-}
-export async function GET() {
-  try {
-    await connectDB();
-    const contact = await Contact.find({});
-    return NextResponse.json({ contact });
-  } catch (error) {
-    if (error instanceof mongoose.Error.ValidationError) {
-      let errorList = [];
-      for (let e in error.errors) {
-        errorList.push(error.errors[e].message);
-      }
-      console.log(errorList);
       return NextResponse.json({ msg: errorList });
     } else {
       return NextResponse.json({ msg: ["Unable to send message."] });

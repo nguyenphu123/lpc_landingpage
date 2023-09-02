@@ -16,73 +16,71 @@ const RegularPages = () => {
   const params: any = useParams();
   const productInfo = useSelector((rootState) => product(rootState));
   let products = [];
-  let data: any = [];
+  // let data: any = [];
   let [resultData, setResultData]: any = useState({});
   products = productInfo.productData.value.product.filter(
     (item: { type: string }) => item.type == "Solution",
   );
   const { href } = useUrl() ?? {};
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
     // declare the data fetching function
     const fetchSolution = async () => {
-      if (products.length == 0) {
+      if (Object.keys(resultData).length == 0) {
         const solutionCheck = await loadSolutionContentDescription(
           {
             title: 1,
             _id: 1,
             titleEn: 1,
             content: 1,
-            contentEn:1,
-            descriptionEn:1,
-            imgSrc:1,
-          },
-          href,params.id,params.idcontent
-        );
-        if (
-          solutionCheck.products[0] == undefined
-        ) {
-          router.replace("http://localhost:3000/");
-        }
-        setResultData(solutionCheck.products[0]);
-        const productCheck = await loadProduct(
-          {
-            title: 1,
-            _id: 1,
-            type: 1,
-            titleEn: 1,
-            image: 1,
-            descriptionEn1: 1,
-            description1: 1,
-            pros: 1,
-            prosEn: 1,
-            content: 1,
-            description2: 1,
-            descriptionEn2: 1,
+            contentEn: 1,
+            descriptionEn: 1,
+            imgSrc: 1,
           },
           href,
+          params.id,
+          params.idcontent,
         );
-      
-        dispatch(companyProduct(productCheck));
-
+        if (solutionCheck.products.content[0] == undefined) {
+          router.replace("http://localhost:3000/");
+        }
+        setResultData(solutionCheck.products.content[0]);
+        // const productCheck = await loadProduct(
+        //   {
+        //     title: 1,
+        //     _id: 1,
+        //     type: 1,
+        //     titleEn: 1,
+        //     image: 1,
+        //     descriptionEn1: 1,
+        //     description1: 1,
+        //     pros: 1,
+        //     prosEn: 1,
+        //     content: 1,
+        //     description2: 1,
+        //     descriptionEn2: 1,
+        //   },
+        //   href,
+        // );
+        // dispatch(companyProduct(productCheck));
       } else {
-        const solution: any = products.filter(
-          (item: { [x: string]: any; link: string; type: string }) =>
-            params.id == item._id,
-        );
-        if (solution[0] == undefined) {
-          router.replace("http://localhost:3000/");
-        }
-        const contain = solution[0].content.filter(
-          (item: { [x: string]: any; link: string; type: string }) =>
-            params.idcontent == item._id,
-        );
-        data = contain[0];
-        if (data == undefined) {
-          router.replace("http://localhost:3000/");
-        }
-        setResultData(data);
+        // const solution: any = products.filter(
+        //   (item: { [x: string]: any; link: string; type: string }) =>
+        //     params.id == item._id,
+        // );
+        // if (solution[0] == undefined) {
+        //   router.replace("http://localhost:3000/");
+        // }
+        // const contain = solution[0].content.filter(
+        //   (item: { [x: string]: any; link: string; type: string }) =>
+        //     params.idcontent == item._id,
+        // );
+        // data = contain[0];
+        // if (data == undefined) {
+        //   router.replace("http://localhost:3000/");
+        // }
+        // setResultData(data);
       }
     };
     // call the function

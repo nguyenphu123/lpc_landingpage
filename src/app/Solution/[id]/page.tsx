@@ -14,65 +14,66 @@ import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
 const RegularPages = () => {
   const params: any = useParams();
-  const productInfo = useSelector((rootState) => product(rootState));
-  let products = [];
+  // const productInfo = useSelector((rootState) => product(rootState));
+  // let products =
+  //   productInfo.productData.value.product != undefined
+  //     ? productInfo.productData.value.product.filter(
+  //         (item: { type: string }) => item.type == "Solution",
+  //       )
+  //     : [];
   const { href } = useUrl() ?? {};
   let [data, setData]: any = useState({});
-  products =
-    productInfo.productData.value.product != undefined
-      ? productInfo.productData.value.product.filter(
-          (item: { type: string }) => item.type == "Solution",
-        )
-      : [];
 
-  const dispatch = useDispatch();
-  const router = useRouter();
+  // const dispatch = useDispatch();
+  // const router = useRouter();
   useEffect(() => {
     // declare the data fetching function
     const fetchSolution = async () => {
-      if (products.length == 0) {
+      if (Object.keys(data).length == 0) {
         const solutionCheck = await loadSolutionContent(
           {
             title: 1,
             _id: 1,
             titleEn: 1,
-            content: 1,
-          },
-          href,params.id
-        );
-       
-        setData(
-          solutionCheck[0],
-        );
-        const productCheck = await loadProduct(
-          {
-            title: 1,
-            _id: 1,
-            type: 1,
-            titleEn: 1,
-            image: 1,
-            descriptionEn1: 1,
-            description1: 1,
-            pros: 1,
-            prosEn: 1,
-            content: 1,
-            description2: 1,
-            descriptionEn2: 1,
+            "content.title": 1,
+            "content.titleEn": 1,
+            "content._id": 1,
+            "content.imgSrc": 1,
+            "content.content": 1,
+            "content.contentEn": 1,
           },
           href,
+          params.id,
         );
-      
-       
-        dispatch(companyProduct(productCheck));
+        setData(solutionCheck.products);
+        // const productCheck = await loadProduct(
+        //   {
+        //     title: 1,
+        //     _id: 1,
+        //     type: 1,
+        //     titleEn: 1,
+        //     image: 1,
+        //     descriptionEn1: 1,
+        //     description1: 1,
+        //     pros: 1,
+        //     prosEn: 1,
+        //     content: 1,
+        //     description2: 1,
+        //     descriptionEn2: 1,
+        //   },
+        //   href,
+        // );
+
+        // dispatch(companyProduct(productCheck));
       } else {
-        const solution = products.filter(
-          (item: { [x: string]: any; link: string; type: string }) =>
-            params.id == item._id,
-        );
-        setData(solution[0]);
-        if (data == undefined) {
-          router.replace("http://localhost:3000/");
-        }
+        // const solution = products.filter(
+        //   (item: { [x: string]: any; link: string; type: string }) =>
+        //     params.id == item._id,
+        // );
+        // setData(solution[0]);
+        // if (data == undefined) {
+        //   router.replace("http://localhost:3000/");
+        // }
       }
     };
     // call the function

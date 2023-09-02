@@ -12,7 +12,8 @@ export default function CustomerList() {
   const customerInfo = useSelector((rootState) => customer(rootState));
 
   let customerList = customerInfo.customerData.value.customerList;
-  const [customers, setCustomers] = useState(customerList);
+
+  const [customers, setCustomers] = useState(customerList || []);
   const dispatch = useDispatch();
   const { href } = useUrl() ?? {};
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function CustomerList() {
     const fetchNew = async () => {
       if (customers.length == 0) {
         const customerCheck = await loadCustomer(href);
-        setCustomers(customerCheck.customer);
+        setCustomers(customerCheck.customers);
         dispatch(customerData(customerCheck));
       } else {
       }

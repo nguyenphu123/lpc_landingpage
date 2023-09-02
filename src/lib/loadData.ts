@@ -223,7 +223,7 @@ export async function loadSolutionContent(searchField, href,_id) {
       ":" +
       window.location.port +
       "/" +
-      "api/product/solution",
+      "api/product/solution/content",
     {
       method: "POST",
       headers: {
@@ -253,7 +253,7 @@ export async function loadSolutionContentDescription(searchField, href,_id, cont
       ":" +
       window.location.port +
       "/" +
-      "api/product/solution",
+      "api/product/solution/content/description",
     {
       method: "POST",
       headers: {

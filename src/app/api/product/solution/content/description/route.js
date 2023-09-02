@@ -4,10 +4,14 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
 export async function POST(req, res) {
-  const {_id, searchField , contentId} = await req.json();
+  const { _id, searchField, contentId } = await req.json();
   try {
     await connectDB();
-    const products = await Product.findOne({_id:_id, "content._id":contentId}, searchField);
+    const products = await Product.findOne(
+      { _id: _id },
+      { content: { $elemMatch: { _id: contentId } } },
+      searchField,
+    );
     return NextResponse.json({ products });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {

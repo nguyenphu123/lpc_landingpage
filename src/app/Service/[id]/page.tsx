@@ -15,89 +15,46 @@ import dynamic from "next/dynamic";
 const RegularPages = () => {
   const { href } = useUrl() ?? {};
   const params: any = useParams();
-  const productInfo = useSelector((rootState) => product(rootState));
-  let products: any = [];
-  const [data, setData]: any = useState({});
-  products =
-    productInfo.productData.value.product != undefined
-      ? productInfo.productData.value.product.filter(
-          (item: { type: string }) => item.type == "Service",
-        )
-      : [];
 
-  const [isLoading, setIsLoading] = useState(true);
+  let [data, setData]: any = useState({});
+
   const router = useRouter();
-  const dispatch = useDispatch();
+  
   useEffect(() => {
+   
     // declare the data fetching function
     const fetchData = async () => {
-      if (products.length == 0) {
-        const serviceContentCheck = await loadServiceContent(params.id,
+      if (Object.keys(data).length == 0) {
+        const serviceContentCheck = await loadServiceContent(
+          params.id,
           {
             title: 1,
             _id: 1,
             titleEn: 1,
-            imgSrc: 1,
             descriptionEn: 1,
             description: 1,
-           
-            content: 1,
-            contentEn: 1,
           },
           href,
         );
-       
 
-        if (serviceContentCheck.products.length == 0) {
+        if (serviceContentCheck.products.content.length == 0) {
           router.replace("http://localhost:3000/");
         }
-        setData(
-          serviceContentCheck.products[0],
-        );
-        setIsLoading(false);
-        const serviceCheck = await loadProduct(
-          {
-            title: 1,
-            _id: 1,
-            type: 1,
-            titleEn: 1,
-            image: 1,
-            descriptionEn1: 1,
-            description1: 1,
-            pros: 1,
-            prosEn: 1,
-            content: 1,
-            description2: 1,
-            descriptionEn2: 1,
-          },
-          href,
-        );
-        dispatch(companyProduct(serviceCheck));
+        setData(serviceContentCheck.products.content[0]);
+        
       } else {
-        const service = products[0].content.filter(
-          (item: { [x: string]: any; link: string; type: string }) =>
-            params.id == item._id,
-        );
-        if (service.length == 0) {
-          router.replace("http://localhost:3000/");
-        }
-        setData(service[0]);
-
-        setIsLoading(false);
+       
       }
     };
     // call the function
+  
     fetchData()
       // make sure to catch any error
       .catch(console.error);
-  }, [data, isLoading]);
-  const onClickAbout = (e, id) => {
-    e && e.preventDefault(); // to avoid the link from redirecting
-    var elementToView = document.getElementById(id);
-    if (elementToView) (elementToView as HTMLFormElement).scrollIntoView();
-  };
+  }, [data]);
+
   const curlanguage = useSelector((rootState) => language(rootState));
-  return isLoading ? (
+  return data == undefined || Object.keys(data).length == 0 ? (
     <section className="section pt-7">
       <div className="container">
         <div className="row justify-center">

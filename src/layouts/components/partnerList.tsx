@@ -13,14 +13,14 @@ export default function PartnerList() {
   // const newsCheck = await loadNews();
   const partnerInfo = useSelector((rootState) => partner(rootState));
   let partnerList = partnerInfo.partnerData.value.partnerList;
-  const [partners, setPartners] = useState(partnerList);
+  const [partners, setPartners] = useState(partnerList || []);
   const dispatch = useDispatch();
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
       if (partners.length == 0) {
         const partnerCheck = await loadPartner(href);
-        setPartners(partnerCheck.partner);
+        setPartners(partnerCheck.partners);
         dispatch(companyPartner(partnerCheck));
       } else {
       }

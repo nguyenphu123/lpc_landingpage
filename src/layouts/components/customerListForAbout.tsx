@@ -12,7 +12,7 @@ export default function CustomerListForAbout() {
   const customerInfo = useSelector((rootState) => customer(rootState));
 
   let customerList = customerInfo.customerData.value.customerList;
-  const [customers, setCustomers] = useState(customerList);
+  const [customers, setCustomers] = useState(customerList || []);
   const dispatch = useDispatch();
   const { pathname, href } = useUrl() ?? {};
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function CustomerListForAbout() {
     const fetchNew = async () => {
       if (customers.length == 0) {
         const customerCheck = await loadCustomer(href);
-        setCustomers(customerCheck.customer);
+        setCustomers(customerCheck.customers);
         dispatch(customerData(customerCheck));
       } else {
       }

@@ -24,36 +24,39 @@ export async function PUT(req) {
     companyWebsite,
 
     companyImage,
+    session,
   } = await req.json();
 
   try {
-    await connectDB();
+    if (session != undefined) {
+      await connectDB();
 
-    await Company.findOneAndUpdate(
-      { _id: _id },
-      {
-        companyName,
+      await Company.findOneAndUpdate(
+        { _id: _id },
+        {
+          companyName,
 
-        companyDescription,
+          companyDescription,
 
-        companyDescriptionEn,
+          companyDescriptionEn,
 
-        companyCore,
+          companyCore,
 
-        companyCoreEn,
+          companyCoreEn,
 
-        companyAddress,
+          companyAddress,
 
-        companySocialAccount,
+          companySocialAccount,
 
-        companyContact,
+          companyContact,
 
-        companyWebsite,
+          companyWebsite,
 
-        companyImage,
-      },
-      { new: true },
-    );
+          companyImage,
+        },
+        { new: true },
+      );
+    }
 
     return NextResponse.json({
       msg: ["Message sent successfully"],
@@ -72,4 +75,3 @@ export async function PUT(req) {
     }
   }
 }
-

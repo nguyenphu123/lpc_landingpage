@@ -2,16 +2,19 @@ import connectDB from "@/lib/mongodb";
 import New from "@/models/new";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-
+import * as CryptoJS from "crypto-js";
 export async function POST(req, res) {
-  const {_id, searchField, role } = await req.json();
+  const { _id, searchField, role } = await req.json();
+  const decrypted = CryptoJS.AES.decrypt(_id, "", {
+    iv: CryptoJS.enc.Utf8.parse("asdasdasdasdas"),
+  });
   try {
     await connectDB();
     let news;
     if (role == "admin") {
-      news = await New.find({_id:_id}, searchField);
+      news = await New.find({ _id: decrypted }, searchField);
     } else {
-      news = await New.find({_id:_id, draft: false }, searchField);
+      news = await New.find({ _id: decrypted, draft: false }, searchField);
     }
 
     return NextResponse.json({ news });

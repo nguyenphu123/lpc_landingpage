@@ -7,16 +7,19 @@ export async function POST(req) {
     email,
 
     password,
+    session,
   } = await req.json();
 
   try {
-    await connectDB();
+    if (session != undefined) {
+      await connectDB();
 
-    await User.create({
-      email,
+      await User.create({
+        email,
 
-      password,
-    });
+        password,
+      });
+    }
 
     return NextResponse.json({
       msg: ["Message sent successfully"],
@@ -38,59 +41,25 @@ export async function POST(req) {
 export async function PUT(req) {
   const {
     _id,
-    title,
+    email,
 
-    titleEn,
-
-    type,
-
-    description1,
-
-    description2,
-
-    descriptionEn1,
-
-    descriptionEn2,
-
-    image,
-
-    pros,
-
-    prosEn,
-
-    content,
+    password,
+    session,
   } = await req.json();
 
   try {
-    await connectDB();
-    await Product.findOneAndUpdate(
-      { _id: _id },
-      {
-        title,
+    if (session != undefined) {
+      await connectDB();
+      await User.findOneAndUpdate(
+        { _id: _id },
+        {
+          email,
 
-        titleEn,
-
-        type,
-
-        description1,
-
-        description2,
-
-        descriptionEn1,
-
-        descriptionEn2,
-
-        image,
-
-        pros,
-
-        prosEn,
-
-        content,
-      },
-      { new: true },
-    );
-
+          password,
+        },
+        { new: true },
+      );
+    }
     return NextResponse.json({
       msg: ["Message sent successfully"],
       success: true,

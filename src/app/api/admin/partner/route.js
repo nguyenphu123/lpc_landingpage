@@ -9,18 +9,21 @@ export async function POST(req) {
     type,
 
     name,
+    session,
   } = await req.json();
 
   try {
-    await connectDB();
+    if (session != undefined) {
+      await connectDB();
 
-    await Partner.create({
-      src,
+      await Partner.create({
+        src,
 
-      type,
+        type,
 
-      name,
-    });
+        name,
+      });
+    }
 
     return NextResponse.json({
       msg: ["Message sent successfully"],
@@ -47,23 +50,25 @@ export async function PUT(req) {
     type,
 
     name,
+    session,
   } = await req.json();
 
   try {
-    await connectDB();
+    if (session != undefined) {
+      await connectDB();
 
-    await Partner.findOneAndUpdate(
-      { _id: _id },
-      {
-        src,
+      await Partner.findOneAndUpdate(
+        { _id: _id },
+        {
+          src,
 
-        type,
+          type,
 
-        name,
-      },
-      { new: true },
-    );
-
+          name,
+        },
+        { new: true },
+      );
+    }
     return NextResponse.json({
       msg: ["Message sent successfully"],
       success: true,
@@ -81,4 +86,3 @@ export async function PUT(req) {
     }
   }
 }
-

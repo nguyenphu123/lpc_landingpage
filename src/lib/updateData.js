@@ -1,4 +1,5 @@
 export async function updateNews(newInfo) {
+  const { data: session, status } = useSession();
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -25,6 +26,7 @@ export async function updateNews(newInfo) {
     content: newInfo.content,
 
     contentEn: newInfo.contentEn,
+    session: session,
   };
   const res = await fetch("api/admin/new", {
     method: "put",
@@ -36,9 +38,11 @@ export async function updateNews(newInfo) {
   // will receive `posts` as a prop at build time
 }
 export async function updateUsers(user) {
+  const { data: session, status } = useSession();
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
+  user["session"] = session;
   const res = await fetch("api/admin/user", {
     method: "put",
     headers: { "Content-Type": "application/json" },
@@ -48,9 +52,11 @@ export async function updateUsers(user) {
   // will receive `posts` as a prop at build time
 }
 export async function updateCompanyInfo(company) {
+  const { data: session, status } = useSession();
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
+  company["session"] = session;
   const res = await fetch("api/admin/company", {
     method: "put",
     headers: { "Content-Type": "application/json" },
@@ -60,10 +66,12 @@ export async function updateCompanyInfo(company) {
   // will receive `posts` as a prop at build time
 }
 export async function updateCustomer(customer) {
+  const { data: session, status } = useSession();
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
   customer["type"] = "Customer";
+  customer["session"] = session;
   const res = await fetch("api/admin/customer", {
     method: "put",
     headers: { "Content-Type": "application/json" },
@@ -74,20 +82,24 @@ export async function updateCustomer(customer) {
   // will receive `posts` as a prop at build time
 }
 export async function updatePartner(partner) {
+  const { data: session, status } = useSession();
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
   partner["type"] = "Partner";
+  partner["session"] = session;
   const res = await fetch("api/admin/partner", {
     method: "put",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(partner),
+    session: session,
   });
 
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
 }
 export async function updateProduct(product) {
+  const { data: session, status } = useSession();
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -114,6 +126,7 @@ export async function updateProduct(product) {
     prosEn: product.prosEn,
 
     content: product.content,
+    session: session,
   };
 
   const res = await fetch("api/admin/product", {
@@ -126,9 +139,11 @@ export async function updateProduct(product) {
   // will receive `posts` as a prop at build time
 }
 export async function updateBanner(banner) {
+  const { data: session, status } = useSession();
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
+  banner["session"] = session;
   const res = await fetch("api/admin/banner", {
     method: "put",
     headers: { "Content-Type": "application/json" },

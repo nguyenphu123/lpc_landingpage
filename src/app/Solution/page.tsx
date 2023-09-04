@@ -14,8 +14,9 @@ import { useEffect, useState } from "react";
 import { loadProduct, loadSolution } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
-
+import * as CryptoJS from "crypto-js";
 const Solutions = () => {
+  let keyUtf8 = "";
   const { href } = useUrl() ?? {};
   const curlanguage = useSelector((rootState) => language(rootState));
   const productInfo = useSelector((rootState) => product(rootState));
@@ -150,7 +151,7 @@ const Solutions = () => {
             prosEn: any;
             descriptionEn2: string;
             titleEn: string;
-            _id: string | undefined;
+            _id: string;
             image: any;
             title: string;
             description2: string;
@@ -226,7 +227,13 @@ const Solutions = () => {
 
                   <Link
                     className="btn btn-primary mt-5"
-                    href={`/Solution/${feature._id}`}
+                    href={`/Solution/${CryptoJS.AES.encrypt(
+                      feature._id,
+                      keyUtf8,
+                      {
+                        iv: CryptoJS.enc.Utf8.parse("asdasdasdasdas"),
+                      },
+                    ).toString()}`}
                   >
                     {curlanguage.changeLanguage.value == "en"
                       ? DataEn["text3"].name

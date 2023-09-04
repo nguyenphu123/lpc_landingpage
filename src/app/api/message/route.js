@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 export async function GET() {
   try {
     await connectDB();
-    const messages = await Message.find({});
+    const messages = await Message.find({}, { name: 1, email: 1, message: 1 });
     return NextResponse.json({ messages });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {

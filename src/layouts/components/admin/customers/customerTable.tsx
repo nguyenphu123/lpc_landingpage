@@ -20,7 +20,7 @@ function CustomerTable() {
     const fetchNew = async () => {
       if (custommerData.length == 0) {
         const customerCheck = await loadCustomer(href);
-        setCustomerData(customerCheck.customer);
+        setCustomerData(customerCheck.customers);
       } else {
       }
     };

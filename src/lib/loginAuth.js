@@ -2,6 +2,7 @@ import connectDB from "@/lib/mongodb";
 import User from "@/models/user";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextResponse } from "next/server";
+var bcrypt = require("bcryptjs");
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -27,8 +28,9 @@ export const authOptions = {
           }
 
           // const passwordsMatch = await bcrypt.compare(password, user.password);
+          var salt = bcrypt.genSaltSync(10);
 
-          if (!(password == user.password)) {
+          if (!(password == bcrypt.hash(user.password, salt))) {
             return null;
           }
 

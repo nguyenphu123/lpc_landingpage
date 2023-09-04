@@ -19,30 +19,33 @@ export async function PUT(req) {
     linkWebsite,
 
     socialAccount,
+    session,
   } = await req.json();
 
   try {
-    await connectDB();
+    if (session != undefined) {
+      await connectDB();
 
-    await Contact.findOneAndUpdate(
-      { _id: _id },
-      {
-        address,
+      await Contact.findOneAndUpdate(
+        { _id: _id },
+        {
+          address,
 
-        addressEn,
+          addressEn,
 
-        addressLink,
+          addressLink,
 
-        email,
+          email,
 
-        phoneNumber,
+          phoneNumber,
 
-        linkWebsite,
+          linkWebsite,
 
-        socialAccount,
-      },
-      { new: true },
-    );
+          socialAccount,
+        },
+        { new: true },
+      );
+    }
 
     return NextResponse.json({
       msg: ["Message sent successfully"],

@@ -7,10 +7,11 @@ import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 
 import Data from "@/config/data.json";
-
+import * as CryptoJS from "crypto-js";
 import DataEn from "@/config/dataEn.json";
 import Image from "next/image";
 export default function NewItem({ src, title, id, i }: any) {
+  let keyUtf8 = "";
   const curlanguage = useSelector((rootState) => language(rootState));
 
   return (
@@ -40,7 +41,13 @@ export default function NewItem({ src, title, id, i }: any) {
           <div className="pt-8 text-end">
             <Link
               className="text-end rounded-lg p-4 bg-gray-50  text-gray-700 font-bold text-lg"
-              href={`/blog/${id}`}
+              href={`/blog/${CryptoJS.AES.encrypt(
+                id,
+                keyUtf8,
+                {
+                  iv: CryptoJS.enc.Utf8.parse("asdasdasdasdas"),
+                },
+              ).toString()}`}
             >
               {curlanguage.changeLanguage.value == "en"
                 ? DataEn["text2"].name

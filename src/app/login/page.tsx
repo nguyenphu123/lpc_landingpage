@@ -10,6 +10,7 @@ import { signIn } from "next-auth/react";
 import { userLogin } from "@/feature/login/loginSlice";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+var bcrypt = require("bcryptjs");
 const Contact = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
   // let loginState = useSelector(loginStatus);
@@ -25,9 +26,11 @@ const Contact = () => {
 
   async function onsubmit(e: any) {
     e.preventDefault();
+    var salt = bcrypt.genSaltSync(10);
+    var hash = bcrypt.hash(e.target.password.value, salt);
     const loginInfo: any = {
       email: e.target.email.value,
-      password: e.target.password.value,
+      password: hash,
       redirect: false,
     };
     try {

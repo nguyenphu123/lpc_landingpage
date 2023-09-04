@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "@mantine/core";
-import { loadMessage } from "@/lib/loadData";
+import { loadMessageAdmin } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
 
 interface Message {
@@ -18,7 +18,7 @@ function MessageTable() {
   useEffect(() => {
     const fetchNew = async () => {
       if (messageData.length == 0) {
-        const messageCheck = await loadMessage(href);
+        const messageCheck = await loadMessageAdmin(href);
         setMessageData(messageCheck.messages);
       } else {
       }

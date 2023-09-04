@@ -19,7 +19,7 @@ function PartnerTable() {
     const fetchNew = async () => {
       if (partnerData.length == 0) {
         const partnerCheck = await loadPartner(href);
-        setPartnerData(partnerCheck.partner);
+        setPartnerData(partnerCheck.partners);
       } else {
       }
     };

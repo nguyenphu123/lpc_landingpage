@@ -13,22 +13,25 @@ export async function POST(req) {
     contentEn,
 
     image,
+    session,
   } = await req.json();
 
   try {
-    await connectDB();
+    if (session != undefined) {
+      await connectDB();
 
-    await Banner.create({
-      title,
+      await Banner.create({
+        title,
 
-      titleEn,
+        titleEn,
 
-      content,
+        content,
 
-      contentEn,
+        contentEn,
 
-      image,
-    });
+        image,
+      });
+    }
 
     return NextResponse.json({
       msg: ["Message sent successfully"],
@@ -59,27 +62,29 @@ export async function PUT(req) {
     contentEn,
 
     image,
+    session,
   } = await req.json();
 
   try {
-    await connectDB();
+    if (session != undefined) {
+      await connectDB();
 
-    await Banner.findOneAndUpdate(
-      { _id: _id },
-      {
-        title,
+      await Banner.findOneAndUpdate(
+        { _id: _id },
+        {
+          title,
 
-        titleEn,
+          titleEn,
 
-        content,
+          content,
 
-        contentEn,
+          contentEn,
 
-        image,
-      },
-      { new: true },
-    );
-
+          image,
+        },
+        { new: true },
+      );
+    }
     return NextResponse.json({
       msg: ["Message sent successfully"],
       success: true,
@@ -97,4 +102,3 @@ export async function PUT(req) {
     }
   }
 }
-

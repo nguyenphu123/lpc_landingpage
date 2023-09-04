@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 export async function loadNews(role: any, searchField, href) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
@@ -50,7 +51,7 @@ export async function loadNew(role: any, searchField, href, _id) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        _id:_id,
+        _id: _id,
         searchField: searchField,
         role: role,
       }),
@@ -61,7 +62,7 @@ export async function loadNew(role: any, searchField, href, _id) {
   // will receive `posts` as a prop at build time
   return news;
 }
-export async function searchNews( searchField) {
+export async function searchNews(searchField) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -83,7 +84,6 @@ export async function searchNews( searchField) {
       },
       body: JSON.stringify({
         searchField: searchField,
-        
       }),
     },
   );
@@ -164,7 +164,9 @@ export async function loadPartner(href) {
   // will receive `posts` as a prop at build time
   return partners;
 }
-export async function loadMessage(href) {
+
+export async function loadMessageAdmin(href) {
+  const { data: session, status } = useSession();
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -175,7 +177,17 @@ export async function loadMessage(href) {
       ":" +
       window.location.port +
       "/" +
-      "api/sendMessage",
+      "api/admin/message",
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        session: session,
+      }),
+    },
   );
   const messages = await res.json();
   // By returning { props: { posts } }, the Blog component
@@ -211,7 +223,7 @@ export async function loadProduct(searchField, href) {
   // will receive `posts` as a prop at build time
   return products;
 }
-export async function loadSolutionContent(searchField, href,_id) {
+export async function loadSolutionContent(searchField, href, _id) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -231,7 +243,7 @@ export async function loadSolutionContent(searchField, href,_id) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        _id:_id,
+        _id: _id,
         searchField: searchField,
       }),
     },
@@ -241,7 +253,12 @@ export async function loadSolutionContent(searchField, href,_id) {
   // will receive `posts` as a prop at build time
   return products;
 }
-export async function loadSolutionContentDescription(searchField, href,_id, contentId) {
+export async function loadSolutionContentDescription(
+  searchField,
+  href,
+  _id,
+  contentId,
+) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -261,9 +278,9 @@ export async function loadSolutionContentDescription(searchField, href,_id, cont
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        _id:_id,
+        _id: _id,
         searchField: searchField,
-        contentId:contentId
+        contentId: contentId,
       }),
     },
   );
@@ -271,7 +288,8 @@ export async function loadSolutionContentDescription(searchField, href,_id, cont
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return products;
-}export async function loadSolution(searchField, href) {
+}
+export async function loadSolution(searchField, href) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -330,7 +348,7 @@ export async function loadService(searchField, href) {
   // will receive `posts` as a prop at build time
   return products;
 }
-export async function loadServiceContent(_id,searchField, href) {
+export async function loadServiceContent(_id, searchField, href) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -350,7 +368,7 @@ export async function loadServiceContent(_id,searchField, href) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        _id:_id,
+        _id: _id,
         searchField: searchField,
       }),
     },

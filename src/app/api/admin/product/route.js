@@ -25,35 +25,37 @@ export async function POST(req) {
     prosEn,
 
     content,
+    session,
   } = await req.json();
 
   try {
-    await connectDB();
+    if (session != undefined) {
+      await connectDB();
 
-    await Product.create({
-      title,
+      await Product.create({
+        title,
 
-      titleEn,
+        titleEn,
 
-      type,
+        type,
 
-      description1,
+        description1,
 
-      description2,
+        description2,
 
-      descriptionEn1,
+        descriptionEn1,
 
-      descriptionEn2,
+        descriptionEn2,
 
-      image,
+        image,
 
-      pros,
+        pros,
 
-      prosEn,
+        prosEn,
 
-      content,
-    });
-
+        content,
+      });
+    }
     return NextResponse.json({
       msg: ["Message sent successfully"],
       success: true,
@@ -95,38 +97,40 @@ export async function PUT(req) {
     prosEn,
 
     content,
+    session,
   } = await req.json();
 
   try {
-    await connectDB();
-    await Product.findOneAndUpdate(
-      { _id: _id },
-      {
-        title,
+    if (session != undefined) {
+      await connectDB();
+      await Product.findOneAndUpdate(
+        { _id: _id },
+        {
+          title,
 
-        titleEn,
+          titleEn,
 
-        type,
+          type,
 
-        description1,
+          description1,
 
-        description2,
+          description2,
 
-        descriptionEn1,
+          descriptionEn1,
 
-        descriptionEn2,
+          descriptionEn2,
 
-        image,
+          image,
 
-        pros,
+          pros,
 
-        prosEn,
+          prosEn,
 
-        content,
-      },
-      { new: true },
-    );
-
+          content,
+        },
+        { new: true },
+      );
+    }
     return NextResponse.json({
       msg: ["Message sent successfully"],
       success: true,

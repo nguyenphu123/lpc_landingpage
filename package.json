@@ -41,6 +41,7 @@
     "mongoose": "^7.4.2",
     "next": "^13.4.12",
     "next-auth": "^4.22.5",
+    "next-base64": "^1.1.0",
     "next-mdx-remote": "^4.4.1",
     "next-redux-wrapper": "^8.1.0",
     "next-themes": "^0.2.1",

@@ -12,7 +12,8 @@ import { loadProduct, loadSolutionContent } from "@/lib/loadData";
 import PageHeader from "@/partials/PageHeader";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
-import * as CryptoJS from "crypto-js";
+import encryptId from "../../../lib/utils/encrypt";
+
 const RegularPages = () => {
   const params: any = useParams();
   // const productInfo = useSelector((rootState) => product(rootState));
@@ -24,9 +25,10 @@ const RegularPages = () => {
   //     : [];
   const { href } = useUrl() ?? {};
   let [data, setData]: any = useState({});
-  let keyUtf8 = "";
+  let keyUtf8 = "UTF-8";
   // const dispatch = useDispatch();
   // const router = useRouter();
+  console.log(params.id);
   useEffect(() => {
     // declare the data fetching function
     const fetchSolution = async () => {
@@ -176,14 +178,8 @@ const RegularPages = () => {
                           : content.content
                       }
                       id={content.id}
-                      link={`${CryptoJS.AES.encrypt(data?._id, keyUtf8, {
-                        iv: CryptoJS.enc.Utf8.parse("asdasdasdasdas"),
-                      }).toString()}/${CryptoJS.AES.encrypt(
+                      link={`${encryptId(data?._id).toString()}/${encryptId(
                         content._id,
-                        keyUtf8,
-                        {
-                          iv: CryptoJS.enc.Utf8.parse("asdasdasdasdas"),
-                        },
                       ).toString()}`}
                     ></ProductCard>
                   );

@@ -7,7 +7,7 @@ import { loadProduct } from "@/lib/loadData";
 import { product } from "@/feature/data/productSlice";
 import ServiceCard from "./ServiceCard";
 import { useUrl } from "nextjs-current-url";
-import * as CryptoJS from "crypto-js";
+import encryptId from "../../lib/utils/encrypt";
 // posts will be populated at build time by getStaticProps()
 export default function ProductList() {
   const { href } = useUrl() ?? {};
@@ -79,9 +79,7 @@ export default function ProductList() {
                 }
                 link={
                   svc.type == "Solution"
-                    ? `/${svc.type}/${CryptoJS.AES.encrypt(svc._id, keyUtf8, {
-                        iv: CryptoJS.enc.Utf8.parse("asdasdasdasdas"),
-                      }).toString()}`
+                    ? `/${svc.type}/${encryptId(svc._id)}`
                     : `/${svc.type}`
                 }
                 i={i}

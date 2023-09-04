@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { loadProduct, loadSolution } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
-import * as CryptoJS from "crypto-js";
+import encryptId from "../../lib/utils/encrypt";
 const Solutions = () => {
   let keyUtf8 = "";
   const { href } = useUrl() ?? {};
@@ -227,13 +227,7 @@ const Solutions = () => {
 
                   <Link
                     className="btn btn-primary mt-5"
-                    href={`/Solution/${CryptoJS.AES.encrypt(
-                      feature._id,
-                      keyUtf8,
-                      {
-                        iv: CryptoJS.enc.Utf8.parse("asdasdasdasdas"),
-                      },
-                    ).toString()}`}
+                    href={`/Solution/${encryptId(feature._id).toString()}`}
                   >
                     {curlanguage.changeLanguage.value == "en"
                       ? DataEn["text3"].name

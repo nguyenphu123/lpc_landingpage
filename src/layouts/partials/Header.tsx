@@ -17,7 +17,8 @@ import { product } from "@/feature/data/productSlice";
 import { loadProduct } from "@/lib/loadData";
 import { useDispatch } from "react-redux";
 import { useUrl } from "nextjs-current-url";
-
+import encryptId from "../../lib/utils/encrypt";
+let keyUtf8 = "";
 //  child navigation link interface
 const Header = () => {
   const { href } = useUrl() ?? {};
@@ -79,6 +80,7 @@ const Header = () => {
   }, [pathname]);
 
   const { navigation_button, settings } = config;
+
   // get current path
 
   return isLoading ? (
@@ -163,9 +165,9 @@ const Header = () => {
                       ) => (
                         <li className="nav-dropdown-item" key={`children-${i}`}>
                           <Link
-                            href={`/${child.type ? "Solution" : "Service"}/${
-                              child._id
-                            }`}
+                            href={`/${
+                              child.type ? "Solution" : "Service"
+                            }/${encryptId(child._id)}`}
                             className={`nav-dropdown-link block ${
                               (pathname === `${child._id}/` ||
                                 pathname === child._id) &&

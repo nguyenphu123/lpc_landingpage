@@ -9,6 +9,7 @@ import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
+import encryptId from "@/lib/utils/encrypt";
 const BlogCard = ({ data }: { data: Post }) => {
   const curlanguage = useSelector((rootState) => language(rootState));
   return (
@@ -23,7 +24,7 @@ const BlogCard = ({ data }: { data: Post }) => {
         />
       )}
       <h4 className="mb-3">
-        <Link href={`/blog/${data._id}`}>{data.title}</Link>
+        <Link href={`/blog/${encryptId(data._id)}`}>{data.title}</Link>
       </h4>
       <ul className="mb-4">
         <li className="mr-4 inline-block">
@@ -49,7 +50,7 @@ const BlogCard = ({ data }: { data: Post }) => {
       ></p>
       <Link
         className="btn btn-outline-primary btn-sm"
-        href={`/blog/${data._id}`}
+        href={`/blog/${encryptId(data._id)}`}
       >
         {curlanguage.changeLanguage.value == "en"
           ? DataEn["text2"].name

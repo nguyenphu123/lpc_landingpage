@@ -11,7 +11,7 @@ import { loadProduct, loadService } from "@/lib/loadData";
 import { useEffect, useState } from "react";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
-import * as CryptoJS from "crypto-js";
+import encryptId from "../../lib/utils/encrypt";
 const RegularPages = () => {
   const { href } = useUrl() ?? {};
 
@@ -158,13 +158,7 @@ const RegularPages = () => {
                           : content.content
                       }
                       id={content.id}
-                      link={`Service/${CryptoJS.AES.encrypt(
-                        content._id,
-                        keyUtf8,
-                        {
-                          iv: CryptoJS.enc.Utf8.parse("asdasdasdasdas"),
-                        },
-                      ).toString()}`}
+                      link={`Service/${encryptId(content._id).toString()}`}
                     ></ProductCard>
                   );
                 },

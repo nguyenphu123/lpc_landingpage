@@ -2,12 +2,10 @@ import connectDB from "@/lib/mongodb";
 import Product from "@/models/product";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import * as CryptoJS from "crypto-js";
+import decryptId from "../../../../../lib/utils/decrypt";
 export async function POST(req, res) {
   const { _id, searchField } = await req.json();
-  const decrypted = CryptoJS.AES.decrypt(_id, "", {
-    iv: CryptoJS.enc.Utf8.parse("asdasdasdasdas"),
-  });
+  const decrypted = decryptId(_id);
   try {
     await connectDB();
     const products = await Product.findOne(

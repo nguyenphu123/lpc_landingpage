@@ -2,11 +2,15 @@ import connectDB from "@/lib/mongodb";
 import Message from "@/models/message";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-export async function GET() {
+export async function POST(req, res) {
+  const { name, email, message } = await req.json();
   try {
     await connectDB();
-    const messages = await Message.find({}, { name: 1, email: 1, message: 1 });
-    return NextResponse.json({ messages });
+    const messages = await Message.create({ name, email, message });
+    return NextResponse.json({
+      msg: ["Message sent successfully"],
+      success: true,
+    });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let errorList = [];

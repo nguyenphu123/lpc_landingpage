@@ -7,10 +7,15 @@ export async function POST(req, res) {
   try {
     if (session != undefined) {
       await connectDB();
-      const messages = await Message.find({});
+      const messages = await Message.find(
+        {},
+        { name: 1, email: 1, message: 1 },
+      );
       return NextResponse.json({ messages });
-    }else{
-      return NextResponse.json({ msg: ["You are not allowed to perform this action."]})
+    } else {
+      return NextResponse.json({
+        msg: ["You are not allowed to perform this action."],
+      });
     }
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {

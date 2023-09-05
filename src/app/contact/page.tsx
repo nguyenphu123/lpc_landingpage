@@ -44,7 +44,7 @@ const Contact = () => {
     };
 
     try {
-      const res = await fetch("/api/sendMessage", {
+      const res = await fetch("/api/message", {
         method: "POST",
 
         body: JSON.stringify(data),
@@ -93,7 +93,6 @@ const Contact = () => {
         <div className="container">
           <div className="row">
             <div className="mx-auto md:col-10 lg:col-10 grid grid-cols-2 gap-1">
-            
               <MapWithAMarker />
 
               <div>

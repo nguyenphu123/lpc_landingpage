@@ -1,72 +1,97 @@
 "use client";
+
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import Data from "@/config/data.json";
-import DataEn from "@/config/dataEn.json";
-import PageHeader from "@/partials/PageHeader";
-import PostSidebar from "@/partials/PostSidebar";
+
+import similerItems from "@/lib/utils/similarItems";
+
+import { useRouter, useParams } from "next/navigation";
 
 import { useDispatch, useSelector } from "react-redux";
-import { companyNew, news } from "@/feature/data/newSlice";
+
 import { useEffect, useState } from "react";
+import { useUrl } from "nextjs-current-url";
 import { loadNews } from "@/lib/loadData";
 import dynamic from "next/dynamic";
-import { useUrl } from "nextjs-current-url";
 const BlogCard = dynamic(() => import("@/components/BlogCard"));
-const Pagination = dynamic(() => import("@/components/Pagination"));
-const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
-// for all regular pages
-const Posts = () => {
+// const Share = dynamic(() => import("@/components/Share"));
+
+const SimilarItem = ({ data }) => {
   const { href } = useUrl() ?? {};
   const curlanguage = useSelector((rootState) => language(rootState));
-  const newInfo = useSelector((rootState) => news(rootState));
+  const params: any = useParams();
+  const [isBusy, setBusy] = useState(true);
 
-  const [newList, setNewList] = useState(
-    newInfo.newData.value.companyNews == undefined
-      ? newInfo.newData.value.companyNews
-      : [],
-  );
-  const dispatch = useDispatch();
+  let [similarPosts, setSimilarPosts]: any = useState([]);
+
   useEffect(() => {
     // declare the data fetching function
+
     const fetchNew = async () => {
-      if (newList.length == 0) {
+      if (Object.keys(data).length == 0) {
         const newsCheck = await loadNews(
           "",
           {
             _id: 1,
             title: 1,
             titleEn: 1,
-            image: 1,
             categories: 1,
             // content: 1,
             // contentEn: 1,
             date: 1,
+            image: 1,
           },
           href,
         );
-        setNewList(newsCheck.news);
-        dispatch(companyNew(newsCheck));
+
+        setSimilarPosts((prev) => [
+          ...prev,
+          ...(data &&
+            similerItems(
+              data,
+              newsCheck.news,
+              newsCheck.news.filter((item) => item._id == params.single)[0],
+            )),
+        ]);
+
+        setBusy(false);
       } else {
+        const newsCheck = await loadNews(
+          "",
+          {
+            _id: 1,
+            title: 1,
+            titleEn: 1,
+            categories: 1,
+            // content: 1,
+            // contentEn: 1,
+            date: 1,
+            image: 1,
+          },
+          href,
+        );
+
+        setSimilarPosts(
+          data &&
+            similerItems(
+              data,
+              newsCheck.news,
+              newsCheck.news.filter((item) => item._id == params.single)[0],
+            ),
+        );
+
+        setBusy(false);
       }
     };
+
     // call the function
+
     fetchNew()
       // make sure to catch any error
+
       .catch(console.error);
-  }, [newList]);
+  }, [isBusy]);
 
-  const posts: any[] = newInfo.newData.value.companyNews;
-  const metadata = {
-    title: "Tin tức",
-    meta_title: "",
-    description: "this is meta description",
-    image: "",
-  };
-  const categories = ["Events", "Security"];
-
-  const totalPages = Math.ceil(posts.length / 2);
-
-  return newList.length == 0 ? (
+  return isBusy ? (
     <section className="section pt-7">
       <div className="container">
         <div className="row justify-center">
@@ -98,48 +123,14 @@ const Posts = () => {
       </div>
     </section>
   ) : (
-    <>
-      <SeoMeta
-        title={metadata.title}
-        meta_title={metadata.meta_title}
-        description={metadata.description}
-        image={metadata.image}
-      />
-      <PageHeader
-        title={
-          curlanguage.changeLanguage.value == "en"
-            ? DataEn["news"].name
-            : Data["news"].name
-        }
-      />
-      <section className="section">
-        <div className="container">
-          <div className="row gx-5">
-            <div className="lg:col-8">
-              <div className="row">
-                {posts.map((post: any, index: number) => (
-                  <div key={index} className="mb-14 md:col-6">
-                    <BlogCard data={post} />
-                  </div>
-                ))}
-              </div>
-              {posts.length > 9 ? (
-                <Pagination
-                  section={"blog"}
-                  currentPage={1}
-                  totalPages={totalPages}
-                />
-              ) : (
-                <></>
-              )}
-            </div>
-
-            <PostSidebar categories={categories} allCategories={posts} />
-          </div>
+    <div className="row justify-center">
+      {similarPosts.map((post) => (
+        <div key={post._id} className="lg:col-4">
+          <BlogCard data={post} />
         </div>
-      </section>
-    </>
+      ))}
+    </div>
   );
 };
 
-export default Posts;
+export default SimilarItem;

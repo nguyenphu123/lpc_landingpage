@@ -38,7 +38,7 @@ const BlogCard = ({ data }: { data: Post }) => {
         </li>
         {data.date && <li className="inline-block">{dateFormat(data.date)}</li>}
       </ul>
-      <p
+      {/* <p
         className="mb-6"
         dangerouslySetInnerHTML={{
           __html: plainify(
@@ -47,7 +47,7 @@ const BlogCard = ({ data }: { data: Post }) => {
               : data.content!,
           ).slice(0, Number(200)),
         }}
-      ></p>
+      ></p> */}
       <Link
         className="btn btn-outline-primary btn-sm"
         href={`/blog/${encryptId(data._id)}`}

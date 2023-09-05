@@ -28,7 +28,7 @@ const RegularPages = () => {
   let keyUtf8 = "UTF-8";
   // const dispatch = useDispatch();
   // const router = useRouter();
-  console.log(params.id);
+  
   useEffect(() => {
     // declare the data fetching function
     const fetchSolution = async () => {
@@ -165,7 +165,7 @@ const RegularPages = () => {
                 ) => {
                   return (
                     <ProductCard
-                      key={content.id}
+                      key={content._id}
                       srcImg={content.imgSrc}
                       title={
                         curlanguage.changeLanguage.value == "en"
@@ -179,7 +179,7 @@ const RegularPages = () => {
                       }
                       id={content.id}
                       link={`${encryptId(data?._id).toString()}/${encryptId(
-                        content._id,
+                        content._id
                       ).toString()}`}
                     ></ProductCard>
                   );

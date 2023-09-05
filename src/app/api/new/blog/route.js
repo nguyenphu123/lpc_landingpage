@@ -2,7 +2,7 @@ import connectDB from "@/lib/mongodb";
 import New from "@/models/new";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import decryptId from "../../../../../lib/utils/decrypt";
+import decryptId from "../../../../lib/utils/decrypt";
 export async function POST(req, res) {
   const { _id, searchField, role } = await req.json();
   const decrypted = decryptId(_id);

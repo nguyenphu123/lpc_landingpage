@@ -22,22 +22,16 @@ import { useEffect, useState } from "react";
 import { useUrl } from "nextjs-current-url";
 import { loadNew, loadNews } from "@/lib/loadData";
 import dynamic from "next/dynamic";
+import SimilarItem from "@/components/similarItem";
 const BlogCard = dynamic(() => import("@/components/BlogCard"));
 // const Share = dynamic(() => import("@/components/Share"));
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 const PostSingle = () => {
   const { href } = useUrl() ?? {};
-  const newInfo = useSelector((rootState) => news(rootState));
-
-  const posts: any[] = newInfo.newData.value.companyNews;
-
   const curlanguage = useSelector((rootState) => language(rootState));
-
   const params: any = useParams();
   const [isBusy, setBusy] = useState(true);
-  let [data, setData] = useState(
-    posts.filter((post) => post._id === params.single)[0] || {},
-  );
+  let [data, setData]: any = useState({});
 
   let [similarPosts, setSimilarPosts]: any = useState([]);
 
@@ -49,7 +43,7 @@ const PostSingle = () => {
     // declare the data fetching function
 
     const fetchNew = async () => {
-      if (posts.length == 0) {
+      if (Object.keys(data).length == 0) {
         const newCheck = await loadNew(
           "",
           {
@@ -62,52 +56,16 @@ const PostSingle = () => {
             date: 1,
             image: 1,
           },
-          href,params.single
+          href,
+          params.single,
         );
         if (newCheck.news.length == 0) {
           router.replace("http://localhost:3000/");
         }
         setData(newCheck.news[0]);
+
         setBusy(false);
-        const newsCheck = await loadNews(
-          "",
-          {
-            _id: 1,
-            title: 1,
-            titleEn: 1,
-            categories: 1,
-            content: 1,
-            contentEn: 1,
-            date: 1,
-            image: 1,
-          },
-          href,
-        );
-        dispatch(companyNew(newsCheck));
-        setSimilarPosts(
-          data &&
-            similerItems(
-              newsCheck.news.filter((item) => item._id == params.single)[0],
-              newsCheck.news,
-              newsCheck.news.filter((item) => item._id == params.single)[0]
-                ._id!,
-            ),
-        );
       } else {
-        if (Object.keys(data).length == 0) {
-          router.replace("http://localhost:3000/");
-        }
-        setSimilarPosts(
-          data &&
-            similerItems(
-              data,
-
-              posts,
-
-              data._id!,
-            ),
-        );
-        setBusy(false);
       }
     };
 
@@ -117,7 +75,7 @@ const PostSingle = () => {
       // make sure to catch any error
 
       .catch(console.error);
-  }, [data, isBusy]);
+  }, [isBusy]);
 
   return isBusy ? (
     <section className="section pt-7">
@@ -231,14 +189,7 @@ const PostSingle = () => {
                 : Data["text7"].name}
             </h2>
 
-            <div className="row justify-center">
-              {similarPosts &&
-                similarPosts.map((post) => (
-                  <div key={post._id} className="lg:col-4">
-                    <BlogCard data={post} />
-                  </div>
-                ))}
-            </div>
+            <SimilarItem data={data} />
           </div>
         </div>
       </section>

@@ -22,14 +22,7 @@ const similerItems = (
   // merged after filter
   const mergedItems = [...new Set([...filterByCategories])];
 
-  // filter by slug
-  const filterBySlug = mergedItems.filter(
-    (product) =>
-      JSON.stringify(product.categories) == JSON.stringify(categories) &&
-      product._id !== currentItem._id,
-  );
-
-  return filterBySlug;
+  return mergedItems.filter((item) => item._id != currentItem._id);
 };
 
 export default similerItems;

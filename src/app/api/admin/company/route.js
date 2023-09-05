@@ -2,7 +2,7 @@ import connectDB from "@/lib/mongodb";
 import Company from "@/models/company";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth";
 export async function PUT(req) {
   const {
     _id,

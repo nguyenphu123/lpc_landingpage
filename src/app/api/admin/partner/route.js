@@ -2,7 +2,7 @@ import connectDB from "@/lib/mongodb";
 import Partner from "@/models/partner";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth";
 export async function POST(req) {
   const {
     src,

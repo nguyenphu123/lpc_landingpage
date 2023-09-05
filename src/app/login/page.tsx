@@ -30,6 +30,9 @@ const Login = () => {
     const fetchIp = async () => {
       if (ip == "") {
         const ipAddress = await loadipAddress();
+        // fetch("https://api.ipify.org?format=json")
+        //   .then((response) => response.json())
+        //   .then((data) => console.log(data.ip));
       } else {
       }
     };
@@ -38,7 +41,7 @@ const Login = () => {
       // make sure to catch any error
       .catch(console.error);
   }, [ip]);
-
+  console.log(ip);
   async function onsubmit(e: any) {
     e.preventDefault();
     var salt = bcrypt.genSaltSync(10);

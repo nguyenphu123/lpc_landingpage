@@ -2,7 +2,7 @@ import connectDB from "@/lib/mongodb";
 import Contact from "@/models/contact";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-
+import { getSession } from "next-auth/client";
 export async function PUT(req) {
   const {
     _id,
@@ -19,11 +19,10 @@ export async function PUT(req) {
     linkWebsite,
 
     socialAccount,
-    session,
   } = await req.json();
-
+  const session = await getSession({ req });
   try {
-    if (session != undefined) {
+    if (session) {
       await connectDB();
 
       await Contact.findOneAndUpdate(

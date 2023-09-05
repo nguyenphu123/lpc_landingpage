@@ -44,8 +44,7 @@ const Search = ({ searchList }: Props) => {
     setInputVal(e.currentTarget.value);
   };
   const onSearch = async () => {
-    const searchResult =  await searchNews(
-     
+    const searchResult = await searchNews(
       {
         _id: 1,
         title: 1,
@@ -56,7 +55,7 @@ const Search = ({ searchList }: Props) => {
         date: 1,
         image: 1,
       },
-     
+      inputVal,
     );
     setSearchResults(searchResult.news);
   };

@@ -7,12 +7,17 @@ export async function POST(req, res) {
   const { searchField, keyword } = await req.json();
   try {
     await connectDB();
-    New.createIndex({"title":"text","titleEn":"text"})
-    let  news = await New.find({ draft: false,$text:{
-      $search: keyword,
-     
-  } }, searchField);
-    
+    var query = {
+      $or: [
+        {
+          "title": { $regex: keyword, $options: "i" },
+        },
+        {
+          "titleEn": { $regex: keyword, $options: "i" },
+        },
+      ],
+    };
+    let news = await New.find(query, searchField);
 
     return NextResponse.json({ news });
   } catch (error) {
@@ -23,7 +28,7 @@ export async function POST(req, res) {
       }
       return NextResponse.json({ msg: errorList });
     } else {
-      return NextResponse.json({ msg: ["Unable to send message."] });
+      return NextResponse.json({ msg: error });
     }
   }
 }

@@ -25,7 +25,6 @@ export async function updateNews(newInfo, session) {
     content: newInfo.content,
 
     contentEn: newInfo.contentEn,
-    session: session,
   };
   const res = await fetch("api/admin/new", {
     method: "put",
@@ -40,7 +39,7 @@ export async function updateUsers(user, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  user["session"] = session;
+
   const res = await fetch("api/admin/user", {
     method: "put",
     headers: { "Content-Type": "application/json" },
@@ -53,7 +52,7 @@ export async function updateCompanyInfo(company, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  company["session"] = session;
+
   const res = await fetch("api/admin/company", {
     method: "put",
     headers: { "Content-Type": "application/json" },
@@ -66,7 +65,7 @@ export async function updateContactInfo(contact, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  contact["session"] = session;
+
   const res = await fetch("api/admin/contact", {
     method: "put",
     headers: { "Content-Type": "application/json" },
@@ -80,7 +79,7 @@ export async function updateCustomer(customer, session) {
   // You can use any data fetching library
   // const posts = await loadNews()
   customer["type"] = "Customer";
-  customer["session"] = session;
+
   const res = await fetch("api/admin/customer", {
     method: "put",
     headers: { "Content-Type": "application/json" },
@@ -95,7 +94,7 @@ export async function updatePartner(partner, session) {
   // You can use any data fetching library
   // const posts = await loadNews()
   partner["type"] = "Partner";
-  partner["session"] = session;
+
   const res = await fetch("api/admin/partner", {
     method: "put",
     headers: { "Content-Type": "application/json" },
@@ -133,7 +132,6 @@ export async function updateProduct(product, session) {
     prosEn: product.prosEn,
 
     content: product.content,
-    session: session,
   };
 
   const res = await fetch("api/admin/product", {
@@ -149,7 +147,7 @@ export async function updateBanner(banner, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  banner["session"] = session;
+
   const res = await fetch("api/admin/banner", {
     method: "put",
     headers: { "Content-Type": "application/json" },

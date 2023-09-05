@@ -62,7 +62,7 @@ export async function loadNew(role: any, searchField, href, _id) {
   // will receive `posts` as a prop at build time
   return news;
 }
-export async function searchNews(searchField) {
+export async function searchNews(searchField,keyword) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -83,6 +83,7 @@ export async function searchNews(searchField) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        keyword:keyword,
         searchField: searchField,
       }),
     },
@@ -109,6 +110,24 @@ export async function loadUsers(href) {
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
   return users;
+}
+export async function loadipAddress() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  // const posts = await loadNews()
+  const res = await fetch(
+    window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":" +
+      window.location.port +
+      "/" +
+      "api/ipaddress",
+  );
+  const ip = await res.json();
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return ip;
 }
 export async function loadCompanyInfo(href) {
   // Call an external API endpoint to get posts.
@@ -184,7 +203,7 @@ export async function loadMessageAdmin(href, session) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        session: session,
+        session: "",
       }),
     },
   );

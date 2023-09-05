@@ -8,13 +8,16 @@ const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import PageHeader from "@/partials/PageHeader";
 import { signIn } from "next-auth/react";
 import { userLogin } from "@/feature/login/loginSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { useUserIp } from "@/lib/utils/checkUserIp";
+import { loadipAddress } from "@/lib/loadData";
 var bcrypt = require("bcryptjs");
-const Contact = () => {
+const Login = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
   // let loginState = useSelector(loginStatus);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [ip, setIp] = useState("");
   const router = useRouter();
   const dispatch = useDispatch();
   const data = {
@@ -23,6 +26,18 @@ const Contact = () => {
     description: "this is meta description",
     image: "",
   };
+  useEffect(() => {
+    const fetchIp = async () => {
+      if (ip == "") {
+        const solutionCheck = await loadipAddress();
+      } else {
+      }
+    };
+    // call the function
+    fetchIp()
+      // make sure to catch any error
+      .catch(console.error);
+  }, [ip]);
 
   async function onsubmit(e: any) {
     e.preventDefault();
@@ -157,4 +172,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Login;

@@ -24,7 +24,6 @@ export async function createNews(newInfo, session) {
     content: newInfo.content,
 
     contentEn: newInfo.contentEn,
-    session: session,
   };
   const res = await fetch("api/admin/new", {
     method: "post",
@@ -39,7 +38,7 @@ export async function addUsers(user, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  user["session"] = session;
+
   const res = await fetch("api/admin/user", {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -55,7 +54,7 @@ export async function addCustomer(customer, session) {
   // You can use any data fetching library
   // const posts = await loadNews()
   customer["type"] = "Customer";
-  customer["session"] = session;
+
   const res = await fetch("api/admin/customer", {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -71,7 +70,7 @@ export async function addPartner(partner, session) {
   // You can use any data fetching library
   // const posts = await loadNews()
   partner["type"] = "Partner";
-  partner["session"] = session;
+
   const res = await fetch("api/admin/partner", {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -107,7 +106,6 @@ export async function addProduct(product, session) {
     prosEn: product.prosEn.split(/\s*,\s*/),
 
     content: product.content,
-    session: session,
   };
 
   const res = await fetch("api/admin/product", {
@@ -136,7 +134,6 @@ export async function addBanner(banner, session) {
     contentEn: banner.contentEn,
 
     image: banner.image,
-    session: session,
   };
 
   const res = await fetch("api/admin/banner", {

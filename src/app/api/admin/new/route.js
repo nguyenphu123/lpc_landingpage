@@ -2,6 +2,7 @@ import connectDB from "@/lib/mongodb";
 import New from "@/models/new";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
+import { getSession } from "next-auth/client";
 export async function POST(req) {
   const {
     title,
@@ -22,11 +23,10 @@ export async function POST(req) {
     content,
 
     contentEn,
-    session,
   } = await req.json();
-
+  const session = await getSession({ req });
   try {
-    if (session != undefined) {
+    if (session) {
       await connectDB();
 
       await New.create({
@@ -91,11 +91,10 @@ export async function PUT(req) {
     content,
 
     contentEn,
-    session,
   } = await req.json();
-
+  const session = await getSession({ req });
   try {
-    if (session != undefined) {
+    if (session) {
       await connectDB();
 
       await New.findOneAndUpdate(

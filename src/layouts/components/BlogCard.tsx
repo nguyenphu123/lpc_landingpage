@@ -24,7 +24,9 @@ const BlogCard = ({ data }: { data: Post }) => {
         />
       )}
       <h4 className="mb-3">
-        <Link href={`/blog/${encryptId(data._id)}`}>{data.title}</Link>
+        <Link href={`/blog/${encryptId(data._id)}`}>
+          {curlanguage.changeLanguage.value == "en" ? data.titleEn : data.title}
+        </Link>
       </h4>
       <ul className="mb-4">
         <li className="mr-4 inline-block">

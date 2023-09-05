@@ -70,9 +70,9 @@ export default function RootLayout({
         <ScrollToTopButton />
         <Provider store={store}>
           <AuthProvider>
-            {pathname == "/admin" ? <></> : <Header />}
+            {pathname == "/admin" || pathname == "/login" ? <></> : <Header />}
             <main>{children}</main>
-            {pathname == "/admin" ? <></> : <Footer />}
+            {pathname == "/admin" || pathname == "/login" ? <></> : <Footer />}
           </AuthProvider>
         </Provider>
       </body>

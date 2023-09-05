@@ -129,7 +129,7 @@ export async function loadipAddress() {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({text:"check ip"}),
+      body: JSON.stringify({ text: "check ip" }),
     },
   );
   const ip = await res.json();

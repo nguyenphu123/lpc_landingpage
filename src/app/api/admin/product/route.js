@@ -2,7 +2,7 @@ import connectDB from "@/lib/mongodb";
 import Product from "@/models/product";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import { getSession } from "next-auth";
+import { getServerSession } from "next-auth";
 export async function POST(req) {
   const {
     title,
@@ -27,7 +27,7 @@ export async function POST(req) {
 
     content,
   } = await req.json();
-  const session = await getSession({ req });
+  const session = await getServerSession({ req });
   try {
     if (session) {
       await connectDB();
@@ -98,7 +98,7 @@ export async function PUT(req) {
 
     content,
   } = await req.json();
-  const session = await getSession({ req });
+  const session = await getServerSession({ req });
   try {
     if (session != undefined) {
       await connectDB();

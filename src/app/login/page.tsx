@@ -4,14 +4,16 @@ import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
+import Whitelist from "@/config/whitelist.json";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import PageHeader from "@/partials/PageHeader";
 import { signIn } from "next-auth/react";
 import { userLogin } from "@/feature/login/loginSlice";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { useUserIp } from "@/lib/utils/checkUserIp";
+import { publicIp, publicIpv4, publicIpv6 } from "public-ip";
 import { loadipAddress } from "@/lib/loadData";
+// import { internalIpV4Sync } from "internal-ip";
 var bcrypt = require("bcryptjs");
 const Login = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
@@ -19,6 +21,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState(false);
   const [ip, setIp] = useState("");
   const router = useRouter();
+  const ipList: any = Whitelist.whitelist;
   const dispatch = useDispatch();
   const data = {
     title: "DỊCH VỤ IT",
@@ -29,7 +32,17 @@ const Login = () => {
   useEffect(() => {
     const fetchIp = async () => {
       if (ip == "") {
-        const ipAddress = await loadipAddress();
+        let ipAddress = await publicIpv4();
+
+        let ipAddressLocal = await loadipAddress();
+        let acceptList = ipList.filter(
+          (item) =>
+            item.publicIp == ipAddress && item.deviceIp == ipAddressLocal.ip,
+        );
+        if (acceptList.length == 0) {
+          router.push("/404");
+        }
+
         // fetch("https://api.ipify.org?format=json")
         //   .then((response) => response.json())
         //   .then((data) => console.log(data.ip));
@@ -41,7 +54,7 @@ const Login = () => {
       // make sure to catch any error
       .catch(console.error);
   }, [ip]);
-  console.log(ip);
+
   async function onsubmit(e: any) {
     e.preventDefault();
     var salt = bcrypt.genSaltSync(10);

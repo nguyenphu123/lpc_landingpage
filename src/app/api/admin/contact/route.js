@@ -2,7 +2,7 @@ import connectDB from "@/lib/mongodb";
 import Contact from "@/models/contact";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import { getSession } from "next-auth";
+import { getServerSession } from "next-auth";
 export async function PUT(req) {
   const {
     _id,
@@ -20,7 +20,7 @@ export async function PUT(req) {
 
     socialAccount,
   } = await req.json();
-  const session = await getSession({ req });
+  const session = await getServerSession({ req });
   try {
     if (session) {
       await connectDB();

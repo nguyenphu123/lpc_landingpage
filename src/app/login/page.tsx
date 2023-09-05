@@ -29,7 +29,7 @@ const Login = () => {
   useEffect(() => {
     const fetchIp = async () => {
       if (ip == "") {
-        const solutionCheck = await loadipAddress();
+        const ipAddress = await loadipAddress();
       } else {
       }
     };

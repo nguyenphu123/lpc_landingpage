@@ -62,7 +62,7 @@ export async function loadNew(role: any, searchField, href, _id) {
   // will receive `posts` as a prop at build time
   return news;
 }
-export async function searchNews(searchField,keyword) {
+export async function searchNews(searchField, keyword) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -83,7 +83,7 @@ export async function searchNews(searchField,keyword) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        keyword:keyword,
+        keyword: keyword,
         searchField: searchField,
       }),
     },
@@ -123,6 +123,14 @@ export async function loadipAddress() {
       window.location.port +
       "/" +
       "api/ipaddress",
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({text:"check ip"}),
+    },
   );
   const ip = await res.json();
   // By returning { props: { posts } }, the Blog component

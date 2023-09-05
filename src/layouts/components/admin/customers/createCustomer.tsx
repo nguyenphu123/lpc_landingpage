@@ -7,10 +7,11 @@ import { useForm } from "@mantine/form";
 import { TextInput, Button, Box, Code, Grid, Col } from "@mantine/core";
 
 import { addCustomer } from "@/lib/createData";
+import { useSession } from "next-auth/react";
 
 function CustomerForm() {
   const [selectedImage, setSelectedImage] = useState(null);
-
+  let { data: session, status } = useSession();
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
 
   const form = useForm({
@@ -56,7 +57,7 @@ function CustomerForm() {
 
     // Continue with the rest of the form submission
 
-    addCustomer(values);
+    addCustomer(values, session);
 
     form.reset();
 

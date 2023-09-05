@@ -20,12 +20,13 @@ import { randomId } from "@mantine/hooks";
 
 import TextEditor from "../RichTextEditor";
 import { updateProduct } from "@/lib/updateData";
+import { useSession } from "next-auth/react";
 
 interface ContentFormProps {}
 
 function UpdateContentForm({ product, content }) {
   const [submittedValues, setSubmittedValues] = useState("");
-
+  let { data: session, status } = useSession();
   const [descriptionEn, setDescriptionEn]: any = useState({});
   const [description, setDescription]: any = useState({});
 
@@ -84,7 +85,7 @@ function UpdateContentForm({ product, content }) {
       array.splice(index, 1);
       product.content == array;
     }
-    updateProduct(product);
+    updateProduct(product,session);
   };
 
   const form = useForm({

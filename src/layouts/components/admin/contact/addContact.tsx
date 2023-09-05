@@ -5,10 +5,12 @@ import { useState } from "react";
 import { useForm } from "@mantine/form";
 
 import { TextInput, Button, Box, Code } from "@mantine/core";
+import { useSession } from "next-auth/react";
+import { updateContactInfo } from "@/lib/updateData";
 
 function ContactForm() {
   const [submittedValues, setSubmittedValues] = useState("");
-
+  let { data: session, status }: any = useSession();
   const form = useForm({
     initialValues: {
       address: "",
@@ -33,7 +35,7 @@ function ContactForm() {
         <Box maw={600} mx="auto">
           <form
             onSubmit={form.onSubmit((values) =>
-              setSubmittedValues(JSON.stringify(values, null, 2)),
+              updateContactInfo(values, session),
             )}
           >
             <h3 className="flex justify-center">Update contact content</h3>

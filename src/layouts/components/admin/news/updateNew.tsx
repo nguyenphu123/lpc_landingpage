@@ -16,8 +16,10 @@ import {
 import { updateNews } from "@/lib/updateData";
 
 import TextEditor from "../RichTextEditor";
+import { useSession } from "next-auth/react";
 function UpdateNew({ New }) {
   const [submittedValues, setSubmittedValues] = useState("");
+  let { data: session, status } = useSession();
   const [content, setContent]: any = useState(New.content);
   const [contentEn, setContentEn]: any = useState(New.contentEn);
   const form = useForm({
@@ -36,7 +38,7 @@ function UpdateNew({ New }) {
     let updateData = { ...value };
     updateData["content"] = content;
     updateData["contentEn"] = contentEn;
-    updateNews(updateData);
+    updateNews(updateData, session);
   };
   return (
     <section className="section">

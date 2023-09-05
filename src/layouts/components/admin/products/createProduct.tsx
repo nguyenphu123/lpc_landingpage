@@ -24,12 +24,13 @@ import { addProduct } from "@/lib/createData";
 import { randomId } from "@mantine/hooks";
 
 import TextEditor from "../RichTextEditor";
+import { useSession } from "next-auth/react";
 
 interface ProductFormProps {}
 
 function ProductForm(props: ProductFormProps) {
   const [submittedValues, setSubmittedValues] = useState("");
-
+  let { data: session, status } = useSession();
   const [showCols, setShowCols] = useState(true);
 
   // Thêm state để lưu trữ hình ảnh đã chọn
@@ -69,7 +70,7 @@ function ProductForm(props: ProductFormProps) {
       }
     }
 
-    addProduct(value);
+    addProduct(value, session);
   };
 
   const form = useForm({

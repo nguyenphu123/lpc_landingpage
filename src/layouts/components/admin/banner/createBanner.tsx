@@ -11,10 +11,11 @@ import { addBanner } from "@/lib/createData";
 import { randomId } from "@mantine/hooks";
 
 import { TextInput, Button, Box, Code, Grid, Col } from "@mantine/core";
+import { useSession } from "next-auth/react";
 
 const BannerForm = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-
+  let { data: session, status }: any = useSession();
   const [imagePreview, setImagePreview] = useState("");
 
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
@@ -76,7 +77,7 @@ const BannerForm = () => {
 
     // Tiếp tục với phần còn lại của quá trình gửi biểu mẫu
 
-    addBanner(values);
+    addBanner(values, session);
 
     form.reset();
 

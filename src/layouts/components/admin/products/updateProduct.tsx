@@ -9,12 +9,13 @@ import { useForm } from "@mantine/form";
 import { TextInput, Button, Box, Code, Grid, Col, Select } from "@mantine/core";
 
 import { updateProduct } from "@/lib/updateData";
+import { useSession } from "next-auth/react";
 
 interface ProductFormProps {}
 
 function UpdateProductForm(props: ProductFormProps, { product }) {
   const [submittedValues, setSubmittedValues] = useState("");
-
+  let { data: session, status } = useSession();
   const [showCols, setShowCols] = useState(true);
 
   // Thêm state để lưu trữ hình ảnh đã chọn
@@ -54,7 +55,7 @@ function UpdateProductForm(props: ProductFormProps, { product }) {
       }
     }
 
-    updateProduct(value);
+    updateProduct(value,session);
   };
 
   const form = useForm({

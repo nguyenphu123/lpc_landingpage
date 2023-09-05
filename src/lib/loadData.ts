@@ -165,8 +165,7 @@ export async function loadPartner(href) {
   return partners;
 }
 
-export async function loadMessageAdmin(href) {
-  const { data: session, status } = useSession();
+export async function loadMessageAdmin(href, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()

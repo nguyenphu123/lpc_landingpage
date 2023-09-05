@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table } from "@mantine/core";
 import { loadMessageAdmin } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
+import { useSession } from "next-auth/react";
 
 interface Message {
   _id: string;
@@ -14,11 +15,12 @@ interface Message {
 
 function MessageTable() {
   const { pathname, href } = useUrl() ?? {};
+  let { data: session, status } = useSession();
   const [messageData, setMessageData] = useState<Message[]>([]);
   useEffect(() => {
     const fetchNew = async () => {
       if (messageData.length == 0) {
-        const messageCheck = await loadMessageAdmin(href);
+        const messageCheck = await loadMessageAdmin(href, session);
         setMessageData(messageCheck.messages);
       } else {
       }

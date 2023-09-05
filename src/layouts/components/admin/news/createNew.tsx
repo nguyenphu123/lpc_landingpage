@@ -21,10 +21,11 @@ import { createNews } from "@/lib/createData";
 import { randomId } from "@mantine/hooks";
 
 import TextEditor from "../RichTextEditor";
+import { useSession } from "next-auth/react";
 
 function AddNews() {
   const [content, setContent]: any = useState("");
-
+  let { data: session, status } = useSession();
   const [contentEn, setContentEn]: any = useState("");
 
   const [selectedImage, setSelectedImage] = useState(null); // Store the selected image
@@ -130,7 +131,7 @@ function AddNews() {
 
     setContentEn("");
 
-    createNews(values);
+    createNews(values, session);
 
     form.reset();
 

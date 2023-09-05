@@ -1,7 +1,6 @@
 import { useSession } from "next-auth/react";
 
-export async function createNews(newInfo) {
-  const { data: session, status } = useSession();
+export async function createNews(newInfo, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -36,8 +35,7 @@ export async function createNews(newInfo) {
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
 }
-export async function addUsers(user) {
-  const { data: session, status } = useSession();
+export async function addUsers(user, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -52,8 +50,7 @@ export async function addUsers(user) {
   // will receive `posts` as a prop at build time
 }
 
-export async function addCustomer(customer) {
-  const { data: session, status } = useSession();
+export async function addCustomer(customer, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -69,8 +66,7 @@ export async function addCustomer(customer) {
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
 }
-export async function addPartner(partner) {
-  const { data: session, status } = useSession();
+export async function addPartner(partner, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -85,8 +81,7 @@ export async function addPartner(partner) {
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
 }
-export async function addProduct(product) {
-  const { data: session, status } = useSession();
+export async function addProduct(product, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
@@ -124,8 +119,7 @@ export async function addProduct(product) {
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
 }
-export async function addBanner(banner) {
-  const { data: session, status } = useSession();
+export async function addBanner(banner, session) {
   // Call an external API endpoint to get posts.
 
   // You can use any data fetching library

@@ -54,7 +54,7 @@ function BannerTable() {
 
   const handleSaveClick = () => {
     // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
-
+    setSelectedBanner(null);
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
 

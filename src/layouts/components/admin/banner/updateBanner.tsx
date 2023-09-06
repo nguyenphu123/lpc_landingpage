@@ -67,7 +67,7 @@ const UpdateBanner = ({ banner, handleSaveClick }) => {
 
     form.reset();
 
-    setSuccessMessage("Data added successfully!");
+    setSuccessMessage("Data updated successfully!");
     handleSaveClick();
     setTimeout(() => {
       setSuccessMessage(null);

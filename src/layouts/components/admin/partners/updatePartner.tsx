@@ -5,11 +5,11 @@ import React, { useState } from "react";
 import { useForm } from "@mantine/form";
 
 import { TextInput, Button, Box, Code, Grid, Col } from "@mantine/core";
-
+import Image from "next/image";
 import { updatePartner } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
 
-function UpdatePartner({ partner }) {
+function UpdatePartner({ partner, handleSaveClick }) {
   const [selectedImage, setSelectedImage] = useState(partner.src);
   let { data: session, status } = useSession();
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
@@ -25,7 +25,7 @@ function UpdatePartner({ partner }) {
   };
 
   const onSubmitForm = async (values) => {
-    if (selectedImage) {
+    if (selectedImage && selectedImage != partner.src) {
       const formData = new FormData();
 
       formData.append("file", selectedImage);
@@ -57,8 +57,8 @@ function UpdatePartner({ partner }) {
 
     form.reset();
 
-    setSuccessMessage("Data added successfully!");
-
+    setSuccessMessage("Data updated successfully!");
+    handleSaveClick();
     setTimeout(() => {
       setSuccessMessage(null);
     }, 5000);
@@ -83,6 +83,12 @@ function UpdatePartner({ partner }) {
 
             <Col span={6}>
               <input type="file" accept="image/*" onChange={onImageChange} />
+              <Image
+                src={selectedImage}
+                alt="Selected Image"
+                width={150}
+                height={150}
+              />
             </Col>
 
             <Col span={6} className="flex justify-end mt-6">

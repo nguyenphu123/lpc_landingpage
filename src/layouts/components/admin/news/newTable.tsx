@@ -85,7 +85,7 @@ function NewsTable() {
 
       <td>{news.title}</td>
 
-      <td
+      {/* <td
         className=""
         dangerouslySetInnerHTML={{
           __html:
@@ -93,11 +93,11 @@ function NewsTable() {
               ? `${news.content.slice(0, 150)}...`
               : news.content,
         }}
-      ></td>
+      ></td> */}
 
       <td>{news.date}</td>
 
-      <td>{news.draft}</td>
+      <td>{news.draft ? "true" : "false"}</td>
 
       <td>
         <button
@@ -139,7 +139,7 @@ function NewsTable() {
 
             <th>Title</th>
 
-            <th>Content</th>
+            {/* <th>Content</th> */}
 
             <th>Date</th>
 

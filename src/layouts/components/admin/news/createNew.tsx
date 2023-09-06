@@ -31,7 +31,8 @@ function AddNews() {
   const [selectedImage, setSelectedImage] = useState(null); // Store the selected image
 
   const [imagePreview, setImagePreview] = useState("");
-
+  const currentDate = new Date();
+  const formattedDate = currentDate.toISOString().split("T")[0]; // Định dạng thành "YYYY-MM-DD"
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
 
   const form = useForm({
@@ -46,7 +47,7 @@ function AddNews() {
 
       description: "",
 
-      date: "",
+      date: formattedDate,
 
       image: "",
 
@@ -76,18 +77,10 @@ function AddNews() {
 
   // Sử dụng useEffect để tự động cập nhật giá trị cho trường "Date" thành ngày hiện tại trước khi bạn gửi biểu mẫu
 
-  useEffect(() => {
-    const currentDate = new Date();
-
-    const formattedDate = currentDate.toISOString().split("T")[0]; // Định dạng thành "YYYY-MM-DD"
-
-    form.setFieldValue("date", formattedDate);
-  }, [form]);
-
   const onHandleChange = (e: any) => {
-    setContent(e.content);
+    setContent(e.data);
 
-    setContentEn(e.contentEn);
+    setContentEn(e.data);
 
     // form.insertListItem(`content.${e.idcontent}.description.${e.id}`, e);
   };
@@ -303,9 +296,7 @@ function AddNews() {
 
               </Col> */}
 
-              <Col span={12} className="height:900px">
-                <TextEditor onChange={onHandleChange} content="" contentEn="" />
-              </Col>
+              <TextEditor onChange={onHandleChange} content="" contentEn="" />
 
               <Col span={6}>
                 <label style={{ display: "flex", alignItems: "center" }}>

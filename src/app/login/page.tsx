@@ -24,7 +24,7 @@ const Login = () => {
   const ipList: any = Whitelist.whitelist;
   const dispatch = useDispatch();
   const data = {
-    title: "DỊCH VỤ IT",
+    title: "Login",
     meta_title: "",
     description: "this is meta description",
     image: "",

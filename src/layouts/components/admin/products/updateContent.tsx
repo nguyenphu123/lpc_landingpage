@@ -85,7 +85,7 @@ function UpdateContentForm({ product, content }) {
       array.splice(index, 1);
       product.content == array;
     }
-    updateProduct(product,session);
+    updateProduct(product, session);
   };
 
   const form = useForm({
@@ -195,21 +195,11 @@ function UpdateContentForm({ product, content }) {
                       {...form.getInputProps(`contentEn`)}
                     />
                   </Col>
-                  <Col span={6}>
-                    <TextEditor
-                      onChange={onHandleChange}
-                      content={undefined}
-                      contentEn={undefined}
-                    />
-                  </Col>
-
-                  <Col span={6}>
-                    <TextEditor
-                      onChange={onHandleChange}
-                      content={undefined}
-                      contentEn={undefined}
-                    />
-                  </Col>
+                  <TextEditor
+                    onChange={onHandleChange}
+                    content={content.description}
+                    contentEn={content.descriptionEn}
+                  />
                 </Grid>
 
                 {/* ... Input fields for content */}

@@ -9,7 +9,7 @@ import { TextInput, Button, Box, Code, Grid, Col } from "@mantine/core";
 import { updateCustomer } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
 
-function UpdateCustomer({ Customer }) {
+function UpdateCustomer({ Customer, handleSaveClick }) {
   const [selectedImage, setSelectedImage] = useState(Customer.src);
   let { data: session, status } = useSession();
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
@@ -25,7 +25,7 @@ function UpdateCustomer({ Customer }) {
   };
 
   const onSubmitForm = async (values) => {
-    if (selectedImage) {
+    if (selectedImage && selectedImage != Customer.src) {
       const formData = new FormData();
 
       formData.append("file", selectedImage);
@@ -53,12 +53,12 @@ function UpdateCustomer({ Customer }) {
 
     // Continue with the rest of the form submission
 
-    updateCustomer(values,session);
+    updateCustomer(values, session);
 
     form.reset();
 
     setSuccessMessage("Data added successfully!");
-
+    handleSaveClick()
     setTimeout(() => {
       setSuccessMessage(null);
     }, 5000);

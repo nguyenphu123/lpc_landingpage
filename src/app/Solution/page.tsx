@@ -111,7 +111,13 @@ const Solutions = () => {
     </section>
   ) : (
     <>
-      <SeoMeta title="Solution" />
+      <SeoMeta
+        title={
+          curlanguage.changeLanguage.value == "en"
+            ? DataEn["solution"].name
+            : Data["solution"].name
+        }
+      />
       <PageHeader
         title={
           curlanguage.changeLanguage.value == "en"

@@ -18,6 +18,8 @@ import ProductTable from "@/components/admin/products/productTable";
 import ContactTable from "@/components/admin/contact/tableContact";
 import BannerTable from "@/components/admin/banner/bannerTable";
 import MessageTable from "@/components/admin/message/messageTable";
+import UserTable from "@/components/admin/user/userTable";
+import UserForm from "@/components/admin/user/createUser";
 // import "../styles/homepage.scss"
 const Home = () => {
   const [showBanner, setShowBanner] = useState("visible");
@@ -27,6 +29,7 @@ const Home = () => {
   const [showMessage, setShowMessage] = useState("hidden");
   const [showPartner, setShowPartner] = useState("hidden");
   const [showProduct, setShowProduct] = useState("hidden");
+  const [showUser, setShowUser] = useState("hidden");
   const curlanguage = useSelector(language);
   const session: any = useSession({
     required: true,
@@ -65,6 +68,7 @@ const Home = () => {
         setShowMessage("hidden");
         setShowPartner("hidden");
         setShowProduct("hidden");
+        setShowUser("hidden");
         break;
       case "contact":
         setShowBanner("hidden");
@@ -74,6 +78,7 @@ const Home = () => {
         setShowMessage("hidden");
         setShowPartner("hidden");
         setShowProduct("hidden");
+        setShowUser("hidden");
         break;
       case "customer":
         setShowBanner("hidden");
@@ -83,6 +88,7 @@ const Home = () => {
         setShowMessage("hidden");
         setShowPartner("hidden");
         setShowProduct("hidden");
+        setShowUser("hidden");
         break;
       case "new":
         setShowBanner("hidden");
@@ -92,6 +98,7 @@ const Home = () => {
         setShowMessage("hidden");
         setShowPartner("hidden");
         setShowProduct("hidden");
+        setShowUser("hidden");
         break;
       case "message":
         setShowBanner("hidden");
@@ -101,6 +108,7 @@ const Home = () => {
         setShowMessage("visible");
         setShowPartner("hidden");
         setShowProduct("hidden");
+        setShowUser("hidden");
         break;
       case "partner":
         setShowBanner("hidden");
@@ -110,6 +118,7 @@ const Home = () => {
         setShowMessage("hidden");
         setShowPartner("visible");
         setShowProduct("hidden");
+        setShowUser("hidden");
         break;
       case "product":
         setShowBanner("hidden");
@@ -119,6 +128,17 @@ const Home = () => {
         setShowMessage("hidden");
         setShowPartner("hidden");
         setShowProduct("visible");
+        setShowUser("hidden");
+        break;
+      case "user":
+        setShowBanner("hidden");
+        setShowContact("hidden");
+        setShowCustomer("hidden");
+        setShowNew("hidden");
+        setShowMessage("hidden");
+        setShowPartner("hidden");
+        setShowProduct("hidden");
+        setShowUser("visible");
         break;
     }
   };
@@ -316,6 +336,17 @@ const Home = () => {
             <ProductForm />
           </Popup>
           <ProductTable />
+        </div>
+        <div
+          className={`bg-gray-50 p-4 rounded-lg dark:bg-gray-800 ${showUser}`}
+          id="product"
+          role="tabpanel"
+          aria-labelledby="product-tab"
+        >
+          <Popup>
+            <UserForm />
+          </Popup>
+          <UserTable />
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ interface Customer {
   src: string;
 }
 
-function CustomerTable() {
+function UserTable() {
   const { pathname, href } = useUrl() ?? {};
   const [userData, setUserData] = useState<Customer[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -108,4 +108,4 @@ function CustomerTable() {
   );
 }
 
-export default CustomerTable;
+export default UserTable;

@@ -19,7 +19,7 @@ import {
 import { randomId } from "@mantine/hooks";
 
 import TextEditor from "../RichTextEditor";
-import { updateProduct } from "@/lib/updateData";
+import { updateProductContent } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
 
 interface ContentFormProps {}
@@ -32,7 +32,7 @@ function UpdateContentForm({ product, content }) {
 
   // Thêm state để lưu trữ hình ảnh đã chọn
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(content.imgSrc);
 
   const onHandleChange = (e: any) => {
     if (e.language == "vn") {
@@ -47,11 +47,12 @@ function UpdateContentForm({ product, content }) {
   const onImageChange = (e) => {
     const file = e.target.files[0];
 
-    setSelectedImage(file);
+    setSelectedImage(URL.createObjectURL(file));
   };
 
   const onSubmitForm = async (value) => {
-    if (selectedImage) {
+    let updateData = JSON.parse(JSON.stringify(value));
+    if (selectedImage && selectedImage != content.imgSrc) {
       const formData = new FormData();
 
       formData.append("file", selectedImage);
@@ -71,21 +72,16 @@ function UpdateContentForm({ product, content }) {
 
         const data = await response.json();
 
-        value.image = data.secure_url;
+        updateData.image = data.secure_url;
       } catch (error) {
         console.error(error);
       }
     }
-    value.description = description;
-    value.descriptionEn = descriptionEn;
-    product.content.push(value);
-    var array = [...product.content]; // make a separate copy of the array
-    var index = array.indexOf(value._id);
-    if (index !== -1) {
-      array.splice(index, 1);
-      product.content == array;
-    }
-    updateProduct(product, session);
+
+    updateData["description"] = description.toString();
+    updateData["descriptionEn"] = descriptionEn.toString();
+
+    updateProductContent(product._id, updateData, session);
   };
 
   const form = useForm({
@@ -168,7 +164,7 @@ function UpdateContentForm({ product, content }) {
                       >
                         {selectedImage ? (
                           <Image
-                            src={URL.createObjectURL(selectedImage)}
+                            src={selectedImage}
                             alt="Selected Image"
                             width={150}
                             height={150}

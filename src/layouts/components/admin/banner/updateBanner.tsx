@@ -13,7 +13,7 @@ import { randomId } from "@mantine/hooks";
 import { TextInput, Button, Box, Code, Grid, Col } from "@mantine/core";
 import { useSession } from "next-auth/react";
 
-const UpdateBanner = ({ banner }) => {
+const UpdateBanner = ({ banner, handleSaveClick }) => {
   const [selectedImage, setSelectedImage] = useState(banner.image);
   let { data: session, status }: any = useSession();
   const [imagePreview, setImagePreview] = useState(banner.image);
@@ -68,7 +68,7 @@ const UpdateBanner = ({ banner }) => {
     form.reset();
 
     setSuccessMessage("Data added successfully!");
-
+    handleSaveClick();
     setTimeout(() => {
       setSuccessMessage(null);
     }, 5000);

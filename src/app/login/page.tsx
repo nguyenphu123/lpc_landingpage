@@ -39,8 +39,9 @@ const Login = () => {
           (item) =>
             item.publicIp == ipAddress && item.deviceIp == ipAddressLocal.ip,
         );
+        console.log(ipAddressLocal);
         if (acceptList.length == 0) {
-          router.push("/404");
+          // router.push("/404");
         }
 
         // fetch("https://api.ipify.org?format=json")

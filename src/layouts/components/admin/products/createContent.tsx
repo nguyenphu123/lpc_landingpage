@@ -19,7 +19,7 @@ import {
 import { randomId } from "@mantine/hooks";
 
 import TextEditor from "../RichTextEditor";
-import { updateProduct } from "@/lib/updateData";
+import { addProductContent } from "@/lib/createData";
 import { useSession } from "next-auth/react";
 
 interface ContentFormProps {}
@@ -82,9 +82,7 @@ function ContentForm({ product }) {
     value.description = description;
     value.descriptionEn = descriptionEn;
 
-    updatedProduct["content"].push(value);
-
-    updateProduct(updatedProduct, session);
+    addProductContent(product._id, value, session);
   };
 
   const form = useForm({

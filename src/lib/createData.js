@@ -117,6 +117,37 @@ export async function addProduct(product, session) {
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
 }
+export async function addProductContent(product, content, session) {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  // const posts = await loadNews()
+  const data = {
+    _id: product,
+
+    title: content.title,
+
+    titleEn: content.titleEn,
+
+    contentEn: content.contentEn,
+
+    content: content.content,
+
+    description: content.description,
+
+    descriptionEn: content.descriptionEn,
+
+    imgSrc: content.imgSrc,
+  };
+
+  const res = await fetch("api/admin/product/content", {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+}
 export async function addBanner(banner, session) {
   // Call an external API endpoint to get posts.
 

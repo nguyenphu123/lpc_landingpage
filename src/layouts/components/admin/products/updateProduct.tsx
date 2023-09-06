@@ -20,16 +20,16 @@ function UpdateProductForm(props: ProductFormProps, { product }) {
 
   // Thêm state để lưu trữ hình ảnh đã chọn
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(product.image);
 
   const onImageChange = (e) => {
     const file = e.target.files[0];
 
-    setSelectedImage(file);
+    setSelectedImage(URL.createObjectURL(file));
   };
 
   const onSubmitForm = async (value) => {
-    if (selectedImage) {
+    if (selectedImage && selectedImage != product.image) {
       const formData = new FormData();
 
       formData.append("file", selectedImage);
@@ -55,7 +55,7 @@ function UpdateProductForm(props: ProductFormProps, { product }) {
       }
     }
 
-    updateProduct(value,session);
+    updateProduct(value, session);
   };
 
   const form = useForm({
@@ -112,7 +112,7 @@ function UpdateProductForm(props: ProductFormProps, { product }) {
                       >
                         {selectedImage ? (
                           <Image
-                            src={URL.createObjectURL(selectedImage)}
+                            src={selectedImage}
                             alt="Selected Image"
                             width={150}
                             height={150}

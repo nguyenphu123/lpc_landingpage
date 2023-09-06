@@ -80,8 +80,8 @@ export async function PUT(req) {
 export async function GET() {
   try {
     await connectDB();
-    const user = await User.find({}, { email: 1, password: 0, _id: 1 });
-    return NextResponse.json({ user });
+    const users = await User.find({}, { email: 1, _id: 1 });
+    return NextResponse.json({ users });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let errorList = [];

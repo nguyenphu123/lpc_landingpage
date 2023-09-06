@@ -8,9 +8,7 @@ import UpdateUser from "./updateUser";
 interface Customer {
   _id: string;
 
-  name: string;
-
-  src: string;
+  email: string;
 }
 
 function UserTable() {
@@ -51,7 +49,7 @@ function UserTable() {
     <tr key={user._id}>
       <td>{index + 1}</td>
 
-      <td>{user.name}</td>
+      <td>{user.email}</td>
 
       <td></td>
 
@@ -69,8 +67,6 @@ function UserTable() {
             <th>#</th>
 
             <th>Name</th>
-
-            <th>Logo</th>
 
             <th>Status</th>
 

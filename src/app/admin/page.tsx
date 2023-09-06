@@ -258,6 +258,7 @@ const Home = () => {
               role="tab"
               aria-controls="contacts"
               aria-selected="false"
+              onClick={(e) => onClick("user")}
             >
               User
             </button>
@@ -339,9 +340,9 @@ const Home = () => {
         </div>
         <div
           className={`bg-gray-50 p-4 rounded-lg dark:bg-gray-800 ${showUser}`}
-          id="product"
+          id="user"
           role="tabpanel"
-          aria-labelledby="product-tab"
+          aria-labelledby="user-tab"
         >
           <Popup>
             <UserForm />

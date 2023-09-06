@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Table } from "@mantine/core";
 import Image from "next/image";
-import { loadCustomer } from "@/lib/loadData";
+import { loadUsers } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
-import UpdateCustomer from "./updateCustomer";
+import UpdateUser from "./updateUser";
 
 interface Customer {
   _id: string;
@@ -15,16 +15,16 @@ interface Customer {
 
 function CustomerTable() {
   const { pathname, href } = useUrl() ?? {};
-  const [custommerData, setCustomerData] = useState<Customer[]>([]);
+  const [userData, setUserData] = useState<Customer[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [showCustomer, setShowCustomer] = useState(false);
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
-      if (custommerData.length == 0) {
-        const customerCheck = await loadCustomer(href);
-        setCustomerData(customerCheck.customers);
+      if (userData.length == 0) {
+        const users = await loadUsers(href);
+        setUserData(users.users);
       } else {
       }
     };
@@ -32,33 +32,31 @@ function CustomerTable() {
     fetchNew()
       // make sure to catch any error
       .catch(console.error);
-  }, [custommerData]);
-  const handleEditClick = (customer) => {
-    setSelectedCustomer(customer);
+  }, [userData]);
+  const handleEditClick = (user) => {
+    setSelectedUser(user);
 
-    setIsEditMode(selectedCustomer === customer); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
+    setIsEditMode(selectedUser === user); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
   };
   const handleSaveClick = async () => {
     // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
-    const customerCheck = await loadCustomer(href);
-    setCustomerData(customerCheck.customers);
-    setSelectedCustomer(null);
+
+    const users = await loadUsers(href);
+
+    setUserData(users.users);
+    setSelectedUser(null);
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
-  const rows = custommerData.map((customer, index) => (
-    <tr key={customer._id}>
+  const rows = userData.map((user, index) => (
+    <tr key={user._id}>
       <td>{index + 1}</td>
 
-      <td>{customer.name}</td>
-
-      <td>
-        <Image src={customer.src} alt={customer.src} width={100} height={100} />
-      </td>
+      <td>{user.name}</td>
 
       <td></td>
 
       <td>
-        <button onClick={() => handleEditClick(customer)}>Edit</button>
+        <button onClick={() => handleEditClick(user)}>Edit</button>
       </td>
     </tr>
   ));
@@ -84,22 +82,22 @@ function CustomerTable() {
       </Table>
       <Modal
         size="1000px"
-        opened={Boolean(selectedCustomer)}
+        opened={Boolean(selectedUser)}
         onClose={() => {
-          setSelectedCustomer(null);
+          setSelectedUser(null);
 
           setIsEditMode(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
         }}
       >
-        {selectedCustomer && (
+        {selectedUser && (
           <section className="section">
             <div className="container">
               <h3 className="flex justify-center">
                 {isEditMode ? "Edit Product" : "Product Details"}
               </h3>
 
-              <UpdateCustomer
-                Customer={selectedCustomer}
+              <UpdateUser
+                user={selectedUser}
                 handleSaveClick={handleSaveClick}
               />
             </div>

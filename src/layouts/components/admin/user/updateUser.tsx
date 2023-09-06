@@ -9,47 +9,19 @@ import Image from "next/image";
 import { updateCustomer } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
 
-function UpdateCustomer({ Customer, handleSaveClick }) {
-  const [selectedImage, setSelectedImage] = useState(Customer.src);
+function UpdateUser({ user, handleSaveClick }) {
+ 
   let { data: session, status } = useSession();
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
 
   const form = useForm({
-    initialValues: Customer,
+    initialValues: user,
   });
 
-  const onImageChange = (e) => {
-    const file = e.target.files[0];
-
-    setSelectedImage(URL.createObjectURL(file));
-  };
+  
 
   const onSubmitForm = async (values) => {
-    if (selectedImage && selectedImage != Customer.src) {
-      const formData = new FormData();
-
-      formData.append("file", selectedImage);
-
-      formData.append("upload_preset", "ml_default");
-
-      try {
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/derjssgq9/image/upload",
-
-          {
-            method: "POST",
-
-            body: formData,
-          },
-        );
-
-        const data = await response.json();
-
-        values.src = data.secure_url; // Save the uploaded image URL to the form data
-      } catch (error) {
-        console.error(error);
-      }
-    }
+   
 
     // Continue with the rest of the form submission
 
@@ -81,15 +53,7 @@ function UpdateCustomer({ Customer, handleSaveClick }) {
               />
             </Col>
 
-            <Col span={6}>
-              <input type="file" accept="image/*" onChange={onImageChange} />
-              <Image
-                src={selectedImage}
-                alt="Selected Image"
-                width={150}
-                height={150}
-              />
-            </Col>
+           
 
             <Col span={6} className="flex justify-end mt-6">
               {/* Thêm class CSS để đặt nút submit ở góc phải */}
@@ -117,4 +81,4 @@ function UpdateCustomer({ Customer, handleSaveClick }) {
   );
 }
 
-export default UpdateCustomer;
+export default UpdateUser;

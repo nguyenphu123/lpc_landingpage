@@ -9,6 +9,7 @@ import {
   language,
 } from "../../feature/changeLanguage/changeLanguageSlice";
 import "../../styles/flag.scss";
+import { Menu, Button } from "@mantine/core";
 const ThemeSwitcher = ({ className }: { className: string }) => {
   const { theme_switcher } = config.settings;
   const [mounted, setMounted] = useState(false);
@@ -25,13 +26,47 @@ const ThemeSwitcher = ({ className }: { className: string }) => {
   const dispatch = useDispatch();
   return (
     <>
-      <button className="" onClick={() => dispatch(changeLanguage())}>
+      <Menu width={200} shadow="md">
+        <Menu.Target>
+          <Button
+            variant="white"
+            color="dark"
+            radius="xl"
+            leftIcon={
+              curlanguage.changeLanguage.value == "en" ? (
+                <span className=" flag-icon-rounded fi fi-us" />
+              ) : (
+                <span className="flag-icon-rounded fi  fi-vn" />
+              )
+            }
+          >
+            {curlanguage.changeLanguage.value == "en"
+              ? "English"
+              : "Vietnamese"}
+          </Button>
+        </Menu.Target>
+
+        <Menu.Dropdown>
+          <Menu.Item icon={<span className=" flag-icon-rounded fi fi-vn" />}>
+            <button className="" onClick={() => dispatch(changeLanguage())}>
+              Vietnamese
+            </button>
+          </Menu.Item>
+
+          <Menu.Item icon={<span className="flag-icon-rounded fi fi-us" />}>
+            <button className="" onClick={() => dispatch(changeLanguage())}>
+              English
+            </button>
+          </Menu.Item>
+        </Menu.Dropdown>
+      </Menu>
+      {/* <button className="" onClick={() => dispatch(changeLanguage())}>
         {curlanguage.changeLanguage.value == "en" ? (
           <span className="flag-icon-rounded fi fi-us"></span>
         ) : (
           <span className=" flag-icon-rounded fi fi-vn"></span>
         )}
-      </button>
+      </button> */}
       {/* {theme_switcher && (
         <div className={`theme-switcher ${className}`}>
           <input

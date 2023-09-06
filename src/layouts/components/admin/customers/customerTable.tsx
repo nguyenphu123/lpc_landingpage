@@ -33,6 +33,11 @@ function CustomerTable() {
       // make sure to catch any error
       .catch(console.error);
   }, [custommerData]);
+  const handleEditClick = (customer) => {
+    setSelectedCustomer(customer);
+
+    setIsEditMode(selectedCustomer === customer); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
+  };
   const handleSaveClick = async () => {
     // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
     const customerCheck = await loadCustomer(href);
@@ -53,7 +58,7 @@ function CustomerTable() {
       <td></td>
 
       <td>
-        <button>Edit</button>
+        <button onClick={() => handleEditClick(customer)}>Edit</button>
       </td>
     </tr>
   ));

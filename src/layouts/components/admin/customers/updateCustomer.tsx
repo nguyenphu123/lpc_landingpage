@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useForm } from "@mantine/form";
 
 import { TextInput, Button, Box, Code, Grid, Col } from "@mantine/core";
-
+import Image from "next/image";
 import { updateCustomer } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
 
@@ -21,7 +21,7 @@ function UpdateCustomer({ Customer, handleSaveClick }) {
   const onImageChange = (e) => {
     const file = e.target.files[0];
 
-    setSelectedImage(file);
+    setSelectedImage(URL.createObjectURL(file));
   };
 
   const onSubmitForm = async (values) => {
@@ -58,7 +58,7 @@ function UpdateCustomer({ Customer, handleSaveClick }) {
     form.reset();
 
     setSuccessMessage("Data added successfully!");
-    handleSaveClick()
+    handleSaveClick();
     setTimeout(() => {
       setSuccessMessage(null);
     }, 5000);
@@ -83,6 +83,12 @@ function UpdateCustomer({ Customer, handleSaveClick }) {
 
             <Col span={6}>
               <input type="file" accept="image/*" onChange={onImageChange} />
+              <Image
+                src={selectedImage}
+                alt="Selected Image"
+                width={150}
+                height={150}
+              />
             </Col>
 
             <Col span={6} className="flex justify-end mt-6">

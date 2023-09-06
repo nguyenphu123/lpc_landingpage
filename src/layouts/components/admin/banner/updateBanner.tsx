@@ -16,17 +16,15 @@ import { useSession } from "next-auth/react";
 const UpdateBanner = ({ banner }) => {
   const [selectedImage, setSelectedImage] = useState(banner.image);
   let { data: session, status }: any = useSession();
-  const [imagePreview, setImagePreview] = useState("");
+  const [imagePreview, setImagePreview] = useState(banner.image);
 
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
 
   const onImageChange = (e) => {
     const file = e.target.files[0];
 
-    setSelectedImage(file);
-
     const imageUrl = URL.createObjectURL(file);
-
+    setSelectedImage(imageUrl);
     setImagePreview(imageUrl);
   };
 
@@ -35,7 +33,7 @@ const UpdateBanner = ({ banner }) => {
   });
 
   const onSubmitForm = async (values) => {
-    if (selectedImage) {
+    if (selectedImage && selectedImage != banner.image) {
       // Nếu có hình ảnh được chọn, tải lên trước
 
       const formData = new FormData();

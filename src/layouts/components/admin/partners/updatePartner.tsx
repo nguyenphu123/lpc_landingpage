@@ -21,7 +21,7 @@ function UpdatePartner({ partner, handleSaveClick }) {
   const onImageChange = (e) => {
     const file = e.target.files[0];
 
-    setSelectedImage(file);
+    setSelectedImage(URL.createObjectURL(file));
   };
 
   const onSubmitForm = async (values) => {

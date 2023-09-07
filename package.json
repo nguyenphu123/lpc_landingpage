@@ -18,6 +18,7 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@lexical/react": "^0.12.0",
     "@mantine/core": "^6.0.17",
     "@mantine/form": "^6.0.19",
     "@mantine/hooks": "^6.0.17",
@@ -25,6 +26,7 @@
     "@react-google-maps/api": "^2.19.2",
     "@reduxjs/toolkit": "^1.9.5",
     "@tailwindcss/line-clamp": "^0.4.4",
+    "@tinymce/tinymce-react": "^4.3.0",
     "@types/crypto-js": "^4.1.1",
     "address": "^1.2.2",
     "bcryptjs": "^2.4.3",
@@ -39,6 +41,7 @@
     "gray-matter": "^4.0.3",
     "image-extensions": "^1.1.0",
     "is-url": "^1.2.4",
+    "lexical": "^0.12.0",
     "marked": "^5.1.1",
     "mongoose": "^7.4.2",
     "next": "^13.4.12",
@@ -51,6 +54,7 @@
     "node-sass": "^9.0.0",
     "nodemailer": "^6.9.4",
     "nodemailer-smtp-transport": "^2.7.4",
+    "novel": "^0.1.20",
     "public-ip": "^6.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

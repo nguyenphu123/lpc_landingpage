@@ -15,20 +15,18 @@ function UserForm() {
 
   const form = useForm({
     initialValues: {
-      name: "",
-
-      src: "",
+      email: "",
     },
   });
 
   const onSubmitForm = async (values) => {
     // Continue with the rest of the form submission
 
-    addUsers(values, session);
+    let userInfo = await addUsers(values, session);
 
     form.reset();
 
-    setSuccessMessage("Data added successfully!");
+    setSuccessMessage(userInfo.msg);
 
     setTimeout(() => {
       setSuccessMessage(null);
@@ -48,7 +46,7 @@ function UserForm() {
               <TextInput
                 label="Name"
                 placeholder="Name"
-                {...form.getInputProps("name")}
+                {...form.getInputProps("email")}
               />
             </Col>
 

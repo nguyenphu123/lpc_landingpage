@@ -2,55 +2,87 @@
   "main": [
     {
       "name": "Trang chủ",
+
       "link": "/"
     },
+
     {
       "name": "Giải pháp",
+
       "link": "/Solution",
+
       "hasChildren": true,
+
       "children": []
     },
+
     {
       "name": "Dịch vụ",
+
       "link": "/Service",
+
       "hasChildren": true,
+
       "children": []
     },
+
     {
       "name": "Tin tức",
+
       "link": "/blog"
     },
+
     {
       "name": "Liên hệ",
+
       "link": "/contact"
     },
+
     {
       "name": "Về Liên Phát",
+
       "link": "/about"
     }
   ],
+
   "footer": {
     "name": "Menu",
+
     "children": [
       {
         "name": "Trang chủ",
+
         "link": "/"
       },
-      {
-        "name": "Về Liên Phát",
-        "link": "/about"
-      },
-      {
-        "name": "Tin tức",
-        "link": "/blog"
-      },
-      {
-        "name": "Dịch vụ",
-        "link": "/Service"
-      },
+
       {
         "name": "Giải pháp",
+
         "link": "/Solution"
+      },
+
+      {
+        "name": "Dịch vụ",
+
+        "link": "/Service"
+      },
+
+      {
+        "name": "Tin tức",
+
+        "link": "/blog"
+      },
+
+      {
+        "name": "Liên hệ",
+
+        "link": "/contact"
+      },
+
+      {
+        "name": "Về Liên Phát",
+
+        "link": "/about"
       }
     ]
   }

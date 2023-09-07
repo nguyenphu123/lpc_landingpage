@@ -27,8 +27,10 @@ interface ContentFormProps {}
 function UpdateContentForm({ product, content }) {
   const [submittedValues, setSubmittedValues] = useState("");
   let { data: session, status } = useSession();
-  const [descriptionEn, setDescriptionEn]: any = useState({});
-  const [description, setDescription]: any = useState({});
+  const [descriptionEn, setDescriptionEn]: any = useState(
+    content.descriptionEn,
+  );
+  const [description, setDescription]: any = useState(content.description);
 
   // Thêm state để lưu trữ hình ảnh đã chọn
 

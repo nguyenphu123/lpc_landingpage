@@ -1,138 +1,205 @@
 {
   "bannertext1": {
     "name": "Tìm hiểu thêm",
+
     "description": ""
   },
+
   "bannertext2": {
     "name": "Liên hệ",
+
     "description": ""
   },
+
   "quote1": {
-    "name": "Sẵn sàng, chuyên nghiệp và chu đáo",
+    "name": "SẴN SÀNG, CHUYÊN NGHIỆP VÀ CHU ĐÁO",
+
     "description": ""
   },
+
   "quote2": {
-    "name": " Chúng tôi cam kết mang đến những giải pháp xuất sắc và dịch vụ tận tâm cho khách hàng",
+    "name": "Chúng tôi cam kết mang đến những giải pháp xuất sắc và dịch vụ tận tâm cho khách hàng",
+
     "description": ""
   },
+
   "product_solution": {
-    "name": " Các giải pháp của chúng tôi",
+    "name": "Các giải pháp của chúng tôi",
+
     "description": ""
   },
+
   "product_service": {
-    "name": " Các dịch vụ của chúng tôi",
+    "name": "Các dịch vụ của chúng tôi",
+
     "description": ""
   },
+
   "service_title": {
     "name": "LPC là một công ty hàng đầu trong lĩnh vực cung cấp giải pháp, sản phẩm và dịch vụ CNTT",
+
     "description": ""
   },
+
   "service_title1": {
     "name": "Hơn 10 Năm Kinh Nghiệm",
+
     "description": ""
   },
+
   "service_title2": {
     "name": "Chúng tôi đã cung cấp và triển khai thành công các gói sản phẩm dịch vụ, giải pháp và tích hợp hệ thống cho Quý khách hàng lớn trong nhiều lĩnh vực như: Ngân hàng, chuỗi bán lẻ, sản xuất, kho vận, các doanh nghiệp trong và ngoài nước…",
+
     "description": ""
   },
+
   "service_detail": {
     "name": "Chi tiết",
+
     "description": ""
   },
+
   "customer": {
     "name": "Khách hàng tiêu biểu của Liên Phát",
+
     "description": "Chúng tôi đã cung cấp và triển khai thành công các gói sản phẩm dịch vụ, giải pháp và tích hợp hệ thống cho Quý khách hàng lớn trong nhiều lĩnh vực."
   },
+
   "partner": {
     "name": "Đối tác",
-    "description": "Chúng tôi là đối tác với những công ty công nghệ <br/> hàng đầu thế giới."
+
+    "description": "Chúng tôi là đối tác với những công ty công nghệ hàng đầu thế giới."
   },
+
   "news": {
     "name": "Tin tức",
+
     "description": ""
   },
+
   "text1": {
     "name": "Xem thêm",
+
     "description": ""
   },
+
   "text2": {
     "name": "Xem tin",
+
     "description": ""
   },
+
   "basic_moral": {
     "name": "TƯ TƯỞNG CỐT LÕI",
+
     "description": ""
   },
+
   "milestone": {
     "name": "NHỮNG CỘT MỐC QUAN TRỌNG",
+
     "description": "Liên Phát đã hoàn thành hơn 700 dự án"
   },
+
   "projects": {
     "name": "Dự án",
+
     "description": ""
   },
+
   "contact": {
     "name": "Hãy để lại chi tiết liên hệ",
+
     "description": ""
   },
+
   "about": {
     "name": "Về chúng tôi",
+
     "description": ""
   },
+
   "name": {
     "name": "Họ Tên",
+
     "description": ""
   },
+
   "note": {
     "name": "Lời nhắn",
+
     "description": ""
   },
+
   "send": {
     "name": "Gửi",
+
     "description": ""
   },
+
   "aboutus": {
     "name": "Về chúng tôi",
+
     "description": ""
   },
+
   "customer2": {
     "name": "Khách hàng",
+
     "description": "ĐỒNG THỜI CHÚNG TÔI TỰ HÀO LÀ KHÁCH HÀNG TIÊU BIỂU <br/> VỚI CÁC DOANH NGHIỆP TRÊN."
   },
+
   "text3": {
     "name": "Bắt đầu ngay",
+
     "description": ""
   },
+
   "text4": {
     "name": "Danh mục",
+
     "description": ""
   },
+
   "text5": {
     "name": "Thẻ",
+
     "description": ""
   },
+
   "text6": {
     "name": "Chia sẻ",
+
     "description": ""
   },
+
   "text7": {
     "name": "Các bài liên quan",
+
     "description": ""
   },
+
   "login_title": {
     "name": "Đăng nhập",
+
     "description": ""
   },
+
   "email": {
     "name": "Email",
+
     "description": ""
   },
+
   "password": {
     "name": "Mật khẩu",
+
     "description": ""
   },
+
   "solution": {
     "name": "Các giải pháp",
+
     "description": ""
   }
 }

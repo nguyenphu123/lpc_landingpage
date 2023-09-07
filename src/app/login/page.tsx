@@ -67,7 +67,7 @@ export default function Login() {
     };
     try {
       const res: any = await signIn("credentials", loginInfo);
-
+      console.log(res)
       if (res.error != null || res.status != 200) {
         setErrorMessage(true);
         //setError("Invalid Credentials");
@@ -117,11 +117,10 @@ export default function Login() {
                       : Data["email"].name}
                   </label>
                   <input
-                    type="email"
+                    type="text"
                     name="email"
-                    id="email"
+                    id="username"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="name@company.com"
                     required={true}
                   />
                 </div>

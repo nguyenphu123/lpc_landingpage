@@ -44,7 +44,10 @@ export async function addUsers(user, session) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user),
   });
-
+  const userInfo = await res.json();
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return userInfo;
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
 }

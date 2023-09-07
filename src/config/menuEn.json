@@ -2,55 +2,87 @@
   "main": [
     {
       "name": "Home",
+
       "link": "/"
     },
+
     {
       "name": "Solutions",
+
       "link": "/Solution",
+
       "hasChildren": true,
+
       "children": []
     },
+
     {
       "name": "Services",
+
       "link": "/Service",
+
       "hasChildren": true,
+
       "children": []
     },
+
     {
       "name": "News",
+
       "link": "/blog"
     },
+
     {
       "name": "Contact Us",
+
       "link": "/contact"
     },
+
     {
       "name": "About Us",
+
       "link": "/about"
     }
   ],
+
   "footer": {
     "name": "Menu",
+
     "children": [
       {
         "name": "Home",
+
         "link": "/"
       },
-      {
-        "name": "About Us",
-        "link": "/about"
-      },
-      {
-        "name": "News",
-        "link": "/blog"
-      },
-      {
-        "name": "Services",
-        "link": "/Service"
-      },
+
       {
         "name": "Solutions",
+
         "link": "/Solution"
+      },
+
+      {
+        "name": "Services",
+
+        "link": "/Service"
+      },
+
+      {
+        "name": "News",
+
+        "link": "/blog"
+      },
+
+      {
+        "name": "Contact",
+
+        "link": "/contact"
+      },
+
+      {
+        "name": "About Us",
+
+        "link": "/about"
       }
     ]
   }

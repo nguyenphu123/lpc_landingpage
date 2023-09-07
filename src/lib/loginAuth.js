@@ -14,15 +14,17 @@ export const authOptions = {
         const user = {
           _id: "",
           email: "",
-          password: "",
+          role: "",
+          loginCount: "",
         };
         try {
           await connectDB();
 
-          const returnData = await User.findOne({ email });
+          const returnData = await User.findOne({ email, status: "Active" });
           user._id = returnData._id;
           user.email = returnData.email;
-          user.password = returnData.password;
+          user.role = returnData.role;
+          user.loginCount = returnData.loginCount;
           if (!user) {
             return null;
           }
@@ -30,7 +32,7 @@ export const authOptions = {
           // const passwordsMatch = await bcrypt.compare(password, user.password);
           var salt = bcrypt.genSaltSync(10);
 
-          if (!(password == bcrypt.hash(user.password, salt))) {
+          if (!(password == returnData.password)) {
             return null;
           }
 

@@ -1,135 +1,199 @@
 {
   "bannertext1": {
     "name": "Learn more",
+
     "description": ""
   },
+
   "bannertext2": {
     "name": "Contact us",
+
     "description": ""
   },
+
   "quote1": {
-    "name": "Ready, professionel and polite",
+    "name": "READY, MASTERLY AND ATTENTIVE",
+
     "description": ""
   },
+
   "quote2": {
-    "name": " We guarantee to bring you our best services and solutions",
+    "name": "We are committed to providing excellent solutions and dedicated service to our customers",
+
     "description": ""
   },
+
   "product_solution": {
-    "name": " We provide the following solutions",
+    "name": "We provide the following solutions",
+
     "description": ""
   },
+
   "product_service": {
     "name": " We provide the following services",
+
     "description": ""
   },
+
   "service_title": {
-    "name": "We provive the following services and solutions",
+    "name": "LPC is a leading company in the field of providing IT solutions, products, and services.",
+
     "description": ""
   },
+
   "service_title1": {
-    "name": "Over 10 years of Experience",
+    "name": "Over 10 Years Of Experience",
+
     "description": ""
   },
+
   "service_title2": {
-    "name": "We have successfully provided and deployed numorous services, solutions and intergration for our customers in multiple business: Banking, marketing, production, logistic, organization from within the country and abroad.",
+    "name": "We have successfully provided and implemented a range of product, service, solution, and system integration packages for large customers in a variety of industries, including banking, retail chains, manufacturing, logistics, and domestic and international enterprises...",
+
     "description": ""
   },
+
   "service_detail": {
-    "name": "detail",
+    "name": "Detail",
+
     "description": ""
   },
 
   "customer": {
-    "name": "Some of Liên Phát customers",
-    "description": "Chúng tôi đã cung cấp và triển khai thành công các gói sản phẩm dịch vụ, giải pháp và tích hợp hệ thống cho Quý khách hàng lớn trong nhiều lĩnh vực."
+    "name": "Typical customers of Lien Phat",
+
+    "description": "We have successfully provided and implemented a range of product, service, solution, and system integration packages for large customers in a variety of industries."
   },
+
   "partner": {
     "name": "Our partner",
-    "description": "We are honored to partner with leading technology companies."
+
+    "description": "We are partners with the world's leading technology companies."
   },
+
   "news": {
     "name": "News",
+
     "description": ""
   },
+
   "text1": {
     "name": "See more",
+
     "description": ""
   },
+
   "text2": {
     "name": "View",
+
     "description": ""
   },
+
   "basic_moral": {
-    "name": "OUR CORE THOUGHT",
+    "name": "CORE VALUE",
+
     "description": ""
   },
+
   "milestone": {
-    "name": "OUR IMPORTANT MILESTONES",
-    "description": "Liên Phát has completed over 700 projects"
+    "name": "KEY MILESTONES",
+
+    "description": "Lien Phat has completed over 700 projects"
   },
+
   "projects": {
     "name": "Projects",
+
     "description": ""
   },
+
   "contact": {
-    "name": "Please leave your information",
+    "name": "Please leave your contact details",
+
     "description": ""
   },
+
   "about": {
     "name": "About us",
+
     "description": ""
   },
+
   "name": {
     "name": "Fullname",
+
     "description": ""
   },
+
   "note": {
-    "name": "Note",
+    "name": "Message",
+
     "description": ""
   },
+
   "send": {
     "name": "Send",
+
     "description": ""
   },
+
   "customer2": {
     "name": "Customer",
-    "description": "ALWAYS PROUD TO BE A TYPICAL CUSTOMER FOR ENTERPRISES."
+
+    "description": "WE ARE ALSO PROUD TO BE A FEATURED CUSTOMER <br/> OF THE COMPANIES ABOVE."
   },
+
   "text3": {
     "name": "Start now",
+
     "description": ""
   },
+
   "text4": {
-    "name": "Catagories",
+    "name": "Categories",
+
     "description": ""
   },
+
   "text5": {
     "name": "Tags",
+
     "description": ""
   },
+
   "text6": {
     "name": "Share",
+
     "description": ""
   },
+
   "text7": {
     "name": "Related post",
+
     "description": ""
   },
+
   "login_title": {
     "name": "Login page",
+
     "description": ""
   },
+
   "email": {
     "name": "Email",
+
     "description": ""
   },
+
   "password": {
     "name": "Password",
+
     "description": ""
   },
+
   "solution": {
     "name": "Solutions",
+
     "description": ""
   }
 }

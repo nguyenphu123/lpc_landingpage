@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { publicIp, publicIpv4, publicIpv6 } from "public-ip";
 import { loadipAddress } from "@/lib/loadData";
-import { headers } from "next/headers";
+
 // import { internalIpV4Sync } from "internal-ip";
 var bcrypt = require("bcryptjs");
 
@@ -21,7 +21,7 @@ export default function Login() {
   const curlanguage = useSelector((rootState) => language(rootState));
   // let loginState = useSelector(loginStatus);
   const [errorMessage, setErrorMessage] = useState(false);
-  const [userIp, setUserIp] = useState(headers().get("x-forwarded-for") || "");
+  const [userIp, setUserIp] = useState( "");
   const router = useRouter();
   const ipList: any = Whitelist.whitelist;
   const dispatch = useDispatch();

@@ -1,11 +1,8 @@
 import { NextResponse } from "next/server";
-
-import requestIp from "request-ip";
+import { headers } from "next/headers";
 
 export async function POST(req, res) {
-  let ip;
+  let ip = headers().get("x-forwarded-for");
 
-  const detectedIp = requestIp.getClientIp(req);
-  console.log(detectedIp);
-  return NextResponse.json({ ip: detectedIp });
+  return NextResponse.json({ ip: ip });
 }

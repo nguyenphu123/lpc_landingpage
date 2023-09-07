@@ -21,7 +21,7 @@ export default function Login() {
   const curlanguage = useSelector((rootState) => language(rootState));
   // let loginState = useSelector(loginStatus);
   const [errorMessage, setErrorMessage] = useState(false);
-  const [userIp, setUserIp] = useState( "");
+  const [userIp, setUserIp] = useState("");
   const router = useRouter();
   const ipList: any = Whitelist.whitelist;
   const dispatch = useDispatch();
@@ -36,14 +36,11 @@ export default function Login() {
       if (userIp == "") {
         let ipAddress = await publicIpv4();
 
-        let ipAddressLocal = await loadipAddress();
-        let acceptList = ipList.filter(
-          (item) =>
-            item.publicIp == ipAddress && item.deviceIp == ipAddressLocal.ip,
-        );
-        console.log(ipAddressLocal);
+        // let ipAddressLocal = await loadipAddress();
+        let acceptList = ipList.filter((item) => item.publicIp == ipAddress);
+        // console.log(ipAddressLocal);
         if (acceptList.length == 0) {
-          // router.push("/404");
+          router.push("/404");
         }
 
         // fetch("https://api.ipify.org?format=json")

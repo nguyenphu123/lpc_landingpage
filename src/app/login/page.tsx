@@ -15,18 +15,8 @@ import { publicIp, publicIpv4, publicIpv6 } from "public-ip";
 import { loadipAddress } from "@/lib/loadData";
 // import { internalIpV4Sync } from "internal-ip";
 var bcrypt = require("bcryptjs");
-export async function getServerSideProps({ req }) {
-  const forwarded = req.headers["x-forwarded-for"];
-  const ip = forwarded
-    ? forwarded.split(/, /)[0]
-    : req.connection.remoteAddress;
-  return {
-    props: {
-      ip,
-    },
-  };
-}
-const Login = ({ serversideIp }) => {
+
+const Login = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
   // let loginState = useSelector(loginStatus);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -50,7 +40,7 @@ const Login = ({ serversideIp }) => {
           (item) =>
             item.publicIp == ipAddress && item.deviceIp == ipAddressLocal.ip,
         );
-        console.log(serversideIp);
+        console.log(ipAddressLocal);
         if (acceptList.length == 0) {
           // router.push("/404");
         }

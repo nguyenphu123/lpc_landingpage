@@ -16,11 +16,11 @@ import { loadipAddress } from "@/lib/loadData";
 // import { internalIpV4Sync } from "internal-ip";
 var bcrypt = require("bcryptjs");
 
-const Login = () => {
+export default function Login(ip) {
   const curlanguage = useSelector((rootState) => language(rootState));
   // let loginState = useSelector(loginStatus);
   const [errorMessage, setErrorMessage] = useState(false);
-  const [ip, setIp] = useState("");
+  const [userIp, setUserIp] = useState(ip || "");
   const router = useRouter();
   const ipList: any = Whitelist.whitelist;
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const Login = () => {
   };
   useEffect(() => {
     const fetchIp = async () => {
-      if (ip == "") {
+      if (userIp == "") {
         let ipAddress = await publicIpv4();
 
         let ipAddressLocal = await loadipAddress();
@@ -49,13 +49,14 @@ const Login = () => {
         //   .then((response) => response.json())
         //   .then((data) => console.log(data.ip));
       } else {
+        console.log(userIp);
       }
     };
     // call the function
     fetchIp()
       // make sure to catch any error
       .catch(console.error);
-  }, [ip]);
+  }, [userIp]);
 
   async function onsubmit(e: any) {
     e.preventDefault();
@@ -188,6 +189,8 @@ const Login = () => {
       </section>
     </>
   );
+}
+Login.getinitialprops = async ({ req }) => {
+  const ip = req.headers["x-real-ip"] || req.connection.remoteaddress;
+  return { ip };
 };
-
-export default Login;

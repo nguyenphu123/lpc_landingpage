@@ -1,18 +1,11 @@
 import { NextResponse } from "next/server";
-const address = require("address");
+
+import requestIp from "request-ip";
+
 export async function POST(req, res) {
   let ip;
 
-  if (req.headers["x-forwarded-for"]) {
-    ip = req.headers["x-forwarded-for"].split(",")[0];
-  } else if (req.headers["x-real-ip"]) {
-    ip = req.connection.remoteAddress;
-  } else {
-    ip = req.connection.remoteAddress;
-  }
-
-  console.log(ip);
-
-  console.log(ip);
-  return NextResponse.json({ ip: ip });
+  const detectedIp = requestIp.getClientIp(req);
+  console.log(detectedIp);
+  return NextResponse.json({ ip: detectedIp });
 }

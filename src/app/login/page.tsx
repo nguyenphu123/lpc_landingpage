@@ -36,9 +36,8 @@ export default function Login() {
       if (userIp == "") {
         let ipAddress = await publicIpv4();
 
-        let ipAddressLocal = await loadipAddress();
         let acceptList = ipList.filter((item) => item.publicIp == ipAddress);
-        console.log(ipAddressLocal);
+
         if (acceptList.length == 0) {
           router.push("/404");
         }
@@ -67,7 +66,7 @@ export default function Login() {
     };
     try {
       const res: any = await signIn("credentials", loginInfo);
-      console.log(res)
+      console.log(res);
       if (res.error != null || res.status != 200) {
         setErrorMessage(true);
         //setError("Invalid Credentials");

@@ -163,7 +163,7 @@ function ProductTable() {
           setIsEditMode(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
         }}
       >
-        {selectedProduct && showInfo && (
+        {selectedProduct && showInfo ? (
           <section className="section">
             <div className="container">
               <h3 className="flex justify-center">
@@ -274,160 +274,6 @@ function ProductTable() {
                       />
                     </Col>
 
-                    <Col span={12}>
-                      <label>Content: </label>
-
-                      <div>
-                        {selectedProduct.content.map((content, index) => (
-                          <div key={index}>
-                            <div style={{ display: "flex", gap: "16px" }}>
-                              <div style={{ flex: 1 }}>
-                                <label>Title: </label>
-
-                                <textarea
-                                  value={content.title}
-                                  disabled
-                                  style={{ width: "100%" }}
-                                />
-                              </div>
-
-                              <div style={{ flex: 1 }}>
-                                <label>Title (English): </label>
-
-                                <textarea
-                                  value={content.titleEn}
-                                  disabled
-                                  style={{ width: "100%" }}
-                                />
-                              </div>
-                            </div>
-
-                            {/* Hiển thị nội dung còn lại */}
-
-                            <div style={{ display: "flex", gap: "16px" }}>
-                              <div style={{ flex: 1 }}>
-                                <label>Content: </label>
-
-                                <textarea
-                                  value={content.content}
-                                  disabled
-                                  style={{ width: "100%", height: "150px" }}
-                                />
-                              </div>
-
-                              <div style={{ flex: 1 }}>
-                                <label>Content (English): </label>
-
-                                <textarea
-                                  value={content.contentEn}
-                                  disabled
-                                  style={{ width: "100%", height: "150px" }}
-                                />
-                              </div>
-                            </div>
-
-                            {/* <p>{content.content}</p>
-
-                            <p>{content.contentEn}</p> */}
-
-                            <Image
-                              src={content.imgSrc}
-                              alt={`Content Image ${index}`}
-                              width={300}
-                              height={300}
-                            />
-
-                            {content.description &&
-                              Array.isArray(content.description) &&
-                              content.description.map(
-                                (desc: any, descIndex: number) => (
-                                  <div key={descIndex}>
-                                    <div
-                                      style={{ display: "flex", gap: "16px" }}
-                                    >
-                                      <div style={{ flex: 1 }}>
-                                        <label>Description Title: </label>
-
-                                        <textarea
-                                          value={desc.title}
-                                          disabled
-                                          style={{
-                                            width: "100%",
-
-                                            height: "150px",
-                                          }}
-                                        />
-                                      </div>
-
-                                      <div style={{ flex: 1 }}>
-                                        <label>
-                                          Description Title (English):{" "}
-                                        </label>
-
-                                        <textarea
-                                          value={desc.titleEn}
-                                          disabled
-                                          style={{
-                                            width: "100%",
-
-                                            height: "150px",
-                                          }}
-                                        />
-                                      </div>
-                                    </div>
-
-                                    {/* Hiển thị nội dung còn lại của mô tả */}
-
-                                    <div style={{ marginTop: "16px" }}>
-                                      <label>Description Content: </label>
-
-                                      <textarea
-                                        value={desc.content}
-                                        disabled
-                                        style={{
-                                          width: "100%",
-
-                                          height: "200px",
-                                        }}
-                                      />
-                                    </div>
-
-                                    <div style={{ marginTop: "16px" }}>
-                                      <label>
-                                        Description Content (English):{" "}
-                                      </label>
-
-                                      <textarea
-                                        value={desc.contentEn}
-                                        disabled
-                                        style={{
-                                          width: "100%",
-
-                                          height: "200px",
-                                        }}
-                                      />
-                                    </div>
-                                  </div>
-                                ),
-                              )}
-
-                            {index !== selectedProduct.content.length - 1 && (
-                              <hr
-                                className=""
-                                style={{
-                                  border: "none",
-
-                                  borderTop: "1px solid red",
-
-                                  margin: "16px 0",
-                                }}
-                              />
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </Col>
-
                     {/* ... Các phần khác tương tự như trên */}
                   </Grid>
                 </form>
@@ -454,11 +300,13 @@ function ProductTable() {
               </div>
             </div>
           </section>
+        ) : (
+          <></>
         )}
       </Modal>
       <Modal
         size="1000px"
-        opened={Boolean(selectedProduct)}
+        opened={Boolean(showContent)}
         onClose={() => {
           setSelectedProduct(null);
           setShowContent(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
@@ -471,7 +319,7 @@ function ProductTable() {
             <Box maw={800} mx="auto">
               {showContent ? <ContentTable product={selectedProduct} /> : <></>}
             </Box>
-          </div>{" "}
+          </div>
         </section>
       </Modal>
     </div>

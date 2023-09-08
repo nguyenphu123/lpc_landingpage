@@ -7,7 +7,8 @@ export function middleware(request: NextRequest) {
 
   // Check if the hosting platform provides the client's IP address and store it in a variable
   let ip: any = request.ip ?? request.headers.get("x-real-ip");
-  const forwardedFor: any = request.headers.get("x-forwarded-for");
+  const forwardedFor: any =
+    request.ip ?? request.headers.get("x-forwarded-for");
   // Add the client's IP address to the request headers using the 'x-forwarded-for' field
   requestHeaders.set("x-real-ip", ip);
   requestHeaders.set("x-forwarded-for", forwardedFor);

@@ -13,6 +13,7 @@ import UpdateNew from "./updateNew";
 import Popup from "@/components/popup";
 
 import { useUrl } from "nextjs-current-url";
+import { useSession } from "next-auth/react";
 
 interface News {
   _id: string;
@@ -29,6 +30,7 @@ interface News {
 }
 
 function NewsTable() {
+  const { status }: any = useSession();
   const { pathname, href } = useUrl() ?? {};
   const [selectedNews, setSelectedNews] = useState<News | null>(null);
 
@@ -72,11 +74,12 @@ function NewsTable() {
     };
 
     // call the function
+    if (status != "loading") {
+      fetchNew()
+        // make sure to catch any error
 
-    fetchNew()
-      // make sure to catch any error
-
-      .catch(console.error);
+        .catch(console.error);
+    }
   }, []);
 
   const rows = newList.map((news, index) => (

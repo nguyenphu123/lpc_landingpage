@@ -21,26 +21,26 @@ $animationSpeed: 30s;
 	
 	width: 75%;
 	
-	&::before,
-	&::after {
-		@include white-gradient;
-		content: "";
-		height: 100px;
-		position: absolute;
-		width: 200px;
-		z-index: 2;
-	}
+	// &::before,
+	// &::after {
+	// 	@include white-gradient;
+	// 	content: "";
+	// 	height: 100px;
+	// 	position: absolute;
+	// 	width: 200px;
+	// 	z-index: 2;
+	// }
 	
-	&::after {
-		right: 0;
-		top: 0;
-		transform: rotateZ(180deg);
-	}
+	// &::after {
+	// 	right: 0;
+	// 	top: 0;
+	// 	transform: rotateZ(180deg);
+	// }
 
-	&::before {
-		left: 0;
-		top: 0;
-	}
+	// &::before {
+	// 	left: 0;
+	// 	top: 0;
+	// }
 	
 	.slide-track {
 		animation: scroll $animationSpeed linear infinite;

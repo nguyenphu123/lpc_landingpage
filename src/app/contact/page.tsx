@@ -11,8 +11,11 @@ import DataEn from "@/config/dataEn.json";
 import PageHeader from "@/partials/PageHeader";
 
 import { useState } from "react";
+
 import dynamic from "next/dynamic";
+
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
+
 const MapWithAMarker = dynamic(
   () => import("../../layouts/components/googleMap"),
 );
@@ -92,10 +95,10 @@ const Contact = () => {
       <section className="section-sm">
         <div className="container">
           <div className="row">
-            <div className="mx-auto md:col-10 lg:col-10 grid grid-cols-2 gap-1">
+            <div className="mx-auto sm:col-10 md:col-10 lg:col-10 grid grid-cols-1 lg:grid-cols-2 gap-1">
               <MapWithAMarker />
 
-              <div>
+              <div className="order-1 lg:order-2">
                 <form onSubmit={(e) => onsubmit(e)}>
                   <div className="mb-6">
                     <label htmlFor="name" className="form-label">

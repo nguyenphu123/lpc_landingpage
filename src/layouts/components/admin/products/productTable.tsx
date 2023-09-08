@@ -8,6 +8,7 @@ import { companyProduct, product } from "@/feature/data/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ContentTable from "./contentTable";
 import { useUrl } from "nextjs-current-url";
+import { useSession } from "next-auth/react";
 
 interface Product {
   _id: string;
@@ -36,11 +37,13 @@ interface Product {
 }
 
 function ProductTable() {
+  const { status }: any = useSession();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const { href } = useUrl() ?? {};
   const [isEditMode, setIsEditMode] = useState(false);
   const [contentView, setContentView] = useState(false);
   const [showContent, setShowContent] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   const productInfo = useSelector((rootState) => product(rootState));
 
   let serviceList = productInfo.productData.value.product;
@@ -48,32 +51,36 @@ function ProductTable() {
 
   useEffect(() => {
     const fetchNew = async () => {
-      const productCheck = await loadProduct({
-        title: 1,
-        _id: 1,
-        type: 1,
-        titleEn: 1,
-        image: 1,
-        descriptionEn1: 1,
-        description1: 1,
-        pros: 1,
-        prosEn: 1,
-        content: 1,
-        description2: 1,
-        descriptionEn2: 1,
-      },href);
+      const productCheck = await loadProduct(
+        {
+          title: 1,
+          _id: 1,
+          type: 1,
+          titleEn: 1,
+          image: 1,
+          descriptionEn1: 1,
+          description1: 1,
+          pros: 1,
+          prosEn: 1,
+          content: 1,
+          description2: 1,
+          descriptionEn2: 1,
+        },
+        href,
+      );
       dispatch(companyProduct(productCheck));
     };
     // call the function
-    fetchNew()
-      // make sure to catch any error
-      .catch(console.error);
+    if (status != "loading") {
+      fetchNew().catch(console.error);
+    }
   }, []);
 
   const handleEditClick = (product: Product) => {
     setSelectedProduct(product);
 
     setIsEditMode(selectedProduct === product); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
+    setShowInfo(true);
   };
   const viewContent = (product: Product) => {
     setSelectedProduct(product);
@@ -156,7 +163,7 @@ function ProductTable() {
           setIsEditMode(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
         }}
       >
-        {selectedProduct && !showContent && (
+        {selectedProduct && showInfo && (
           <section className="section">
             <div className="container">
               <h3 className="flex justify-center">

@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
 
+import arp from "@network-utils/arp-lookup";
 export async function POST(req, res) {
   // let ip = headers().get("x-forwarded-for");
   // let ip2 = headers().get("x-real-ip");
-  const os = require("os");
-  return NextResponse.json(os.networkInterfaces());
+  let results = await arp.getTable();
+  return NextResponse.json(results);
 }

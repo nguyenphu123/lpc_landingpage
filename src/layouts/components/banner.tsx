@@ -22,7 +22,11 @@ const Banner = () => {
     const fetchNew = async () => {
       if (banners.length == 0) {
         const bannerCheck = await loadBanner(href);
-        setBanners(bannerCheck.banner);
+        setBanners(
+          bannerCheck.banner.filter((item) => {
+            item.status == "Active";
+          }),
+        );
       } else {
       }
     };

@@ -7,6 +7,7 @@ const customerSchema = new Schema({
 
   type: String,
   name: String,
+  status: String,
 });
 
 const Customer =

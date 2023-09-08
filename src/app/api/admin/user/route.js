@@ -12,7 +12,7 @@ export async function POST(req) {
   let newPassword = GeneratePassword();
 
   let password = bcrypt.hash(newPassword, salt).toString();
-  let role = "sysadmin";
+  let role = "admin";
   let loginCount = 0;
   let status = "Active";
 

@@ -14,6 +14,7 @@ import Popup from "@/components/popup";
 
 import { useUrl } from "nextjs-current-url";
 import { useSession } from "next-auth/react";
+import { updateNews } from "@/lib/updateData";
 
 interface News {
   _id: string;
@@ -30,7 +31,7 @@ interface News {
 }
 
 function NewsTable() {
-  const { status }: any = useSession();
+  const { data: session, status } = useSession();
   const { pathname, href } = useUrl() ?? {};
   const [selectedNews, setSelectedNews] = useState<News | null>(null);
 
@@ -81,7 +82,15 @@ function NewsTable() {
         .catch(console.error);
     }
   }, []);
-
+  const changeStatus = (news) => {
+    let newsStatusChange = JSON.parse(JSON.stringify(news));
+    if (newsStatusChange["draft"]) {
+      newsStatusChange["draft"] = false;
+    } else {
+      newsStatusChange["draft"] = true;
+    }
+    updateNews(newsStatusChange, session);
+  };
   const rows = newList.map((news, index) => (
     <tr key={news._id}>
       <td>{index + 1}</td>
@@ -111,9 +120,11 @@ function NewsTable() {
           }}
         >
           View
-        </button>{" "}
-        | <button onClick={() => handleEditClick(news)}>Edit</button>
-        {/* <button>Edit</button> */}
+        </button>
+        | <button onClick={() => handleEditClick(news)}>Edit</button>|
+        <button onClick={() => changeStatus(news)}>
+          {!news.draft ? "Disable" : "Active"}
+        </button>
       </td>
 
       {/* <td>

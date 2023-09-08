@@ -26,6 +26,7 @@ export async function POST(req) {
     prosEn,
 
     content,
+    status,
   } = await req.json();
   const session = await getServerSession({ req });
   try {
@@ -54,6 +55,7 @@ export async function POST(req) {
         prosEn,
 
         content,
+        status,
       });
     }
     return NextResponse.json({
@@ -95,8 +97,7 @@ export async function PUT(req) {
     pros,
 
     prosEn,
-
-    content,
+    status,
   } = await req.json();
   const session = await getServerSession({ req });
   try {
@@ -124,8 +125,7 @@ export async function PUT(req) {
           pros,
 
           prosEn,
-
-          content,
+          status,
         },
         { new: true },
       );

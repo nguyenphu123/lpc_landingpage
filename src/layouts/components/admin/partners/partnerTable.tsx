@@ -4,8 +4,11 @@ import Image from "next/image";
 import { loadPartner } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
 import UpdatePartner from "./updatePartner";
+import { updatePartner } from "@/lib/updateData";
+import { useSession } from "next-auth/react";
 
 interface Partner {
+  status: string;
   _id: string;
 
   name: string;
@@ -14,6 +17,7 @@ interface Partner {
 }
 
 function PartnerTable() {
+  const { data: session, status } = useSession();
   const { href } = useUrl() ?? {};
   const [partnerData, setPartnerData] = useState<Partner[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -42,7 +46,15 @@ function PartnerTable() {
     setSelectedPartner(null);
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
-
+  const changeStatus = (partner) => {
+    let partnerStatusChange = JSON.parse(JSON.stringify(partner));
+    if (partnerStatusChange["status"] == "Active") {
+      partnerStatusChange["status"] = "Disable";
+    } else {
+      partnerStatusChange["status"] = "Active";
+    }
+    updatePartner(partnerStatusChange, session);
+  };
   const rows = partnerData.map((partner, index) => (
     <tr key={partner._id}>
       <td>{index + 1}</td>
@@ -53,10 +65,12 @@ function PartnerTable() {
         <Image src={partner.src} alt={partner.src} width={100} height={100} />
       </td>
 
-      <td></td>
-
+      <td>{partner.status}</td>
       <td>
-        <button onClick={() => handleEditClick(partner)}>Edit</button>
+        <button onClick={() => handleEditClick(partner)}>Edit</button>|
+        <button onClick={() => changeStatus(partner)}>
+          {partner.status == "Active" ? "Disable" : "Active"}
+        </button>
       </td>
     </tr>
   ));
@@ -96,7 +110,10 @@ function PartnerTable() {
                 {isEditMode ? "Edit Product" : "Product Details"}
               </h3>
 
-              <UpdatePartner partner={selectedPartner} handleSaveClick={handleSaveClick} />
+              <UpdatePartner
+                partner={selectedPartner}
+                handleSaveClick={handleSaveClick}
+              />
             </div>
           </section>
         )}

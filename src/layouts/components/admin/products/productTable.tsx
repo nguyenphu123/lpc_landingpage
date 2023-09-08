@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import ContentTable from "./contentTable";
 import { useUrl } from "nextjs-current-url";
 import { useSession } from "next-auth/react";
+import UpdateProductForm from "./updateProduct";
+import { updateProduct } from "@/lib/updateData";
 
 interface Product {
   _id: string;
@@ -37,7 +39,7 @@ interface Product {
 }
 
 function ProductTable() {
-  const { status }: any = useSession();
+  const { data: session, status } = useSession();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const { href } = useUrl() ?? {};
   const [isEditMode, setIsEditMode] = useState(false);
@@ -65,6 +67,7 @@ function ProductTable() {
           content: 1,
           description2: 1,
           descriptionEn2: 1,
+          status: 1,
         },
         href,
       );
@@ -102,7 +105,15 @@ function ProductTable() {
   const toggleShowContent = () => {
     setShowContent(!showContent);
   };
-
+  const changeStatus = (product) => {
+    let productStatusChange = JSON.parse(JSON.stringify(product));
+    if (productStatusChange["status"] == "Active") {
+      productStatusChange["status"] = "Disable";
+    } else {
+      productStatusChange["status"] = "Active";
+    }
+    updateProduct(productStatusChange, session);
+  };
   const rows = serviceList.map((product, index) => (
     <tr key={product._id}>
       <td>{index + 1}</td>
@@ -121,13 +132,15 @@ function ProductTable() {
           : product.description2}
       </td>
 
-      <td></td>
+      <td>{product.status}</td>
 
       <td>
-        <button onClick={() => setSelectedProduct(product)}>View</button>
-
-        <button onClick={() => handleEditClick(product)}>Edit</button>
-        <button onClick={() => viewContent(product)}>View content</button>
+        <button onClick={() => setSelectedProduct(product)}>View</button>|
+        <button onClick={() => handleEditClick(product)}>Edit</button>|
+        <button onClick={() => viewContent(product)}>View content</button>|
+        <button onClick={() => changeStatus(product)}>
+          {product.status == "Active" ? "Disable" : "Active"}
+        </button>
       </td>
     </tr>
   ));
@@ -170,134 +183,7 @@ function ProductTable() {
                 {isEditMode ? "Edit Product" : "Product Details"}
               </h3>
 
-              <Box maw={800} mx="auto">
-                <form>
-                  <Grid gutter="lg">
-                    <Col span={12}>
-                      <label>Type: </label>
-
-                      <input
-                        value={selectedProduct.type}
-                        disabled
-                        style={{ width: "100%" }}
-                      />
-                    </Col>
-
-                    <Col span={6}>
-                      <label>Title: </label>
-
-                      <input
-                        value={selectedProduct.title}
-                        disabled
-                        style={{ width: "100%" }}
-                      />
-                    </Col>
-
-                    <Col span={6}>
-                      <label>Title (English): </label>
-
-                      <input
-                        value={selectedProduct.titleEn}
-                        disabled
-                        style={{ width: "100%" }}
-                      />
-                    </Col>
-
-                    <Col span={6}>
-                      <label>Description 1: </label>
-
-                      <textarea
-                        value={selectedProduct.description1}
-                        disabled
-                        style={{ width: "100%", height: "150px" }}
-                      />
-                    </Col>
-
-                    <Col span={6}>
-                      <label>Description 1 (English): </label>
-
-                      <textarea
-                        value={selectedProduct.descriptionEn1}
-                        disabled
-                        style={{ width: "100%", height: "150px" }}
-                      />
-                    </Col>
-
-                    <Col span={6}>
-                      <label>Description 2: </label>
-
-                      <textarea
-                        value={selectedProduct.description2}
-                        disabled
-                        style={{ width: "100%", height: "150px" }}
-                      />
-                    </Col>
-
-                    <Col span={6}>
-                      <label>Description 2 (English): </label>
-
-                      <textarea
-                        value={selectedProduct.descriptionEn2}
-                        disabled
-                        style={{ width: "100%", height: "150px" }}
-                      />
-                    </Col>
-
-                    <Col span={12}>
-                      <label>Image:</label>
-
-                      <Image
-                        src={selectedProduct.image}
-                        alt="Product Image"
-                        width={300}
-                        height={300}
-                      />
-                    </Col>
-
-                    <Col span={6}>
-                      <label>Pros: </label>
-
-                      <textarea
-                        value={selectedProduct.pros.join("\n")} // Join các phần tử cách nhau bằng dấu xuống dòng
-                        disabled
-                        style={{ width: "100%", height: "150px" }} // Đặt chiều rộng và chiều cao
-                      />
-                    </Col>
-
-                    <Col span={6}>
-                      <label>Pros (English): </label>
-
-                      <textarea
-                        value={selectedProduct.prosEn.join("\n")} // Join các phần tử cách nhau bằng dấu xuống dòng
-                        disabled
-                        style={{ width: "100%", height: "150px" }} // Đặt chiều rộng và chiều cao
-                      />
-                    </Col>
-
-                    {/* ... Các phần khác tương tự như trên */}
-                  </Grid>
-                </form>
-              </Box>
-
-              <div style={{ marginTop: "16px" }}>
-                {isEditMode ? (
-                  <Button
-                    type="button"
-                    onClick={handleSaveClick}
-                    style={{ backgroundColor: "#28a745", color: "white" }}
-                  >
-                    Save
-                  </Button>
-                ) : (
-                  <Button
-                    type="button"
-                    onClick={() => setIsEditMode(true)}
-                    style={{ backgroundColor: "#007bff", color: "white" }}
-                  >
-                    Edit
-                  </Button>
-                )}
-              </div>
+              <UpdateProductForm product={selectedProduct} />
             </div>
           </section>
         ) : (

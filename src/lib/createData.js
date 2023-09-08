@@ -19,7 +19,7 @@ export async function createNews(newInfo, session) {
 
     categories: newInfo.categories.split(/,/),
 
-    draft: newInfo.draft,
+    draft: session.user.role == "sysadmin" ? newInfo.draft : false,
 
     content: newInfo.content,
 
@@ -57,7 +57,7 @@ export async function addCustomer(customer, session) {
   // You can use any data fetching library
   // const posts = await loadNews()
   customer["type"] = "Customer";
-
+  customer["status"] = session.user.role == "sysadmin" ? "Active" : "pending";
   const res = await fetch("api/admin/customer", {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -73,7 +73,7 @@ export async function addPartner(partner, session) {
   // You can use any data fetching library
   // const posts = await loadNews()
   partner["type"] = "Partner";
-
+  partner["status"] = session.user.role == "sysadmin" ? "Active" : "pending";
   const res = await fetch("api/admin/partner", {
     method: "post",
     headers: { "Content-Type": "application/json" },
@@ -109,6 +109,7 @@ export async function addProduct(product, session) {
     prosEn: product.prosEn.split(/\s*,\s*/),
 
     content: product.content,
+    status: session.user.role == "sysadmin" ? "Active" : "pending",
   };
 
   const res = await fetch("api/admin/product", {
@@ -140,6 +141,7 @@ export async function addProductContent(product, content, session) {
     descriptionEn: content.descriptionEn,
 
     imgSrc: content.imgSrc,
+    status: session.user.role == "sysadmin" ? "Active" : "pending",
   };
 
   const res = await fetch("api/admin/product/content", {
@@ -168,6 +170,7 @@ export async function addBanner(banner, session) {
     contentEn: banner.contentEn,
 
     image: banner.image,
+    status: session.user.role == "sysadmin" ? "Active" : "pending",
   };
 
   const res = await fetch("api/admin/banner", {

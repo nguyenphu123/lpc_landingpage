@@ -21,6 +21,7 @@ const ProductContentSchema = new Schema({
 
   descriptionEn: String,
   description: String,
+  status: String,
 });
 
 // Schema for product
@@ -47,6 +48,7 @@ const ProductSchema = new Schema({
   prosEn: [String],
 
   content: [ProductContentSchema],
+  status: String,
 });
 
 // Kiểm tra trùng tên model "Product", nếu đã tồn tại thì sử dụng lại, ngược lại tạo mới

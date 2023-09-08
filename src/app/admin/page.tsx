@@ -203,7 +203,7 @@ const Home = () => {
     setShowUser("hidden");
   };
   if (status == "loading") {
-    return <>Loginout</>;
+    return <></>;
   } else {
     return showChangePassword == "visible" ? (
       <div id="myTabContent">

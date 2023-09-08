@@ -78,7 +78,6 @@ export async function updateCustomer(customer, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  customer["type"] = "Customer";
 
   const res = await fetch("api/admin/customer", {
     method: "put",
@@ -93,7 +92,6 @@ export async function updatePartner(partner, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()
-  partner["type"] = "Partner";
 
   const res = await fetch("api/admin/partner", {
     method: "put",
@@ -130,8 +128,7 @@ export async function updateProduct(product, session) {
     pros: product.pros,
 
     prosEn: product.prosEn,
-
-    content: product.content,
+    status: product.status,
   };
 
   const res = await fetch("api/admin/product", {
@@ -163,6 +160,7 @@ export async function updateProductContent(product, content, session) {
     imgSrc: content.imgSrc,
 
     content: content.content,
+    status: content.status,
   };
 
   const res = await fetch("api/admin/product/content", {

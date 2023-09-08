@@ -49,19 +49,23 @@ const Header = () => {
         );
         // dispatch(companyProduct(productCheck));
         servicesMenu = productCheck.products.filter(
-          (item: { type: string }) => item.type == "Service",
+          (item: { status: string; type: string }) =>
+            item.type == "Service" && item.status == "Active",
         );
         main[1].children = productCheck.products.filter(
-          (item: { type: string }) => item.type == "Solution",
+          (item: { status: string; type: string }) =>
+            item.type == "Solution" && item.status == "Active",
         );
         main[2].children = servicesMenu[0].content;
         setIsLoading(false);
       } else {
         main[1].children = productInfo.productData.value.product.filter(
-          (item: { type: string }) => item.type == "Solution",
+          (item: { status: string; type: string }) =>
+            item.type == "Solution" && item.status == "Active",
         );
         main[2].children = productInfo.productData.value.product.filter(
-          (item: { type: string }) => item.type == "Service",
+          (item: { status: string; type: string }) =>
+            item.type == "Service" && item.status == "Active",
         )[0].content;
         setIsLoading(false);
       }

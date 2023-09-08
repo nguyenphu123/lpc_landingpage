@@ -12,6 +12,7 @@ const bannerSchema = new Schema({
   contentEn: String,
 
   image: String,
+  status: String,
 });
 
 const Banner = mongoose.models.Banner || mongoose.model("Banner", bannerSchema);

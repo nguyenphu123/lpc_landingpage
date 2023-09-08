@@ -6,8 +6,11 @@ import Image from "next/image";
 import { loadBanner } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
 import UpdateBanner from "./updateBanner";
+import { useSession } from "next-auth/react";
+import { updateBanner } from "@/lib/updateData";
 
 interface Banner {
+  status: string;
   _id: string;
 
   title: string;
@@ -22,6 +25,7 @@ interface Banner {
 }
 
 function BannerTable() {
+  const { data: session, status } = useSession();
   const { pathname, href } = useUrl() ?? {};
   const [bannerData, setBannerData] = useState<Banner[]>([]);
 
@@ -67,7 +71,15 @@ function BannerTable() {
   const toggleShowContent = () => {
     setShowContent(!showContent);
   };
-
+  const changeStatus = (banner) => {
+    let bannerStatusChange = JSON.parse(JSON.stringify(banner));
+    if (bannerStatusChange["status"] == "Active") {
+      bannerStatusChange["status"] = "Disable";
+    } else {
+      bannerStatusChange["status"] = "Active";
+    }
+    updateBanner(bannerStatusChange, session);
+  };
   const rows = bannerData.map((banner, index) => (
     <tr key={banner._id}>
       <td>{index + 1}</td>
@@ -80,11 +92,14 @@ function BannerTable() {
           : banner.content}
       </td>
 
-      <td></td>
+      <td>{banner.status}</td>
 
       <td>
-        <button onClick={() => setSelectedBanner(banner)}>View</button> |{" "}
-        <button onClick={() => handleEditClick(banner)}>Edit</button>
+        <button onClick={() => setSelectedBanner(banner)}>View</button> |
+        <button onClick={() => handleEditClick(banner)}>Edit</button> |
+        <button onClick={() => changeStatus(banner)}>
+          {banner.status == "Active" ? "Disable" : "Active"}
+        </button>
       </td>
 
       <td>

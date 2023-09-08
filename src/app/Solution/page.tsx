@@ -125,7 +125,7 @@ const Solutions = () => {
             : Data["solution"].name
         }
       />
-      <div className="border-b border-gray-200 dark:border-gray-700 sticky top-20 left-0 right-0 bg-white">
+      {/* <div className="border-b border-gray-200 dark:border-gray-700 sticky top-20 left-0 right-0 bg-white">
         <nav
           className="-mb-0.5 flex justify-center space-x-6 sticky top-10"
           aria-label="Tabs"
@@ -149,7 +149,7 @@ const Solutions = () => {
             );
           })}
         </nav>
-      </div>
+      </div> */}
 
       {data.map(
         (

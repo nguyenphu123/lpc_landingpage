@@ -4,14 +4,18 @@ import Image from "next/image";
 import { loadUsers } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
 import UpdateUser from "./updateUser";
+import { useSession } from "next-auth/react";
+import { updateCustomer } from "@/lib/updateData";
 
 interface Customer {
+  status: string;
   _id: string;
 
   email: string;
 }
 
 function UserTable() {
+  let { data: session, status } = useSession();
   const { pathname, href } = useUrl() ?? {};
   const [userData, setUserData] = useState<Customer[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -45,16 +49,30 @@ function UserTable() {
     setSelectedUser(null);
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
+  const changeStatus = (user) => {
+    let userStatusChange = JSON.parse(JSON.stringify(user));
+    if (userStatusChange["status"] == "Active") {
+      userStatusChange["status"] = "Disable";
+    } else {
+      userStatusChange["status"] = "Active";
+    }
+    updateCustomer(userStatusChange, session);
+  };
   const rows = userData.map((user, index) => (
     <tr key={user._id}>
       <td>{index + 1}</td>
 
       <td>{user.email}</td>
 
-      <td></td>
+      <td>{user.status}</td>
 
       <td>
         <button onClick={() => handleEditClick(user)}>Edit</button>
+      </td>
+      <td>
+        <button onClick={() => changeStatus(user)}>
+          {user.status == "Active" ? "Disable" : "Active"}
+        </button>
       </td>
     </tr>
   ));

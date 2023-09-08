@@ -21,6 +21,7 @@ export async function PUT(req) {
     descriptionEn,
 
     imgSrc,
+    status,
   } = await req.json();
   const session = await getServerSession({ req });
   try {
@@ -37,6 +38,7 @@ export async function PUT(req) {
             "content.$[content].description": description,
             "content.$[content].descriptionEn": descriptionEn,
             "content.$[content].imgSrc": imgSrc,
+            "content.$[content].imgSrc": status,
           },
         },
         { arrayFilters: [{ "content._id": contentId }] },
@@ -62,7 +64,7 @@ export async function PUT(req) {
 export async function POST(req) {
   const {
     _id,
-   
+
     title,
 
     titleEn,
@@ -93,6 +95,7 @@ export async function POST(req) {
               description: description,
               descriptionEn: descriptionEn,
               imgSrc: imgSrc,
+              status: "Active",
             },
           },
         },

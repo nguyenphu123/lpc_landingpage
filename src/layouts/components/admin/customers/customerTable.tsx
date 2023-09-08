@@ -4,8 +4,11 @@ import Image from "next/image";
 import { loadCustomer } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
 import UpdateCustomer from "./updateCustomer";
+import { useSession } from "next-auth/react";
+import { updateCustomer } from "@/lib/updateData";
 
 interface Customer {
+  status: string;
   _id: string;
 
   name: string;
@@ -14,6 +17,7 @@ interface Customer {
 }
 
 function CustomerTable() {
+  const { data: session, status } = useSession();
   const { pathname, href } = useUrl() ?? {};
   const [custommerData, setCustomerData] = useState<Customer[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -45,6 +49,15 @@ function CustomerTable() {
     setSelectedCustomer(null);
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
+  const changeStatus = (customer) => {
+    let customerStatusChange = JSON.parse(JSON.stringify(customer));
+    if (customerStatusChange["status"] == "Active") {
+      customerStatusChange["status"] = "Disable";
+    } else {
+      customerStatusChange["status"] = "Active";
+    }
+    updateCustomer(customerStatusChange, session);
+  };
   const rows = custommerData.map((customer, index) => (
     <tr key={customer._id}>
       <td>{index + 1}</td>
@@ -55,10 +68,13 @@ function CustomerTable() {
         <Image src={customer.src} alt={customer.src} width={100} height={100} />
       </td>
 
-      <td></td>
+      <td>{customer.status}</td>
 
       <td>
-        <button onClick={() => handleEditClick(customer)}>Edit</button>
+        <button onClick={() => handleEditClick(customer)}>Edit</button>|
+        <button onClick={() => changeStatus(customer)}>
+          {customer.status == "Active" ? "Disable" : "Active"}
+        </button>
       </td>
     </tr>
   ));

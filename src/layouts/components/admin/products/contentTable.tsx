@@ -6,6 +6,8 @@ import Image from "next/image";
 import Popup from "@/components/popup";
 import ContentForm from "./createContent";
 import UpdateContentForm from "./updateContent";
+import { useSession } from "next-auth/react";
+import { updateProductContent } from "@/lib/updateData";
 
 interface Product {
   _id: string;
@@ -34,6 +36,7 @@ interface Product {
 }
 
 function ContentTable({ product }) {
+  const { data: session, status } = useSession();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const [isEditMode, setIsEditMode] = useState(false);
@@ -61,6 +64,15 @@ function ContentTable({ product }) {
   const toggleShowContent = () => {
     setShowContent(!showContent);
   };
+  const changeStatus = (item) => {
+    let itemStatusChange = JSON.parse(JSON.stringify(item));
+    if (itemStatusChange["status"] == "Active") {
+      itemStatusChange["status"] = "Disable";
+    } else {
+      itemStatusChange["status"] = "Active";
+    }
+    updateProductContent(product, itemStatusChange, session);
+  };
   let rows:
     | string
     | number
@@ -77,7 +89,7 @@ function ContentTable({ product }) {
         <td>{index + 1}</td>
 
         <td>{item.title}</td>
-        <td>{item.titleEn}</td>
+
         <td>
           {item.content.length > 150
             ? `${item.content.slice(0, 150)}...`
@@ -93,11 +105,13 @@ function ContentTable({ product }) {
         <td>
           <Image src={item.imgSrc} alt={item.imgSrc} width={100} height={100} />
         </td>
-
+        <td>{item.status}</td>
         <td>
-          <button onClick={() => setSelectedProduct(item)}>View</button>
-
-          <button onClick={() => handleEditClick(item)}>Edit</button>
+          <button onClick={() => setSelectedProduct(item)}>View</button>|
+          <button onClick={() => handleEditClick(item)}>Edit</button>|
+          <button onClick={() => changeStatus(item)}>
+            {item.status == "Active" ? "Disable" : "Active"}
+          </button>
         </td>
       </tr>
     ));
@@ -106,7 +120,6 @@ function ContentTable({ product }) {
   return (
     <div>
       <Popup>
-        {" "}
         <ContentForm product={product} />
       </Popup>
       <Table>

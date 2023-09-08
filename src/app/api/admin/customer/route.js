@@ -9,6 +9,7 @@ export async function POST(req) {
 
     type,
     name,
+    status,
   } = await req.json();
   const session = await getServerSession({ req });
   try {
@@ -20,6 +21,7 @@ export async function POST(req) {
 
         type,
         name,
+        status,
       });
     }
 
@@ -47,6 +49,7 @@ export async function PUT(req) {
 
     type,
     name,
+    status,
   } = await req.json();
   const session = await getServerSession({ req });
   try {
@@ -60,6 +63,7 @@ export async function PUT(req) {
 
           type,
           name,
+          status,
         },
         { new: true },
       );

@@ -36,19 +36,28 @@ export default function PartnerList() {
     <div className="h-48 grid  content-center">
       <div className="slider">
         <div className="slide-track">
-          {partners.map((img: { _id: string; src: string; type: string }) => {
-            return (
-              <div key={img._id} className="slide flex items-center mx-3">
-                <Image
-                  className="flex items-center col-span-2 max-h-16 w-full object-contain lg:col-span-1"
-                  src={img.src}
-                  alt={img.type}
-                  width={158}
-                  height={100}
-                />
-              </div>
-            );
-          })}
+          {partners.map(
+            (img: {
+              status: string;
+              _id: string;
+              src: string;
+              type: string;
+            }) => {
+              return img.status != "Active" ? (
+                <></>
+              ) : (
+                <div key={img._id} className="slide flex items-center mx-3">
+                  <Image
+                    className="flex items-center col-span-2 max-h-16 w-full object-contain lg:col-span-1"
+                    src={img.src}
+                    alt={img.type}
+                    width={158}
+                    height={100}
+                  />
+                </div>
+              );
+            },
+          )}
         </div>
       </div>
     </div>

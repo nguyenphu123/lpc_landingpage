@@ -54,18 +54,22 @@ const Banner = () => {
         className="slideshowSlider"
         style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
       >
-        {banners.map((banner) => (
-          <div key={banner._id} className="slide">
-            <Image
-              fill
-              className={`bg-cover bg-center bg-no-repeat `}
-              src={`${banner.image}`}
-              alt={""}
-              priority
-            />
-            <BannerContent banner={banner} />
-          </div>
-        ))}
+        {banners.map((banner) =>
+          banner.status != "Active" ? (
+            <></>
+          ) : (
+            <div key={banner._id} className="slide">
+              <Image
+                fill
+                className={`bg-cover bg-center bg-no-repeat `}
+                src={`${banner.image}`}
+                alt={""}
+                priority
+              />
+              <BannerContent banner={banner} />
+            </div>
+          ),
+        )}
       </div>
     </div>
   );

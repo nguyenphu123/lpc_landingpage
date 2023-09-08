@@ -32,6 +32,7 @@ export default function ProductList() {
             image: 1,
             descriptionEn1: 1,
             description1: 1,
+            status: 1,
           },
           href,
         );

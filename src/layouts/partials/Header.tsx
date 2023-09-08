@@ -44,6 +44,8 @@ const Header = () => {
             "content._id": 1,
             "content.title": 1,
             "content.titleEn": 1,
+            status: 1,
+            "content.status": 1,
           },
           href,
         );

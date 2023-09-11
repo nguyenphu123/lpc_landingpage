@@ -37,7 +37,9 @@ export default function Login() {
       if (userIp == "") {
         let ipAddress = await publicIpv4();
 
-        let acceptList = ipList.filter((item) => item.publicIp == ipAddress);
+        let acceptList = ipList.filter(
+          (item) => item.publicIp == ipAddress && item.status == "Active",
+        );
         // console.log(getIp());
         if (acceptList.length == 0) {
           router.push("/404");

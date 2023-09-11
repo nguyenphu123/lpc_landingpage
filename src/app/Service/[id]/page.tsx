@@ -3,12 +3,11 @@ const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import { useParams, useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import { companyProduct, product } from "@/feature/data/productSlice";
 import PageHeader from "@/partials/PageHeader";
 import { useEffect, useState } from "react";
-import { loadProduct, loadServiceContent } from "@/lib/loadData";
+import { loadServiceContent } from "@/lib/loadData";
 import "../../../styles/scroll.scss";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
@@ -19,9 +18,8 @@ const RegularPages = () => {
   let [data, setData]: any = useState({});
 
   const router = useRouter();
-  
+
   useEffect(() => {
-   
     // declare the data fetching function
     const fetchData = async () => {
       if (Object.keys(data).length == 0) {
@@ -33,6 +31,7 @@ const RegularPages = () => {
             titleEn: 1,
             descriptionEn: 1,
             description: 1,
+            status: 1,
           },
           href,
         );
@@ -41,13 +40,11 @@ const RegularPages = () => {
           router.replace("http://localhost:3000/");
         }
         setData(serviceContentCheck.products.content[0]);
-        
       } else {
-       
       }
     };
     // call the function
-  
+
     fetchData()
       // make sure to catch any error
       .catch(console.error);

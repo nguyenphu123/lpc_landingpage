@@ -8,9 +8,7 @@ import Image from "next/image";
 
 import { updateBanner } from "@/lib/updateData";
 
-import { randomId } from "@mantine/hooks";
-
-import { TextInput, Button, Box, Code, Grid, Col } from "@mantine/core";
+import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
 import { useSession } from "next-auth/react";
 
 const UpdateBanner = ({ banner, handleSaveClick }) => {

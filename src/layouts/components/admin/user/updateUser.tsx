@@ -4,15 +4,7 @@ import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
-import {
-  TextInput,
-  Button,
-  Box,
-  PasswordInput,
-  Grid,
-  Col,
-} from "@mantine/core";
-import Image from "next/image";
+import { Button, Box, PasswordInput, Grid, Col } from "@mantine/core";
 import { updateCustomer } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
 var bcrypt = require("bcryptjs");

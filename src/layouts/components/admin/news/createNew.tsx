@@ -1,20 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
 import Image from "next/image";
 
-import {
-  TextInput,
-  Button,
-  Box,
-  Code,
-  Grid,
-  Col,
-  Textarea,
-} from "@mantine/core";
+import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
 
 import { createNews } from "@/lib/createData";
 

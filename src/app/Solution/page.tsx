@@ -47,10 +47,13 @@ const Solutions = () => {
 
             description2: 1,
             descriptionEn2: 1,
+            status: 1,
           },
           href,
         );
-        setData(solutionCheck.products);
+        setData(
+          solutionCheck.products.filter((item) => item.status == "Active"),
+        );
         const productCheck = await loadProduct(
           {
             title: 1,

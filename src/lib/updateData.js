@@ -162,7 +162,7 @@ export async function updateProductContent(product, content, session) {
     content: content.content,
     status: content.status,
   };
-
+  
   const res = await fetch("api/admin/product/content", {
     method: "put",
     headers: { "Content-Type": "application/json" },

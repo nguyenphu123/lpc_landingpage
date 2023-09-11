@@ -6,13 +6,12 @@ import Image from "next/image";
 
 import { useForm } from "@mantine/form";
 
-import { TextInput, Button, Box, Code, Grid, Col, Select } from "@mantine/core";
+import { TextInput, Button, Box, Grid, Col, Select } from "@mantine/core";
 
 import { updateProduct } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
 
 function UpdateProductForm({ product }) {
-  const [submittedValues, setSubmittedValues] = useState("");
   let { data: session, status } = useSession();
   const [showCols, setShowCols] = useState(true);
 
@@ -220,8 +219,6 @@ function UpdateProductForm({ product }) {
               </Button>
             </div>
           </form>
-
-          {submittedValues && <Code block>{submittedValues}</Code>}
         </Box>
       </div>
     </div>

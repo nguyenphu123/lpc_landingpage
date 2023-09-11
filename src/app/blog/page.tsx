@@ -4,28 +4,29 @@ import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import PageHeader from "@/partials/PageHeader";
 import PostSidebar from "@/partials/PostSidebar";
+import { Pagination } from "@mantine/core";
 
-import { useDispatch, useSelector } from "react-redux";
-import { companyNew, news } from "@/feature/data/newSlice";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { loadNews } from "@/lib/loadData";
 import dynamic from "next/dynamic";
 import { useUrl } from "nextjs-current-url";
 const BlogCard = dynamic(() => import("@/components/BlogCard"));
-const Pagination = dynamic(() => import("@/components/Pagination"));
+
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 // for all regular pages
 const Posts = () => {
   const { href } = useUrl() ?? {};
   const curlanguage = useSelector((rootState) => language(rootState));
-  const newInfo = useSelector((rootState) => news(rootState));
+  const [activePage, setPage] = useState(1);
+  const [newList, setNewList] = useState([]);
+  const [showList, setShowList] = useState([]);
+  const onpageChange = (page) => {
+    setPage(page);
+    const startIndex = (page - 1) * 6;
+    setShowList(newList.slice(startIndex, startIndex + 6));
+  };
 
-  const [newList, setNewList] = useState(
-    newInfo.newData.value.companyNews == undefined
-      ? newInfo.newData.value.companyNews
-      : [],
-  );
-  const dispatch = useDispatch();
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
@@ -45,7 +46,8 @@ const Posts = () => {
           href,
         );
         setNewList(newsCheck.news);
-        dispatch(companyNew(newsCheck));
+        const startIndex = (activePage - 1) * 6;
+        setShowList(newsCheck.news.slice(startIndex, startIndex + 6));
       } else {
       }
     };
@@ -53,9 +55,9 @@ const Posts = () => {
     fetchNew()
       // make sure to catch any error
       .catch(console.error);
-  }, [newList]);
+  }, [showList]);
 
-  const posts: any[] = newInfo.newData.value.companyNews;
+  // const posts: any[] = newInfo.newData.value.companyNews;
   const metadata = {
     title: "Tin tức",
     meta_title: "",
@@ -64,7 +66,7 @@ const Posts = () => {
   };
   const categories = ["Events", "Security"];
 
-  const totalPages = Math.ceil(posts.length / 2);
+  // const totalPages = Math.ceil(posts.length / 2);
 
   return newList.length == 0 ? (
     <section className="section pt-7">
@@ -117,24 +119,25 @@ const Posts = () => {
           <div className="row gx-5">
             <div className="lg:col-8">
               <div className="row">
-                {posts.map((post: any, index: number) => (
+                {showList.map((post: any, index: number) => (
                   <div key={index} className="mb-14 md:col-6">
                     <BlogCard data={post} />
                   </div>
                 ))}
               </div>
-              {posts.length > 9 ? (
+              {showList.length > 6 ? (
                 <Pagination
-                  section={"blog"}
-                  currentPage={1}
-                  totalPages={totalPages}
+                  value={activePage}
+                  onChange={(page) => onpageChange(page)}
+                  total={showList.length / 6}
+                  withEdges
                 />
               ) : (
                 <></>
               )}
             </div>
 
-            <PostSidebar categories={categories} allCategories={posts} />
+            <PostSidebar categories={categories} allCategories={showList} />
           </div>
         </div>
       </section>

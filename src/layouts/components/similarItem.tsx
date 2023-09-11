@@ -4,9 +4,9 @@ import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 
 import similerItems from "@/lib/utils/similarItems";
 
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { useEffect, useState } from "react";
 import { useUrl } from "nextjs-current-url";

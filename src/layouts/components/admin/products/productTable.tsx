@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import { Table, Modal, Button, Box, Grid, Col } from "@mantine/core";
+import { Table, Modal, Box } from "@mantine/core";
 
-import Image from "next/image";
 import { loadProduct } from "@/lib/loadData";
 import { companyProduct, product } from "@/feature/data/productSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -135,10 +134,28 @@ function ProductTable() {
       <td>{product.status}</td>
 
       <td>
-        <button onClick={() => setSelectedProduct(product)}>View</button>|
-        <button onClick={() => handleEditClick(product)}>Edit</button>|
-        <button onClick={() => viewContent(product)}>View content</button>|
-        <button onClick={() => changeStatus(product)}>
+        <button
+          className="cursor-pointer"
+          onClick={() => setSelectedProduct(product)}
+        >
+          View
+        </button>
+        |
+        <button
+          className="cursor-pointer"
+          onClick={() => handleEditClick(product)}
+        >
+          Edit
+        </button>
+        |
+        <button className="cursor-pointer" onClick={() => viewContent(product)}>
+          View content
+        </button>
+        |
+        <button
+          className="cursor-pointer"
+          onClick={() => changeStatus(product)}
+        >
           {product.status == "Active" ? "Disable" : "Active"}
         </button>
       </td>

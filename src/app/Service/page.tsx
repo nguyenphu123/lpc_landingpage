@@ -3,11 +3,10 @@ import ProductCard from "../../layouts/components/productCard";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import { companyProduct, product } from "@/feature/data/productSlice";
 import PageHeader from "@/partials/PageHeader";
-import { loadProduct, loadService } from "@/lib/loadData";
+import { loadService } from "@/lib/loadData";
 import { useEffect, useState } from "react";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
@@ -32,6 +31,7 @@ const RegularPages = () => {
             "content.imgSrc": 1,
             "content.content": 1,
             "content.contentEn": 1,
+            "content.status": 1,
           },
           href,
         );
@@ -128,41 +128,45 @@ const RegularPages = () => {
       <section className="section">
         <div className="container">
           <div className="content">
-            <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4`}>
-              {data?.content.map(
-                (
-                  content: {
-                    [x: string]: any;
-                    contentEn: any;
-                    titleEn: any;
-                    link: any;
-                    id: any;
-                    imgSrc: any;
-                    title: any;
-                    content: any;
+            <div
+              className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4`}
+            >
+              {data?.content
+                .filter((item) => item.status == "Active")
+                .map(
+                  (
+                    content: {
+                      [x: string]: any;
+                      contentEn: any;
+                      titleEn: any;
+                      link: any;
+                      id: any;
+                      imgSrc: any;
+                      title: any;
+                      content: any;
+                    },
+                    i: any,
+                  ) => {
+                    return (
+                      <ProductCard
+                        key={content.id}
+                        srcImg={content.imgSrc}
+                        title={
+                          curlanguage.changeLanguage.value == "en"
+                            ? content.titleEn
+                            : content.title
+                        }
+                        content={
+                          curlanguage.changeLanguage.value == "en"
+                            ? content.contentEn
+                            : content.content
+                        }
+                        id={content.id}
+                        link={`Service/${encryptId(content._id).toString()}`}
+                      ></ProductCard>
+                    );
                   },
-                  i: any,
-                ) => {
-                  return (
-                    <ProductCard
-                      key={content.id}
-                      srcImg={content.imgSrc}
-                      title={
-                        curlanguage.changeLanguage.value == "en"
-                          ? content.titleEn
-                          : content.title
-                      }
-                      content={
-                        curlanguage.changeLanguage.value == "en"
-                          ? content.contentEn
-                          : content.content
-                      }
-                      id={content.id}
-                      link={`Service/${encryptId(content._id).toString()}`}
-                    ></ProductCard>
-                  );
-                },
-              )}
+                )}
             </div>
           </div>
         </div>

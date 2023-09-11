@@ -71,8 +71,17 @@ function CustomerTable() {
       <td>{customer.status}</td>
 
       <td>
-        <button onClick={() => handleEditClick(customer)}>Edit</button>|
-        <button onClick={() => changeStatus(customer)}>
+        <button
+          className="cursor-pointer"
+          onClick={() => handleEditClick(customer)}
+        >
+          Edit
+        </button>
+        |
+        <button
+          className="cursor-pointer"
+          onClick={() => changeStatus(customer)}
+        >
           {customer.status == "Active" ? "Disable" : "Active"}
         </button>
       </td>

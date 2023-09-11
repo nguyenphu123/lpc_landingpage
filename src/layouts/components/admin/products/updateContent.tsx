@@ -16,13 +16,9 @@ import {
   Textarea,
 } from "@mantine/core";
 
-import { randomId } from "@mantine/hooks";
-
 import TextEditor from "../RichTextEditor";
 import { updateProductContent } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
-
-interface ContentFormProps {}
 
 function UpdateContentForm({ product, content }) {
   const [submittedValues, setSubmittedValues] = useState("");

@@ -7,9 +7,6 @@ import dynamic from "next/dynamic";
 const BannerForm = dynamic(
   () => import("@/components/admin/banner/createBanner"),
 );
-const ContactForm = dynamic(
-  () => import("@/components/admin/contact/addContact"),
-);
 const CustomerForm = dynamic(
   () => import("@/components/admin/customers/createCustomer"),
 );
@@ -59,7 +56,6 @@ const Home = () => {
   const [showProduct, setShowProduct] = useState("hidden");
   const [showUser, setShowUser] = useState("hidden");
   const [showChangePassword, setShowChangePassword] = useState("hidden");
-  const curlanguage = useSelector(language);
   const { status }: any = useSession({
     required: true,
     onUnauthenticated() {
@@ -83,7 +79,6 @@ const Home = () => {
       }
     }
   }, [status, session]);
-  const pathname = usePathname();
   useEffect(() => {
     onInactive(600000, function () {
       //signOut();
@@ -230,7 +225,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="banner"
                 aria-selected="true"
-                onClick={(e) => onClick("banner")}
+                onClick={() => onClick("banner")}
               >
                 Banner
               </button>
@@ -244,7 +239,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="company"
                 aria-selected="false"
-                onClick={(e) => onClick("contact")}
+                onClick={() => onClick("contact")}
               >
                 Company
               </button>
@@ -258,7 +253,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="customer"
                 aria-selected="false"
-                onClick={(e) => onClick("customer")}
+                onClick={() => onClick("customer")}
               >
                 Customer
               </button>
@@ -272,7 +267,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="new"
                 aria-selected="false"
-                onClick={(e) => onClick("new")}
+                onClick={() => onClick("new")}
               >
                 News
               </button>
@@ -286,7 +281,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="message"
                 aria-selected="false"
-                onClick={(e) => onClick("message")}
+                onClick={() => onClick("message")}
               >
                 Messages
               </button>
@@ -300,7 +295,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="partner"
                 aria-selected="false"
-                onClick={(e) => onClick("partner")}
+                onClick={() => onClick("partner")}
               >
                 Partner
               </button>
@@ -314,7 +309,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="product"
                 aria-selected="false"
-                onClick={(e) => onClick("product")}
+                onClick={() => onClick("product")}
               >
                 Product
               </button>
@@ -329,7 +324,7 @@ const Home = () => {
                   role="tab"
                   aria-controls="contacts"
                   aria-selected="false"
-                  onClick={(e) => onClick("user")}
+                  onClick={() => onClick("user")}
                 >
                   User
                 </button>

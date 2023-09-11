@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal, Table } from "@mantine/core";
+import { Modal, Table } from "@mantine/core";
 import Image from "next/image";
 import { loadPartner } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
@@ -67,8 +67,17 @@ function PartnerTable() {
 
       <td>{partner.status}</td>
       <td>
-        <button onClick={() => handleEditClick(partner)}>Edit</button>|
-        <button onClick={() => changeStatus(partner)}>
+        <button
+          className="cursor-pointer"
+          onClick={() => handleEditClick(partner)}
+        >
+          Edit
+        </button>
+        |
+        <button
+          className="cursor-pointer"
+          onClick={() => changeStatus(partner)}
+        >
           {partner.status == "Active" ? "Disable" : "Active"}
         </button>
       </td>

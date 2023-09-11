@@ -6,24 +6,10 @@ import Image from "next/image";
 
 import { useForm } from "@mantine/form";
 
-import {
-  TextInput,
-  Button,
-  Box,
-  Code,
-  Grid,
-  Col,
-  Textarea,
-  Group,
-  Tabs,
-  Select,
-} from "@mantine/core";
+import { TextInput, Button, Box, Code, Grid, Col, Select } from "@mantine/core";
 
 import { addProduct } from "@/lib/createData";
 
-import { randomId } from "@mantine/hooks";
-
-import TextEditor from "../RichTextEditor";
 import { useSession } from "next-auth/react";
 
 interface ProductFormProps {}

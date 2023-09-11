@@ -22,9 +22,10 @@ const Banner = () => {
     const fetchNew = async () => {
       if (banners.length == 0) {
         const bannerCheck = await loadBanner(href);
+
         setBanners(
           bannerCheck.banner.filter((item) => {
-            item.status == "Active";
+            return item.status == "Active";
           }),
         );
       } else {
@@ -58,22 +59,18 @@ const Banner = () => {
         className="slideshowSlider"
         style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
       >
-        {banners.map((banner) =>
-          banner.status != "Active" ? (
-            <></>
-          ) : (
-            <div key={banner._id} className="slide">
-              <Image
-                fill
-                className={`bg-cover bg-center bg-no-repeat `}
-                src={`${banner.image}`}
-                alt={""}
-                priority
-              />
-              <BannerContent banner={banner} />
-            </div>
-          ),
-        )}
+        {banners.map((banner) => (
+          <div key={banner._id} className="slide">
+            <Image
+              fill
+              className={`bg-cover bg-center bg-no-repeat `}
+              src={`${banner.image}`}
+              alt={""}
+              priority
+            />
+            <BannerContent banner={banner} />
+          </div>
+        ))}
       </div>
     </div>
   );

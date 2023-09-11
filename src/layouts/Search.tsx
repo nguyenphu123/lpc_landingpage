@@ -37,8 +37,7 @@ const Search = ({ searchList }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputVal, setInputVal] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-  const newInfo = useSelector((rootState) => news(rootState));
-  const { href } = useUrl() ?? {};
+
   const curlanguage = useSelector((rootState) => language(rootState));
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setInputVal(e.currentTarget.value);
@@ -112,7 +111,7 @@ const Search = ({ searchList }: Props) => {
               />
               <button
                 className="btn btn-primary rounded-l-none"
-                onClick={(e) => onSearch()}
+                onClick={() => onSearch()}
                 type="submit"
               >
                 <FaSearch />

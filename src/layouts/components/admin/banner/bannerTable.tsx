@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import { Table, Modal, Button, Box, Grid, Col } from "@mantine/core"; // Import thêm Button
+import { Table, Modal } from "@mantine/core"; // Import thêm Button
 
-import Image from "next/image";
 import { loadBanner } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
 import UpdateBanner from "./updateBanner";
@@ -25,17 +24,13 @@ interface Banner {
 }
 
 function BannerTable() {
-  const { data: session, status } = useSession();
-  const { pathname, href } = useUrl() ?? {};
+  const { data: session } = useSession();
+  const { href } = useUrl() ?? {};
   const [bannerData, setBannerData] = useState<Banner[]>([]);
 
   const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
 
-  const [addBannerVisible, setAddBannerVisible] = useState(false);
-
   const [isEditMode, setIsEditMode] = useState(false);
-
-  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     const fetchNew = async () => {
@@ -62,15 +57,6 @@ function BannerTable() {
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
 
-  const handleViewClick = (banner: Banner) => {
-    setSelectedBanner(banner);
-
-    setIsEditMode(false); // Chuyển sang chế độ xem
-  };
-
-  const toggleShowContent = () => {
-    setShowContent(!showContent);
-  };
   const changeStatus = (banner) => {
     let bannerStatusChange = JSON.parse(JSON.stringify(banner));
     if (bannerStatusChange["status"] == "Active") {
@@ -95,9 +81,21 @@ function BannerTable() {
       <td>{banner.status}</td>
 
       <td>
-        <button onClick={() => setSelectedBanner(banner)}>View</button> |
-        <button onClick={() => handleEditClick(banner)}>Edit</button> |
-        <button onClick={() => changeStatus(banner)}>
+        <button
+          className="cursor-pointer"
+          onClick={() => setSelectedBanner(banner)}
+        >
+          View
+        </button>{" "}
+        |
+        <button
+          className="cursor-pointer"
+          onClick={() => handleEditClick(banner)}
+        >
+          Edit
+        </button>{" "}
+        |
+        <button className="cursor-pointer" onClick={() => changeStatus(banner)}>
           {banner.status == "Active" ? "Disable" : "Active"}
         </button>
       </td>

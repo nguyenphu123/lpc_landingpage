@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
-import { TextInput, Button, Box, Code, Grid, Col } from "@mantine/core";
+import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
 import Image from "next/image";
 import { updatePartner } from "@/lib/updateData";
 import { useSession } from "next-auth/react";

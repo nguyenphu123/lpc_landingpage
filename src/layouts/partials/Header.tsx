@@ -15,10 +15,8 @@ import { useSelector } from "react-redux";
 import { UrlObject } from "url";
 import { product } from "@/feature/data/productSlice";
 import { loadProduct } from "@/lib/loadData";
-import { useDispatch } from "react-redux";
 import { useUrl } from "nextjs-current-url";
 import encryptId from "../../lib/utils/encrypt";
-let keyUtf8 = "";
 //  child navigation link interface
 const Header = () => {
   const { href } = useUrl() ?? {};
@@ -58,17 +56,22 @@ const Header = () => {
           (item: { status: string; type: string }) =>
             item.type == "Solution" && item.status == "Active",
         );
-        main[2].children = servicesMenu[0].content;
+        main[2].children = servicesMenu[0].content.filter(
+          (item) => item.status == "Active",
+        );
         setIsLoading(false);
       } else {
         main[1].children = productInfo.productData.value.product.filter(
           (item: { status: string; type: string }) =>
             item.type == "Solution" && item.status == "Active",
         );
-        main[2].children = productInfo.productData.value.product.filter(
-          (item: { status: string; type: string }) =>
-            item.type == "Service" && item.status == "Active",
-        )[0].content;
+
+        main[2].children = productInfo.productData.value.product
+          .filter(
+            (item: { status: string; type: string }) =>
+              item.type == "Service" && item.status == "Active",
+          )[0]
+          .content.filter((item) => item.status == "Active");
         setIsLoading(false);
       }
     };
@@ -85,7 +88,7 @@ const Header = () => {
     // make sure to catch any error
   }, [pathname]);
 
-  const { navigation_button, settings } = config;
+  const { settings } = config;
 
   // get current path
 
@@ -226,7 +229,7 @@ const Header = () => {
               <IoSearch />
             </Link>
           )}
-          <ThemeSwitcher className="mr-5" />
+          <ThemeSwitcher />
 
           {/* {navigation_button.enable && (
             <Link

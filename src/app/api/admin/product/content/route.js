@@ -38,7 +38,7 @@ export async function PUT(req) {
             "content.$[content].description": description,
             "content.$[content].descriptionEn": descriptionEn,
             "content.$[content].imgSrc": imgSrc,
-            "content.$[content].imgSrc": status,
+            "content.$[content].status": status,
           },
         },
         { arrayFilters: [{ "content._id": contentId }] },

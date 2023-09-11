@@ -70,7 +70,7 @@ function UserTable() {
         <button onClick={() => handleEditClick(user)}>Edit</button>
       </td>
       <td>
-        <button onClick={() => changeStatus(user)}>
+        <button className="cursor-pointer" onClick={() => changeStatus(user)}>
           {user.status == "Active" ? "Disable" : "Active"}
         </button>
       </td>

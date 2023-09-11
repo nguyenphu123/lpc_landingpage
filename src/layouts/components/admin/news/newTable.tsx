@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Table, Modal, Button } from "@mantine/core"; // Import thêm Button
+import { Table, Modal } from "@mantine/core"; // Import thêm Button
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,8 +9,6 @@ import { companyNew, news } from "@/feature/data/newSlice";
 import { loadNews } from "@/lib/loadData";
 
 import UpdateNew from "./updateNew";
-
-import Popup from "@/components/popup";
 
 import { useUrl } from "nextjs-current-url";
 import { useSession } from "next-auth/react";
@@ -113,6 +111,7 @@ function NewsTable() {
 
       <td>
         <button
+          className="cursor-pointer"
           onClick={() => {
             setSelectedNews(news);
 
@@ -121,8 +120,15 @@ function NewsTable() {
         >
           View
         </button>
-        | <button onClick={() => handleEditClick(news)}>Edit</button>|
-        <button onClick={() => changeStatus(news)}>
+        |{" "}
+        <button
+          className="cursor-pointer"
+          onClick={() => handleEditClick(news)}
+        >
+          Edit
+        </button>
+        |
+        <button className="cursor-pointer" onClick={() => changeStatus(news)}>
           {!news.draft ? "Disable" : "Active"}
         </button>
       </td>

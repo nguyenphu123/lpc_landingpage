@@ -3,12 +3,11 @@ import ProductCard from "../../../layouts/components/productCard";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
-import { useParams, useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "next/navigation";
+import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import { companyProduct, product } from "@/feature/data/productSlice";
 import { useEffect, useState } from "react";
-import { loadProduct, loadSolutionContent } from "@/lib/loadData";
+import { loadSolutionContent } from "@/lib/loadData";
 import PageHeader from "@/partials/PageHeader";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
@@ -28,7 +27,7 @@ const RegularPages = () => {
   let keyUtf8 = "UTF-8";
   // const dispatch = useDispatch();
   // const router = useRouter();
-  
+
   useEffect(() => {
     // declare the data fetching function
     const fetchSolution = async () => {
@@ -44,39 +43,13 @@ const RegularPages = () => {
             "content.imgSrc": 1,
             "content.content": 1,
             "content.contentEn": 1,
+            "content.status": 1,
           },
           href,
           params.id,
         );
         setData(solutionCheck.products);
-        // const productCheck = await loadProduct(
-        //   {
-        //     title: 1,
-        //     _id: 1,
-        //     type: 1,
-        //     titleEn: 1,
-        //     image: 1,
-        //     descriptionEn1: 1,
-        //     description1: 1,
-        //     pros: 1,
-        //     prosEn: 1,
-        //     content: 1,
-        //     description2: 1,
-        //     descriptionEn2: 1,
-        //   },
-        //   href,
-        // );
-
-        // dispatch(companyProduct(productCheck));
       } else {
-        // const solution = products.filter(
-        //   (item: { [x: string]: any; link: string; type: string }) =>
-        //     params.id == item._id,
-        // );
-        // setData(solution[0]);
-        // if (data == undefined) {
-        //   router.replace("http://localhost:3000/");
-        // }
       }
     };
     // call the function
@@ -148,43 +121,47 @@ const RegularPages = () => {
       <section className="section">
         <div className="container">
           <div className="content">
-            <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4`}>
-              {data?.content.map(
-                (
-                  content: {
-                    [x: string]: any;
-                    contentEn: any;
-                    titleEn: any;
-                    link: any;
-                    id: any;
-                    imgSrc: any;
-                    title: any;
-                    content: any;
+            <div
+              className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4`}
+            >
+              {data?.content
+                .filter((item) => item.status == "Active")
+                .map(
+                  (
+                    content: {
+                      [x: string]: any;
+                      contentEn: any;
+                      titleEn: any;
+                      link: any;
+                      id: any;
+                      imgSrc: any;
+                      title: any;
+                      content: any;
+                    },
+                    i: any,
+                  ) => {
+                    return (
+                      <ProductCard
+                        key={content._id}
+                        srcImg={content.imgSrc}
+                        title={
+                          curlanguage.changeLanguage.value == "en"
+                            ? content.titleEn
+                            : content.title
+                        }
+                        content={
+                          curlanguage.changeLanguage.value == "en"
+                            ? content.contentEn
+                            : content.content
+                        }
+                        id={content.id}
+                        link={`${encryptId(data?._id).toString()}/${encryptId(
+                          content._id,
+                        ).toString()}`}
+                      ></ProductCard>
+                    );
                   },
-                  i: any,
-                ) => {
-                  return (
-                    <ProductCard
-                      key={content._id}
-                      srcImg={content.imgSrc}
-                      title={
-                        curlanguage.changeLanguage.value == "en"
-                          ? content.titleEn
-                          : content.title
-                      }
-                      content={
-                        curlanguage.changeLanguage.value == "en"
-                          ? content.contentEn
-                          : content.content
-                      }
-                      id={content.id}
-                      link={`${encryptId(data?._id).toString()}/${encryptId(
-                        content._id
-                      ).toString()}`}
-                    ></ProductCard>
-                  );
-                },
-              )}
+                )}
             </div>
           </div>
         </div>

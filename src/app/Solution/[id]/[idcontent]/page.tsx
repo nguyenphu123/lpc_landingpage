@@ -4,11 +4,11 @@ import "../../../../styles/scroll.scss";
 import PageHeader from "@/partials/PageHeader";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import { useParams, useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
-import { companyProduct, product } from "@/feature/data/productSlice";
-import { loadProduct, loadSolutionContentDescription } from "@/lib/loadData";
+import { product } from "@/feature/data/productSlice";
+import { loadSolutionContentDescription } from "@/lib/loadData";
 import { useEffect, useState } from "react";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
@@ -37,6 +37,7 @@ const RegularPages = () => {
             contentEn: 1,
             descriptionEn: 1,
             imgSrc: 1,
+            status: 1,
           },
           href,
           params.id,

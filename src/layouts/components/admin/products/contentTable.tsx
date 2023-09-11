@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Table, Modal, Button, Box, Grid, Col } from "@mantine/core";
+import { Table, Modal, Button } from "@mantine/core";
 
 import Image from "next/image";
 import Popup from "@/components/popup";
@@ -107,9 +107,21 @@ function ContentTable({ product }) {
         </td>
         <td>{item.status}</td>
         <td>
-          <button onClick={() => setSelectedProduct(item)}>View</button>|
-          <button onClick={() => handleEditClick(item)}>Edit</button>|
-          <button onClick={() => changeStatus(item)}>
+          <button
+            className="cursor-pointer"
+            onClick={() => setSelectedProduct(item)}
+          >
+            View
+          </button>
+          |
+          <button
+            className="cursor-pointer"
+            onClick={() => handleEditClick(item)}
+          >
+            Edit
+          </button>
+          |
+          <button className="cursor-pointer" onClick={() => changeStatus(item)}>
             {item.status == "Active" ? "Disable" : "Active"}
           </button>
         </td>

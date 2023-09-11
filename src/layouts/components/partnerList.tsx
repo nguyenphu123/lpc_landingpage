@@ -20,7 +20,9 @@ export default function PartnerList() {
     const fetchNew = async () => {
       if (partners.length == 0) {
         const partnerCheck = await loadPartner(href);
-        setPartners(partnerCheck.partners);
+        setPartners(
+          partnerCheck.partners.filter((item) => item.status == "Active"),
+        );
         dispatch(companyPartner(partnerCheck));
       } else {
       }
@@ -42,21 +44,17 @@ export default function PartnerList() {
               _id: string;
               src: string;
               type: string;
-            }) => {
-              return img.status != "Active" ? (
-                <></>
-              ) : (
-                <div key={img._id} className="slide flex items-center mx-3">
-                  <Image
-                    className="flex items-center col-span-2 max-h-16 w-full object-contain lg:col-span-1"
-                    src={img.src}
-                    alt={img.type}
-                    width={158}
-                    height={100}
-                  />
-                </div>
-              );
-            },
+            }) => (
+              <div key={img._id} className="slide flex items-center mx-3">
+                <Image
+                  className="flex items-center col-span-2 max-h-16 w-full object-contain lg:col-span-1"
+                  src={img.src}
+                  alt={img.type}
+                  width={158}
+                  height={100}
+                />
+              </div>
+            ),
           )}
         </div>
       </div>

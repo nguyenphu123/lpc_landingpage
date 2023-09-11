@@ -37,7 +37,9 @@ export default function ProductList() {
           href,
         );
         // dispatch(companyProduct(productCheck.products));
-        setServiceList(productCheck.products);
+        setServiceList(
+          productCheck.products.filter((item) => item.status == "Active"),
+        );
       } else {
       }
     };
@@ -64,33 +66,29 @@ export default function ProductList() {
             link: any;
           },
           i: any,
-        ) => {
-          return svc.status != "Active" ? (
-            <></>
-          ) : (
-            <Grid.Col key={svc._id} md={6} lg={2}>
-              <ServiceCard
-                src={svc.image}
-                title={
-                  curlanguage.changeLanguage.value == "en"
-                    ? svc.titleEn
-                    : svc.title
-                }
-                description={
-                  curlanguage.changeLanguage.value == "en"
-                    ? svc.descriptionEn1
-                    : svc.description1
-                }
-                link={
-                  svc.type == "Solution"
-                    ? `/${svc.type}/${encryptId(svc._id)}`
-                    : `/${svc.type}`
-                }
-                i={i}
-              />
-            </Grid.Col>
-          );
-        },
+        ) => (
+          <Grid.Col key={svc._id} md={6} lg={2}>
+            <ServiceCard
+              src={svc.image}
+              title={
+                curlanguage.changeLanguage.value == "en"
+                  ? svc.titleEn
+                  : svc.title
+              }
+              description={
+                curlanguage.changeLanguage.value == "en"
+                  ? svc.descriptionEn1
+                  : svc.description1
+              }
+              link={
+                svc.type == "Solution"
+                  ? `/${svc.type}/${encryptId(svc._id)}`
+                  : `/${svc.type}`
+              }
+              i={i}
+            />
+          </Grid.Col>
+        ),
       )}
     </Grid>
   );

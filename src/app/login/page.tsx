@@ -11,7 +11,7 @@ import { signIn } from "next-auth/react";
 import { userLogin } from "@/feature/login/loginSlice";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { publicIp, publicIpv4, publicIpv6 } from "public-ip";
+import { publicIpv4 } from "public-ip";
 
 // import { internalIpV4Sync } from "internal-ip";
 var bcrypt = require("bcryptjs");

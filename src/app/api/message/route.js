@@ -24,7 +24,7 @@ export async function POST(req, res) {
   const mess = {
     from: process.env.GMAIL_EMAIL_ADDRESS,
     to: email,
-    subject: `you have received a message from ${process.env.GMAIL_EMAIL_ADDRES}`,
+    subject: `you have received a message from ${process.env.GMAIL_EMAIL_ADDRESS}`,
     text: `<html><p>We have received your email</p></html>`,
     html: `<html><p>We have received your email</p></html>`,
   };

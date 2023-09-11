@@ -71,7 +71,7 @@ function ContentTable({ product }) {
     } else {
       itemStatusChange["status"] = "Active";
     }
-    updateProductContent(product, itemStatusChange, session);
+    updateProductContent(product._id, itemStatusChange, session);
   };
   let rows:
     | string

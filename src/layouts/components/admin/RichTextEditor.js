@@ -62,8 +62,8 @@ export default function RichTextEditor({
             "bold italic forecolor | alignleft aligncenter " +
             "alignright alignjustify | bullist numlist outdent indent | " +
             "removeformat | help | image",
-          images_file_types: "jpg,svg,webp",
-          file_picker_callback: handleImageUploadBefore,
+          images_file_types: "jpg,svg,webp,png",
+          paste_data_images: true,
         }}
         initialValue={content}
         onEditorChange={(vn) => {
@@ -107,8 +107,8 @@ export default function RichTextEditor({
             "bold italic forecolor | alignleft aligncenter " +
             "alignright alignjustify | bullist numlist outdent indent | " +
             "removeformat | help | image",
-          images_file_types: "jpg,svg,webp",
-          file_picker_callback: handleImageUploadBefore,
+          images_file_types: "jpg,svg,webp,png",
+          paste_data_images: true,
         }}
         initialValue={contentEn}
         onEditorChange={(en) => {

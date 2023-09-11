@@ -27,7 +27,10 @@ export async function createNews(newInfo, session) {
   };
   const res = await fetch("api/admin/new", {
     method: "post",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(data),
   });
 
@@ -41,7 +44,10 @@ export async function addUsers(user, session) {
 
   const res = await fetch("api/admin/user", {
     method: "post",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(user),
   });
   const userInfo = await res.json();
@@ -60,7 +66,10 @@ export async function addCustomer(customer, session) {
   customer["status"] = session.user.role == "sysadmin" ? "Active" : "pending";
   const res = await fetch("api/admin/customer", {
     method: "post",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(customer),
     session: session,
   });
@@ -76,7 +85,10 @@ export async function addPartner(partner, session) {
   partner["status"] = session.user.role == "sysadmin" ? "Active" : "pending";
   const res = await fetch("api/admin/partner", {
     method: "post",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(partner),
   });
 
@@ -114,7 +126,10 @@ export async function addProduct(product, session) {
 
   const res = await fetch("api/admin/product", {
     method: "post",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(data),
   });
 
@@ -146,7 +161,10 @@ export async function addProductContent(product, content, session) {
 
   const res = await fetch("api/admin/product/content", {
     method: "post",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(data),
   });
 
@@ -176,7 +194,10 @@ export async function addBanner(banner, session) {
   const res = await fetch("api/admin/banner", {
     method: "post",
 
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
 
     body: JSON.stringify(data),
   });

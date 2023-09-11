@@ -18,6 +18,7 @@ export async function loadNews(role: any, searchField, href) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "cache-control": "no-store",
       },
       body: JSON.stringify({
         searchField: searchField,
@@ -49,6 +50,7 @@ export async function loadNew(role: any, searchField, href, _id) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "cache-control": "no-store",
       },
       body: JSON.stringify({
         _id: _id,
@@ -81,6 +83,7 @@ export async function searchNews(searchField, keyword) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "cache-control": "no-store",
       },
       body: JSON.stringify({
         keyword: keyword,
@@ -105,6 +108,13 @@ export async function loadUsers(href) {
       window.location.port +
       "/" +
       "api/admin/user",
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "cache-control": "no-store",
+      },
+    },
   );
   const users = await res.json();
   // By returning { props: { posts } }, the Blog component
@@ -128,6 +138,7 @@ export async function loadipAddress() {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "cache-control": "no-store",
       },
       body: JSON.stringify({ text: "check ip" }),
     },
@@ -149,6 +160,13 @@ export async function loadCompanyInfo(href) {
       window.location.port +
       "/" +
       "api/company",
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "cache-control": "no-store",
+      },
+    },
   );
   const info = await res.json();
   // By returning { props: { posts } }, the Blog component
@@ -167,6 +185,13 @@ export async function loadCustomer(href) {
       window.location.port +
       "/" +
       "api/customer",
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "cache-control": "no-store",
+      },
+    },
   );
   const customers = await res.json();
   // By returning { props: { posts } }, the Blog component
@@ -185,6 +210,13 @@ export async function loadPartner(href) {
       window.location.port +
       "/" +
       "api/partner",
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "cache-control": "no-store",
+      },
+    },
   );
   const partners = await res.json();
   // By returning { props: { posts } }, the Blog component
@@ -209,6 +241,7 @@ export async function loadMessageAdmin(href, session) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "cache-control": "no-store",
       },
       body: JSON.stringify({
         session: "",
@@ -238,6 +271,7 @@ export async function loadProduct(searchField, href) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "cache-control": "no-store",
       },
       body: JSON.stringify({
         searchField: searchField,
@@ -267,6 +301,7 @@ export async function loadSolutionContent(searchField, href, _id) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "cache-control": "no-store",
       },
       body: JSON.stringify({
         _id: _id,
@@ -302,6 +337,7 @@ export async function loadSolutionContentDescription(
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "cache-control": "no-store",
       },
       body: JSON.stringify({
         _id: _id,
@@ -333,6 +369,7 @@ export async function loadSolution(searchField, href) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "cache-control": "no-store",
       },
       body: JSON.stringify({
         searchField: searchField,
@@ -363,6 +400,7 @@ export async function loadService(searchField, href) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "cache-control": "no-store",
       },
       body: JSON.stringify({
         searchField: searchField,
@@ -392,6 +430,7 @@ export async function loadServiceContent(_id, searchField, href) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        "cache-control": "no-store",
       },
       body: JSON.stringify({
         _id: _id,
@@ -416,6 +455,13 @@ export async function loadBanner(href) {
       window.location.port +
       "/" +
       "api/banner",
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "cache-control": "no-store",
+      },
+    },
   );
   const banners = await res.json();
   // By returning { props: { posts } }, the Blog component
@@ -434,6 +480,13 @@ export async function loadContact(href) {
       window.location.port +
       "/" +
       "api/contact",
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "cache-control": "no-store",
+      },
+    },
   );
   const contacts = await res.json();
   // By returning { props: { posts } }, the Blog component

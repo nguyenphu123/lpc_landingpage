@@ -28,7 +28,10 @@ export async function updateNews(newInfo, session) {
   };
   const res = await fetch("api/admin/new", {
     method: "put",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(data),
   });
 
@@ -42,7 +45,10 @@ export async function updateUsers(user, session) {
 
   const res = await fetch("api/admin/user", {
     method: "put",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(user),
   });
   // By returning { props: { posts } }, the Blog component
@@ -55,7 +61,10 @@ export async function updateCompanyInfo(company, session) {
 
   const res = await fetch("api/admin/company", {
     method: "put",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(company),
   });
   // By returning { props: { posts } }, the Blog component
@@ -68,7 +77,10 @@ export async function updateContactInfo(contact, session) {
 
   const res = await fetch("api/admin/contact", {
     method: "put",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(contact),
   });
   // By returning { props: { posts } }, the Blog component
@@ -81,7 +93,10 @@ export async function updateCustomer(customer, session) {
 
   const res = await fetch("api/admin/customer", {
     method: "put",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(customer),
   });
 
@@ -95,7 +110,10 @@ export async function updatePartner(partner, session) {
 
   const res = await fetch("api/admin/partner", {
     method: "put",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(partner),
     session: session,
   });
@@ -133,7 +151,10 @@ export async function updateProduct(product, session) {
 
   const res = await fetch("api/admin/product", {
     method: "put",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(data),
   });
 
@@ -162,10 +183,13 @@ export async function updateProductContent(product, content, session) {
     content: content.content,
     status: content.status,
   };
-  
+
   const res = await fetch("api/admin/product/content", {
     method: "put",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(data),
   });
 
@@ -179,7 +203,10 @@ export async function updateBanner(banner, session) {
 
   const res = await fetch("api/admin/banner", {
     method: "put",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
     body: JSON.stringify(banner),
   });
 

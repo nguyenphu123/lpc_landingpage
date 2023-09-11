@@ -2,7 +2,8 @@ import connectDB from "@/lib/mongodb";
 import Contact from "@/models/contact";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-export async function GET() {
+export async function GET(request) {
+  console.log(request.url);
   try {
     await connectDB();
     const contact = await Contact.find({});
@@ -20,4 +21,3 @@ export async function GET() {
     }
   }
 }
-

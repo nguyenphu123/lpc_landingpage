@@ -2,7 +2,8 @@ import connectDB from "@/lib/mongodb";
 import Partner from "@/models/partner";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-export async function GET() {
+export async function GET(request) {
+  console.log(request.url);
   try {
     await connectDB();
     const partners = await Partner.find({});

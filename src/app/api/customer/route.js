@@ -2,7 +2,8 @@ import connectDB from "@/lib/mongodb";
 import Customer from "@/models/customer";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-export async function GET() {
+export async function GET(request) {
+  console.log(request.url);
   try {
     await connectDB();
     const customers = await Customer.find({});

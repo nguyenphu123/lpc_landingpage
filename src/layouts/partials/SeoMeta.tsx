@@ -81,13 +81,13 @@ const SeoMeta = ({
       {/* og-image */}
       <meta
         property="og:image"
-        content={`https://res.cloudinary.com/derjssgq9/image/upload/v1693208949/download_6_svy5oe.webp`}
+        content={`https://res.cloudinary.com/demo/image/upload/turtles.jpg`}
       />
 
       {/* twitter-image */}
       <meta
         name="twitter:image"
-        content={`https://res.cloudinary.com/derjssgq9/image/upload/v1693208949/download_6_svy5oe.webp`}
+        content={`https://res.cloudinary.com/demo/image/upload/turtles.jpg`}
       />
       <meta name="twitter:card" content="summary_large_image" />
     </>

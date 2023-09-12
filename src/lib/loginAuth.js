@@ -22,17 +22,14 @@ export const authOptions = {
 
           const returnData = await User.findOne({ email, status: "Active" });
           user._id = returnData._id;
-          user.email = returnData.email.toString();
+          user.email = returnData.email;
           user.role = returnData.role;
           user.loginCount = returnData.loginCount;
           if (!user) {
             return null;
           }
 
-          // const passwordsMatch = await bcrypt.compare(password, user.password);
-          var salt = bcrypt.genSaltSync(10);
-
-          if (!(password == returnData.password)) {
+          if (!(password.toString() == returnData.password.toString())) {
             return null;
           }
 

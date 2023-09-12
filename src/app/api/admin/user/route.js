@@ -80,10 +80,15 @@ export async function PUT(req) {
 }
 
 export async function GET() {
+  const session = await getServerSession({});
   try {
     await connectDB();
-    const users = await User.find({}, { email: 1, _id: 1 });
-    return NextResponse.json({ users });
+    if (session != undefined) {
+      const users = await User.find({}, { email: 1, _id: 1 });
+      return NextResponse.json({ users });
+    } else {
+      return NextResponse.json({ msg: ["No permission."] });
+    }
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let errorList = [];

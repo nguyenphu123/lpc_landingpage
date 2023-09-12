@@ -160,7 +160,11 @@ const Header = () => {
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
                   </Link>
-                  <ul className="nav-dropdown-list hidden group-hover:block lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100">
+                  <div
+                    className={`nav-dropdown-list hidden group-hover:block gap-2 lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100  grid-cols-${Math.ceil(
+                      menu.children.length / 4,
+                    )}`}
+                  >
                     {menu.children?.map(
                       (
                         child: {
@@ -172,7 +176,10 @@ const Header = () => {
                         },
                         i: any,
                       ) => (
-                        <li className="nav-dropdown-item" key={`children-${i}`}>
+                        <div
+                          className="nav-dropdown-item"
+                          key={`children-${i}`}
+                        >
                           <Link
                             href={`/${
                               child.type ? "Solution" : "Service"
@@ -187,10 +194,10 @@ const Header = () => {
                               ? child.titleEn
                               : child.title}
                           </Link>
-                        </li>
+                        </div>
                       ),
                     )}
-                  </ul>
+                  </div>
                 </li>
               ) : (
                 <li className="nav-item">

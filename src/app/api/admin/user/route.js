@@ -47,11 +47,7 @@ export async function POST(req) {
   }
 }
 export async function PUT(req) {
-  const {
-    _id,
-
-    password,
-  } = await req.json();
+  const { _id, loginCount, password } = await req.json();
   const session = await getServerSession({ req });
   try {
     if (session != undefined) {
@@ -60,6 +56,7 @@ export async function PUT(req) {
         { _id: _id },
         {
           password,
+          loginCount,
         },
         { new: true },
       );

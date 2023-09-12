@@ -61,6 +61,26 @@ export async function updateUsers(user, session) {
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
 }
+export async function updateUsersPassword(user, session) {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  // const posts = await loadNews()
+
+  const res = await fetch("api/admin/user", {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
+    body: JSON.stringify(user),
+  });
+  const returnResult = await res.json();
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return returnResult;
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+}
 export async function updateCompanyInfo(company, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library

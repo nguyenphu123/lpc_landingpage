@@ -44,7 +44,7 @@ const ThemeSwitcher = () => {
             }
           >
             <button
-              className="w-full"
+              className="w-full text-left"
               onClick={() => dispatch(changeLanguage("vn"))}
             >
               Vietnamese
@@ -61,7 +61,7 @@ const ThemeSwitcher = () => {
             }
           >
             <button
-              className="w-full"
+              className="w-full text-left"
               onClick={() => dispatch(changeLanguage("en"))}
             >
               English

@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useForm } from "@mantine/form";
 
 import { Button, Box, PasswordInput, Grid, Col } from "@mantine/core";
-import { updateCustomer } from "@/lib/updateData";
+import { updateUsersPassword } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
 var bcrypt = require("bcryptjs");
@@ -23,16 +23,18 @@ function UpdateUser({ user, handleSaveClick }) {
       /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{12,24}$/;
     if (values.password.match(regularExpression)) {
       if (values.password != values.matchPassword) {
+        showToast("Confirm password does not match");
       } else {
         var salt = bcrypt.genSaltSync(10);
         var hash = bcrypt.hash(values.password, salt).toString();
         let newPassword = {
           _id: user.__id,
           password: hash,
+          loginCount: user.loginCount + 1,
         };
         // Continue with the rest of the form submission
 
-        let returnResult = await updateCustomer(newPassword, session);
+        let returnResult = await updateUsersPassword(newPassword, session);
         if (returnResult.success != undefined) {
           showToast(returnResult.msg);
         }

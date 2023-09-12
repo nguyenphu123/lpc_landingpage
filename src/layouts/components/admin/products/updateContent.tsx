@@ -74,7 +74,7 @@ function UpdateContentForm({ product, content }) {
 
         const data = await response.json();
 
-        updateData.image = data.secure_url;
+        updateData.imgSrc = data.secure_url;
       } catch (error) {
         console.error(error);
       }

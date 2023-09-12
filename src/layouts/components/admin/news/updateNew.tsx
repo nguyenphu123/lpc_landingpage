@@ -4,15 +4,8 @@ import { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
-import {
-  TextInput,
-  Button,
-  Box,
-  Code,
-  Grid,
-  Col,
-  Textarea,
-} from "@mantine/core";
+import Image from "next/image";
+import { TextInput, Button, Box, Code, Grid, Col } from "@mantine/core";
 import { updateNews } from "@/lib/updateData";
 
 import TextEditor from "../RichTextEditor";
@@ -25,6 +18,8 @@ function UpdateNew({ New }) {
   const [contentEn, setContentEn]: any = useState(New.contentEn);
   const [isSucess, setIsSucess] = useState(false);
   const [sucessMessage, setSucessMessage] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageURL, setSelectedImageURL] = useState(New.image);
   const form = useForm({
     initialValues: JSON.parse(JSON.stringify(New)),
   });
@@ -37,8 +32,38 @@ function UpdateNew({ New }) {
 
     // form.insertListItem(`content.${e.idcontent}.description.${e.id}`, e);
   };
+  const onImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+    setSelectedImageURL(URL.createObjectURL(file));
+  };
   const onSubmitForm = async (value) => {
     let updateData = { ...value };
+    if (selectedImage && selectedImageURL != New.image) {
+      const formData = new FormData();
+
+      formData.append("file", selectedImage);
+
+      formData.append("upload_preset", "ml_default");
+
+      try {
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/derjssgq9/image/upload",
+
+          {
+            method: "POST",
+
+            body: formData,
+          },
+        );
+
+        const data = await response.json();
+
+        value.image = data.secure_url;
+      } catch (error) {
+        console.error(error);
+      }
+    }
     updateData["content"] = content;
     updateData["contentEn"] = contentEn;
     let returnResult = await updateNews(updateData, session);
@@ -103,11 +128,50 @@ function UpdateNew({ New }) {
               </Col>
 
               <Col span={3}>
-                <TextInput
-                  label="Image URL"
-                  placeholder="Image URL"
-                  {...form.getInputProps("image")}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={onImageChange}
+                  style={{ display: "none" }}
+                  id="imageInput"
                 />
+                <label
+                  htmlFor="imageInput"
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "100%",
+
+                      height: "100px",
+
+                      backgroundColor: "#f0f0f0",
+
+                      display: "flex",
+
+                      alignItems: "center",
+
+                      justifyContent: "center",
+
+                      border: "2px dashed #ccc",
+
+                      borderRadius: "8px",
+                    }}
+                  >
+                    {selectedImage ? (
+                      <Image
+                        src={selectedImageURL}
+                        alt="Selected Image"
+                        width={150}
+                        height={150}
+                      />
+                    ) : (
+                      <span>Click to choose an image</span>
+                    )}
+                  </div>
+                </label>
               </Col>
 
               <Col span={3}>

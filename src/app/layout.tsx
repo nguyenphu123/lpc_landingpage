@@ -85,5 +85,5 @@ export default function RootLayout({
 export const metadata = {
   title: "lpc",
   description: "lpc website",
-  metadataBase: new URL("logo.png"),
+  metadataBase: "logo.png",
 };

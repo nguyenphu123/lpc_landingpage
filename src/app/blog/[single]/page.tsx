@@ -60,7 +60,7 @@ const PostSingle = () => {
           params.single,
         );
         if (newCheck.news.length == 0) {
-          router.replace("http://localhost:3000/");
+          router.replace("/");
         }
         setData(newCheck.news[0]);
 

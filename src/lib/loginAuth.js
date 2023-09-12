@@ -22,7 +22,7 @@ export const authOptions = {
 
           const returnData = await User.findOne({ email, status: "Active" });
           user._id = returnData._id;
-          user.email = returnData.email;
+          user.email = returnData.email.toString();
           user.role = returnData.role;
           user.loginCount = returnData.loginCount;
           if (!user) {

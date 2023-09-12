@@ -44,44 +44,10 @@ const RegularPages = () => {
           params.idcontent,
         );
         if (solutionCheck.products.content[0] == undefined) {
-          router.replace("http://localhost:3000/");
+          router.replace("/");
         }
         setResultData(solutionCheck.products.content[0]);
-        // const productCheck = await loadProduct(
-        //   {
-        //     title: 1,
-        //     _id: 1,
-        //     type: 1,
-        //     titleEn: 1,
-        //     image: 1,
-        //     descriptionEn1: 1,
-        //     description1: 1,
-        //     pros: 1,
-        //     prosEn: 1,
-        //     content: 1,
-        //     description2: 1,
-        //     descriptionEn2: 1,
-        //   },
-        //   href,
-        // );
-        // dispatch(companyProduct(productCheck));
       } else {
-        // const solution: any = products.filter(
-        //   (item: { [x: string]: any; link: string; type: string }) =>
-        //     params.id == item._id,
-        // );
-        // if (solution[0] == undefined) {
-        //   router.replace("http://localhost:3000/");
-        // }
-        // const contain = solution[0].content.filter(
-        //   (item: { [x: string]: any; link: string; type: string }) =>
-        //     params.idcontent == item._id,
-        // );
-        // data = contain[0];
-        // if (data == undefined) {
-        //   router.replace("http://localhost:3000/");
-        // }
-        // setResultData(data);
       }
     };
     // call the function

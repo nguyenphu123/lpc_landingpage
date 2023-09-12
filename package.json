@@ -1,9 +1,9 @@
 {
-  "name": "nextplate",
+  "name": "lpc",
   "version": "1.3.2",
-  "description": "Nextjs and Tailwindcss boilerplate",
-  "author": "zeon.studio",
-  "license": "MIT",
+  "description": "landing page of lpc ",
+  "author": "lpc",
+  "license": "lpc",
   "packageManager": "yarn@1.22.19",
   "scripts": {
     "dev": "next dev",

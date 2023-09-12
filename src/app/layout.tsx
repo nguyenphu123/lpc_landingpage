@@ -30,7 +30,10 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
-
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/demo/image/upload/turtles.jpg"
+        />
         {/* favicon */}
         <link rel="shortcut icon preload" href={config.site.favicon} />
         {/* theme meta */}

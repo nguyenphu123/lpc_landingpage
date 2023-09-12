@@ -1,11 +1,7 @@
 import React from "react";
 import { Table } from "@mantine/core";
-
 import Whitelist from "../../../../config/whitelist.json";
-
-import { useSession } from "next-auth/react";
-
-function UserTable() {
+function IpTable() {
   const ipList: any = Whitelist.whitelist;
 
   const rows = ipList.map((ip, index) => (
@@ -13,6 +9,7 @@ function UserTable() {
       <td>{index + 1}</td>
 
       <td>{ip.publicIp}</td>
+      <td>{ip.status}</td>
     </tr>
   ));
 
@@ -24,6 +21,7 @@ function UserTable() {
             <th>#</th>
 
             <th>ip</th>
+            <th>Status</th>
           </tr>
         </thead>
 
@@ -33,4 +31,4 @@ function UserTable() {
   );
 }
 
-export default UserTable;
+export default IpTable;

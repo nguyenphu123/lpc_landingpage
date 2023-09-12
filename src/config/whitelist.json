@@ -1,14 +1,1 @@
-{
-  "whitelist": [
-    {
-      "publicIp": "113.161.86.4",
-      "deviceIp": "172.29.240.1",
-      "status": "Active"
-    },
-    {
-      "publicIp": "42.112.127.182",
-      "deviceIp": "172.30.240.1",
-      "status": "Active"
-    }
-  ]
-}
+{"whitelist":[{"publicIp":"113.161.86.4","deviceIp":"172.29.240.1","status":"Active"},{"publicIp":"42.112.127.182","deviceIp":"172.30.240.1","status":"Active"},{"publicIp":"14.186.251.204","deviceIp":"","status":"Active"}]}

@@ -45,7 +45,7 @@ export async function PUT(req) {
       );
     }
     return NextResponse.json({
-      msg: ["Message sent successfully"],
+      msg: ["Content updated"],
       success: true,
     });
   } catch (error) {
@@ -102,7 +102,7 @@ export async function POST(req) {
       );
     }
     return NextResponse.json({
-      msg: ["Message sent successfully"],
+      msg: ["Content created"],
       success: true,
     });
   } catch (error) {

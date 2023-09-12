@@ -6,6 +6,7 @@ import { useUrl } from "nextjs-current-url";
 import UpdatePartner from "./updatePartner";
 import { updatePartner } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
+import ToastGenerator from "@/lib/toast-tify";
 
 interface Partner {
   status: string;
@@ -23,6 +24,8 @@ function PartnerTable() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectedPartner, setSelectedPartner] = useState(null);
   const [showPartner, setShowPartner] = useState(false);
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   useEffect(() => {
     const fetchNew = async () => {
       if (partnerData.length == 0) {
@@ -46,14 +49,25 @@ function PartnerTable() {
     setSelectedPartner(null);
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
-  const changeStatus = (partner) => {
+  const changeStatus = async (partner) => {
     let partnerStatusChange = JSON.parse(JSON.stringify(partner));
     if (partnerStatusChange["status"] == "Active") {
       partnerStatusChange["status"] = "Disable";
     } else {
       partnerStatusChange["status"] = "Active";
     }
-    updatePartner(partnerStatusChange, session);
+    let returnResult = await updatePartner(partnerStatusChange, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
+  };
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
   };
   const rows = partnerData.map((partner, index) => (
     <tr key={partner._id}>
@@ -86,6 +100,7 @@ function PartnerTable() {
 
   return (
     <div>
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <Table>
         <thead>
           <tr>

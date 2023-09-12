@@ -10,6 +10,7 @@ import { useUrl } from "nextjs-current-url";
 import { useSession } from "next-auth/react";
 import UpdateProductForm from "./updateProduct";
 import { updateProduct } from "@/lib/updateData";
+import ToastGenerator from "@/lib/toast-tify";
 
 interface Product {
   _id: string;
@@ -45,6 +46,8 @@ function ProductTable() {
   const [contentView, setContentView] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const productInfo = useSelector((rootState) => product(rootState));
 
   let serviceList = productInfo.productData.value.product;
@@ -104,14 +107,25 @@ function ProductTable() {
   const toggleShowContent = () => {
     setShowContent(!showContent);
   };
-  const changeStatus = (product) => {
+  const changeStatus = async (product) => {
     let productStatusChange = JSON.parse(JSON.stringify(product));
     if (productStatusChange["status"] == "Active") {
       productStatusChange["status"] = "Disable";
     } else {
       productStatusChange["status"] = "Active";
     }
-    updateProduct(productStatusChange, session);
+    let returnResult = await updateProduct(productStatusChange, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
+  };
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
   };
   const rows = serviceList.map((product, index) => (
     <tr key={product._id}>
@@ -164,6 +178,7 @@ function ProductTable() {
 
   return (
     <div>
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <Table>
         <thead>
           <tr>

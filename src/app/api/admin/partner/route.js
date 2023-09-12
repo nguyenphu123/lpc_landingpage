@@ -28,7 +28,7 @@ export async function POST(req) {
     }
 
     return NextResponse.json({
-      msg: ["Message sent successfully"],
+      msg: ["Partner Added"],
       success: true,
     });
   } catch (error) {
@@ -73,7 +73,7 @@ export async function PUT(req) {
       );
     }
     return NextResponse.json({
-      msg: ["Message sent successfully"],
+      msg: ["Partner updated"],
       success: true,
     });
   } catch (error) {

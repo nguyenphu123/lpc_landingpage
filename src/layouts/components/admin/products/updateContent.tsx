@@ -19,6 +19,7 @@ import {
 import TextEditor from "../RichTextEditor";
 import { updateProductContent } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
+import ToastGenerator from "@/lib/toast-tify";
 
 function UpdateContentForm({ product, content }) {
   const [submittedValues, setSubmittedValues] = useState("");
@@ -30,8 +31,10 @@ function UpdateContentForm({ product, content }) {
 
   // Thêm state để lưu trữ hình ảnh đã chọn
 
-  const [selectedImage, setSelectedImage] = useState(content.imgSrc);
-
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageURL, setSelectedImageURL] = useState(content.imgSrc);
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const onHandleChange = (e: any) => {
     if (e.language == "vn") {
       setDescription(e.data);
@@ -45,12 +48,13 @@ function UpdateContentForm({ product, content }) {
   const onImageChange = (e) => {
     const file = e.target.files[0];
 
-    setSelectedImage(URL.createObjectURL(file));
+    setSelectedImage(file);
+    setSelectedImageURL(URL.createObjectURL(file));
   };
 
   const onSubmitForm = async (value) => {
     let updateData = JSON.parse(JSON.stringify(value));
-    if (selectedImage && selectedImage != content.imgSrc) {
+    if (selectedImage && selectedImageURL != content.imgSrc) {
       const formData = new FormData();
 
       formData.append("file", selectedImage);
@@ -79,15 +83,30 @@ function UpdateContentForm({ product, content }) {
     updateData["description"] = description.toString();
     updateData["descriptionEn"] = descriptionEn.toString();
 
-    updateProductContent(product._id, updateData, session);
+    let returnResult = await updateProductContent(
+      product._id,
+      updateData,
+      session,
+    );
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
   };
-
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
+  };
   const form = useForm({
-    initialValues: content,
+    initialValues: JSON.parse(JSON.stringify(content)),
   });
 
   return (
     <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <div className="container">
         <Box maw={"100%"} mx="auto">
           <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
@@ -160,9 +179,9 @@ function UpdateContentForm({ product, content }) {
                           borderRadius: "8px",
                         }}
                       >
-                        {selectedImage ? (
+                        {selectedImageURL ? (
                           <Image
-                            src={selectedImage}
+                            src={selectedImageURL}
                             alt="Selected Image"
                             width={150}
                             height={150}

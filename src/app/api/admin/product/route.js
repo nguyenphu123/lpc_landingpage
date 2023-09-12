@@ -59,7 +59,7 @@ export async function POST(req) {
       });
     }
     return NextResponse.json({
-      msg: ["Message sent successfully"],
+      msg: ["Product added"],
       success: true,
     });
   } catch (error) {
@@ -131,7 +131,7 @@ export async function PUT(req) {
       );
     }
     return NextResponse.json({
-      msg: ["Message sent successfully"],
+      msg: ["Product updated"],
       success: true,
     });
   } catch (error) {

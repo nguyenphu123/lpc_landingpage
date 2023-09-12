@@ -34,14 +34,36 @@ const ThemeSwitcher = () => {
         </Menu.Target>
 
         <Menu.Dropdown>
-          <Menu.Item icon={<span className=" flag-icon-rounded fi fi-vn" />}>
-            <button className="" onClick={() => dispatch(changeLanguage())}>
+          <Menu.Item
+            component="div"
+            icon={
+              <span
+                onClick={() => dispatch(changeLanguage("vn"))}
+                className=" flag-icon-rounded fi fi-vn"
+              />
+            }
+          >
+            <button
+              className="w-full"
+              onClick={() => dispatch(changeLanguage("vn"))}
+            >
               Vietnamese
             </button>
           </Menu.Item>
 
-          <Menu.Item icon={<span className="flag-icon-rounded fi fi-us" />}>
-            <button className="" onClick={() => dispatch(changeLanguage())}>
+          <Menu.Item
+            component="div"
+            icon={
+              <span
+                onClick={() => dispatch(changeLanguage("en"))}
+                className="flag-icon-rounded fi fi-us"
+              />
+            }
+          >
+            <button
+              className="w-full"
+              onClick={() => dispatch(changeLanguage("en"))}
+            >
               English
             </button>
           </Menu.Item>

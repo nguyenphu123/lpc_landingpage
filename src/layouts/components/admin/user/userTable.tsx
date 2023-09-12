@@ -6,6 +6,7 @@ import { useUrl } from "nextjs-current-url";
 import UpdateUser from "./updateUser";
 import { useSession } from "next-auth/react";
 import { updateCustomer } from "@/lib/updateData";
+import ToastGenerator from "@/lib/toast-tify";
 
 interface Customer {
   status: string;
@@ -21,6 +22,8 @@ function UserTable() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showCustomer, setShowCustomer] = useState(false);
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
@@ -49,14 +52,25 @@ function UserTable() {
     setSelectedUser(null);
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
-  const changeStatus = (user) => {
+  const changeStatus = async (user) => {
     let userStatusChange = JSON.parse(JSON.stringify(user));
     if (userStatusChange["status"] == "Active") {
       userStatusChange["status"] = "Disable";
     } else {
       userStatusChange["status"] = "Active";
     }
-    updateCustomer(userStatusChange, session);
+    let returnResult = await updateCustomer(userStatusChange, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
+  };
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
   };
   const rows = userData.map((user, index) => (
     <tr key={user._id}>
@@ -79,6 +93,7 @@ function UserTable() {
 
   return (
     <div>
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <Table>
         <thead>
           <tr>

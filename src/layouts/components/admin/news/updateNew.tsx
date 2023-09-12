@@ -17,13 +17,16 @@ import { updateNews } from "@/lib/updateData";
 
 import TextEditor from "../RichTextEditor";
 import { useSession } from "next-auth/react";
+import ToastGenerator from "@/lib/toast-tify";
 function UpdateNew({ New }) {
   const [submittedValues, setSubmittedValues] = useState("");
   let { data: session, status } = useSession();
   const [content, setContent]: any = useState(New.content);
   const [contentEn, setContentEn]: any = useState(New.contentEn);
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const form = useForm({
-    initialValues: New,
+    initialValues: JSON.parse(JSON.stringify(New)),
   });
   const onHandleChange = (e: any) => {
     if (e.language == "vn") {
@@ -34,14 +37,26 @@ function UpdateNew({ New }) {
 
     // form.insertListItem(`content.${e.idcontent}.description.${e.id}`, e);
   };
-  const onSubmitForm = (value) => {
+  const onSubmitForm = async (value) => {
     let updateData = { ...value };
     updateData["content"] = content;
     updateData["contentEn"] = contentEn;
-    updateNews(updateData, session);
+    let returnResult = await updateNews(updateData, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
+  };
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
   };
   return (
     <section className="section">
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <div className="container">
         <Box maw={900} mx="auto">
           <form onSubmit={form.onSubmit((values: any) => onSubmitForm(values))}>

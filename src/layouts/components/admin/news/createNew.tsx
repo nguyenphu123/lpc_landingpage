@@ -14,6 +14,7 @@ import { randomId } from "@mantine/hooks";
 
 import TextEditor from "../RichTextEditor";
 import { useSession } from "next-auth/react";
+import ToastGenerator from "@/lib/toast-tify";
 
 function AddNews() {
   const [content, setContent]: any = useState("");
@@ -26,7 +27,8 @@ function AddNews() {
   const currentDate = new Date();
   const formattedDate = currentDate.toISOString().split("T")[0]; // Định dạng thành "YYYY-MM-DD"
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
-
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const form = useForm({
     initialValues: {
       key: randomId(),
@@ -116,19 +118,23 @@ function AddNews() {
 
     setContentEn("");
 
-    createNews(values, session);
-
+    let returnResult = await createNews(values, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
     form.reset();
-
-    setSuccessMessage("Data added successfully!");
-
-    setTimeout(() => {
-      setSuccessMessage(null);
-    }, 5000);
   };
-
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
+  };
   return (
     <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <div className="container">
         <Box maw={"100%"} mx="auto">
           <form onSubmit={form.onSubmit((values: any) => onSubmitForm(values))}>

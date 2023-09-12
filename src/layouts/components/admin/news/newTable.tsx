@@ -13,6 +13,7 @@ import UpdateNew from "./updateNew";
 import { useUrl } from "nextjs-current-url";
 import { useSession } from "next-auth/react";
 import { updateNews } from "@/lib/updateData";
+import ToastGenerator from "@/lib/toast-tify";
 
 interface News {
   _id: string;
@@ -40,7 +41,8 @@ function NewsTable() {
   const newInfo = useSelector((rootState) => news(rootState));
 
   const newList = newInfo.newData.value.companyNews;
-
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -80,14 +82,25 @@ function NewsTable() {
         .catch(console.error);
     }
   }, []);
-  const changeStatus = (news) => {
+  const changeStatus = async (news) => {
     let newsStatusChange = JSON.parse(JSON.stringify(news));
     if (newsStatusChange["draft"]) {
       newsStatusChange["draft"] = false;
     } else {
       newsStatusChange["draft"] = true;
     }
-    updateNews(newsStatusChange, session);
+    let returnResult = await updateNews(newsStatusChange, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
+  };
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
   };
   const rows = newList.map((news, index) => (
     <tr key={news._id}>
@@ -152,6 +165,7 @@ function NewsTable() {
 
   return (
     <div>
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <Table>
         <thead>
           <tr>

@@ -1,7 +1,7 @@
 import fsPromises from "fs/promises";
 import path from "path";
 import { NextResponse } from "next/server";
-const dataFilePath = path.join(process.cwd(), "config/whitelist.json");
+const dataFilePath = path.join(process.cwd(), "src/config/whitelist.json");
 export async function POST(req, res) {
   const { ip } = await req.json();
   try {
@@ -13,9 +13,9 @@ export async function POST(req, res) {
     const newData = {
       publicIp: ip,
       deviceIp: "",
-      status:"Active"
+      status: "Active",
     };
-    objectData.push(newData);
+    objectData.whitelist.push(newData);
 
     // Convert the object back to a JSON string
     const updatedData = JSON.stringify(objectData);
@@ -25,7 +25,7 @@ export async function POST(req, res) {
 
     // Send a success response
     return NextResponse.json({
-      msg: ["Message sent successfully"],
+      msg: ["Ip added"],
     });
   } catch (error) {
     console.error(error);

@@ -10,6 +10,7 @@ import { TextInput, Button, Box, Grid, Col, Select } from "@mantine/core";
 
 import { updateProduct } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
+import ToastGenerator from "@/lib/toast-tify";
 
 function UpdateProductForm({ product }) {
   let { data: session, status } = useSession();
@@ -17,16 +18,18 @@ function UpdateProductForm({ product }) {
 
   // Thêm state để lưu trữ hình ảnh đã chọn
 
-  const [selectedImage, setSelectedImage] = useState(product.image);
-
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageURL, setSelectedImageURL] = useState(product.image);
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const onImageChange = (e) => {
     const file = e.target.files[0];
-
-    setSelectedImage(URL.createObjectURL(file));
+    setSelectedImage(file);
+    setSelectedImageURL(URL.createObjectURL(file));
   };
 
   const onSubmitForm = async (value) => {
-    if (selectedImage && selectedImage != product.image) {
+    if (selectedImage && selectedImageURL != product.image) {
       const formData = new FormData();
 
       formData.append("file", selectedImage);
@@ -52,15 +55,26 @@ function UpdateProductForm({ product }) {
       }
     }
 
-    updateProduct(value, session);
+    let returnResult = await updateProduct(value, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
   };
-
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
+  };
   const form = useForm({
-    initialValues: product,
+    initialValues: JSON.parse(JSON.stringify(product)),
   });
 
   return (
     <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <div className="container">
         <Box maw={"100%"} mx="auto">
           <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
@@ -109,7 +123,7 @@ function UpdateProductForm({ product }) {
                       >
                         {selectedImage ? (
                           <Image
-                            src={selectedImage}
+                            src={selectedImageURL}
                             alt="Selected Image"
                             width={150}
                             height={150}

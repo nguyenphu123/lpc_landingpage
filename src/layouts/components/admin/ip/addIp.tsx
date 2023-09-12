@@ -8,11 +8,13 @@ import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
 
 import { addIp } from "@/lib/createData";
 import { useSession } from "next-auth/react";
+import ToastGenerator from "@/lib/toast-tify";
 
 function AddIp() {
   let { data: session, status } = useSession();
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
-
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const form = useForm({
     initialValues: {
       ip: "",
@@ -23,19 +25,30 @@ function AddIp() {
     // Continue with the rest of the form submission
 
     const ip = await addIp(values, session);
+    if (ip.success != undefined) {
+      showToast(ip.msg);
+    }
     form.reset();
 
     setSuccessMessage(ip.msg);
 
     setTimeout(() => {
       setSuccessMessage(null);
-    }, 5000);
+    }, 10000);
   };
-
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
+  };
   return (
     // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
     <div className="container">
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <Box maw={"75%"} mx="auto">
         <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
           <h3 className="flex justify-center">Add new ip</h3>

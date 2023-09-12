@@ -7,6 +7,7 @@ import { useUrl } from "nextjs-current-url";
 import UpdateBanner from "./updateBanner";
 import { useSession } from "next-auth/react";
 import { updateBanner } from "@/lib/updateData";
+import ToastGenerator from "@/lib/toast-tify";
 
 interface Banner {
   status: string;
@@ -31,7 +32,8 @@ function BannerTable() {
   const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
 
   const [isEditMode, setIsEditMode] = useState(false);
-
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   useEffect(() => {
     const fetchNew = async () => {
       if (bannerData.length == 0) {
@@ -57,14 +59,25 @@ function BannerTable() {
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
 
-  const changeStatus = (banner) => {
+  const changeStatus = async (banner) => {
     let bannerStatusChange = JSON.parse(JSON.stringify(banner));
     if (bannerStatusChange["status"] == "Active") {
       bannerStatusChange["status"] = "Disable";
     } else {
       bannerStatusChange["status"] = "Active";
     }
-    updateBanner(bannerStatusChange, session);
+    let returnResult = await updateBanner(bannerStatusChange, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
+  };
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
   };
   const rows = bannerData.map((banner, index) => (
     <tr key={banner._id}>
@@ -108,6 +121,7 @@ function BannerTable() {
 
   return (
     <div>
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <Table>
         <thead>
           <tr>

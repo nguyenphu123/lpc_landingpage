@@ -11,6 +11,7 @@ import { TextInput, Button, Box, Code, Grid, Col, Select } from "@mantine/core";
 import { addProduct } from "@/lib/createData";
 
 import { useSession } from "next-auth/react";
+import ToastGenerator from "@/lib/toast-tify";
 
 interface ProductFormProps {}
 
@@ -22,7 +23,8 @@ function ProductForm(props: ProductFormProps) {
   // Thêm state để lưu trữ hình ảnh đã chọn
 
   const [selectedImage, setSelectedImage] = useState(null);
-
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const onImageChange = (e) => {
     const file = e.target.files[0];
 
@@ -56,9 +58,19 @@ function ProductForm(props: ProductFormProps) {
       }
     }
 
-    addProduct(value, session);
+    let returnResult = await addProduct(value, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
   };
-
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
+  };
   const form = useForm({
     initialValues: {
       title: "",
@@ -87,6 +99,7 @@ function ProductForm(props: ProductFormProps) {
 
   return (
     <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <div className="container">
         <Box maw={"100%"} mx="auto">
           <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>

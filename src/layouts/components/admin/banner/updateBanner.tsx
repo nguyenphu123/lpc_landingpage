@@ -10,28 +10,31 @@ import { updateBanner } from "@/lib/updateData";
 
 import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
 import { useSession } from "next-auth/react";
+import ToastGenerator from "@/lib/toast-tify";
 
 const UpdateBanner = ({ banner, handleSaveClick }) => {
-  const [selectedImage, setSelectedImage] = useState(banner.image);
+  const [selectedImage, setSelectedImage] = useState(null);
   let { data: session, status }: any = useSession();
   const [imagePreview, setImagePreview] = useState(banner.image);
 
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
 
   const onImageChange = (e) => {
     const file = e.target.files[0];
 
     const imageUrl = URL.createObjectURL(file);
-    setSelectedImage(imageUrl);
+    setSelectedImage(file);
     setImagePreview(imageUrl);
   };
 
   const form = useForm({
-    initialValues: banner,
+    initialValues: JSON.parse(JSON.stringify(banner)),
   });
 
   const onSubmitForm = async (values) => {
-    if (selectedImage && selectedImage != banner.image) {
+    if (selectedImage && imagePreview != banner.image) {
       // Nếu có hình ảnh được chọn, tải lên trước
 
       const formData = new FormData();
@@ -61,21 +64,25 @@ const UpdateBanner = ({ banner, handleSaveClick }) => {
 
     // Tiếp tục với phần còn lại của quá trình gửi biểu mẫu
 
-    updateBanner(values, session);
-
+    let returnResult = await updateBanner(values, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
     form.reset();
-
-    setSuccessMessage("Data updated successfully!");
-    handleSaveClick();
-    setTimeout(() => {
-      setSuccessMessage(null);
-    }, 5000);
   };
-
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
+  };
   return (
     // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
     <div className="container">
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <Box maw={"75%"} mx="auto">
         <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
           <h3 className="flex justify-center">Update content</h3>

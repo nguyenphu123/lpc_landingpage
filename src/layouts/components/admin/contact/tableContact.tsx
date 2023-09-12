@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import { Table, Modal, Button, Box, Grid, Col, TextInput } from "@mantine/core"; // Import thêm Button
 import { loadContact } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
+import { useSession } from "next-auth/react";
+import { updateContactInfo } from "@/lib/updateData";
+import ToastGenerator from "@/lib/toast-tify";
 
 interface Contact {
   _id: string;
@@ -25,7 +28,7 @@ interface Contact {
 function ContactTable() {
   const { pathname, href } = useUrl() ?? {};
   const [contactData, setContactData] = useState<Contact[]>([]);
-
+  let { data: session, status }: any = useSession();
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
 
   const [addContactVisible, setAddContactVisible] = useState(false);
@@ -33,7 +36,8 @@ function ContactTable() {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const [showContent, setShowContent] = useState(false);
-
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   useEffect(() => {
     const fetchNew = async () => {
       if (contactData.length == 0) {
@@ -61,12 +65,22 @@ function ContactTable() {
     setIsEditMode(selectedContact === contact); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
     // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
-
+    let returnResult = await updateContactInfo(selectedContact, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
-
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
+  };
   const handleViewClick = (news: Contact) => {
     setSelectedContact(news);
 
@@ -111,7 +125,7 @@ function ContactTable() {
         Add News
 
       </Button> */}
-
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <Table>
         <thead>
           <tr>

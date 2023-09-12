@@ -44,6 +44,8 @@ const UpdateUser = dynamic(() => import("@/components/admin/user/updateUser"));
 import { useEffect, useState } from "react";
 
 import { Button } from "@mantine/core";
+import IpTable from "@/components/admin/ip/ipTable";
+import AddIp from "@/components/admin/ip/addIp";
 
 // import "../styles/homepage.scss"
 const Home = () => {
@@ -417,6 +419,10 @@ const Home = () => {
               <UserForm />
             </Popup>
             <UserTable />
+            <Popup>
+              <AddIp />
+            </Popup>
+            <IpTable />
           </div>
         </div>
       </div>

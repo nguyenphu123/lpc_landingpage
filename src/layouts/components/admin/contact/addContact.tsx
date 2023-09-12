@@ -7,10 +7,13 @@ import { useForm } from "@mantine/form";
 import { TextInput, Button, Box, Code } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import { updateContactInfo } from "@/lib/updateData";
+import ToastGenerator from "@/lib/toast-tify";
 
 function ContactForm() {
   const [submittedValues, setSubmittedValues] = useState("");
   let { data: session, status }: any = useSession();
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const form = useForm({
     initialValues: {
       address: "",
@@ -28,16 +31,29 @@ function ContactForm() {
       socialAccount: [],
     },
   });
+  const onSubmitForm = async (values) => {
+    // Tiếp tục với phần còn lại của quá trình gửi biểu mẫu
 
+    let returnResult = await updateContactInfo(values, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
+    form.reset();
+  };
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
+  };
   return (
     <section className="section">
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <div className="container">
         <Box maw={600} mx="auto">
-          <form
-            onSubmit={form.onSubmit((values) =>
-              updateContactInfo(values, session),
-            )}
-          >
+          <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
             <h3 className="flex justify-center">Update contact content</h3>
 
             <TextInput

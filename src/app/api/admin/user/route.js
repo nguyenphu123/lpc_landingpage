@@ -65,7 +65,7 @@ export async function PUT(req) {
       );
     }
     return NextResponse.json({
-      msg: ["Message sent successfully"],
+      msg: ["User updated"],
       success: true,
     });
   } catch (error) {

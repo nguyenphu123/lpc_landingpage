@@ -12,6 +12,7 @@ import { randomId } from "@mantine/hooks";
 
 import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
 import { useSession } from "next-auth/react";
+import ToastGenerator from "@/lib/toast-tify";
 
 const BannerForm = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -19,7 +20,8 @@ const BannerForm = () => {
   const [imagePreview, setImagePreview] = useState("");
 
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
-
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const onImageChange = (e) => {
     const file = e.target.files[0];
 
@@ -77,21 +79,25 @@ const BannerForm = () => {
 
     // Tiếp tục với phần còn lại của quá trình gửi biểu mẫu
 
-    addBanner(values, session);
-
+    let returnResult = await addBanner(values, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
     form.reset();
-
-    setSuccessMessage("Data added successfully!");
-
-    setTimeout(() => {
-      setSuccessMessage(null);
-    }, 5000);
   };
-
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
+  };
   return (
     // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
     <div className="container">
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <Box maw={"75%"} mx="auto">
         <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
           <h3 className="flex justify-center">Add banner content</h3>

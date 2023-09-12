@@ -21,8 +21,7 @@ import { randomId } from "@mantine/hooks";
 import TextEditor from "../RichTextEditor";
 import { addProductContent } from "@/lib/createData";
 import { useSession } from "next-auth/react";
-
-interface ContentFormProps {}
+import ToastGenerator from "@/lib/toast-tify";
 
 function ContentForm({ product }) {
   const [submittedValues, setSubmittedValues] = useState("");
@@ -36,7 +35,8 @@ function ContentForm({ product }) {
   const [updatedProduct, setUpdatedProduct] = useState(
     JSON.parse(JSON.stringify(product)),
   );
-
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const onHandleChange = (e: any) => {
     if (e.language == "vn") {
       setDescription(e.data);
@@ -82,9 +82,19 @@ function ContentForm({ product }) {
     value.description = description;
     value.descriptionEn = descriptionEn;
 
-    addProductContent(product._id, value, session);
+    let returnResult = await addProductContent(product._id, value, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
   };
-
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
+  };
   const form = useForm({
     initialValues: {
       key: randomId(),
@@ -106,6 +116,7 @@ function ContentForm({ product }) {
 
   return (
     <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <div className="container">
         <Box maw={"100%"} mx="auto">
           <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>

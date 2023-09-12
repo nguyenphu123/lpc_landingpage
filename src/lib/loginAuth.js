@@ -29,7 +29,7 @@ export const authOptions = {
             return null;
           }
 
-          if (!(password.toString() == returnData.password.toString())) {
+          if (!(password == returnData.password)) {
             return null;
           }
 

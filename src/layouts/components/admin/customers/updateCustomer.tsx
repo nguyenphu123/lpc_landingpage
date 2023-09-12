@@ -8,24 +8,27 @@ import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
 import Image from "next/image";
 import { updateCustomer } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
+import ToastGenerator from "@/lib/toast-tify";
 
 function UpdateCustomer({ Customer, handleSaveClick }) {
-  const [selectedImage, setSelectedImage] = useState(Customer.src);
+  const [selectedImage, setSelectedImage] = useState(null);
   let { data: session, status } = useSession();
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
-
+  const [selectedImageURL, setSelectedImageURL] = useState(Customer.src);
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const form = useForm({
-    initialValues: Customer,
+    initialValues: JSON.parse(JSON.stringify(Customer)),
   });
 
   const onImageChange = (e) => {
     const file = e.target.files[0];
-
-    setSelectedImage(URL.createObjectURL(file));
+    setSelectedImageURL(URL.createObjectURL(file));
+    setSelectedImage(file);
   };
 
   const onSubmitForm = async (values) => {
-    if (selectedImage && selectedImage != Customer.src) {
+    if (selectedImage && selectedImageURL != Customer.src) {
       const formData = new FormData();
 
       formData.append("file", selectedImage);
@@ -53,21 +56,25 @@ function UpdateCustomer({ Customer, handleSaveClick }) {
 
     // Continue with the rest of the form submission
 
-    updateCustomer(values, session);
-
+    let returnResult = await updateCustomer(values, session);
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
     form.reset();
-
-    setSuccessMessage("Data added successfully!");
-    handleSaveClick();
-    setTimeout(() => {
-      setSuccessMessage(null);
-    }, 5000);
   };
-
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
+  };
   return (
     // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
     <div className="container">
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <Box maw={"75%"} mx="auto">
         <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
           <h3 className="flex justify-center">Update customers</h3>
@@ -84,7 +91,7 @@ function UpdateCustomer({ Customer, handleSaveClick }) {
             <Col span={6}>
               <input type="file" accept="image/*" onChange={onImageChange} />
               <Image
-                src={selectedImage}
+                src={selectedImageURL}
                 alt="Selected Image"
                 width={150}
                 height={150}

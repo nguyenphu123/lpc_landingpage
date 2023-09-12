@@ -8,6 +8,7 @@ import ContentForm from "./createContent";
 import UpdateContentForm from "./updateContent";
 import { useSession } from "next-auth/react";
 import { updateProductContent } from "@/lib/updateData";
+import ToastGenerator from "@/lib/toast-tify";
 
 interface Product {
   _id: string;
@@ -42,7 +43,8 @@ function ContentTable({ product }) {
   const [isEditMode, setIsEditMode] = useState(false);
 
   const [showContent, setShowContent] = useState(false);
-
+  const [isSucess, setIsSucess] = useState(false);
+  const [sucessMessage, setSucessMessage] = useState("");
   const handleEditClick = (product: Product) => {
     setSelectedProduct(product);
 
@@ -64,14 +66,29 @@ function ContentTable({ product }) {
   const toggleShowContent = () => {
     setShowContent(!showContent);
   };
-  const changeStatus = (item) => {
+  const changeStatus = async (item) => {
     let itemStatusChange = JSON.parse(JSON.stringify(item));
     if (itemStatusChange["status"] == "Active") {
       itemStatusChange["status"] = "Disable";
     } else {
       itemStatusChange["status"] = "Active";
     }
-    updateProductContent(product._id, itemStatusChange, session);
+    let returnResult = await updateProductContent(
+      product._id,
+      itemStatusChange,
+      session,
+    );
+    if (returnResult.success != undefined) {
+      showToast(returnResult.msg);
+    }
+  };
+  const showToast = (msg) => {
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
   };
   let rows:
     | string
@@ -131,6 +148,7 @@ function ContentTable({ product }) {
 
   return (
     <div>
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <Popup>
         <ContentForm product={product} />
       </Popup>

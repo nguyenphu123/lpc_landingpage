@@ -21,7 +21,7 @@ const SeoMeta = ({
 }) => {
   const { meta_image, meta_author, meta_description } = config.metadata;
   const { base_url } = config.site;
-  const pathname : any = usePathname();
+  const pathname: any = usePathname();
 
   return (
     <>
@@ -49,7 +49,7 @@ const SeoMeta = ({
       <meta
         property="og:title"
         content={plainify(
-          meta_title ? meta_title : title ? title : config.site.title
+          meta_title ? meta_title : title ? title : config.site.title,
         )}
       />
 
@@ -68,7 +68,7 @@ const SeoMeta = ({
       <meta
         name="twitter:title"
         content={plainify(
-          meta_title ? meta_title : title ? title : config.site.title
+          meta_title ? meta_title : title ? title : config.site.title,
         )}
       />
 
@@ -81,13 +81,13 @@ const SeoMeta = ({
       {/* og-image */}
       <meta
         property="og:image"
-        content={`${base_url}${image ? image : meta_image}`}
+        content={`https://res.cloudinary.com/derjssgq9/image/upload/v1693208949/download_6_svy5oe.webp`}
       />
 
       {/* twitter-image */}
       <meta
         name="twitter:image"
-        content={`${base_url}${image ? image : meta_image}`}
+        content={`https://res.cloudinary.com/derjssgq9/image/upload/v1693208949/download_6_svy5oe.webp`}
       />
       <meta name="twitter:card" content="summary_large_image" />
     </>

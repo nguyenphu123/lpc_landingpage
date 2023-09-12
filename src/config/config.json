@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "LPC",
-    "base_url": "https://nextplate.netlify.app",
+    "base_url": "https://lp.com.vn",
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.png",

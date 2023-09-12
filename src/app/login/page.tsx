@@ -75,7 +75,7 @@ export default function Login() {
         //setError("Invalid Credentials");
         return;
       }
-      dispatch(userLogin(loginInfo));
+      // dispatch(userLogin(loginInfo));
       router.push("/admin");
     } catch (error) {
       setErrorMessage(true);

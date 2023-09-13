@@ -20,7 +20,7 @@ function UpdateUser({ user, handleSaveClick }) {
 
   const onSubmitForm = async (values) => {
     let regularExpression =
-      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{12,24}$/;
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{12,}$/;
     if (values.password.match(regularExpression)) {
       if (values.password != values.matchPassword) {
         showToast("Confirm password does not match");
@@ -28,9 +28,9 @@ function UpdateUser({ user, handleSaveClick }) {
         var salt = bcrypt.genSaltSync(10);
         var hash = bcrypt.hash(values.password, salt).toString();
         let newPassword = {
-          _id: user.__id,
+          _id: user._id,
           password: hash,
-          loginCount: user.loginCount + 1,
+          loginCount: 1,
         };
         // Continue with the rest of the form submission
 
@@ -43,6 +43,8 @@ function UpdateUser({ user, handleSaveClick }) {
           handleSaveClick();
         }, 10000);
       }
+    } else {
+      showToast("Your password format is not correct");
     }
   };
   const showToast = (msg) => {

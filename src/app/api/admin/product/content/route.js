@@ -3,7 +3,7 @@ import Product from "@/models/product";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
-
+//update a content
 export async function PUT(req) {
   const {
     _id,
@@ -23,10 +23,12 @@ export async function PUT(req) {
     imgSrc,
     status,
   } = await req.json();
-  const session = await getServerSession({ req });
+  const session = await getServerSession({ req }); //get server side session
   try {
     if (session != undefined) {
-      await connectDB();
+      //check session
+      await connectDB(); //connect to database
+      //update a record
       await Product.updateOne(
         { _id: _id },
         {
@@ -43,24 +45,29 @@ export async function PUT(req) {
         },
         { arrayFilters: [{ "content._id": contentId }] },
       );
+      return NextResponse.json({
+        msg: ["Content updated"],
+        success: true,
+      });
+    } else {
+      //session not exist
+      return NextResponse.json({
+        msg: ["You are not allowed to perform this action."],
+      });
     }
-    return NextResponse.json({
-      msg: ["Content updated"],
-      success: true,
-    });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let errorList = [];
       for (let e in error.errors) {
         errorList.push(error.errors[e].message);
       }
-      // console.log(errorList);
       return NextResponse.json({ msg: errorList });
     } else {
       return NextResponse.json({ msg: error });
     }
   }
 }
+//add a new content to product
 export async function POST(req) {
   const {
     _id,
@@ -79,10 +86,12 @@ export async function POST(req) {
 
     imgSrc,
   } = await req.json();
-  const session = await getServerSession({ req });
+  const session = await getServerSession({ req }); //get server side session
   try {
     if (session != undefined) {
-      await connectDB();
+      //check session
+      await connectDB(); //connect to database
+      //create a record
       await Product.updateOne(
         { _id: _id },
         {
@@ -100,18 +109,22 @@ export async function POST(req) {
           },
         },
       );
+      return NextResponse.json({
+        msg: ["Content created"],
+        success: true,
+      });
+    } else {
+      //session not exist
+      return NextResponse.json({
+        msg: ["You are not allowed to perform this action."],
+      });
     }
-    return NextResponse.json({
-      msg: ["Content created"],
-      success: true,
-    });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let errorList = [];
       for (let e in error.errors) {
         errorList.push(error.errors[e].message);
       }
-      // console.log(errorList);
       return NextResponse.json({ msg: errorList });
     } else {
       return NextResponse.json({ msg: error });

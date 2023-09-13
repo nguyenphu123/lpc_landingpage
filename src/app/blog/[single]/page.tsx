@@ -4,8 +4,6 @@ import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 
 import dateFormat from "@/lib/utils/dateFormat";
 
-import similerItems from "@/lib/utils/similarItems";
-
 import Link from "next/link";
 
 import { useRouter, useParams } from "next/navigation";
@@ -16,15 +14,12 @@ import Data from "@/config/data.json";
 
 import DataEn from "@/config/dataEn.json";
 
-import { companyNew, news } from "@/feature/data/newSlice";
-
 import { useEffect, useState } from "react";
 import { useUrl } from "nextjs-current-url";
-import { loadNew, loadNews } from "@/lib/loadData";
+import { loadNew } from "@/lib/loadData";
 import dynamic from "next/dynamic";
 import SimilarItem from "@/components/similarItem";
-const BlogCard = dynamic(() => import("@/components/BlogCard"));
-// const Share = dynamic(() => import("@/components/Share"));
+
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 const PostSingle = () => {
   const { href } = useUrl() ?? {};
@@ -32,10 +27,6 @@ const PostSingle = () => {
   const params: any = useParams();
   const [isBusy, setBusy] = useState(true);
   let [data, setData]: any = useState({});
-
-  let [similarPosts, setSimilarPosts]: any = useState([]);
-
-  const dispatch = useDispatch();
 
   const router = useRouter();
 

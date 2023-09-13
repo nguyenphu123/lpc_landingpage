@@ -46,44 +46,90 @@ import { useEffect, useState } from "react";
 import { Button } from "@mantine/core";
 import IpTable from "@/components/admin/ip/ipTable";
 import AddIp from "@/components/admin/ip/addIp";
+import { updateUserLoginCount } from "@/lib/updateData";
+import ToastGenerator from "@/lib/toast-tify";
 
-// import "../styles/homepage.scss"
+//admin page
 const Home = () => {
+  //show banner table
   const [showBanner, setShowBanner] = useState("visible");
+  //show contact table
   const [showContact, setShowContact] = useState("hidden");
+  //show customer table
   const [showCustomer, setShowCustomer] = useState("hidden");
+  //show article(New) table
   const [showNew, setShowNew] = useState("hidden");
+  //show message table
   const [showMessage, setShowMessage] = useState("hidden");
+  //show partner table
   const [showPartner, setShowPartner] = useState("hidden");
+  //show product table
   const [showProduct, setShowProduct] = useState("hidden");
+  //show user table
   const [showUser, setShowUser] = useState("hidden");
+  //show change password page
   const [showChangePassword, setShowChangePassword] = useState("hidden");
+  //is call api success
+  const [isSucess, setIsSucess] = useState(false);
+  //set show message
+  const [sucessMessage, setSucessMessage] = useState("");
+  //check user login status
   const { status }: any = useSession({
     required: true,
     onUnauthenticated() {
       redirect("/login");
     },
   });
+  //check user login session
   const { data: session }: any = useSession();
   useEffect(() => {
-    if (status !== "loading") {
-      if (session.user.loginCount == 0) {
-        // redirect("/admin/changepassword");
-        // setShowChangePassword("visible");
-        // setShowBanner("hidden");
-        // setShowContact("hidden");
-        // setShowCustomer("hidden");
-        // setShowNew("hidden");
-        // setShowMessage("hidden");
-        // setShowPartner("hidden");
-        // setShowProduct("hidden");
-        // setShowUser("hidden");
+    //check user is first time login or not
+    const checkuserStatus = async () => {
+      if (status !== "loading") {
+        if (session.user.loginCount == 0) {
+          //is first time login will direct user to change password
+
+          setShowChangePassword("visible");
+          setShowBanner("hidden");
+          setShowContact("hidden");
+          setShowCustomer("hidden");
+          setShowNew("hidden");
+          setShowMessage("hidden");
+          setShowPartner("hidden");
+          setShowProduct("hidden");
+          setShowUser("hidden");
+        } else {
+          //user already login more than once
+          let userData = {
+            _id: session.user._id,
+            loginCount: session.user.loginCount + 1,
+          };
+          let returnResult = await updateUserLoginCount(userData, session); //will update user login count
+          if (returnResult.success != undefined) {
+            showToast(returnResult.msg);
+          }
+        }
+      } else {
       }
-    }
+    };
+    // call the function
+    checkuserStatus()
+      // make sure to catch any error
+      .catch(console.error);
   }, [status, session]);
+  const showToast = (msg) => {
+    //set a toast message in 10 second
+    setIsSucess(true);
+    setSucessMessage(msg);
+    setTimeout(() => {
+      setIsSucess(false);
+      setSucessMessage("");
+    }, 10000);
+  };
   useEffect(() => {
-    onInactive(600000, function () {
-      //signOut();
+    //sign out after 1 hour of not interacting
+    onInactive(3600000, function () {
+      signOut();
     });
     function onInactive(ms, cb) {
       var wait = setTimeout(cb, ms);
@@ -101,12 +147,13 @@ const Home = () => {
     }
   }, []);
   const logOut = () => {
+    //logout action
     signOut();
-    // redirect("/login");
   };
   const onClick = (tabNo: string) => {
+    //change tab
     switch (tabNo) {
-      case "banner":
+      case "banner": //banner tab
         setShowBanner("visible");
         setShowContact("hidden");
         setShowCustomer("hidden");
@@ -116,7 +163,7 @@ const Home = () => {
         setShowProduct("hidden");
         setShowUser("hidden");
         break;
-      case "contact":
+      case "contact": //contact tab
         setShowBanner("hidden");
         setShowContact("visible");
         setShowCustomer("hidden");
@@ -126,7 +173,7 @@ const Home = () => {
         setShowProduct("hidden");
         setShowUser("hidden");
         break;
-      case "customer":
+      case "customer": //customer tab
         setShowBanner("hidden");
         setShowContact("hidden");
         setShowCustomer("visible");
@@ -136,7 +183,7 @@ const Home = () => {
         setShowProduct("hidden");
         setShowUser("hidden");
         break;
-      case "new":
+      case "new": //new tab
         setShowBanner("hidden");
         setShowContact("hidden");
         setShowCustomer("hidden");
@@ -146,7 +193,7 @@ const Home = () => {
         setShowProduct("hidden");
         setShowUser("hidden");
         break;
-      case "message":
+      case "message": //message tab
         setShowBanner("hidden");
         setShowContact("hidden");
         setShowCustomer("hidden");
@@ -156,7 +203,7 @@ const Home = () => {
         setShowProduct("hidden");
         setShowUser("hidden");
         break;
-      case "partner":
+      case "partner": //partner tab
         setShowBanner("hidden");
         setShowContact("hidden");
         setShowCustomer("hidden");
@@ -166,7 +213,7 @@ const Home = () => {
         setShowProduct("hidden");
         setShowUser("hidden");
         break;
-      case "product":
+      case "product": //product tab
         setShowBanner("hidden");
         setShowContact("hidden");
         setShowCustomer("hidden");
@@ -176,7 +223,7 @@ const Home = () => {
         setShowProduct("visible");
         setShowUser("hidden");
         break;
-      case "user":
+      case "user": //user tab
         setShowBanner("hidden");
         setShowContact("hidden");
         setShowCustomer("hidden");
@@ -189,15 +236,8 @@ const Home = () => {
     }
   };
   const handleSaveClick = () => {
-    setShowChangePassword("hidden");
-    setShowBanner("visible");
-    setShowContact("hidden");
-    setShowCustomer("hidden");
-    setShowNew("hidden");
-    setShowMessage("hidden");
-    setShowPartner("hidden");
-    setShowProduct("hidden");
-    setShowUser("hidden");
+    //signout when change password completed
+    signOut();
   };
   if (status == "loading") {
     return <></>;
@@ -208,6 +248,7 @@ const Home = () => {
       </div>
     ) : (
       <div className="max-w-7xl mx-auto ">
+        {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
         <Button onClick={() => logOut()} variant="default">
           Log out
         </Button>

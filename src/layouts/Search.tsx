@@ -3,12 +3,12 @@ import Fuse from "fuse.js";
 import React, { Key, useEffect, useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa/index.js";
 import { useSelector } from "react-redux";
-import { news } from "@/feature/data/newSlice";
+
 import { Grid } from "@mantine/core";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import dynamic from "next/dynamic";
 import { searchNews } from "@/lib/loadData";
-import { useUrl } from "nextjs-current-url";
+
 const ImageFallback = dynamic(() => import("./helpers/ImageFallback"));
 const NewITem = dynamic(() => import("../layouts/components/newItem"));
 export type SearchItem = {

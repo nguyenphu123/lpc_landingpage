@@ -31,8 +31,6 @@ function ContactTable() {
   let { data: session, status }: any = useSession();
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
 
-  const [addContactVisible, setAddContactVisible] = useState(false);
-
   const [isEditMode, setIsEditMode] = useState(false);
 
   const [showContent, setShowContent] = useState(false);
@@ -50,14 +48,6 @@ function ContactTable() {
       // make sure to catch any error
       .catch(console.error);
   }, [contactData]);
-
-  // const handleEditClick = (news: News) => {
-
-  //   setSelectedNews(news);
-
-  //   setEditNewsVisible(true);
-
-  // };
 
   const handleEditClick = (contact: Contact) => {
     setSelectedContact(contact);
@@ -80,15 +70,6 @@ function ContactTable() {
       setIsSucess(false);
       setSucessMessage("");
     }, 10000);
-  };
-  const handleViewClick = (news: Contact) => {
-    setSelectedContact(news);
-
-    setIsEditMode(false); // Chuyển sang chế độ xem
-  };
-
-  const toggleShowContent = () => {
-    setShowContent(!showContent);
   };
 
   const rows = contactData.map((contact, index) => (

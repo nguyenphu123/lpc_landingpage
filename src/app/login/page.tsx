@@ -1,19 +1,16 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import Whitelist from "@/config/whitelist.json";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import PageHeader from "@/partials/PageHeader";
 import { signIn } from "next-auth/react";
-import { userLogin } from "@/feature/login/loginSlice";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { publicIpv4 } from "public-ip";
-
-// import { internalIpV4Sync } from "internal-ip";
 var bcrypt = require("bcryptjs");
 
 export default function Login() {
@@ -25,7 +22,7 @@ export default function Login() {
   const [userIp, setUserIp] = useState("");
   const router = useRouter();
   const ipList: any = Whitelist.whitelist;
-  const dispatch = useDispatch();
+
   const data = {
     title: "Login",
     meta_title: "",
@@ -40,16 +37,11 @@ export default function Login() {
         let acceptList = ipList.filter(
           (item) => item.publicIp == ipAddress && item.status == "Active",
         );
-        // console.log(getIp());
+
         if (acceptList.length == 0) {
           router.push("/404");
         }
-
-        // fetch("https://api.ipify.org?format=json")
-        //   .then((response) => response.json())
-        //   .then((data) => console.log(data.ip));
       } else {
-        console.log(userIp);
       }
     };
     // call the function

@@ -1,21 +1,28 @@
 import connectDB from "@/lib/mongodb";
-import Message from "@/models/message";
+import User from "@/models/user";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
-//get message send by guest
-export async function POST(req, res) {
+//update user login count
+export async function PUT(req) {
+  const { _id, loginCount } = await req.json();
   const session = await getServerSession({ req }); //get server side session
   try {
-    if (session) {
+    if (session != undefined) {
       //check session
       await connectDB(); //connect to database
-      //find all message with fields(name, email, message)
-      const messages = await Message.find(
-        {},
-        { name: 1, email: 1, message: 1 },
+      //update user login count
+      await User.findOneAndUpdate(
+        { _id: _id },
+        {
+          loginCount,
+        },
+        { new: true },
       );
-      return NextResponse.json({ messages });
+      return NextResponse.json({
+        msg: ["Welcome"],
+        success: true,
+      });
     } else {
       //session not exist
       return NextResponse.json({
@@ -28,7 +35,6 @@ export async function POST(req, res) {
       for (let e in error.errors) {
         errorList.push(error.errors[e].message);
       }
-
       return NextResponse.json({ msg: errorList });
     } else {
       return NextResponse.json({ msg: error });

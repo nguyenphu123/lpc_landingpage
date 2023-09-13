@@ -5,11 +5,12 @@ import mongoose from "mongoose";
 import decryptId from "../../../../../../lib/utils/decrypt";
 export async function POST(req, res) {
   const { _id, searchField, contentId } = await req.json();
-  const decrypted = decryptId(_id);
-  const decryptedContent = decryptId(contentId);
+  const decrypted = decryptId(_id); //decrypt id from parameter
+  const decryptedContent = decryptId(contentId); //decrypt content id from parameter
 
   try {
-    await connectDB();
+    await connectDB(); //connect to database
+    //get one content from database
     const products = await Product.findOne(
       { _id: decrypted },
       { content: { $elemMatch: { _id: decryptedContent } } },
@@ -22,10 +23,10 @@ export async function POST(req, res) {
       for (let e in error.errors) {
         errorList.push(error.errors[e].message);
       }
-      console.log(errorList);
+
       return NextResponse.json({ msg: errorList });
     } else {
-      return NextResponse.json({ msg: ["Unable to send message."] });
+      return NextResponse.json({ msg: error });
     }
   }
 }

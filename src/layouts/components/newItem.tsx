@@ -11,7 +11,6 @@ import encryptId from "../../lib/utils/encrypt";
 import DataEn from "@/config/dataEn.json";
 import Image from "next/image";
 export default function NewItem({ src, title, id, i }: any) {
-  let keyUtf8 = "";
   const curlanguage = useSelector((rootState) => language(rootState));
 
   return (

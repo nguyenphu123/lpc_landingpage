@@ -3,6 +3,7 @@ import New from "@/models/new";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
+//create an article
 export async function POST(req) {
   const {
     title,
@@ -24,11 +25,12 @@ export async function POST(req) {
 
     contentEn,
   } = await req.json();
-  const session = await getServerSession({ req });
+  const session = await getServerSession({ req }); //get server side session
   try {
     if (session) {
-      await connectDB();
-
+      //check session
+      await connectDB(); //connect to database
+      //create a record
       await New.create({
         title,
 
@@ -51,11 +53,16 @@ export async function POST(req) {
 
         contentEn,
       });
+      return NextResponse.json({
+        msg: ["An article created successfully"],
+        success: true,
+      });
+    } else {
+      //session not exist
+      return NextResponse.json({
+        msg: ["You are not allowed to perform this action."],
+      });
     }
-    return NextResponse.json({
-      msg: ["An article created successfully"],
-      success: true,
-    });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let errorList = [];
@@ -69,7 +76,7 @@ export async function POST(req) {
     }
   }
 }
-
+//update an article
 export async function PUT(req) {
   const {
     _id,
@@ -92,11 +99,12 @@ export async function PUT(req) {
 
     contentEn,
   } = await req.json();
-  const session = await getServerSession({ req });
+  const session = await getServerSession({ req }); //get server side session
   try {
     if (session) {
-      await connectDB();
-
+      //check session
+      await connectDB(); //connect to database
+      //update a record
       await New.findOneAndUpdate(
         { _id: _id },
         {
@@ -121,11 +129,16 @@ export async function PUT(req) {
         },
         { new: true },
       );
+      return NextResponse.json({
+        msg: ["Article updated"],
+        success: true,
+      });
+    } else {
+      //session not exist
+      return NextResponse.json({
+        msg: ["You are not allowed to perform this action."],
+      });
     }
-    return NextResponse.json({
-      msg: ["Article updated"],
-      success: true,
-    });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let errorList = [];

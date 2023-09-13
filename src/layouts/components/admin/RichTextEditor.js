@@ -1,6 +1,4 @@
-import React, { useRef } from "react";
-import dynamic from "next/dynamic";
-import "suneditor/dist/css/suneditor.min.css"; // Import Sun Editor's CSS File
+import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
 export default function RichTextEditor({
@@ -16,17 +14,6 @@ export default function RichTextEditor({
     };
 
     onChange(returnValue);
-  };
-  const handleImageUploadBefore = async (blobInfo) => {
-    const formData = new FormData();
-    formData.append("file", blobInfo.blob(), blobInfo.filename());
-    formData.append("upload_preset", "ml_default");
-    try {
-    } catch (error) {
-      console.error(error);
-    }
-
-    // called here for stop double image
   };
 
   return (

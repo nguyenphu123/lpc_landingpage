@@ -2,11 +2,11 @@ import connectDB from "@/lib/mongodb";
 import Banner from "@/models/banner";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-
+//get all banner
 export async function GET(request) {
-  console.log(request.url)
+  console.log(request.url);
   try {
-    await connectDB();
+    await connectDB(); //connect to database
     const banner = await Banner.find({});
     return NextResponse.json({ banner });
   } catch (error) {
@@ -15,10 +15,9 @@ export async function GET(request) {
       for (let e in error.errors) {
         errorList.push(error.errors[e].message);
       }
-      console.log(errorList);
       return NextResponse.json({ msg: errorList });
     } else {
-      return NextResponse.json({ msg: ["Unable to send message."] });
+      return NextResponse.json({ msg: error });
     }
   }
 }

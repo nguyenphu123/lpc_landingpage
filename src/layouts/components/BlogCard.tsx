@@ -1,6 +1,6 @@
 "use client";
 import dateFormat from "@/lib/utils/dateFormat";
-import { humanize, plainify, slugify } from "@/lib/utils/textConverter";
+import { humanize, slugify } from "@/lib/utils/textConverter";
 import { Post } from "@/types";
 import Link from "next/link";
 import { FaRegFolder } from "react-icons/fa/index.js";

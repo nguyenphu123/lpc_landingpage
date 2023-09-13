@@ -36,25 +36,6 @@ const RegularPages = () => {
           href,
         );
         setData(serviceCheck.products[0]);
-        // const productCheck = await loadProduct(
-        //   {
-        //     title: 1,
-        //     _id: 1,
-        //     type: 1,
-        //     titleEn: 1,
-        //     image: 1,
-        //     descriptionEn1: 1,
-        //     description1: 1,
-        //     pros: 1,
-        //     prosEn: 1,
-        //     content: 1,
-        //     description2: 1,
-        //     descriptionEn2: 1,
-        //   },
-        //   href,
-        // );
-
-        // dispatch(companyProduct(productCheck));
       } else {
       }
     };

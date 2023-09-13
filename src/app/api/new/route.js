@@ -6,12 +6,13 @@ import mongoose from "mongoose";
 export async function POST(req, res) {
   const { searchField, role } = await req.json();
   try {
-    await connectDB();
+    await connectDB(); //connect to database
     let news;
-    if (role == "admin") {
-      news = await New.find({}, searchField);
+    if (role == "admin" || role == "sysadmin") {
+      //check client role
+      news = await New.find({}, searchField); //if admin or sysadmin get all data base on search field
     } else {
-      news = await New.find({ draft: false }, searchField);
+      news = await New.find({ draft: false }, searchField); //only get public new base on search field
     }
 
     return NextResponse.json({ news });
@@ -23,7 +24,7 @@ export async function POST(req, res) {
       }
       return NextResponse.json({ msg: errorList });
     } else {
-      return NextResponse.json({ msg: ["Unable to send message."] });
+      return NextResponse.json({ msg: error });
     }
   }
 }

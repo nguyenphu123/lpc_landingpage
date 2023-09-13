@@ -5,7 +5,8 @@ import mongoose from "mongoose";
 export async function GET(request) {
   console.log(request.url);
   try {
-    await connectDB();
+    await connectDB(); //connect to database
+    //get all customers
     const customers = await Customer.find({});
     return NextResponse.json({ customers });
   } catch (error) {
@@ -14,10 +15,9 @@ export async function GET(request) {
       for (let e in error.errors) {
         errorList.push(error.errors[e].message);
       }
-      console.log(errorList);
       return NextResponse.json({ msg: errorList });
     } else {
-      return NextResponse.json({ msg: ["Unable to send message."] });
+      return NextResponse.json({ msg: error });
     }
   }
 }

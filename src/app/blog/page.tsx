@@ -57,7 +57,6 @@ const Posts = () => {
       .catch(console.error);
   }, [showList]);
 
-  // const posts: any[] = newInfo.newData.value.companyNews;
   const metadata = {
     title: "Tin tức",
     meta_title: "",
@@ -65,8 +64,6 @@ const Posts = () => {
     image: "",
   };
   const categories = ["Events", "Security"];
-
-  // const totalPages = Math.ceil(posts.length / 2);
 
   return newList.length == 0 ? (
     <section className="section pt-7">

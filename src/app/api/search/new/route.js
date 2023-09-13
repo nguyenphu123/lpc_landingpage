@@ -2,21 +2,22 @@ import connectDB from "@/lib/mongodb";
 import New from "@/models/new";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-
+//search new with keyword
 export async function POST(req, res) {
   const { searchField, keyword } = await req.json();
   try {
-    await connectDB();
+    await connectDB(); //connect to database
     var query = {
       $or: [
         {
-          "title": { $regex: keyword, $options: "i" },
+          title: { $regex: keyword, $options: "i" },
         },
         {
-          "titleEn": { $regex: keyword, $options: "i" },
+          titleEn: { $regex: keyword, $options: "i" },
         },
       ],
     };
+    //search new with query
     let news = await New.find(query, searchField);
 
     return NextResponse.json({ news });

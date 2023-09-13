@@ -6,31 +6,39 @@ import { getServerSession } from "next-auth";
 import GeneratePassword from "../../../../lib/passwordGenerater";
 var bcrypt = require("bcryptjs");
 var salt = bcrypt.genSaltSync(10);
-
+//create a new user
 export async function POST(req) {
   const { email } = await req.json();
-  let newPassword = GeneratePassword();
+  let newPassword = GeneratePassword(); //auto generate a password
 
-  let password = bcrypt.hash(newPassword, salt).toString();
+  let password = bcrypt.hash(newPassword, salt).toString(); // hash password
   let role = "admin";
   let loginCount = 0;
   let status = "Active";
 
-  const session = await getServerSession({ req });
+  const session = await getServerSession({ req }); //get current user session
   try {
     if (session) {
-      await connectDB();
-      const Users = await User.find({ email: email });
+      //check session
+      await connectDB(); //connect to database
+      const Users = await User.find({ email: email }); //check if username exist
       if (Users.length > 0) {
+        //user is exist
         return NextResponse.json({
           msg: "user already exist",
           success: false,
         });
       }
+      //create a new user
       await User.create({ email, password, role, loginCount, status });
       return NextResponse.json({
         msg: "User create successfully with password: " + newPassword,
         success: true,
+      });
+    } else {
+      //session not exist
+      return NextResponse.json({
+        msg: ["You are not allowed to perform this action."],
       });
     }
   } catch (error) {
@@ -39,19 +47,21 @@ export async function POST(req) {
       for (let e in error.errors) {
         errorList.push(error.errors[e].message);
       }
-      // console.log(errorList);
       return NextResponse.json({ msg: errorList });
     } else {
       return NextResponse.json({ msg: error });
     }
   }
 }
+//update user password
 export async function PUT(req) {
   const { _id, loginCount, password } = await req.json();
-  const session = await getServerSession({ req });
+  const session = await getServerSession({ req }); //get current user session
   try {
     if (session != undefined) {
-      await connectDB();
+      //check session
+      await connectDB(); //connect to database
+      //update password and login count to 1
       await User.findOneAndUpdate(
         { _id: _id },
         {
@@ -60,30 +70,36 @@ export async function PUT(req) {
         },
         { new: true },
       );
+      return NextResponse.json({
+        msg: ["Password updated"],
+        success: true,
+      });
+    } else {
+      //session not exist
+      return NextResponse.json({
+        msg: ["You are not allowed to perform this action."],
+      });
     }
-    return NextResponse.json({
-      msg: ["User updated"],
-      success: true,
-    });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       let errorList = [];
       for (let e in error.errors) {
         errorList.push(error.errors[e].message);
       }
-      // console.log(errorList);
       return NextResponse.json({ msg: errorList });
     } else {
       return NextResponse.json({ msg: error });
     }
   }
 }
-
+//get user list
 export async function GET() {
-  const session = await getServerSession({});
+  const session = await getServerSession({}); //get current user session
   try {
-    await connectDB();
     if (session != undefined) {
+      //check session
+      await connectDB(); //connect to database
+      //get all users with fields(email, id)
       const users = await User.find({}, { email: 1, _id: 1 });
       return NextResponse.json({ users });
     } else {
@@ -95,10 +111,9 @@ export async function GET() {
       for (let e in error.errors) {
         errorList.push(error.errors[e].message);
       }
-      console.log(errorList);
       return NextResponse.json({ msg: errorList });
     } else {
-      return NextResponse.json({ msg: ["Unable to send message."] });
+      return NextResponse.json({ msg: error });
     }
   }
 }

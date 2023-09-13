@@ -5,10 +5,11 @@ import mongoose from "mongoose";
 import decryptId from "../../../../../lib/utils/decrypt";
 export async function POST(req, res) {
   const { _id, searchField } = await req.json();
-  const decrypted = decryptId(_id);
+  const decrypted = decryptId(_id); //decrypt id from parameter
 
   try {
-    await connectDB();
+    await connectDB(); //connect to database
+    //get one content from database
     const products = await Product.findOne({ _id: decrypted }, searchField);
     return NextResponse.json({ products });
   } catch (error) {
@@ -17,10 +18,10 @@ export async function POST(req, res) {
       for (let e in error.errors) {
         errorList.push(error.errors[e].message);
       }
-      console.log(errorList);
+
       return NextResponse.json({ msg: errorList });
     } else {
-      return NextResponse.json({ msg: ["Unable to send message."] });
+      return NextResponse.json({ msg: error });
     }
   }
 }

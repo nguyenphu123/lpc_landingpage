@@ -5,7 +5,8 @@ import mongoose from "mongoose";
 export async function GET(request) {
   console.log(request.url);
   try {
-    await connectDB();
+    await connectDB(); //connect to database
+    //get company information with fields(name, description, descriptionEn, core,coreEn, image)
     const company = await Company.find(
       {},
       {

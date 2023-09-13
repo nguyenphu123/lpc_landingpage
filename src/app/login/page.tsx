@@ -52,11 +52,10 @@ export default function Login() {
 
   async function onsubmit(e: any) {
     e.preventDefault();
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hash(e.target.password.value, salt);
+
     const loginInfo: any = {
       email: e.target.email.value,
-      password: hash,
+      password: e.target.password.value,
       redirect: false,
     };
     try {

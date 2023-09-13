@@ -28,8 +28,8 @@ export const authOptions = {
           if (!user) {
             return null;
           }
-
-          if (!(password == returnData.password)) {
+          
+          if (!bcrypt.compareSync(password, returnData.password)) {
             return null;
           }
 

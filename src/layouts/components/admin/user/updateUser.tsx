@@ -25,8 +25,8 @@ function UpdateUser({ user, handleSaveClick }) {
       if (values.password != values.matchPassword) {
         showToast("Confirm password does not match");
       } else {
-        var salt = bcrypt.genSaltSync(10);
-        var hash = bcrypt.hash(values.password, salt).toString();
+        var salt = await bcrypt.genSaltSync(10);
+        var hash = await bcrypt.hash(values.password, salt);
         let newPassword = {
           _id: user._id,
           password: hash,

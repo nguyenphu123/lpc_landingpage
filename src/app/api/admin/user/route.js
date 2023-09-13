@@ -11,7 +11,7 @@ export async function POST(req) {
   const { email } = await req.json();
   let newPassword = GeneratePassword(); //auto generate a password
 
-  let password = bcrypt.hash(newPassword, salt).toString(); // hash password
+  let password = await bcrypt.hash(newPassword, salt); // hash password
   let role = "admin";
   let loginCount = 0;
   let status = "Active";

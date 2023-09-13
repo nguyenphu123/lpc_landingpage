@@ -129,7 +129,7 @@ const Home = () => {
   useEffect(() => {
     //sign out after 1 hour of not interacting
     onInactive(3600000, function () {
-      signOut();
+      signOut({ callbackUrl: "http://lp.com.vn/login" });
     });
     function onInactive(ms, cb) {
       var wait = setTimeout(cb, ms);
@@ -238,7 +238,7 @@ const Home = () => {
   };
   const handleSaveClick = () => {
     //signout when change password completed
-    signOut();
+    signOut({ callbackUrl: "http://lp.com.vn/login" });
   };
   if (status == "loading") {
     return <></>;
@@ -262,7 +262,9 @@ const Home = () => {
           >
             <li className="mr-2" role="presentation">
               <button
-                className="inline-block active:text-gray-600 active:border-gray-300 text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300"
+                className={`${
+                  showBanner == "visible" ? "text-gray-900" : "text-gray-500 "
+                } inline-block active:text-gray-600 active:border-gray-300 text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300`}
                 id="banner-tab"
                 data-tabs-target="#banner"
                 type="button"
@@ -276,7 +278,9 @@ const Home = () => {
             </li>
             <li className="mr-2" role="presentation">
               <button
-                className="inline-block text-gray-500 active:text-gray-600 active:border-gray-300 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300"
+                className={`${
+                  showContact == "visible" ? "text-gray-900" : "text-gray-500 "
+                } inline-block active:text-gray-600 active:border-gray-300 text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300`}
                 id="company-tab"
                 data-tabs-target="#company"
                 type="button"
@@ -290,7 +294,9 @@ const Home = () => {
             </li>
             <li className="mr-2" role="presentation">
               <button
-                className="inline-block text-gray-500 active:text-gray-600 active:border-gray-300 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300"
+                className={`${
+                  showCustomer == "visible" ? "text-gray-900" : "text-gray-500 "
+                } inline-block active:text-gray-600 active:border-gray-300 text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300`}
                 id="customer-tab"
                 data-tabs-target="#customer"
                 type="button"
@@ -304,7 +310,9 @@ const Home = () => {
             </li>
             <li role="presentation">
               <button
-                className="inline-block text-gray-500 active:text-gray-600 active:border-gray-300 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300"
+                className={`${
+                  showNew == "visible" ? "text-gray-900" : "text-gray-500 "
+                } inline-block active:text-gray-600 active:border-gray-300 text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300`}
                 id="new-tab"
                 data-tabs-target="#new"
                 type="button"
@@ -318,7 +326,9 @@ const Home = () => {
             </li>
             <li role="presentation">
               <button
-                className="inline-block text-gray-500 active:text-gray-600 active:border-gray-300 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300"
+                className={`${
+                  showMessage == "visible" ? "text-gray-900" : "text-gray-500 "
+                } inline-block active:text-gray-600 active:border-gray-300 text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300`}
                 id="message-tab"
                 data-tabs-target="#message"
                 type="button"
@@ -332,7 +342,9 @@ const Home = () => {
             </li>
             <li role="presentation">
               <button
-                className="inline-block text-gray-500 active:text-gray-600 active:border-gray-300 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300"
+                className={`${
+                  showPartner == "visible" ? "text-gray-900" : "text-gray-500 "
+                } inline-block active:text-gray-600 active:border-gray-300 text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300`}
                 id="partner-tab"
                 data-tabs-target="#partner"
                 type="button"
@@ -346,7 +358,9 @@ const Home = () => {
             </li>
             <li role="presentation">
               <button
-                className="inline-block text-gray-500 active:text-gray-600 active:border-gray-300 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300"
+                className={`${
+                  showProduct == "visible" ? "text-gray-900" : "text-gray-500 "
+                } inline-block active:text-gray-600 active:border-gray-300 text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300`}
                 id="product-tab"
                 data-tabs-target="#product"
                 type="button"
@@ -361,7 +375,9 @@ const Home = () => {
             {status != "loading" && session.user.role == "sysadmin" ? (
               <li role="presentation">
                 <button
-                  className="inline-block text-gray-500 active:text-gray-600 active:border-gray-300 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300"
+                  className={`${
+                    showUser == "visible" ? "text-gray-900" : "text-gray-500 "
+                  } inline-block active:text-gray-600 active:border-gray-300 text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300`}
                   id="contacts-tab"
                   data-tabs-target="#contacts"
                   type="button"

@@ -61,7 +61,7 @@ export default function Login() {
     };
     try {
       const res: any = await signIn("credentials", loginInfo);
-      console.log(res);
+
       if (res.error != null || res.status != 200) {
         setErrorMessage(true);
         //setError("Invalid Credentials");

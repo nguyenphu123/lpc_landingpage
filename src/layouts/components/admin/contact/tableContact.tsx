@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
 
-import { Table, Modal, Button, Box, Grid, Col, TextInput } from "@mantine/core"; // Import thêm Button
+import {
+  Table,
+  Modal,
+  Button,
+  Box,
+  Grid,
+  Col,
+  TextInput,
+  Textarea,
+} from "@mantine/core"; // Import thêm Button
 import { loadContact } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
 import { useSession } from "next-auth/react";
 import { updateContactInfo } from "@/lib/updateData";
 import ToastGenerator from "@/lib/toast-tify";
+import { useForm } from "@mantine/form";
 
 interface Contact {
   _id: string;
@@ -53,11 +63,12 @@ function ContactTable() {
     setSelectedContact(contact);
 
     setIsEditMode(selectedContact === contact); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
+    form.setValues(contact);
   };
 
-  const handleSaveClick = async () => {
+  const handleSaveClick = async (values) => {
     // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
-    let returnResult = await updateContactInfo(selectedContact, session);
+    let returnResult = await updateContactInfo(values, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
     }
@@ -71,7 +82,9 @@ function ContactTable() {
       setSucessMessage("");
     }, 10000);
   };
-
+  const form = useForm({
+    initialValues: JSON.parse(JSON.stringify({})),
+  });
   const rows = contactData.map((contact, index) => (
     <tr key={contact._id}>
       <td>{index + 1}</td>
@@ -83,7 +96,6 @@ function ContactTable() {
       <td>{contact.linkWebsite}</td>
 
       <td>
-        <button onClick={() => setSelectedContact(contact)}>View</button> |{" "}
         <button onClick={() => handleEditClick(contact)}>Edit</button>
       </td>
 
@@ -106,7 +118,7 @@ function ContactTable() {
         Add News
 
       </Button> */}
-      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
+
       <Table>
         <thead>
           <tr>
@@ -140,16 +152,17 @@ function ContactTable() {
               <h3 className="flex justify-center">
                 {isEditMode ? "Edit Contact" : "Contact Details"}
               </h3>
-
+              {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
               <Box maw={800} mx="auto">
-                <form>
+                <form
+                  onSubmit={form.onSubmit((values) => handleSaveClick(values))}
+                >
                   <Grid gutter="lg">
                     <Col span={6}>
                       <label>Address: </label>
 
-                      <textarea
-                        value={selectedContact.address}
-                        disabled
+                      <Textarea
+                        {...form.getInputProps("address")}
                         style={{ width: "100%", height: "90px" }}
                       />
                     </Col>
@@ -157,10 +170,9 @@ function ContactTable() {
                     <Col span={6}>
                       <label>Address (English): </label>
 
-                      <textarea
-                        value={selectedContact.addressEn}
-                        disabled
+                      <Textarea
                         style={{ width: "100%", height: "90px" }}
+                        {...form.getInputProps("addressEn")}
                       />
                     </Col>
 
@@ -168,9 +180,8 @@ function ContactTable() {
                       <label>Address Link: </label>
 
                       <TextInput
-                        value={selectedContact.addressLink}
-                        disabled
                         style={{ width: "100%", height: "90px" }}
+                        {...form.getInputProps("addressLink")}
                       />
                     </Col>
 
@@ -178,8 +189,7 @@ function ContactTable() {
                       <label>Link Website: </label>
 
                       <TextInput
-                        value={selectedContact.linkWebsite}
-                        disabled
+                        {...form.getInputProps("linkWebsite")}
                         style={{ width: "100%", height: "90px" }}
                       />
                     </Col>
@@ -187,9 +197,8 @@ function ContactTable() {
                     <Col span={4}>
                       <label>Email: </label>
 
-                      <input
-                        value={selectedContact.email}
-                        disabled
+                      <TextInput
+                        {...form.getInputProps("email")}
                         style={{ width: "100%", height: "90px" }}
                       />
                     </Col>
@@ -197,9 +206,9 @@ function ContactTable() {
                     <Col span={4}>
                       <label>Phone Number: </label>
 
-                      <textarea
+                      <Textarea
+                        {...form.getInputProps("phoneNumber")}
                         value={selectedContact.phoneNumber.join("\n")} // Join các phần tử cách nhau bằng dấu xuống dòng
-                        disabled
                         style={{ width: "100%", height: "90px" }} // Đặt chiều rộng và chiều cao
                       />
                     </Col>
@@ -207,49 +216,31 @@ function ContactTable() {
                     <Col span={4}>
                       <label>Social Account: </label>
 
-                      <textarea
+                      <Textarea
+                        {...form.getInputProps("socialAccount")}
                         value={selectedContact.socialAccount.join("\n")} // Join các phần tử cách nhau bằng dấu xuống dòng
-                        disabled
                         style={{ width: "100%", height: "90px" }} // Đặt chiều rộng và chiều cao
                       />
                     </Col>
+                    <Col span={6} className="flex justify-end mt-6">
+                      {/* Thêm class CSS để đặt nút submit ở góc phải */}
 
+                      <Button
+                        type="submit"
+                        style={{ backgroundColor: "blue" }}
+                        size="md"
+                      >
+                        Submit
+                      </Button>
+                    </Col>
                     {/* ... Các phần khác tương tự như trên */}
                   </Grid>
                 </form>
               </Box>
-
-              <div style={{ marginTop: "16px" }}>
-                {isEditMode ? (
-                  <Button
-                    type="button"
-                    onClick={handleSaveClick}
-                    style={{ backgroundColor: "#28a745", color: "white" }}
-                  >
-                    Save
-                  </Button>
-                ) : (
-                  <Button
-                    type="button"
-                    onClick={() => setIsEditMode(true)}
-                    style={{ backgroundColor: "#007bff", color: "white" }}
-                  >
-                    Edit
-                  </Button>
-                )}
-              </div>
             </div>
           </section>
         )}
       </Modal>
-
-      {/* <Modal
-        size="1000px"
-        opened={addContactVisible}
-        onClose={() => setAddContactVisible(false)}
-      >
-        <ContactForm onClose={() => setAddContactVisible(false)} />
-      </Modal> */}
     </div>
   );
 }

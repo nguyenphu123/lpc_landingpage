@@ -9,6 +9,9 @@ import {
   Col,
   TextInput,
   Textarea,
+  Group,
+  Switch,
+  ActionIcon,
 } from "@mantine/core"; // Import thêm Button
 import { loadContact } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
@@ -153,7 +156,7 @@ function ContactTable() {
                 {isEditMode ? "Edit Contact" : "Contact Details"}
               </h3>
               {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
-              <Box maw={800} mx="auto">
+              <Box maw={900} mx="auto">
                 <form
                   onSubmit={form.onSubmit((values) => handleSaveClick(values))}
                 >
@@ -206,21 +209,62 @@ function ContactTable() {
                     <Col span={4}>
                       <label>Phone Number: </label>
 
-                      <Textarea
-                        {...form.getInputProps("phoneNumber")}
-                        value={selectedContact.phoneNumber.join("\n")} // Join các phần tử cách nhau bằng dấu xuống dòng
-                        style={{ width: "100%", height: "90px" }} // Đặt chiều rộng và chiều cao
-                      />
+                      {selectedContact.phoneNumber.map((number, index) => (
+                        <Group key={number} mt="xs">
+                          <TextInput
+                            {...form.getInputProps(`phoneNumber.${index}`)}
+                            style={{ width: "70%", height: "50px" }}
+                          />
+                          <ActionIcon
+                            color="red"
+                            onClick={() =>
+                              form.removeListItem("phoneNumber", index)
+                            }
+                          >
+                            remove
+                          </ActionIcon>
+                        </Group>
+                      ))}
+                      {/* <Group position="center" mt="md">
+                        <Button
+                          variant="default"
+                          onClick={() => form.insertListItem("phoneNumber", "")}
+                        >
+                          Add phone number
+                        </Button>
+                      </Group> */}
                     </Col>
 
                     <Col span={4}>
                       <label>Social Account: </label>
-
-                      <Textarea
-                        {...form.getInputProps("socialAccount")}
-                        value={selectedContact.socialAccount.join("\n")} // Join các phần tử cách nhau bằng dấu xuống dòng
-                        style={{ width: "100%", height: "90px" }} // Đặt chiều rộng và chiều cao
-                      />
+                      {selectedContact.socialAccount.map((account, index) => (
+                        <Group key={account} mt="xl">
+                          <Textarea
+                            {...form.getInputProps(`socialAccount.${index}`)}
+                            style={{ width: "70%", height: "150px" }}
+                          />
+                          <ActionIcon
+                            color="red"
+                            onClick={() =>
+                              form.removeListItem("socialAccount", index)
+                            }
+                          >
+                            remove
+                          </ActionIcon>
+                        </Group>
+                      ))}
+                      {/* <Group position="center" mt="md">
+                        <Group position="center" mt="md">
+                          <Button
+                            variant="default"
+                            onClick={() =>
+                              form.insertListItem("socialAccount", "")
+                            }
+                          >
+                            Add account
+                          </Button>
+                        </Group>
+                      </Group> */}
                     </Col>
                     <Col span={6} className="flex justify-end mt-6">
                       {/* Thêm class CSS để đặt nút submit ở góc phải */}

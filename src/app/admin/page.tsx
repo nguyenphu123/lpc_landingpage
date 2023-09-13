@@ -116,7 +116,7 @@ const Home = () => {
     checkuserStatus()
       // make sure to catch any error
       .catch(console.error);
-  }, [status, session]);
+  }, [status]);
   const showToast = (msg) => {
     //set a toast message in 10 second
     setIsSucess(true);
@@ -150,7 +150,8 @@ const Home = () => {
     //logout action
     signOut();
   };
-  const onClick = (tabNo: string) => {
+  const onClick = (tabNo: string, e) => {
+    e.preventDefault();
     //change tab
     switch (tabNo) {
       case "banner": //banner tab
@@ -268,7 +269,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="banner"
                 aria-selected="true"
-                onClick={() => onClick("banner")}
+                onClick={(e) => onClick("banner", e)}
               >
                 Banner
               </button>
@@ -282,7 +283,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="company"
                 aria-selected="false"
-                onClick={() => onClick("contact")}
+                onClick={(e) => onClick("contact", e)}
               >
                 Company
               </button>
@@ -296,7 +297,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="customer"
                 aria-selected="false"
-                onClick={() => onClick("customer")}
+                onClick={(e) => onClick("customer", e)}
               >
                 Customer
               </button>
@@ -310,7 +311,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="new"
                 aria-selected="false"
-                onClick={() => onClick("new")}
+                onClick={(e) => onClick("new", e)}
               >
                 News
               </button>
@@ -324,7 +325,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="message"
                 aria-selected="false"
-                onClick={() => onClick("message")}
+                onClick={(e) => onClick("message", e)}
               >
                 Messages
               </button>
@@ -338,7 +339,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="partner"
                 aria-selected="false"
-                onClick={() => onClick("partner")}
+                onClick={(e) => onClick("partner", e)}
               >
                 Partner
               </button>
@@ -352,7 +353,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="product"
                 aria-selected="false"
-                onClick={() => onClick("product")}
+                onClick={(e) => onClick("product", e)}
               >
                 Product
               </button>
@@ -367,7 +368,7 @@ const Home = () => {
                   role="tab"
                   aria-controls="contacts"
                   aria-selected="false"
-                  onClick={() => onClick("user")}
+                  onClick={(e) => onClick("user", e)}
                 >
                   User
                 </button>

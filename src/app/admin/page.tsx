@@ -1,7 +1,6 @@
 "use client";
-import { useSelector } from "react-redux";
-import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import { redirect, usePathname } from "next/navigation";
+
+import { redirect } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 const BannerForm = dynamic(
@@ -80,6 +79,7 @@ const Home = () => {
       redirect("/login");
     },
   });
+
   //check user login session
   const { data: session }: any = useSession();
   useEffect(() => {

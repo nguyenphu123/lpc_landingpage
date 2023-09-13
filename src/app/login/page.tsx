@@ -7,7 +7,7 @@ import DataEn from "@/config/dataEn.json";
 import Whitelist from "@/config/whitelist.json";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 import PageHeader from "@/partials/PageHeader";
-import { signIn } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { publicIpv4 } from "public-ip";
@@ -15,7 +15,7 @@ var bcrypt = require("bcryptjs");
 
 export default function Login() {
   // Get the client's IP address from the request headers
-
+  const { data: session }: any = useSession();
   const curlanguage = useSelector((rootState) => language(rootState));
   // let loginState = useSelector(loginStatus);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -29,6 +29,18 @@ export default function Login() {
     description: "this is meta description",
     image: "",
   };
+  useEffect(() => {
+    const checkSession = async () => {
+      if (session != undefined) {
+        signOut({ callbackUrl: "http://lp.com.vn/login" });
+      } else {
+      }
+    };
+    // call the function
+    checkSession()
+      // make sure to catch any error
+      .catch(console.error);
+  }, [session]);
   useEffect(() => {
     const fetchIp = async () => {
       if (userIp == "") {
@@ -49,7 +61,6 @@ export default function Login() {
       // make sure to catch any error
       .catch(console.error);
   }, [userIp]);
-
   async function onsubmit(e: any) {
     e.preventDefault();
 

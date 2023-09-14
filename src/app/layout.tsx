@@ -8,8 +8,8 @@ import { AuthProvider } from "./provider";
 import { usePathname } from "next/navigation";
 
 import dynamic from "next/dynamic";
-const Header = dynamic(() => import("@/partials/Header"));
-const Footer = dynamic(() => import("@/partials/Footer"));
+const Header = dynamic(() => import("@/partials/Header"), { ssr: false });
+const Footer = dynamic(() => import("@/partials/Footer"), { ssr: false });
 const ScrollToTopButton = dynamic(
   () => import("@/components/scrollToTopButton"),
 );

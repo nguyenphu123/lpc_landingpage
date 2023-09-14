@@ -59,6 +59,7 @@ function UpdateCustomer({ Customer, handleSaveClick }) {
     let returnResult = await updateCustomer(values, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      handleSaveClick();
     }
     form.reset();
   };

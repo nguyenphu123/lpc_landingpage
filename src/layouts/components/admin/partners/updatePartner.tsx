@@ -59,6 +59,7 @@ function UpdatePartner({ partner, handleSaveClick }) {
     let returnResult = await updatePartner(values, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      handleSaveClick();
     }
   };
   const showToast = (msg) => {

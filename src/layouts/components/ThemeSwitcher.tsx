@@ -7,9 +7,15 @@ import {
 } from "../../feature/changeLanguage/changeLanguageSlice";
 import "../../styles/flag.scss";
 import { Menu, Button } from "@mantine/core";
+import { useEffect, useState } from "react";
 const ThemeSwitcher = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
-
+  const [width, setWidth] = useState(window.innerWidth); // default width, detect on server.
+  const handleResize = () => setWidth(window.innerWidth);
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
   const dispatch = useDispatch();
   return (
     <>
@@ -27,9 +33,11 @@ const ThemeSwitcher = () => {
               )
             }
           >
-            {curlanguage.changeLanguage.value == "en"
-              ? "English"
-              : "Vietnamese"}
+            {width > 1030
+              ? curlanguage.changeLanguage.value == "en"
+                ? "English"
+                : "Vietnamese"
+              : ""}
           </Button>
         </Menu.Target>
 
@@ -44,7 +52,7 @@ const ThemeSwitcher = () => {
             }
           >
             <button
-              className="w-full text-left"
+              className={`${width > 1030 ? "w-full" : "w-min"} text-left`}
               onClick={() => dispatch(changeLanguage("vn"))}
             >
               Vietnamese
@@ -61,7 +69,7 @@ const ThemeSwitcher = () => {
             }
           >
             <button
-              className="w-full text-left"
+              className={`${width > 1030 ? "w-full" : "w-min"} text-left`}
               onClick={() => dispatch(changeLanguage("en"))}
             >
               English

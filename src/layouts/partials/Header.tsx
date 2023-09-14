@@ -155,7 +155,7 @@ const Header = () => {
                     </svg>
                   </Link>
                   <div
-                    className={`nav-dropdown-list hidden group-hover:block gap-2 lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100`}
+                    className={`w-max nav-dropdown-list hidden group-hover:block gap-2 lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100`}
                   >
                     {menu.children?.map(
                       (

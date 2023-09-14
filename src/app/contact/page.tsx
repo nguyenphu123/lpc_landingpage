@@ -120,7 +120,7 @@ const Contact = () => {
                       id="name"
                       name="name"
                       className="form-input"
-                      placeholder="Nguyễn Văn A"
+                      placeholder="Nguyen Van A"
                       type="text"
                     />
                   </div>
@@ -147,6 +147,7 @@ const Contact = () => {
                       id="phoneNumber"
                       name="phoneNumber"
                       className="form-input"
+                      placeholder="Enter your phone number"
                       type="text"
                     />
                   </div>

@@ -77,8 +77,11 @@ const Header = () => {
   const { settings } = config;
 
   // get current path
-  const [width, setWidth] = useState(window.innerWidth); // default width, detect on server.
-  const handleResize = () => setWidth(window.innerWidth);
+  const [width, setWidth]: any = useState(
+    typeof window !== "undefined" && window.innerWidth,
+  ); // default width, detect on server.
+  const handleResize = () =>
+    setWidth(typeof window !== "undefined" && window.innerWidth);
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);

@@ -10,8 +10,11 @@ import { Menu, Button } from "@mantine/core";
 import { useEffect, useState } from "react";
 const ThemeSwitcher = () => {
   const curlanguage = useSelector((rootState) => language(rootState));
-  const [width, setWidth] = useState(window.innerWidth); // default width, detect on server.
-  const handleResize = () => setWidth(window.innerWidth);
+  const [width, setWidth]: any = useState(
+    typeof window !== "undefined" && window.innerWidth,
+  ); // default width, detect on server.
+  const handleResize = () =>
+    setWidth(typeof window !== "undefined" && window.innerWidth);
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);

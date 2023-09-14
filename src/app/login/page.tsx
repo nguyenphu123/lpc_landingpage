@@ -29,18 +29,18 @@ export default function Login() {
     description: "this is meta description",
     image: "",
   };
-  useEffect(() => {
-    const checkSession = async () => {
-      if (session != undefined) {
-        signOut({ callbackUrl: "http://lp.com.vn/login" });
-      } else {
-      }
-    };
-    // call the function
-    checkSession()
-      // make sure to catch any error
-      .catch(console.error);
-  }, [session]);
+  // useEffect(() => {
+  //   const checkSession = async () => {
+  //     if (session != undefined) {
+  //       signOut({ callbackUrl: "http://lp.com.vn/login" });
+  //     } else {
+  //     }
+  //   };
+  //   // call the function
+  //   checkSession()
+  //     // make sure to catch any error
+  //     .catch(console.error);
+  // }, [session]);
   useEffect(() => {
     const fetchIp = async () => {
       if (userIp == "") {

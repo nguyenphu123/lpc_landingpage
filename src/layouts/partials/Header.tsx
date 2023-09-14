@@ -28,47 +28,45 @@ const Header = () => {
   const pathname: any = usePathname();
   let servicesMenu: any = [];
   const scrolled = useScroll(25);
+  let [dataHeader, setDataHeader] = useState();
   useEffect(() => {
     // declare the data fetching function
     const fetchProduct = async () => {
       setIsLoading(true);
-      if (productInfo.productData.value.product.length == 0) {
-        const productCheck = await loadProduct(
-          {
-            title: 1,
-            _id: 1,
-            type: 1,
-            titleEn: 1,
-            "content._id": 1,
-            "content.title": 1,
-            "content.titleEn": 1,
-            status: 1,
-            "content.status": 1,
-          },
-          href,
-        );
-        // dispatch(companyProduct(productCheck));
-        servicesMenu = productCheck.products.filter(
-          (item: { status: string; type: string }) =>
-            item.type == "Service" && item.status == "Active",
-        );
-        main[1].children = productCheck.products.filter(
-          (item: { status: string; type: string }) =>
-            item.type == "Solution" && item.status == "Active",
-        );
-        main[2].children = servicesMenu[0].content.filter(
-          (item) => item.status == "Active",
-        );
-        setIsLoading(false);
-      } else {
-      }
+      const productCheck = await loadProduct(
+        {
+          title: 1,
+          _id: 1,
+          type: 1,
+          titleEn: 1,
+          "content._id": 1,
+          "content.title": 1,
+          "content.titleEn": 1,
+          status: 1,
+          "content.status": 1,
+        },
+        href,
+      );
+      // dispatch(companyProduct(productCheck));
+      servicesMenu = productCheck.products.filter(
+        (item: { status: string; type: string }) =>
+          item.type == "Service" && item.status == "Active",
+      );
+      main[1].children = productCheck.products.filter(
+        (item: { status: string; type: string }) =>
+          item.type == "Solution" && item.status == "Active",
+      );
+      main[2].children = servicesMenu[0].content.filter(
+        (item) => item.status == "Active",
+      );
+      setIsLoading(false);
     };
     fetchProduct().catch(console.error);
 
     // call the function
 
     // make sure to catch any error
-  }, []);
+  }, [main]);
   useEffect(() => {
     // call the function
 

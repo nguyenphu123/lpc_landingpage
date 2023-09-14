@@ -80,7 +80,7 @@ const Header = () => {
     // call the function
 
     // make sure to catch any error
-  }, [main]);
+  }, []);
   useEffect(() => {
     // call the function
 

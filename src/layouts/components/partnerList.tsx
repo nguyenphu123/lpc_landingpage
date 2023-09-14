@@ -47,7 +47,7 @@ export default function PartnerList() {
             }) => (
               <div key={img._id} className="slide flex items-center mx-3">
                 <Image
-                  className="flex items-center col-span-2 max-h-16 w-full lg:col-span-1"
+                  className="flex items-center col-span-2 max-h-16 w-full object-contain lg:col-span-1"
                   src={img.src}
                   alt={img.type}
                   width={158}

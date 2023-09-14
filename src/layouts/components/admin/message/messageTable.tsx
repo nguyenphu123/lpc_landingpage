@@ -5,6 +5,7 @@ import { useUrl } from "nextjs-current-url";
 import { useSession } from "next-auth/react";
 
 interface Message {
+  phoneNumber: string;
   _id: string;
 
   name: string;
@@ -38,7 +39,7 @@ function MessageTable() {
       <td>{partner.name}</td>
 
       <td>{partner.email}</td>
-
+      <td>{partner.phoneNumber}</td>
       <td> {partner.message}</td>
     </tr>
   ));
@@ -53,7 +54,7 @@ function MessageTable() {
             <th>Name</th>
 
             <th>From</th>
-
+            <th>Phone</th>
             <th>Message</th>
           </tr>
         </thead>

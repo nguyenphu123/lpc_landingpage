@@ -32,7 +32,7 @@ export default function Login() {
   // useEffect(() => {
   //   const checkSession = async () => {
   //     if (session != undefined) {
-  //       signOut({ callbackUrl: "http://lp.com.vn/login" });
+  //       signOut({ redirect: false }).then(() => {});
   //     } else {
   //     }
   //   };

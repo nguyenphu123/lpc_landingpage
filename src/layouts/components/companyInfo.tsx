@@ -159,7 +159,7 @@ export default function CompanyInfo() {
             </h6>
           </div>
           <div className="min-h-[50px] col-span-1 flex flex-col items-center justify-center">
-            <h2 className="mb-1">&gt;100</h2>
+            <h2 className="mb-1">50</h2>
             <h6>
               {curlanguage.changeLanguage.value == "en"
                 ? DataEn["partner"].name
@@ -167,7 +167,7 @@ export default function CompanyInfo() {
             </h6>
           </div>
           <div className="min-h-[50px] col-span-1 flex flex-col items-center justify-center">
-            <h2 className="mb-1">500</h2>
+            <h2 className="mb-1">&gt;500</h2>
             <h6>
               {curlanguage.changeLanguage.value == "en"
                 ? DataEn["customer2"].name

@@ -37,41 +37,49 @@ const Contact = () => {
 
   async function onsubmit(e: any) {
     e.preventDefault();
+    if (e.target.email.value == "" || e.target.phoneNumber.value == "") {
+      setSuccessMessage(
+        curlanguage.changeLanguage.value == "en"
+          ? "Please input your email or phone number"
+          : "Vui lòng để lại email hoặc số điện thoại",
+      );
+    } else {
+      let data = {
+        name: e.target.name.value,
 
-    let data = {
-      name: e.target.name.value,
+        email: e.target.email.value,
 
-      email: e.target.email.value,
+        message: e.target.message.value,
+        phoneNumber: e.target.phoneNumber.value,
+      };
 
-      message: e.target.message.value,
-    };
+      try {
+        const res = await fetch("/api/message", {
+          method: "POST",
 
-    try {
-      const res = await fetch("/api/message", {
-        method: "POST",
+          body: JSON.stringify(data),
 
-        body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" },
+        });
 
-        headers: { "Content-Type": "application/json" },
-      });
+        if (res.status === 200) {
+          // Đặt successMessage khi gửi thành công
 
-      if (res.status === 200) {
-        // Đặt successMessage khi gửi thành công
+          setSuccessMessage("Gửi tin nhắn thành công!");
 
-        setSuccessMessage("Gửi tin nhắn thành công!");
+          // Reset form
 
-        // Reset form
+          e.target.reset();
 
-        e.target.reset();
+          // Đặt timeout để ẩn thông báo sau 5 giây
 
-        // Đặt timeout để ẩn thông báo sau 5 giây
-
-        setTimeout(() => {
-          setSuccessMessage(null);
-        }, 5000);
+          setTimeout(() => {
+            setSuccessMessage(null);
+          }, 5000);
+        }
+      } catch (err: any) {
+        console.error("Err", err);
       }
-    } catch (err: any) {
-      console.error("Err", err);
     }
   }
 
@@ -130,7 +138,18 @@ const Contact = () => {
                       type="email"
                     />
                   </div>
+                  <div className="mb-6">
+                    <label htmlFor="phoneNumber" className="form-label">
+                      Phone number <span className="text-red-500">*</span>
+                    </label>
 
+                    <input
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      className="form-input"
+                      type="text"
+                    />
+                  </div>
                   <div className="mb-6">
                     <label htmlFor="message" className="form-label">
                       {curlanguage.changeLanguage.value == "en"

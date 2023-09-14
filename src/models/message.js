@@ -8,6 +8,8 @@ const messageSchema = new Schema({
   email: String,
 
   message: String,
+
+  phoneNumber: String,
 });
 
 const Message =

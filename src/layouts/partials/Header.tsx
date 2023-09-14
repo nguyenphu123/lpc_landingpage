@@ -61,18 +61,6 @@ const Header = () => {
         );
         setIsLoading(false);
       } else {
-        main[1].children = productInfo.productData.value.product.filter(
-          (item: { status: string; type: string }) =>
-            item.type == "Solution" && item.status == "Active",
-        );
-
-        main[2].children = productInfo.productData.value.product
-          .filter(
-            (item: { status: string; type: string }) =>
-              item.type == "Service" && item.status == "Active",
-          )[0]
-          .content.filter((item) => item.status == "Active");
-        setIsLoading(false);
       }
     };
     fetchProduct().catch(console.error);

@@ -7,6 +7,8 @@ import UpdateCustomer from "./updateCustomer";
 import { useSession } from "next-auth/react";
 import { updateCustomer } from "@/lib/updateData";
 import ToastGenerator from "@/lib/toast-tify";
+import Popup from "@/components/popup";
+import CustomerForm from "./createCustomer";
 
 interface Customer {
   status: string;
@@ -52,6 +54,11 @@ function CustomerTable() {
     setSelectedCustomer(null);
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
+  const refreshCustomer = async () => {
+    // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
+    const customerCheck = await loadCustomer(href);
+    setCustomerData(customerCheck.customers);
+  };
   const changeStatus = async (customer) => {
     let customerStatusChange = JSON.parse(JSON.stringify(customer));
     if (customerStatusChange["status"] == "Active") {
@@ -62,6 +69,8 @@ function CustomerTable() {
     let returnResult = await updateCustomer(customerStatusChange, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      const customerCheck = await loadCustomer(href);
+      setCustomerData(customerCheck.customers);
     }
   };
   const showToast = (msg) => {
@@ -105,6 +114,9 @@ function CustomerTable() {
   return (
     <div>
       {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
+      <Popup>
+        <CustomerForm refreshCustomer={refreshCustomer} />
+      </Popup>
       <Table>
         <thead>
           <tr>
@@ -134,9 +146,7 @@ function CustomerTable() {
         {selectedCustomer && (
           <section className="section">
             <div className="container">
-              <h3 className="flex justify-center">
-                {isEditMode ? "Edit Product" : "Product Details"}
-              </h3>
+              <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 
               <UpdateCustomer
                 Customer={selectedCustomer}

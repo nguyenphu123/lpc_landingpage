@@ -80,6 +80,7 @@ function ContentTable({ product }) {
     );
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      handleSaveClick();
     }
   };
   const showToast = (msg) => {
@@ -184,9 +185,7 @@ function ContentTable({ product }) {
         {selectedProduct && (
           <section className="section">
             <div className="container">
-              <h3 className="flex justify-center">
-                {isEditMode ? "Edit Product" : "Product Details"}
-              </h3>
+              <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 
               <UpdateContentForm product={product} content={selectedProduct} />
 

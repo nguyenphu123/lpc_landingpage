@@ -14,6 +14,8 @@ import { useUrl } from "nextjs-current-url";
 import { useSession } from "next-auth/react";
 import { updateNews } from "@/lib/updateData";
 import ToastGenerator from "@/lib/toast-tify";
+import Popup from "@/components/popup";
+import AddNews from "./createNew";
 
 interface News {
   _id: string;
@@ -92,6 +94,25 @@ function NewsTable() {
     let returnResult = await updateNews(newsStatusChange, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      let role = "admin";
+      const newsCheck = await loadNews(
+        role,
+        {
+          _id: 1,
+          title: 1,
+          titleEn: 1,
+          image: 1,
+          categories: 1,
+          description: 1,
+          meta_title: 1,
+          content: 1,
+          contentEn: 1,
+          date: 1,
+        },
+        href,
+      );
+
+      dispatch(companyNew(newsCheck));
     }
   };
   const showToast = (msg) => {
@@ -157,15 +178,34 @@ function NewsTable() {
     setEditNewsVisible(true);
   };
 
-  const handleOnClose = () => {
-    setSelectedNews(null);
+  const refreshNews = async () => {
+    let role = "admin";
+    const newsCheck = await loadNews(
+      role,
+      {
+        _id: 1,
+        title: 1,
+        titleEn: 1,
+        image: 1,
+        categories: 1,
+        description: 1,
+        meta_title: 1,
+        content: 1,
+        contentEn: 1,
+        date: 1,
+      },
+      href,
+    );
 
-    setEditNewsVisible(false);
+    dispatch(companyNew(newsCheck));
   };
 
   return (
     <div>
       {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
+      <Popup>
+        <AddNews refreshNews={refreshNews} />
+      </Popup>
       <Table>
         <thead>
           <tr>
@@ -217,7 +257,7 @@ function NewsTable() {
       >
         {selectedNews && editNewsVisible && (
           <div>
-            <UpdateNew New={selectedNews} />
+            <UpdateNew New={selectedNews} refreshNews={refreshNews} />
           </div>
         )}
       </Modal>

@@ -12,7 +12,7 @@ import { updateProduct } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
 
-function UpdateProductForm({ product }) {
+function UpdateProductForm({ product, handleSaveClick }) {
   let { data: session, status } = useSession();
   const [showCols, setShowCols] = useState(true);
 
@@ -58,6 +58,7 @@ function UpdateProductForm({ product }) {
     let returnResult = await updateProduct(value, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      handleSaveClick();
     }
   };
   const showToast = (msg) => {

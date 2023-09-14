@@ -1,9 +1,13 @@
 import React from "react";
 import { Table } from "@mantine/core";
 import Whitelist from "../../../../config/whitelist.json";
+import Popup from "@/components/popup";
+import AddIp from "./addIp";
 function IpTable() {
-  const ipList: any = Whitelist.whitelist;
-
+  let ipList: any = Whitelist.whitelist;
+  const refreshIp = () => {
+    ipList = Whitelist.whitelist;
+  };
   const rows = ipList.map((ip, index) => (
     <tr key={ip.publicIp}>
       <td>{index + 1}</td>
@@ -15,6 +19,9 @@ function IpTable() {
 
   return (
     <div>
+      <Popup>
+        <AddIp refreshIp={refreshIp} />
+      </Popup>
       <Table>
         <thead>
           <tr>

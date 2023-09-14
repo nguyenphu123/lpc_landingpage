@@ -7,6 +7,8 @@ import UpdatePartner from "./updatePartner";
 import { updatePartner } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
+import Popup from "@/components/popup";
+import PartnerForm from "./createPartner";
 
 interface Partner {
   status: string;
@@ -44,8 +46,10 @@ function PartnerTable() {
 
     setIsEditMode(selectedPartner === partner); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
   };
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
     // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
+    const partnerCheck = await loadPartner(href);
+    setPartnerData(partnerCheck.partners);
     setSelectedPartner(null);
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
@@ -59,7 +63,13 @@ function PartnerTable() {
     let returnResult = await updatePartner(partnerStatusChange, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      const partnerCheck = await loadPartner(href);
+      setPartnerData(partnerCheck.partners);
     }
+  };
+  const refreshPartner = async () => {
+    const partnerCheck = await loadPartner(href);
+    setPartnerData(partnerCheck.partners);
   };
   const showToast = (msg) => {
     setIsSucess(true);
@@ -101,6 +111,9 @@ function PartnerTable() {
   return (
     <div>
       {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
+      <Popup>
+        <PartnerForm refreshPartner={refreshPartner} />
+      </Popup>
       <Table>
         <thead>
           <tr>
@@ -130,9 +143,7 @@ function PartnerTable() {
         {selectedPartner && (
           <section className="section">
             <div className="container">
-              <h3 className="flex justify-center">
-                {isEditMode ? "Edit Product" : "Product Details"}
-              </h3>
+              <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 
               <UpdatePartner
                 partner={selectedPartner}

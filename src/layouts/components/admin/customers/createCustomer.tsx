@@ -10,7 +10,7 @@ import { addCustomer } from "@/lib/createData";
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
 
-function CustomerForm() {
+function CustomerForm({ refreshCustomer }) {
   const [selectedImage, setSelectedImage] = useState(null);
   let { data: session, status } = useSession();
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
@@ -62,6 +62,7 @@ function CustomerForm() {
     let returnResult = await addCustomer(values, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      refreshCustomer();
     }
     form.reset();
   };

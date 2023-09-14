@@ -8,6 +8,8 @@ import UpdateBanner from "./updateBanner";
 import { useSession } from "next-auth/react";
 import { updateBanner } from "@/lib/updateData";
 import ToastGenerator from "@/lib/toast-tify";
+import Popup from "@/components/popup";
+import BannerForm from "./createBanner";
 
 interface Banner {
   status: string;
@@ -53,12 +55,17 @@ function BannerTable() {
     setIsEditMode(selectedBanner === banner); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
     // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
+    const bannerCheck = await loadBanner(href);
+    setBannerData(bannerCheck.banner);
     setSelectedBanner(null);
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
-
+  const refreshBanner = async () => {
+    const bannerCheck = await loadBanner(href);
+    setBannerData(bannerCheck.banner);
+  };
   const changeStatus = async (banner) => {
     let bannerStatusChange = JSON.parse(JSON.stringify(banner));
     if (bannerStatusChange["status"] == "Active") {
@@ -69,6 +76,8 @@ function BannerTable() {
     let returnResult = await updateBanner(bannerStatusChange, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      const bannerCheck = await loadBanner(href);
+      setBannerData(bannerCheck.banner);
     }
   };
   const showToast = (msg) => {
@@ -122,6 +131,9 @@ function BannerTable() {
   return (
     <div>
       {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
+      <Popup>
+        <BannerForm refreshBanner={refreshBanner} />
+      </Popup>
       <Table>
         <thead>
           <tr>
@@ -152,9 +164,7 @@ function BannerTable() {
         {selectedBanner && (
           <section className="section">
             <div className="container">
-              <h3 className="flex justify-center">
-                {isEditMode ? "Edit Product" : "Product Details"}
-              </h3>
+              <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 
               <UpdateBanner
                 banner={selectedBanner}

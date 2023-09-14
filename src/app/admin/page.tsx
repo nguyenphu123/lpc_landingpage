@@ -3,19 +3,7 @@
 import { redirect } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
-const BannerForm = dynamic(
-  () => import("@/components/admin/banner/createBanner"),
-);
-const CustomerForm = dynamic(
-  () => import("@/components/admin/customers/createCustomer"),
-);
-const AddNews = dynamic(() => import("@/components/admin/news/createNew"));
-const PartnerForm = dynamic(
-  () => import("@/components/admin/partners/createPartner"),
-);
-const ProductForm = dynamic(
-  () => import("@/components/admin/products/createProduct"),
-);
+
 const Popup = dynamic(() => import("@/components/popup"));
 const NewsTable = dynamic(() => import("@/components/admin/news/newTable"));
 const CustomerTable = dynamic(
@@ -37,7 +25,6 @@ const MessageTable = dynamic(
   () => import("@/components/admin/message/messageTable"),
 );
 const UserTable = dynamic(() => import("@/components/admin/user/userTable"));
-const UserForm = dynamic(() => import("@/components/admin/user/createUser"));
 const UpdateUser = dynamic(() => import("@/components/admin/user/updateUser"));
 
 import { useEffect, useState } from "react";
@@ -401,9 +388,6 @@ const Home = () => {
             role="tabpanel"
             aria-labelledby="banner-tab"
           >
-            <Popup>
-              <BannerForm />
-            </Popup>
             <BannerTable />
           </div>
           <div
@@ -420,9 +404,6 @@ const Home = () => {
             role="tabpanel"
             aria-labelledby="customer-tab"
           >
-            <Popup>
-              <CustomerForm />
-            </Popup>
             <CustomerTable />
           </div>
           <div
@@ -431,10 +412,6 @@ const Home = () => {
             role="tabpanel"
             aria-labelledby="new-tab"
           >
-            <Popup>
-              {" "}
-              <AddNews />
-            </Popup>
             <NewsTable />
           </div>
           <div
@@ -451,9 +428,6 @@ const Home = () => {
             role="tabpanel"
             aria-labelledby="partner-tab"
           >
-            <Popup>
-              <PartnerForm />
-            </Popup>
             <PartnerTable />
           </div>
           <div
@@ -462,9 +436,6 @@ const Home = () => {
             role="tabpanel"
             aria-labelledby="product-tab"
           >
-            <Popup>
-              <ProductForm />
-            </Popup>
             <ProductTable />
           </div>
           <div
@@ -473,13 +444,8 @@ const Home = () => {
             role="tabpanel"
             aria-labelledby="user-tab"
           >
-            <Popup>
-              <UserForm />
-            </Popup>
             <UserTable />
-            <Popup>
-              <AddIp />
-            </Popup>
+
             <IpTable />
           </div>
         </div>

@@ -10,7 +10,7 @@ import { addUsers } from "@/lib/createData";
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
 
-function UserForm() {
+function UserForm({ refreshUser }) {
   let { data: session, status } = useSession();
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
   const [isSucess, setIsSucess] = useState(false);
@@ -27,6 +27,7 @@ function UserForm() {
     let returnResult = await addUsers(values, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      refreshUser();
     }
     form.reset();
   };

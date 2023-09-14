@@ -11,7 +11,7 @@ import { updateNews } from "@/lib/updateData";
 import TextEditor from "../RichTextEditor";
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
-function UpdateNew({ New }) {
+function UpdateNew({ New, refreshNews }) {
   const [submittedValues, setSubmittedValues] = useState("");
   let { data: session, status } = useSession();
   const [content, setContent]: any = useState(New.content);
@@ -69,6 +69,7 @@ function UpdateNew({ New }) {
     let returnResult = await updateNews(updateData, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      refreshNews();
     }
   };
   const showToast = (msg) => {

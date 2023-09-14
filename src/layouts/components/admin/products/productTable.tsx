@@ -11,6 +11,8 @@ import { useSession } from "next-auth/react";
 import UpdateProductForm from "./updateProduct";
 import { updateProduct } from "@/lib/updateData";
 import ToastGenerator from "@/lib/toast-tify";
+import Popup from "@/components/popup";
+import ProductForm from "./createProduct";
 
 interface Product {
   _id: string;
@@ -92,12 +94,52 @@ function ProductTable() {
 
     setShowContent(true); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
   };
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
     // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
 
-    setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
+    const productCheck = await loadProduct(
+      {
+        title: 1,
+        _id: 1,
+        type: 1,
+        titleEn: 1,
+        image: 1,
+        descriptionEn1: 1,
+        description1: 1,
+        pros: 1,
+        prosEn: 1,
+        content: 1,
+        description2: 1,
+        descriptionEn2: 1,
+        status: 1,
+      },
+      href,
+    );
+    dispatch(companyProduct(productCheck));
   };
-
+  const refreshProduct = async (e) => {
+    // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
+    e.preventDefault();
+    const productCheck = await loadProduct(
+      {
+        title: 1,
+        _id: 1,
+        type: 1,
+        titleEn: 1,
+        image: 1,
+        descriptionEn1: 1,
+        description1: 1,
+        pros: 1,
+        prosEn: 1,
+        content: 1,
+        description2: 1,
+        descriptionEn2: 1,
+        status: 1,
+      },
+      href,
+    );
+    dispatch(companyProduct(productCheck));
+  };
   const handleViewClick = (product: Product) => {
     setSelectedProduct(product);
 
@@ -179,6 +221,12 @@ function ProductTable() {
   return (
     <div>
       {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
+      <Popup>
+        <ProductForm handleSaveClick={handleSaveClick} />
+      </Popup>
+      <button className="cursor-pointer" onClick={(e) => refreshProduct(e)}>
+        refresh
+      </button>
       <Table>
         <thead>
           <tr>
@@ -211,11 +259,12 @@ function ProductTable() {
         {selectedProduct && showInfo ? (
           <section className="section">
             <div className="container">
-              <h3 className="flex justify-center">
-                {isEditMode ? "Edit Product" : "Product Details"}
-              </h3>
+              <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 
-              <UpdateProductForm product={selectedProduct} />
+              <UpdateProductForm
+                product={selectedProduct}
+                handleSaveClick={handleSaveClick}
+              />
             </div>
           </section>
         ) : (

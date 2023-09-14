@@ -10,7 +10,7 @@ import { addIp } from "@/lib/createData";
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
 
-function AddIp() {
+function AddIp({ refreshIp }) {
   let { data: session, status } = useSession();
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
   const [isSucess, setIsSucess] = useState(false);
@@ -27,6 +27,7 @@ function AddIp() {
     const ip = await addIp(values, session);
     if (ip.success != undefined) {
       showToast(ip.msg);
+      refreshIp();
     }
     form.reset();
 

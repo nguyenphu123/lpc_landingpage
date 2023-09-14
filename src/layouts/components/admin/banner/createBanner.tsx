@@ -14,7 +14,7 @@ import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
 
-const BannerForm = () => {
+const BannerForm = ({ refreshBanner }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   let { data: session, status }: any = useSession();
   const [imagePreview, setImagePreview] = useState("");
@@ -82,6 +82,7 @@ const BannerForm = () => {
     let returnResult = await addBanner(values, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      refreshBanner();
     }
     form.reset();
   };

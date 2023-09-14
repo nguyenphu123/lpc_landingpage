@@ -74,6 +74,8 @@ function ContactTable() {
     let returnResult = await updateContactInfo(values, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      const contactCheck = await loadContact(href);
+      setContactData(contactCheck.contact);
     }
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };

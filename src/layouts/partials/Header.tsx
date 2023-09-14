@@ -148,7 +148,7 @@ const Header = () => {
                   </Link>
                   <div
                     className={`nav-dropdown-list hidden group-hover:block gap-2 lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100  grid-cols-${Math.round(
-                      menu.children.length / 4,
+                      menu.children.length / 2,
                     )}`}
                   >
                     {menu.children?.map(

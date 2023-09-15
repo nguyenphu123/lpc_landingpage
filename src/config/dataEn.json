@@ -16,7 +16,11 @@
 
     "description": ""
   },
+  "quote1Mobile": {
+    "name": "READY, MASTERLY AND ATTENTIVE <br/> ARE OUR QUALITIES",
 
+    "description": ""
+  },
   "quote2": {
     "name": "We are committed to providing excellent solutions and dedicated service to our customers",
 
@@ -68,7 +72,8 @@
   "partner": {
     "name": "Our partner",
 
-    "description": "We are partners with the world's leading technology companies."
+    "description": "We are partners with the world's leading technology companies.",
+    "descriptionMobile": "We are partners with <br/> the world's leading technology companies."
   },
 
   "news": {
@@ -98,7 +103,7 @@
   "milestone": {
     "name": "KEY MILESTONES",
 
-    "description": "Lien Phat has completed over 1000 projects"
+    "description": "LPC has completed over 1000 projects"
   },
 
   "projects": {

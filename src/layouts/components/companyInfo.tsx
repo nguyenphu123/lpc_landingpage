@@ -18,7 +18,15 @@ export default function CompanyInfo() {
   let [companyDatas, setCompanyDatas]: any = useState(
     companyInfo.companyData.value,
   );
-
+  const [width, setWidth]: any = useState(
+    typeof window !== "undefined" && window.innerWidth,
+  ); // default width, detect on server.
+  const handleResize = () =>
+    setWidth(typeof window !== "undefined" && window.innerWidth);
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
   const [isBusy, setBusy] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -75,15 +83,28 @@ export default function CompanyInfo() {
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-9 gap-x-20 pb-32">
           <div className="min-h-[200px] col-span-5">
-            <h3
-              className="col-span-5"
-              dangerouslySetInnerHTML={{
-                __html:
-                  curlanguage.changeLanguage.value == "en"
-                    ? DataEn["quote1"].name
-                    : Data["quote1"].name,
-              }}
-            ></h3>
+            {width < 1030 ? (
+              <h3
+                className="col-span-5 text-lg"
+                dangerouslySetInnerHTML={{
+                  __html:
+                    curlanguage.changeLanguage.value == "en"
+                      ? DataEn["quote1Mobile"].name
+                      : Data["quote1Mobile"].name,
+                }}
+              ></h3>
+            ) : (
+              <h3
+                className="col-span-5"
+                dangerouslySetInnerHTML={{
+                  __html:
+                    curlanguage.changeLanguage.value == "en"
+                      ? DataEn["quote1"].name
+                      : Data["quote1"].name,
+                }}
+              ></h3>
+            )}
+
             <p
               dangerouslySetInnerHTML={{
                 __html:
@@ -116,7 +137,7 @@ export default function CompanyInfo() {
             </div>
           </div>
           <div className="min-h-[200px] col-span-5">
-            <h3 className="col-span-5">
+            <h3 className={`col-span-5 ${width < 1030 ? "text-lg" : ""}`}>
               {curlanguage.changeLanguage.value == "en"
                 ? DataEn["basic_moral"].name
                 : Data["basic_moral"].name}
@@ -143,12 +164,18 @@ export default function CompanyInfo() {
             />
           </div>
           <div className="min-h-[50px] flex flex-col items-center justify-center col-span-3">
-            <h4 className="mb-1">
-              {curlanguage.changeLanguage.value == "en"
-                ? DataEn["milestone"].name
-                : Data["milestone"].name}
-            </h4>
-            <h2>
+            <h4
+              dangerouslySetInnerHTML={{
+                __html:
+                  curlanguage.changeLanguage.value == "en"
+                    ? DataEn["milestone"].name
+                    : width < 1030
+                    ? Data["milestone"].nameMobile
+                    : Data["milestone"].name,
+              }}
+              className={`mb-1 ${width < 1030 ? "text-center" : ""}`}
+            ></h4>
+            <h2 className={`${width < 1030 ? "text-lg" : ""}`}>
               {curlanguage.changeLanguage.value == "en"
                 ? DataEn["milestone"].description
                 : Data["milestone"].description}
@@ -163,7 +190,7 @@ export default function CompanyInfo() {
             </h6>
           </div>
           <div className="min-h-[50px] col-span-1 flex flex-col items-center justify-center">
-            <h2 className="mb-1">50</h2>
+            <h2 className={`mb-1`}>50</h2>
             <h6>
               {curlanguage.changeLanguage.value == "en"
                 ? DataEn["partner"].name
@@ -182,11 +209,15 @@ export default function CompanyInfo() {
         <div className="py-24 sm:py-32">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <h3
-              className="text-center"
+              className={`text-center ${width < 1030 ? "text-lg" : ""}`}
               dangerouslySetInnerHTML={{
                 __html:
                   curlanguage.changeLanguage.value == "en"
-                    ? DataEn["partner"].description.toUpperCase()
+                    ? width < 1030
+                      ? DataEn["partner"].descriptionMobile.toUpperCase()
+                      : DataEn["partner"].description.toUpperCase()
+                    : width < 1030
+                    ? Data["partner"].descriptionMobile.toUpperCase()
                     : Data["partner"].description.toUpperCase(),
               }}
             ></h3>
@@ -196,11 +227,13 @@ export default function CompanyInfo() {
         <div className="py-24 sm:py-32">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <h3
-              className="text-center"
+              className={`text-center ${width < 1030 ? "text-lg" : ""}`}
               dangerouslySetInnerHTML={{
                 __html:
                   curlanguage.changeLanguage.value == "en"
                     ? DataEn["customer2"].description.toUpperCase()
+                    : width < 1030
+                    ? Data["customer2"].descriptionMobile.toUpperCase()
                     : Data["customer2"].description.toUpperCase(),
               }}
             ></h3>

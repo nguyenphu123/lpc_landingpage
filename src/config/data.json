@@ -16,7 +16,11 @@
 
     "description": ""
   },
+  "quote1Mobile": {
+    "name": "SẴN SÀNG, CHUYÊN NGHIỆP, CHU ĐÁO  LÀ CHẤT LƯỢNG CỦA CHÚNG TÔI",
 
+    "description": ""
+  },
   "quote2": {
     "name": "Chúng tôi cam kết mang đến những giải pháp xuất sắc và dịch vụ tận tâm cho khách hàng",
 
@@ -68,7 +72,8 @@
   "partner": {
     "name": "Đối tác",
 
-    "description": "Chúng tôi là đối tác với những công ty công nghệ hàng đầu thế giới."
+    "description": "Chúng tôi là đối tác với những công ty công nghệ hàng đầu thế giới.",
+    "descriptionMobile": "Chúng tôi là đối tác với những công ty công nghệ hàng đầu thế giới."
   },
 
   "news": {
@@ -97,7 +102,7 @@
 
   "milestone": {
     "name": "NHỮNG CỘT MỐC QUAN TRỌNG",
-
+    "nameMobile": "NHỮNG CỘT MỐC <br/> QUAN TRỌNG",
     "description": "Liên Phát đã hoàn thành hơn 1000 dự án"
   },
 
@@ -146,7 +151,8 @@
   "customer2": {
     "name": "Khách hàng",
 
-    "description": "ĐỒNG THỜI CHÚNG TÔI TỰ HÀO LÀ KHÁCH HÀNG TIÊU BIỂU <br/> VỚI CÁC DOANH NGHIỆP TRÊN."
+    "description": "ĐỒNG THỜI CHÚNG TÔI TỰ HÀO LÀ KHÁCH HÀNG TIÊU BIỂU <br/> VỚI CÁC DOANH NGHIỆP TRÊN.",
+    "descriptionMobile": "ĐỒNG THỜI CHÚNG TÔI <br/>TỰ HÀO LÀ KHÁCH HÀNG<br/> TIÊU BIỂU VỚI <br/> CÁC DOANH NGHIỆP TRÊN."
   },
 
   "text3": {

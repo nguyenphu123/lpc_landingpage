@@ -158,8 +158,15 @@ const Contact = () => {
         <div className="container">
           <div className="row">
             <div className="mx-auto sm:col-10 md:col-10 lg:col-10 grid grid-cols-1 lg:grid-cols-2 gap-1">
-              <MapWithAMarker />
-
+              {/* <MapWithAMarker /> */}
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7839.140298694166!2d106.70068435239256!3d10.767573902897034!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f40068b5a77%3A0xf80e4fdadaba9c43!2zTGllbiBQaGF0IFRlY2hub2xvZ3kgQ29ycG9yYXRpb24gKEPDtG5nIFR5IEPhu5UgUGjhuqduIEPDtG5nIE5naOG7hyBMacOqbiBQaMOhdCk!5e0!3m2!1svi!2s!4v1694760510427!5m2!1svi!2s"
+               
+                style={{ border: 0, width:"90%", height:"90%" }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
               <div className="order-1 lg:order-2">
                 <form onSubmit={(e) => onsubmit(e)}>
                   <div className="mb-6">

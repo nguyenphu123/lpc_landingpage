@@ -75,11 +75,15 @@ export default function CompanyInfo() {
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-9 gap-x-20 pb-32">
           <div className="min-h-[200px] col-span-5">
-            <h3 className="col-span-5">
-              {curlanguage.changeLanguage.value == "en"
-                ? DataEn["quote1"].name
-                : Data["quote1"].name}
-            </h3>
+            <h3
+              className="col-span-5"
+              dangerouslySetInnerHTML={{
+                __html:
+                  curlanguage.changeLanguage.value == "en"
+                    ? DataEn["quote1"].name
+                    : Data["quote1"].name,
+              }}
+            ></h3>
             <p
               dangerouslySetInnerHTML={{
                 __html:

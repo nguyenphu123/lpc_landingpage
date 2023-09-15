@@ -69,7 +69,7 @@ export default function RootLayout({
         />
       </head>
 
-      <body suppressHydrationWarning={true}>
+      <body tabIndex={0} suppressHydrationWarning={true}>
         <ScrollToTopButton />
         <Provider store={store}>
           <AuthProvider>

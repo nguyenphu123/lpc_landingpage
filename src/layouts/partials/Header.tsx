@@ -86,6 +86,18 @@ const Header = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
+  const [mobileMenu, setMobileMenu] = useState(false);
+  function mobleView(e) {
+    e.preventDefault();
+    if (width < 1030) {
+      if (mobileMenu) {
+        setMobileMenu(false);
+      } else {
+        setMobileMenu(true);
+      }
+    }
+  }
+
   return isLoading ? (
     <></>
   ) : (
@@ -105,6 +117,7 @@ const Header = () => {
         <input id="nav-toggle" type="checkbox" className="hidden" />
         <label
           id="show-button"
+          onClick={(e) => mobleView(e)}
           htmlFor="nav-toggle"
           className="order-3 flex cursor-pointer items-center text-dark dark:text-white lg:order-1 lg:hidden"
         >
@@ -115,6 +128,7 @@ const Header = () => {
         </label>
         <label
           id="hide-button"
+          onClick={(e) => mobleView(e)}
           htmlFor="nav-toggle"
           className="order-3 hidden cursor-pointer items-center text-dark dark:text-white lg:order-1"
         >
@@ -130,11 +144,13 @@ const Header = () => {
 
         <ul
           id="nav-menu"
-          className="navbar-nav order-3 hidden w-full pb-6 lg:order-1 lg:flex lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8"
+          className={`navbar-nav order-3 md:hidden ${
+            mobileMenu ? "block" : "hidden"
+          } w-full pb-6 lg:order-1 lg:flex lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8`}
         >
           {main.map((menu, i) => (
             <React.Fragment key={`menu-${i}`}>
-              {menu.hasChildren ? (
+              {menu.hasChildren && width > 1030 ? (
                 <li className="nav-item nav-dropdown group relative">
                   <Link
                     className={`nav-link inline-flex items-center ${
@@ -155,7 +171,8 @@ const Header = () => {
                     </svg>
                   </Link>
                   <div
-                    className={`w-max nav-dropdown-list hidden group-hover:block gap-2 lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100`}
+                    //
+                    className={`w-max nav-dropdown-list hidden group-hover:block gap-2 sm:invisible sm:absolute sm:block sm:opacity-0 sm:group-hover:visible sm:group-hover:opacity-100 lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100`}
                   >
                     {menu.children?.map(
                       (
@@ -169,6 +186,7 @@ const Header = () => {
                         i: any,
                       ) => (
                         <div
+                          onClick={(e) => mobleView(e)}
                           className="nav-dropdown-item"
                           key={`children-${i}`}
                         >
@@ -192,7 +210,7 @@ const Header = () => {
                   </div>
                 </li>
               ) : (
-                <li className="nav-item">
+                <li onClick={(e) => mobleView(e)} className="nav-item">
                   <Link
                     href={menu.link}
                     className={`nav-link block ${

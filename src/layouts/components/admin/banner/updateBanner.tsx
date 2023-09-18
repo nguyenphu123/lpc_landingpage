@@ -67,6 +67,7 @@ const UpdateBanner = ({ banner, handleSaveClick }) => {
     let returnResult = await updateBanner(values, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      handleSaveClick();
     }
     form.reset();
   };

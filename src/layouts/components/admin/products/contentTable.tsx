@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
 import { updateProductContent } from "@/lib/updateData";
 import ToastGenerator from "@/lib/toast-tify";
 import { useUrl } from "nextjs-current-url";
-import { loadSolutionContent } from "@/lib/loadData";
+import { loadService, loadSolutionContent } from "@/lib/loadData";
 
 function ContentTable({ product }) {
   const { data: session, status } = useSession();
@@ -19,32 +19,51 @@ function ContentTable({ product }) {
   const [isSucess, setIsSucess] = useState(false);
   const [sucessMessage, setSucessMessage] = useState("");
   const { href } = useUrl() ?? {};
-  let [data, setData]: any = useState({});
+  let [data, setData]: any = useState(null);
   const handleEditClick = (content) => {
     setSelectedContent(content);
 
     setIsEditMode(selectedContent === content); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
   };
   useEffect(() => {
-    const fetchSolution = async () => {
-      if (Object.keys(data).length == 0) {
-        const solutionCheck = await loadSolutionContent(
-          {
-            title: 1,
-            _id: 1,
-            titleEn: 1,
-            "content.title": 1,
-            "content.titleEn": 1,
-            "content._id": 1,
-            "content.imgSrc": 1,
-            "content.content": 1,
-            "content.contentEn": 1,
-            "content.status": 1,
-          },
-          href,
-          product._id,
-        );
-        setData(solutionCheck.products);
+    const fetchContent = async () => {
+      if (data == null) {
+        if (product.type == "Service") {
+          const serviceCheck = await loadService(
+            {
+              title: 1,
+              _id: 1,
+              titleEn: 1,
+              "content.title": 1,
+              "content.titleEn": 1,
+              "content._id": 1,
+              "content.imgSrc": 1,
+              "content.content": 1,
+              "content.contentEn": 1,
+              "content.status": 1,
+            },
+            href,
+          );
+          setData(serviceCheck.products[0]);
+        } else {
+          const solutionCheck = await loadSolutionContent(
+            {
+              title: 1,
+              _id: 1,
+              titleEn: 1,
+              "content.title": 1,
+              "content.titleEn": 1,
+              "content._id": 1,
+              "content.imgSrc": 1,
+              "content.content": 1,
+              "content.contentEn": 1,
+              "content.status": 1,
+            },
+            href,
+            product._id,
+          );
+          setData(solutionCheck.products[0]);
+        }
       } else {
       }
     };
@@ -52,30 +71,49 @@ function ContentTable({ product }) {
 
     // call the function
     if (status != "loading") {
-      fetchSolution()
+      fetchContent()
         // make sure to catch any error
         .catch(console.error);
     }
   }, []);
   const handleSaveClick = async () => {
     // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
-    const solutionCheck = await loadSolutionContent(
-      {
-        title: 1,
-        _id: 1,
-        titleEn: 1,
-        "content.title": 1,
-        "content.titleEn": 1,
-        "content._id": 1,
-        "content.imgSrc": 1,
-        "content.content": 1,
-        "content.contentEn": 1,
-        "content.status": 1,
-      },
-      href,
-      product._id,
-    );
-    setData(solutionCheck.products);
+    if (product.type == "Service") {
+      const serviceCheck = await loadService(
+        {
+          title: 1,
+          _id: 1,
+          titleEn: 1,
+          "content.title": 1,
+          "content.titleEn": 1,
+          "content._id": 1,
+          "content.imgSrc": 1,
+          "content.content": 1,
+          "content.contentEn": 1,
+          "content.status": 1,
+        },
+        href,
+      );
+      setData(serviceCheck.products[0]);
+    } else {
+      const solutionCheck = await loadSolutionContent(
+        {
+          title: 1,
+          _id: 1,
+          titleEn: 1,
+          "content.title": 1,
+          "content.titleEn": 1,
+          "content._id": 1,
+          "content.imgSrc": 1,
+          "content.content": 1,
+          "content.contentEn": 1,
+          "content.status": 1,
+        },
+        href,
+        product._id,
+      );
+      setData(solutionCheck.products[0]);
+    }
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
 
@@ -114,7 +152,8 @@ function ContentTable({ product }) {
     | React.PromiseLikeOfReactNode
     | null
     | undefined;
-  if (Object.keys(data).length != 0) {
+
+  if (data != null) {
     rows = data.content.map((item, index) => (
       <tr key={item._id}>
         <td>{index + 1}</td>

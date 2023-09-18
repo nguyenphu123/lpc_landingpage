@@ -1,12 +1,14 @@
 {
   "main": [
     {
+      "id": "172ea8b4-c520-4938-bc1f-7c55ff4a389f",
       "name": "Trang chủ",
 
       "link": "/"
     },
 
     {
+      "id":"aa34074d-8e99-4a6c-8fb0-8a2b7cf0e92c",
       "name": "Giải pháp",
 
       "link": "/Solution",
@@ -17,6 +19,7 @@
     },
 
     {
+      "id":"d00ee4a1-9cbc-4f62-9a04-1e1c2a57c540",
       "name": "Dịch vụ",
 
       "link": "/Service",
@@ -27,18 +30,21 @@
     },
 
     {
+      "id":"ffcb4531-8732-4381-bc2d-350125bc26b9",
       "name": "Tin tức",
 
       "link": "/blog"
     },
 
     {
+      "id":"a8a35dc8-868a-44fb-9979-278f62436c1c",
       "name": "Liên hệ",
 
       "link": "/contact"
     },
 
     {
+      "id":"5197fd53-d76e-4aed-a841-ca6515919fdd",
       "name": "Về Liên Phát",
 
       "link": "/about"

@@ -4,18 +4,29 @@ import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
+import Image from "next/image";
+
 import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
 
 import { addCustomer } from "@/lib/createData";
+
 import { useSession } from "next-auth/react";
+
 import ToastGenerator from "@/lib/toast-tify";
 
 function CustomerForm({ refreshCustomer }) {
   const [selectedImage, setSelectedImage] = useState(null);
+
   let { data: session, status } = useSession();
+
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
+
   const [isSucess, setIsSucess] = useState(false);
+
+  const [imagePreview, setImagePreview] = useState("");
+
   const [sucessMessage, setSucessMessage] = useState("");
+
   const form = useForm({
     initialValues: {
       name: "",
@@ -28,6 +39,10 @@ function CustomerForm({ refreshCustomer }) {
     const file = e.target.files[0];
 
     setSelectedImage(file);
+
+    const imageUrl = URL.createObjectURL(file);
+
+    setImagePreview(imageUrl);
   };
 
   const onSubmitForm = async (values) => {
@@ -60,28 +75,48 @@ function CustomerForm({ refreshCustomer }) {
     // Continue with the rest of the form submission
 
     let returnResult = await addCustomer(values, session);
+
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+
       refreshCustomer();
     }
+
     form.reset();
   };
+
   const showToast = (msg) => {
     setIsSucess(true);
+
     setSucessMessage(msg);
+
     setTimeout(() => {
       setIsSucess(false);
+
       setSucessMessage("");
     }, 10000);
   };
+
   return (
     // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
     <div className="container">
       {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
-      <Box maw={"75%"} mx="auto">
+
+      <Box maw={"100%"} mx="auto">
         <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
-          <h3 className="flex justify-center">Add new customers</h3>
+          <h3 className="flex justify-center">Add new customer</h3>
+
+          {imagePreview && (
+            <div className="flex justify-center">
+              <Image
+                src={imagePreview}
+                alt="Preview"
+                width="350"
+                height="350"
+              />
+            </div>
+          )}
 
           <Grid gutter="lg">
             <Col span={12}>

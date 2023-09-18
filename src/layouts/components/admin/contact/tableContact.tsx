@@ -19,6 +19,8 @@ import { useSession } from "next-auth/react";
 import { updateContactInfo } from "@/lib/updateData";
 import ToastGenerator from "@/lib/toast-tify";
 import { useForm } from "@mantine/form";
+import Popup from "@/components/popup";
+import UpdateCompanyInfo from "./updateCompanyInfo";
 
 interface Contact {
   _id: string;
@@ -112,17 +114,9 @@ function ContactTable() {
 
   return (
     <div>
-      {/* <Button
-
-        style={{ backgroundColor: "#007bff", color: "white" }}
-
-        onClick={() => setAddContactVisible(true)}
-
-      >
-
-        Add News
-
-      </Button> */}
+      {/* <Popup>
+        <UpdateCompanyInfo />
+      </Popup> */}
 
       <Table>
         <thead>

@@ -127,7 +127,10 @@ function BannerTable() {
   };
 
   const rows = bannerData.map((banner, index) => (
-    <tr key={banner._id}>
+    <tr
+      key={banner._id}
+      className={index % 2 === 0 ? "bg-white" : "bg-gray-100"}
+    >
       <td>{index + 1}</td>
 
       <td>

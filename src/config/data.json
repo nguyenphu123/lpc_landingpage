@@ -207,5 +207,9 @@
     "name": "Các giải pháp",
 
     "description": ""
+  },
+  "revenue":{
+    "name":"Doanh thu",
+    "description":"https://res.cloudinary.com/derjssgq9/image/upload/v1693284851/lpc_revenue_lcetzq.webp"
   }
 }

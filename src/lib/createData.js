@@ -80,6 +80,26 @@ export async function addIp(ip, session) {
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
 }
+export async function addMenuItem(item, session) {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  // const posts = await loadNews()
+
+  const res = await fetch("api/admin/menu", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
+    body: JSON.stringify(item),
+  });
+  const returnResult = await res.json();
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return returnResult;
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+}
 export async function addCustomer(customer, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library

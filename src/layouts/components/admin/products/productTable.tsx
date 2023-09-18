@@ -108,7 +108,7 @@ function ProductTable() {
         description1: 1,
         pros: 1,
         prosEn: 1,
-        content: 1,
+        // content: 1,
         description2: 1,
         descriptionEn2: 1,
         status: 1,
@@ -131,7 +131,7 @@ function ProductTable() {
         description1: 1,
         pros: 1,
         prosEn: 1,
-        content: 1,
+        // content: 0,
         description2: 1,
         descriptionEn2: 1,
         status: 1,
@@ -140,15 +140,7 @@ function ProductTable() {
     );
     dispatch(companyProduct(productCheck));
   };
-  const handleViewClick = (product: Product) => {
-    setSelectedProduct(product);
 
-    setContentView(true); // Chuyển sang chế độ xem
-  };
-
-  const toggleShowContent = () => {
-    setShowContent(!showContent);
-  };
   const changeStatus = async (product) => {
     let productStatusChange = JSON.parse(JSON.stringify(product));
     if (productStatusChange["status"] == "Active") {

@@ -243,7 +243,11 @@ export default function CompanyInfo() {
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Image
-            src="https://res.cloudinary.com/derjssgq9/image/upload/v1693284851/lpc_revenue_lcetzq.webp"
+            src={
+              curlanguage.changeLanguage.value == "en"
+                ? DataEn["revenue"].description
+                : Data["revenue"].description
+            }
             width={1200}
             height={700}
             alt="LPC team"

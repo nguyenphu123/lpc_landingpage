@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Table, Modal, Button } from "@mantine/core";
 
@@ -9,63 +9,76 @@ import UpdateContentForm from "./updateContent";
 import { useSession } from "next-auth/react";
 import { updateProductContent } from "@/lib/updateData";
 import ToastGenerator from "@/lib/toast-tify";
-
-interface Product {
-  _id: string;
-
-  title: string;
-
-  titleEn: string;
-
-  description1: string;
-
-  description2: string;
-
-  descriptionEn1: string;
-
-  descriptionEn2: string;
-
-  type: string;
-
-  image: string;
-
-  pros: string[];
-
-  prosEn: string[];
-
-  content: Array<Record<string, any>>;
-}
+import { useUrl } from "nextjs-current-url";
+import { loadSolutionContent } from "@/lib/loadData";
 
 function ContentTable({ product }) {
   const { data: session, status } = useSession();
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
+  const [selectedContent, setSelectedContent] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
-
-  const [showContent, setShowContent] = useState(false);
   const [isSucess, setIsSucess] = useState(false);
   const [sucessMessage, setSucessMessage] = useState("");
-  const handleEditClick = (product: Product) => {
-    setSelectedProduct(product);
+  const { href } = useUrl() ?? {};
+  let [data, setData]: any = useState({});
+  const handleEditClick = (content) => {
+    setSelectedContent(content);
 
-    setIsEditMode(selectedProduct === product); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
+    setIsEditMode(selectedContent === content); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
   };
+  useEffect(() => {
+    const fetchSolution = async () => {
+      if (Object.keys(data).length == 0) {
+        const solutionCheck = await loadSolutionContent(
+          {
+            title: 1,
+            _id: 1,
+            titleEn: 1,
+            "content.title": 1,
+            "content.titleEn": 1,
+            "content._id": 1,
+            "content.imgSrc": 1,
+            "content.content": 1,
+            "content.contentEn": 1,
+            "content.status": 1,
+          },
+          href,
+          product._id,
+        );
+        setData(solutionCheck.products);
+      } else {
+      }
+    };
+    // call the function
 
-  const handleSaveClick = () => {
+    // call the function
+    if (status != "loading") {
+      fetchSolution()
+        // make sure to catch any error
+        .catch(console.error);
+    }
+  }, []);
+  const handleSaveClick = async () => {
     // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
-
+    const solutionCheck = await loadSolutionContent(
+      {
+        title: 1,
+        _id: 1,
+        titleEn: 1,
+        "content.title": 1,
+        "content.titleEn": 1,
+        "content._id": 1,
+        "content.imgSrc": 1,
+        "content.content": 1,
+        "content.contentEn": 1,
+        "content.status": 1,
+      },
+      href,
+      product._id,
+    );
+    setData(solutionCheck.products);
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
 
-  const handleViewClick = (product: Product) => {
-    setSelectedProduct(product);
-
-    setIsEditMode(false); // Chuyển sang chế độ xem
-  };
-
-  const toggleShowContent = () => {
-    setShowContent(!showContent);
-  };
   const changeStatus = async (item) => {
     let itemStatusChange = JSON.parse(JSON.stringify(item));
     if (itemStatusChange["status"] == "Active") {
@@ -101,8 +114,8 @@ function ContentTable({ product }) {
     | React.PromiseLikeOfReactNode
     | null
     | undefined;
-  if (product != undefined) {
-    rows = product.content.map((item, index) => (
+  if (Object.keys(data).length != 0) {
+    rows = data.content.map((item, index) => (
       <tr key={item._id}>
         <td>{index + 1}</td>
 
@@ -127,7 +140,7 @@ function ContentTable({ product }) {
         <td>
           <button
             className="cursor-pointer"
-            onClick={() => setSelectedProduct(item)}
+            onClick={() => setSelectedContent(item)}
           >
             View
           </button>
@@ -175,19 +188,19 @@ function ContentTable({ product }) {
 
       <Modal
         size="1000px"
-        opened={Boolean(selectedProduct)}
+        opened={Boolean(selectedContent)}
         onClose={() => {
-          setSelectedProduct(null);
+          setSelectedContent(null);
 
           setIsEditMode(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
         }}
       >
-        {selectedProduct && (
+        {selectedContent && (
           <section className="section">
             <div className="container">
               <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 
-              <UpdateContentForm product={product} content={selectedProduct} />
+              <UpdateContentForm product={product} content={selectedContent} />
 
               <div style={{ marginTop: "16px" }}>
                 {isEditMode ? (

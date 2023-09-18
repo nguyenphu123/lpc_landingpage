@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 export default function BannerContent({ banner }) {
   const curlanguage = useSelector((rootState) => language(rootState));
   return (
-    <div className="relative w-3xl whitespace-normal mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-5 containerbanner">
+    <div className="relative w-3xl whitespace-normal mx-auto max-w-screen-xl px-4 py-52 sm:px-6 lg:flex lg:h-max lg:items-center lg:px-5 containerbanner">
       <div
         className=" whitespace-normal ltr:sm:text-left rtl:sm:text-right"
         style={{

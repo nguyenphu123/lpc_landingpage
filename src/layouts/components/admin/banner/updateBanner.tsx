@@ -8,24 +8,32 @@ import Image from "next/image";
 
 import { updateBanner } from "@/lib/updateData";
 
-import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
+import { TextInput, Button, Box, Grid, Col, Textarea } from "@mantine/core";
+
 import { useSession } from "next-auth/react";
+
 import ToastGenerator from "@/lib/toast-tify";
 
 const UpdateBanner = ({ banner, handleSaveClick }) => {
   const [selectedImage, setSelectedImage] = useState(null);
+
   let { data: session, status }: any = useSession();
+
   const [imagePreview, setImagePreview] = useState(banner.image);
 
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
+
   const [isSucess, setIsSucess] = useState(false);
+
   const [sucessMessage, setSucessMessage] = useState("");
 
   const onImageChange = (e) => {
     const file = e.target.files[0];
 
     const imageUrl = URL.createObjectURL(file);
+
     setSelectedImage(file);
+
     setImagePreview(imageUrl);
   };
 
@@ -65,73 +73,88 @@ const UpdateBanner = ({ banner, handleSaveClick }) => {
     // Tiếp tục với phần còn lại của quá trình gửi biểu mẫu
 
     let returnResult = await updateBanner(values, session);
+
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
       handleSaveClick();
     }
+
     form.reset();
   };
+
   const showToast = (msg) => {
     setIsSucess(true);
+
     setSucessMessage(msg);
+
     setTimeout(() => {
       setIsSucess(false);
+
       setSucessMessage("");
     }, 10000);
   };
+
   return (
     // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
-    <div className="container">
-      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
-      <Box maw={"75%"} mx="auto">
+    <div className="container mx-auto p-4">
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : null}
+
+      <Box maw={"100%"} mx="auto">
         <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
-          <h3 className="flex justify-center">Update content</h3>
+          <h3 className="text-center text-xl font-bold mb-6">Update Banner</h3>
 
           {/* Hiển thị xem trước ảnh */}
 
           {imagePreview && (
-            <div className="flex justify-center">
+            <div className="flex justify-center mb-6">
               <Image
                 src={imagePreview}
                 alt="Preview"
-                width="350"
-                height="350"
+                width="330"
+                height="330"
+                className="rounded-lg"
               />
             </div>
           )}
 
           <Grid gutter="lg">
             <Col span={6}>
-              <TextInput
+              <Textarea
                 label="Title"
-                placeholder="Title"
+                placeholder="Enter title here..."
+                radius="md"
+                size="md"
                 {...form.getInputProps("title")}
               />
             </Col>
 
             <Col span={6}>
-              <TextInput
+              <Textarea
                 label="Title (English)"
-                placeholder="Title (English)"
+                placeholder="Enter title here..."
+                radius="md"
+                size="md"
                 {...form.getInputProps("titleEn")}
               />
             </Col>
 
             <Col span={6}>
-              <TextInput
+              <Textarea
                 label="Content"
-                placeholder="Content"
-                mt="md"
+                placeholder="Enter content here..."
+                radius="md"
+                size="md"
                 {...form.getInputProps("content")}
               />
             </Col>
 
             <Col span={6}>
-              <TextInput
+              <Textarea
                 label="Content (English)"
-                placeholder="Content (English)"
-                mt="md"
+                placeholder="Enter content here..."
+                radius="md"
+                size="md"
                 {...form.getInputProps("contentEn")}
               />
             </Col>

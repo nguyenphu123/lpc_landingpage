@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 const dataFilePath = path.join(process.cwd(), "src/config/data.json");
 const dataFilePathEn = path.join(process.cwd(), "src/config/dataEn.json");
-export async function PUY(req, res) {
+export async function PUT(req, res) {
   const { image, language } = await req.json();
   const session = await getServerSession({ req }); //get server side session
   try {

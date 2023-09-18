@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from "react";
 
 import { Table, Modal } from "@mantine/core"; // Import thêm Button
+
 import Image from "next/image";
+
 import { loadBanner } from "@/lib/loadData";
+
 import { useUrl } from "nextjs-current-url";
+
 import UpdateBanner from "./updateBanner";
+
 import { useSession } from "next-auth/react";
+
 import { updateBanner } from "@/lib/updateData";
+
 import ToastGenerator from "@/lib/toast-tify";
+
 import Popup from "@/components/popup";
+
 import BannerForm from "./createBanner";
 
 import DataEn from "@/config/dataEn.json";
+
 interface Banner {
   status: string;
+
   _id: string;
 
   title: string;
@@ -29,7 +40,9 @@ interface Banner {
 
 function BannerTable() {
   const { data: session } = useSession();
+
   const { href } = useUrl() ?? {};
+
   const [bannerData, setBannerData] = useState<Banner[]>([]);
 
   const [selectedBanner, setSelectedBanner]: any = useState<Banner | null>(
@@ -37,18 +50,25 @@ function BannerTable() {
   );
 
   const [isEditMode, setIsEditMode] = useState(false);
+
   const [isSucess, setIsSucess] = useState(false);
+
   const [sucessMessage, setSucessMessage] = useState("");
+
   useEffect(() => {
     const fetchNew = async () => {
       if (bannerData.length == 0) {
         const bannerCheck = await loadBanner(href);
+
         setBannerData(bannerCheck.banner);
       }
     };
+
     // call the function
+
     fetchNew()
       // make sure to catch any error
+
       .catch(console.error);
   }, [bannerData]);
 
@@ -60,15 +80,22 @@ function BannerTable() {
 
   const handleSaveClick = async () => {
     // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
+
     const bannerCheck = await loadBanner(href);
+
     setBannerData(bannerCheck.banner);
+
     setSelectedBanner(null);
+
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
   };
+
   const refreshBanner = async () => {
     const bannerCheck = await loadBanner(href);
+
     setBannerData(bannerCheck.banner);
   };
+
   const changeStatus = async (banner) => {
     const bannerStatusChange = {
       ...banner,
@@ -86,19 +113,28 @@ function BannerTable() {
       setBannerData(bannerCheck.banner);
     }
   };
+
   const showToast = (msg) => {
     setIsSucess(true);
+
     setSucessMessage(msg);
+
     setTimeout(() => {
       setIsSucess(false);
+
       setSucessMessage("");
     }, 10000);
   };
+
   const rows = bannerData.map((banner, index) => (
     <tr key={banner._id}>
       <td>{index + 1}</td>
 
-      <td>{banner.title}</td>
+      <td>
+        {banner.title.length > 115
+          ? `${banner.title.slice(0, 115)}...`
+          : banner.title}
+      </td>
 
       <td>
         {banner.content.length > 150
@@ -116,14 +152,14 @@ function BannerTable() {
 
       <td>
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mr-2"
           onClick={() => setSelectedBanner(banner)}
         >
           Preview
         </button>
 
         <button
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 rounded mr-2"
           onClick={() => handleEditClick(banner)}
         >
           Edit
@@ -132,7 +168,7 @@ function BannerTable() {
         <button
           className={`${
             banner.status === "Active" ? "bg-red-500" : "bg-yellow-500"
-          } hover:bg-red-700 text-white font-bold py-2 px-4 rounded`}
+          } hover:bg-red-700 text-white font-bold py-2 px-3 rounded`}
           onClick={() => changeStatus(banner)}
         >
           {banner.status === "Active" ? "Disable" : "Active"}
@@ -143,10 +179,14 @@ function BannerTable() {
 
   return (
     <div>
-      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
+      <div className="fixed top-10 right-10 z-50">
+        {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
+      </div>
+
       <Popup>
         <BannerForm refreshBanner={refreshBanner} />
       </Popup>
+
       <Table>
         <thead>
           <tr>
@@ -175,7 +215,7 @@ function BannerTable() {
         }}
       >
         {selectedBanner != null && isEditMode == true ? (
-          <section className="section">
+          <section>
             <div className="container">
               <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 
@@ -186,7 +226,7 @@ function BannerTable() {
             </div>
           </section>
         ) : selectedBanner != null && isEditMode == false ? (
-          <section className="section">
+          <section>
             <div className="container">
               <div className="slideshow">
                 <div
@@ -201,6 +241,7 @@ function BannerTable() {
                       alt={""}
                       priority
                     />
+
                     <div className="relative w-3xl whitespace-normal mx-auto max-w-screen-xl px-4 py-52 sm:px-6 lg:flex lg:h-max lg:items-center lg:px-5 containerbanner">
                       <div className=" whitespace-normal ltr:sm:text-left rtl:sm:text-right">
                         <h1

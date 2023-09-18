@@ -10,18 +10,25 @@ import { addBanner } from "@/lib/createData";
 
 import { randomId } from "@mantine/hooks";
 
-import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
+import { TextInput, Button, Box, Grid, Col, Textarea } from "@mantine/core";
+
 import { useSession } from "next-auth/react";
+
 import ToastGenerator from "@/lib/toast-tify";
 
 const BannerForm = ({ refreshBanner }) => {
   const [selectedImage, setSelectedImage] = useState(null);
+
   let { data: session, status }: any = useSession();
+
   const [imagePreview, setImagePreview] = useState("");
 
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
+
   const [isSucess, setIsSucess] = useState(false);
+
   const [sucessMessage, setSucessMessage] = useState("");
+
   const onImageChange = (e) => {
     const file = e.target.files[0];
 
@@ -80,26 +87,35 @@ const BannerForm = ({ refreshBanner }) => {
     // Tiếp tục với phần còn lại của quá trình gửi biểu mẫu
 
     let returnResult = await addBanner(values, session);
+
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+
       refreshBanner();
     }
+
     form.reset();
   };
+
   const showToast = (msg) => {
     setIsSucess(true);
+
     setSucessMessage(msg);
+
     setTimeout(() => {
       setIsSucess(false);
+
       setSucessMessage("");
     }, 10000);
   };
+
   return (
     // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
     <div className="container">
       {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
-      <Box maw={"75%"} mx="auto">
+
+      <Box maw={"100%"} mx="auto">
         <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
           <h3 className="flex justify-center">Add banner content</h3>
 
@@ -118,35 +134,41 @@ const BannerForm = ({ refreshBanner }) => {
 
           <Grid gutter="lg">
             <Col span={6}>
-              <TextInput
+              <Textarea
                 label="Title"
-                placeholder="Title"
+                placeholder="Enter title here..."
+                radius="md"
+                size="md"
                 {...form.getInputProps("title")}
               />
             </Col>
 
             <Col span={6}>
-              <TextInput
+              <Textarea
                 label="Title (English)"
-                placeholder="Title (English)"
+                placeholder="Enter title here..."
+                radius="md"
+                size="md"
                 {...form.getInputProps("titleEn")}
               />
             </Col>
 
             <Col span={6}>
-              <TextInput
+              <Textarea
                 label="Content"
-                placeholder="Content"
-                mt="md"
+                placeholder="Enter content here..."
+                radius="md"
+                size="md"
                 {...form.getInputProps("content")}
               />
             </Col>
 
             <Col span={6}>
-              <TextInput
+              <Textarea
                 label="Content (English)"
-                placeholder="Content (English)"
-                mt="md"
+                placeholder="Enter content here..."
+                radius="md"
+                size="md"
                 {...form.getInputProps("contentEn")}
               />
             </Col>

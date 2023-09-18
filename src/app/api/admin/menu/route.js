@@ -74,7 +74,7 @@ export async function PUT(req, res) {
       // Read the existing data from the JSON file
 
       const jsonData = await fsPromises.readFile(
-        language ? dataFilePathEn : dataFilePath,
+        language == "en" ? dataFilePathEn : dataFilePath,
       );
       const objectData = JSON.parse(jsonData);
 
@@ -83,12 +83,22 @@ export async function PUT(req, res) {
 
       objectData[objIndex].name = name;
       objectData[objIndex].link = link;
-      objectData[objIndex].hasChildren = hasChildren;
+      if (hasChildren) {
+        objectData[objIndex].hasChildren = hasChildren;
+        objectData[objIndex].children = [];
+      } else {
+        delete objectData[objIndex].hasChildren;
+        delete objectData[objIndex].children;
+      }
+
       // Convert the object back to a JSON string
       const updatedData = JSON.stringify(objectData);
 
       // Write the updated data to the JSON file
-      await fsPromises.writeFile(dataFilePath, updatedData);
+      await fsPromises.writeFile(
+        language == "en" ? dataFilePathEn : dataFilePath,
+        updatedData,
+      );
 
       // Send a success response
       return NextResponse.json({

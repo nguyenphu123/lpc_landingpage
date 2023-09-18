@@ -34,6 +34,8 @@ import IpTable from "@/components/admin/ip/ipTable";
 import AddIp from "@/components/admin/ip/addIp";
 import { updateUserLoginCount } from "@/lib/updateData";
 import ToastGenerator from "@/lib/toast-tify";
+import MenuTable from "@/components/admin/menu/menuTable";
+import RevenueTable from "@/components/admin/revenue/revenueTable";
 
 //admin page
 const Home = () => {
@@ -447,6 +449,8 @@ const Home = () => {
             <UserTable />
 
             <IpTable />
+            <MenuTable />
+            <RevenueTable />
           </div>
         </div>
       </div>

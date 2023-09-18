@@ -49,21 +49,15 @@ function UpdateItem({ item, refresh }) {
           <h3 className="flex justify-center">Update item</h3>
 
           <Grid gutter="lg">
-            <Col span={6}>
+            <Col span={12}>
               <TextInput
                 label="name"
                 placeholder="name"
                 {...form.getInputProps("name")}
               />
             </Col>
-            <Col span={6}>
-              <TextInput
-                label="name"
-                placeholder="name"
-                {...form.getInputProps("nameEn")}
-              />
-            </Col>
-            <Col span={6}>
+            
+            <Col span={12}>
               <TextInput
                 label="link"
                 placeholder="link"

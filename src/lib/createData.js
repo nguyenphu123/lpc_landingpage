@@ -263,7 +263,7 @@ export async function addBanner(banner, session) {
 
   // will receive `posts` as a prop at build time
 }
-export async function AddRevenue(item, session) {
+export async function CreateRevenue(item, session) {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   // const posts = await loadNews()

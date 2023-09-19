@@ -7,7 +7,7 @@ import { Button, Box, Grid, Col } from "@mantine/core";
 
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
-import { AddRevenue } from "@/lib/createData";
+import { CreateRevenue } from "@/lib/createData";
 
 function AddRevenue({ refreshRevenue }) {
   let { data: session, status } = useSession();
@@ -27,7 +27,7 @@ function AddRevenue({ refreshRevenue }) {
       revenue: revenue,
       background: color,
     };
-    const newRevenue = await AddRevenue(newData, session);
+    const newRevenue = await CreateRevenue(newData, session);
     if (newRevenue.success != undefined) {
       showToast(newRevenue.msg);
       refreshRevenue();

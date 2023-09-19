@@ -243,11 +243,11 @@ export default function CompanyInfo() {
         </div>
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-          <h1>
+          <h3>
             {curlanguage.changeLanguage.value == "en"
-              ? "LPC revenue"
-              : "Doanh thu của LPC"}
-          </h1>
+              ? "LPC revenue".toUpperCase()
+              : "Doanh thu LPC".toUpperCase()}
+          </h3>
           <Chart />
         </div>
       </div>

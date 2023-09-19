@@ -9,7 +9,7 @@ export default function ChartItem({ item, index }) {
   return (
     <div
       key={index}
-      className="relative z-0 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110  duration-300"
+      className=" relative z-0 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110  duration-300 "
     >
       <div className="-mt-16 ml-10 rounded-full absolute w-28 h-28 inset-0 flex justify-center items-center z-10 bg-white">
         <div

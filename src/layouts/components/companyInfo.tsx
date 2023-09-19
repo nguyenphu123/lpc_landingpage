@@ -243,7 +243,7 @@ export default function CompanyInfo() {
         </div>
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-          <h3>
+          <h3 className={` ${width < 1030 ? "text-lg" : ""}`}>
             {curlanguage.changeLanguage.value == "en"
               ? "LPC revenue".toUpperCase()
               : "Doanh thu LPC".toUpperCase()}

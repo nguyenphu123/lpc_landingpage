@@ -122,11 +122,11 @@ const Posts = () => {
                   </div>
                 ))}
               </div>
-              {showList.length > 6 ? (
+              {newList.length > 6 ? (
                 <Pagination
                   value={activePage}
                   onChange={(page) => onpageChange(page)}
-                  total={showList.length / 6}
+                  total={Math.ceil(newList.length / 6)}
                   withEdges
                 />
               ) : (

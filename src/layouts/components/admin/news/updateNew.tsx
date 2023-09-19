@@ -59,7 +59,7 @@ function UpdateNew({ New, refreshNews }) {
 
         const data = await response.json();
 
-        value.image = data.secure_url;
+        updateData.image = data.secure_url;
       } catch (error) {
         console.error(error);
       }

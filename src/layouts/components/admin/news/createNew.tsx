@@ -72,9 +72,11 @@ function AddNews({ refreshNews }) {
   // Sử dụng useEffect để tự động cập nhật giá trị cho trường "Date" thành ngày hiện tại trước khi bạn gửi biểu mẫu
 
   const onHandleChange = (e: any) => {
-    setContent(e.data);
-
-    setContentEn(e.data);
+    if (e.language == "vn") {
+      setContent(e.data);
+    } else {
+      setContentEn(e.data);
+    }
 
     // form.insertListItem(`content.${e.idcontent}.description.${e.id}`, e);
   };
@@ -113,10 +115,6 @@ function AddNews({ refreshNews }) {
     values.content = content;
 
     values.contentEn = contentEn;
-
-    setContent("");
-
-    setContentEn("");
 
     let returnResult = await createNews(values, session);
     if (returnResult.success != undefined) {

@@ -196,11 +196,14 @@ function NewsTable() {
         content: 1,
         contentEn: 1,
         date: 1,
+        draft: 1,
       },
       href,
     );
-
     dispatch(companyNew(newsCheck));
+    setSelectedNews(null);
+
+    setReadOnlyNew(false);
   };
 
   return (

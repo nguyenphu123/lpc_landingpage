@@ -242,20 +242,14 @@ export default function CompanyInfo() {
           </div>
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <Image
-            src={
-              curlanguage.changeLanguage.value == "en"
-                ? DataEn["revenue"].description
-                : Data["revenue"].description
-            }
-            width={1200}
-            height={700}
-            alt="LPC team"
-            objectFit="cover"
-          />
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
+          <h1>
+            {curlanguage.changeLanguage.value == "en"
+              ? "LPC revenue"
+              : "Doanh thu của LPC"}
+          </h1>
+          <Chart />
         </div>
-        <Chart />
       </div>
     </section>
   );

@@ -1,28 +1,42 @@
 import React from "react";
 
-import Data from "../../../../config/data.json";
-import DataEn from "../../../../config/dataEn.json";
+import chartData from "@/config/chartData.json";
 import EditRevenue from "./editRevenue";
+import Popup from "@/components/popup";
+import { Table } from "@mantine/core";
+import AddRevenue from "./addRevenue";
 function RevenueTable() {
-  let Revenue: any = Data.revenue;
-  let RevenueEn: any = DataEn.revenue;
+  let data = chartData.data;
   const refreshRevenue = () => {
-    Revenue = Data.revenue;
-    RevenueEn = DataEn.revenue;
+    data = chartData.data;
   };
+  const rows = data.map((revenue, index) => (
+    <tr key={revenue.year}>
+      <td>{index + 1}</td>
+      <td>{revenue.year}</td>
+      <td>{revenue.revenue}</td>
+      <td>{revenue.background}</td>
+    </tr>
+  ));
 
   return (
     <div>
-      <EditRevenue
-        Revenue={RevenueEn}
-        language={"en"}
-        refreshRevenue={refreshRevenue}
-      ></EditRevenue>
-      <EditRevenue
-        Revenue={Revenue}
-        language={"vn"}
-        refreshRevenue={refreshRevenue}
-      ></EditRevenue>
+      <Popup>
+        <AddRevenue refreshRevenue={refreshRevenue} />
+      </Popup>
+      <Table>
+        <thead>
+          <tr>
+            <th>#</th>
+
+            <th>year</th>
+            <th>revenue</th>
+            <th>background</th>
+          </tr>
+        </thead>
+
+        <tbody>{rows}</tbody>
+      </Table>
     </div>
   );
 }

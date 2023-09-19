@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "year": "2018",
+      "revenue": "132",
+      "background":"#5eead4"
+    },
+    {
+      "year": "2019",
+      "revenue": "173",
+      "background":"#2dd4bf"
+    },
+    {
+      "year": "2020",
+      "revenue": "211",
+      "background":"#22d3ee"
+    },
+    {
+      "year": "2021",
+      "revenue": "235",
+      "background":"#0284c7"
+    },
+    {
+      "year": "2022",
+      "revenue": "312,5",
+      "background":"#0c4a6e"
+    }
+  ]
+}

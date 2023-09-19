@@ -54,7 +54,7 @@
     "src/app/api/user/auth/[...nextauth]/route.js",
     "src/lib/loginAuth.js",
     "src/lib/createData.js"
-, "src/layouts/components/carousel.js", "src/layouts/components/admin/RichTextEditor.js", "src/layouts/components/googleMap.js"  ],
+, "src/layouts/components/carousel.js", "src/layouts/components/admin/RichTextEditor.js", "src/layouts/components/googleMap.js", "src/layouts/components/admin/revenue/addRevenue.js"  ],
   "exclude": [
     "node_modules"
   ]

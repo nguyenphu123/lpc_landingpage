@@ -157,7 +157,7 @@ function NewsTable() {
         >
           View
         </button>
-        |{" "}
+        |
         <button
           className="cursor-pointer"
           onClick={() => handleEditClick(news)}
@@ -241,7 +241,9 @@ function NewsTable() {
           setReadOnlyNew(false);
         }}
       >
-        {selectedNews && readOnlyNew && (
+        {selectedNews != null &&
+        readOnlyNew == true &&
+        editNewsVisible == false ? (
           <div>
             <h2>{selectedNews.title}</h2>
 
@@ -249,22 +251,14 @@ function NewsTable() {
 
             {/* Thêm các thông tin khác của bài viết */}
           </div>
-        )}
-      </Modal>
-
-      <Modal
-        size="1000px"
-        opened={Boolean(selectedNews)}
-        onClose={() => {
-          setSelectedNews(null);
-
-          setEditNewsVisible(false);
-        }}
-      >
-        {selectedNews && editNewsVisible && (
+        ) : selectedNews != null &&
+          editNewsVisible == true &&
+          readOnlyNew == false ? (
           <div>
             <UpdateNew New={selectedNews} refreshNews={refreshNews} />
           </div>
+        ) : (
+          <></>
         )}
       </Modal>
     </div>

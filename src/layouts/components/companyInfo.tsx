@@ -10,6 +10,7 @@ import { loadCompanyInfo } from "@/lib/loadData";
 import PartnerListForAbout from "./partnerListForAbout";
 import CustomerListForAbout from "./customerListForAbout";
 import { useUrl } from "nextjs-current-url";
+import Chart from "../../layouts/components/chart";
 export default function CompanyInfo() {
   const { href } = useUrl() ?? {};
   const curlanguage = useSelector((rootState) => language(rootState));
@@ -254,6 +255,7 @@ export default function CompanyInfo() {
             objectFit="cover"
           />
         </div>
+        <Chart />
       </div>
     </section>
   );

@@ -161,7 +161,7 @@ function UpdateNew({ New, refreshNews }) {
                       borderRadius: "8px",
                     }}
                   >
-                    {selectedImage ? (
+                    {selectedImageURL ? (
                       <Image
                         src={selectedImageURL}
                         alt="Selected Image"

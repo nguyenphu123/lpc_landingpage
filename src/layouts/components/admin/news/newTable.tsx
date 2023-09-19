@@ -67,6 +67,7 @@ function NewsTable() {
             content: 1,
             contentEn: 1,
             date: 1,
+            draft: 1,
           },
           href,
         );
@@ -91,6 +92,7 @@ function NewsTable() {
     } else {
       newsStatusChange["draft"] = true;
     }
+
     let returnResult = await updateNews(newsStatusChange, session);
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
@@ -108,6 +110,7 @@ function NewsTable() {
           content: 1,
           contentEn: 1,
           date: 1,
+          draft: 1,
         },
         href,
       );

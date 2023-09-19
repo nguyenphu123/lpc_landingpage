@@ -13,7 +13,7 @@ export async function POST(req, res) {
       //find all message with fields(name, email, message)
       const messages = await Message.find(
         {},
-        { name: 1, email: 1, message: 1 },
+        { name: 1, email: 1, message: 1, phoneNumber: 1 },
       );
       return NextResponse.json({ messages });
     } else {

@@ -45,11 +45,7 @@ const Posts = () => {
           },
           href,
         );
-        setNewList(
-          newsCheck.news.sort(function (a: any, b: any) {
-            return getDate(b.date) - getDate(a.date);
-          }),
-        );
+        setNewList(newsCheck.news.reverse());
         const startIndex = (activePage - 1) * 4;
         setShowList(newsCheck.news.slice(startIndex, startIndex + 4));
       } else {

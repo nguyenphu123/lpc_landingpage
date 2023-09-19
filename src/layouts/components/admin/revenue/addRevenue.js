@@ -7,7 +7,7 @@ import { Button, Box, Grid, Col } from "@mantine/core";
 
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
-import { UpdateRevenue } from "@/lib/updateData";
+import { AddRevenue } from "@/lib/createData";
 
 function AddRevenue({ refreshRevenue }) {
   let { data: session, status } = useSession();
@@ -19,10 +19,15 @@ function AddRevenue({ refreshRevenue }) {
   const [revenue, setRevenue] = useState("");
   const [color, setColor] = useState("");
 
-  const onSubmitForm = async (values) => {
+  const onSubmitForm = async () => {
     // Continue with the rest of the form submission
-
-    const newRevenue = await UpdateRevenue(values, session);
+    e.preventDefault();
+    let newData = {
+      year: year,
+      revenue: revenue,
+      background: color,
+    };
+    const newRevenue = await AddRevenue(newData, session);
     if (newRevenue.success != undefined) {
       showToast(newRevenue.msg);
       refreshRevenue();
@@ -57,7 +62,7 @@ function AddRevenue({ refreshRevenue }) {
     <div className="container">
       {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <Box maw={"75%"} mx="auto">
-        <form>
+        <form onSubmit={(e) => onSubmitForm(e)}>
           <h3 className="flex justify-center">Add revenue</h3>
 
           <Grid gutter="lg">

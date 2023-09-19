@@ -47,9 +47,7 @@ export default function Blog() {
   ) : (
     <Grid className="w-3/4" justify="center" grow gutter="sm">
       {newList
-        .sort(function (a, b) {
-          return getDate(b.date) - getDate(a.date);
-        })
+        .reverse()
         .slice(0, 4)
         .map(
           (

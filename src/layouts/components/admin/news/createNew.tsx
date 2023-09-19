@@ -33,9 +33,11 @@ function AddNews({ refreshNews }) {
     initialValues: {
       key: randomId(),
 
-      title: "",
+      title: (value) =>
+        value.length > 60 ? "Title cannot exceed 60 characters" : null,
 
-      titleEn: "",
+      titleEn: (value) =>
+        value.length > 60 ? "Title cannot exceed 60 characters" : null,
 
       meta_title: "",
 
@@ -143,6 +145,7 @@ function AddNews({ refreshNews }) {
                   label="Title"
                   placeholder="Title"
                   {...form.getInputProps("title")}
+                  maxLength={60}
                 />
               </Col>
 
@@ -150,6 +153,7 @@ function AddNews({ refreshNews }) {
                 <TextInput
                   label="Title (English)"
                   placeholder="Title (English)"
+                  maxLength={60}
                   {...form.getInputProps("titleEn")}
                 />
               </Col>

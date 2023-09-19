@@ -45,7 +45,11 @@ const Posts = () => {
           },
           href,
         );
-        setNewList(newsCheck.news);
+        setNewList(
+          newsCheck.news.sort(function (a: any, b: any) {
+            return getDate(b.date) - getDate(a.date);
+          }),
+        );
         const startIndex = (activePage - 1) * 4;
         setShowList(newsCheck.news.slice(startIndex, startIndex + 4));
       } else {
@@ -119,26 +123,27 @@ const Posts = () => {
           <div className="row gx-5">
             <div className="lg:col-8">
               <div className="row">
-                {showList
-                  .sort(function (a: any, b: any) {
-                    return getDate(b.date) - getDate(a.date);
-                  })
-                  .map((post: any, index: number) => (
-                    <div key={index} className="mb-14 md:col-6">
-                      <BlogCard data={post} />
-                    </div>
-                  ))}
+                {showList.map((post: any, index: number) => (
+                  <div key={index} className="mb-14 md:col-6">
+                    <BlogCard data={post} />
+                  </div>
+                ))}
               </div>
-              {newList.length > 4 ? (
-                <Pagination
-                  value={activePage}
-                  onChange={(page) => onpageChange(page)}
-                  total={Math.ceil(newList.length / 4)}
-                  withEdges
-                />
-              ) : (
-                <></>
-              )}
+              <div className="flex items-center justify-center ">
+                <div className=" w-fit ">
+                  {newList.length > 4 ? (
+                    <Pagination
+                      align="content-center"
+                      value={activePage}
+                      onChange={(page) => onpageChange(page)}
+                      total={Math.ceil(newList.length / 4)}
+                      withEdges
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </div>
             </div>
 
             <PostSidebar categories={categories} allCategories={showList} />

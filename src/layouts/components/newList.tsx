@@ -29,6 +29,7 @@ export default function Blog() {
             title: 1,
             titleEn: 1,
             image: 1,
+            date: 1,
           },
           href,
         );

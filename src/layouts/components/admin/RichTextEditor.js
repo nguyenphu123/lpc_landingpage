@@ -52,7 +52,7 @@ export default function RichTextEditor({
           images_file_types: "jpg,svg,webp,png",
           paste_data_images: true,
         }}
-        initialValue={content}
+        value={content}
         onEditorChange={(vn) => {
           const data = {
             data: vn,
@@ -97,7 +97,7 @@ export default function RichTextEditor({
           images_file_types: "jpg,svg,webp,png",
           paste_data_images: true,
         }}
-        initialValue={contentEn}
+        value={contentEn}
         onEditorChange={(en) => {
           const data = {
             data: en,

@@ -11,7 +11,7 @@ export default function Chart({}) {
     <div className=" flex justify-center items-center  ">
       <div className=" grid grid-cols-5 gap-2 mt-40">
         {data.map((item, index) => (
-          <ChartItem index={index} item={item} />
+          <ChartItem key={index} index={index} item={item} />
         ))}
       </div>
     </div>

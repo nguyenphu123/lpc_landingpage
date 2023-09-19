@@ -15,7 +15,10 @@ function RevenueTable() {
       <td>{index + 1}</td>
       <td>{revenue.year}</td>
       <td>{revenue.revenue}</td>
-      <td>{revenue.background}</td>
+      <td>
+        {revenue.background}
+        <div style={{ backgroundColor: revenue.background, width:"30px", height:"30px" }}></div>
+      </td>
     </tr>
   ));
 

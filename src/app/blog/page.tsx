@@ -23,8 +23,8 @@ const Posts = () => {
   const [showList, setShowList] = useState([]);
   const onpageChange = (page) => {
     setPage(page);
-    const startIndex = (page - 1) * 6;
-    setShowList(newList.slice(startIndex, startIndex + 6));
+    const startIndex = (page - 1) * 4;
+    setShowList(newList.slice(startIndex, startIndex + 4));
   };
 
   useEffect(() => {
@@ -46,8 +46,8 @@ const Posts = () => {
           href,
         );
         setNewList(newsCheck.news);
-        const startIndex = (activePage - 1) * 6;
-        setShowList(newsCheck.news.slice(startIndex, startIndex + 6));
+        const startIndex = (activePage - 1) * 4;
+        setShowList(newsCheck.news.slice(startIndex, startIndex + 4));
       } else {
       }
     };
@@ -64,7 +64,10 @@ const Posts = () => {
     image: "",
   };
   const categories = ["Events", "Security"];
-
+  const getDate = (createDate) => {
+    let date = new Date(createDate);
+    return date.getTime();
+  };
   return newList.length == 0 ? (
     <section className="section pt-7">
       <div className="container">
@@ -116,17 +119,21 @@ const Posts = () => {
           <div className="row gx-5">
             <div className="lg:col-8">
               <div className="row">
-                {showList.map((post: any, index: number) => (
-                  <div key={index} className="mb-14 md:col-6">
-                    <BlogCard data={post} />
-                  </div>
-                ))}
+                {showList
+                  .sort(function (a: any, b: any) {
+                    return getDate(b.date) - getDate(a.date);
+                  })
+                  .map((post: any, index: number) => (
+                    <div key={index} className="mb-14 md:col-6">
+                      <BlogCard data={post} />
+                    </div>
+                  ))}
               </div>
-              {newList.length > 6 ? (
+              {newList.length > 4 ? (
                 <Pagination
                   value={activePage}
                   onChange={(page) => onpageChange(page)}
-                  total={Math.ceil(newList.length / 6)}
+                  total={Math.ceil(newList.length / 4)}
                   withEdges
                 />
               ) : (

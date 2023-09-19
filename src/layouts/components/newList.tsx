@@ -14,17 +14,24 @@ export default function Blog() {
   // const newsCheck = await loadNews();
 
   let [newList, setNewList]: any = useState([]);
-
+  const getDate = (createDate) => {
+    let date = new Date(createDate);
+    return date.getTime();
+  };
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
       if (newList.length == 0) {
-        const newsCheck = await loadNews("", {
-          _id: 1,
-          title: 1,
-          titleEn: 1,
-          image: 1,
-        },href);
+        const newsCheck = await loadNews(
+          "",
+          {
+            _id: 1,
+            title: 1,
+            titleEn: 1,
+            image: 1,
+          },
+          href,
+        );
         setNewList(newsCheck.news);
       } else {
       }
@@ -38,33 +45,38 @@ export default function Blog() {
     <></>
   ) : (
     <Grid className="w-3/4" justify="center" grow gutter="sm">
-      {newList.slice(0, 4).map(
-        (
-          svc: {
-            [x: string]: any;
-            titleEn: any;
-            image: any;
-            title: any;
-            id: any;
+      {newList
+        .sort(function (a, b) {
+          return getDate(b.date) - getDate(a.date);
+        })
+        .slice(0, 4)
+        .map(
+          (
+            svc: {
+              [x: string]: any;
+              titleEn: any;
+              image: any;
+              title: any;
+              id: any;
+            },
+            i: any,
+          ) => {
+            return (
+              <Grid.Col key={svc._id} md={4} lg={2.5}>
+                <NewITem
+                  src={svc.image}
+                  title={
+                    curlanguage.changeLanguage.value == "en"
+                      ? svc.titleEn
+                      : svc.title
+                  }
+                  id={svc._id}
+                  i={i}
+                />
+              </Grid.Col>
+            );
           },
-          i: any,
-        ) => {
-          return (
-            <Grid.Col key={svc._id} md={4} lg={2.5}>
-              <NewITem
-                src={svc.image}
-                title={
-                  curlanguage.changeLanguage.value == "en"
-                    ? svc.titleEn
-                    : svc.title
-                }
-                id={svc._id}
-                i={i}
-              />
-            </Grid.Col>
-          );
-        },
-      )}
+        )}
     </Grid>
   );
 }

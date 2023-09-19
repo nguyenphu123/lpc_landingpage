@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { loadPartner } from "@/lib/loadData";
-import "../../styles/slider.scss";
+import "../../styles/slider2.scss";
 import { companyPartner, partner } from "@/feature/data/partnerSlice";
 import { useUrl } from "nextjs-current-url";
 
@@ -36,8 +36,8 @@ export default function PartnerList() {
     <></>
   ) : (
     <div className="h-48 grid  content-center">
-      <div className="slider">
-        <div className="slide-track">
+      <div className="slider2">
+        <div className="slide-track2">
           {partners.map(
             (img: {
               status: string;
@@ -45,7 +45,7 @@ export default function PartnerList() {
               src: string;
               type: string;
             }) => (
-              <div key={img._id} className="slide flex items-center mx-3">
+              <div key={img._id} className="slide2 flex items-center mx-3">
                 <Image
                   className="flex items-center col-span-2 max-h-16 w-full object-contain lg:col-span-1"
                   src={img.src}

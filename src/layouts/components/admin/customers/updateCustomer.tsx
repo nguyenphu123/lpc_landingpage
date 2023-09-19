@@ -5,25 +5,37 @@ import React, { useState } from "react";
 import { useForm } from "@mantine/form";
 
 import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
+
 import Image from "next/image";
+
 import { updateCustomer } from "@/lib/updateData";
+
 import { useSession } from "next-auth/react";
+
 import ToastGenerator from "@/lib/toast-tify";
 
 function UpdateCustomer({ Customer, handleSaveClick }) {
   const [selectedImage, setSelectedImage] = useState(null);
+
   let { data: session, status } = useSession();
+
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
+
   const [selectedImageURL, setSelectedImageURL] = useState(Customer.src);
+
   const [isSucess, setIsSucess] = useState(false);
+
   const [sucessMessage, setSucessMessage] = useState("");
+
   const form = useForm({
     initialValues: JSON.parse(JSON.stringify(Customer)),
   });
 
   const onImageChange = (e) => {
     const file = e.target.files[0];
+
     setSelectedImageURL(URL.createObjectURL(file));
+
     setSelectedImage(file);
   };
 
@@ -57,28 +69,37 @@ function UpdateCustomer({ Customer, handleSaveClick }) {
     // Continue with the rest of the form submission
 
     let returnResult = await updateCustomer(values, session);
+
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+
       handleSaveClick();
     }
+
     form.reset();
   };
+
   const showToast = (msg) => {
     setIsSucess(true);
+
     setSucessMessage(msg);
+
     setTimeout(() => {
       setIsSucess(false);
+
       setSucessMessage("");
     }, 10000);
   };
+
   return (
     // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
-    <div className="container">
-      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
-      <Box maw={"75%"} mx="auto">
+    <div className="container mx-auto p-4">
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : null}
+
+      <Box maw={"100%"} mx="auto">
         <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
-          <h3 className="flex justify-center">Update customers</h3>
+          <h3 className="flex justify-center">Update customer</h3>
 
           <Grid gutter="lg">
             <Col span={12}>
@@ -91,11 +112,12 @@ function UpdateCustomer({ Customer, handleSaveClick }) {
 
             <Col span={6}>
               <input type="file" accept="image/*" onChange={onImageChange} />
+
               <Image
                 src={selectedImageURL}
                 alt="Selected Image"
-                width={150}
-                height={150}
+                width={300}
+                height={300}
               />
             </Col>
 

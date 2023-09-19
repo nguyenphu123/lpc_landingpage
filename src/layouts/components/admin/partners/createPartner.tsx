@@ -4,18 +4,29 @@ import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
+import Image from "next/image";
+
 import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
 
 import { addPartner } from "@/lib/createData";
+
 import { useSession } from "next-auth/react";
+
 import ToastGenerator from "@/lib/toast-tify";
 
 function PartnerForm({ refreshPartner }) {
   const [selectedImage, setSelectedImage] = useState(null);
+
   let { data: session, status } = useSession();
+
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
+
+  const [imagePreview, setImagePreview] = useState("");
+
   const [isSucess, setIsSucess] = useState(false);
+
   const [sucessMessage, setSucessMessage] = useState("");
+
   const form = useForm({
     initialValues: {
       name: "",
@@ -28,6 +39,10 @@ function PartnerForm({ refreshPartner }) {
     const file = e.target.files[0];
 
     setSelectedImage(file);
+
+    const imageUrl = URL.createObjectURL(file);
+
+    setImagePreview(imageUrl);
   };
 
   const onSubmitForm = async (values) => {
@@ -65,25 +80,43 @@ function PartnerForm({ refreshPartner }) {
 
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+
       refreshPartner();
     }
   };
+
   const showToast = (msg) => {
     setIsSucess(true);
+
     setSucessMessage(msg);
+
     setTimeout(() => {
       setIsSucess(false);
+
       setSucessMessage("");
     }, 10000);
   };
+
   return (
     // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
     <div className="container">
       {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
-      <Box maw={"75%"} mx="auto">
+
+      <Box maw={"100%"} mx="auto">
         <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
-          <h3 className="flex justify-center">Add new partners</h3>
+          <h3 className="flex justify-center">Add new partner</h3>
+
+          {imagePreview && (
+            <div className="flex justify-center">
+              <Image
+                src={imagePreview}
+                alt="Preview"
+                width="350"
+                height="350"
+              />
+            </div>
+          )}
 
           <Grid gutter="lg">
             <Col span={12}>

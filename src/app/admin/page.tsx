@@ -6,8 +6,6 @@ import { signOut, useSession } from "next-auth/react";
 
 import dynamic from "next/dynamic";
 
-const Popup = dynamic(() => import("@/components/popup"));
-
 const NewsTable = dynamic(() => import("@/components/admin/news/newTable"));
 
 const CustomerTable = dynamic(
@@ -140,6 +138,7 @@ const Home = () => {
           setShowProduct("hidden");
 
           setShowUser("hidden");
+          setShowOther("hidden");
         } else {
           //user already login more than once
 
@@ -233,7 +232,7 @@ const Home = () => {
         setShowProduct("hidden");
 
         setShowUser("hidden");
-
+        setShowOther("hidden");
         break;
 
       case "contact": //contact tab
@@ -252,7 +251,7 @@ const Home = () => {
         setShowProduct("hidden");
 
         setShowUser("hidden");
-
+        setShowOther("hidden");
         break;
 
       case "customer": //customer tab
@@ -271,7 +270,7 @@ const Home = () => {
         setShowProduct("hidden");
 
         setShowUser("hidden");
-
+        setShowOther("hidden");
         break;
 
       case "new": //new tab
@@ -290,7 +289,7 @@ const Home = () => {
         setShowProduct("hidden");
 
         setShowUser("hidden");
-
+        setShowOther("hidden");
         break;
 
       case "message": //message tab
@@ -309,7 +308,7 @@ const Home = () => {
         setShowProduct("hidden");
 
         setShowUser("hidden");
-
+        setShowOther("hidden");
         break;
 
       case "partner": //partner tab
@@ -328,7 +327,7 @@ const Home = () => {
         setShowProduct("hidden");
 
         setShowUser("hidden");
-
+        setShowOther("hidden");
         break;
 
       case "product": //product tab
@@ -347,7 +346,7 @@ const Home = () => {
         setShowProduct("visible");
 
         setShowUser("hidden");
-
+        setShowOther("hidden");
         break;
 
       case "user": //user tab
@@ -366,7 +365,25 @@ const Home = () => {
         setShowProduct("hidden");
 
         setShowUser("visible");
+        setShowOther("hidden");
+        break;
+      case "other": //user tab
+        setShowBanner("hidden");
 
+        setShowContact("hidden");
+
+        setShowCustomer("hidden");
+
+        setShowNew("hidden");
+
+        setShowMessage("hidden");
+
+        setShowPartner("hidden");
+
+        setShowProduct("hidden");
+
+        setShowUser("hidden");
+        setShowOther("visible");
         break;
     }
   };
@@ -543,6 +560,22 @@ const Home = () => {
             ) : (
               <></>
             )}
+            <li role="presentation">
+              <button
+                className={`${
+                  showOther == "visible" ? "text-gray-900" : "text-gray-500 "
+                } inline-block active:text-gray-600 active:border-gray-300 text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300`}
+                id="other-tab"
+                data-tabs-target="#other"
+                type="button"
+                role="tab"
+                aria-controls="other"
+                aria-selected="false"
+                onClick={(e) => onClick("other", e)}
+              >
+                other
+              </button>
+            </li>
           </ul>
         </div>
 

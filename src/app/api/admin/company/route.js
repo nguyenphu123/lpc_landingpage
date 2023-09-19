@@ -16,16 +16,6 @@ export async function PUT(req) {
     companyCore,
 
     companyCoreEn,
-
-    companyAddress,
-
-    companySocialAccount,
-
-    companyContact,
-
-    companyWebsite,
-
-    companyImage,
   } = await req.json();
   const session = await getServerSession({ req }); //get server side session
   try {
@@ -45,16 +35,6 @@ export async function PUT(req) {
           companyCore,
 
           companyCoreEn,
-
-          companyAddress,
-
-          companySocialAccount,
-
-          companyContact,
-
-          companyWebsite,
-
-          companyImage,
         },
         { new: true },
       );

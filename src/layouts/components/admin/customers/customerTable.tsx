@@ -200,7 +200,7 @@ function CustomerTable() {
         }}
       >
         {selectedCustomer && (
-          <section className="section">
+          <section>
             <div className="container">
               <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 

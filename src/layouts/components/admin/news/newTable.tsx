@@ -11,10 +11,15 @@ import { loadNews } from "@/lib/loadData";
 import UpdateNew from "./updateNew";
 
 import { useUrl } from "nextjs-current-url";
+
 import { useSession } from "next-auth/react";
+
 import { updateNews } from "@/lib/updateData";
+
 import ToastGenerator from "@/lib/toast-tify";
+
 import Popup from "@/components/popup";
+
 import AddNews from "./createNew";
 
 interface News {
@@ -33,7 +38,9 @@ interface News {
 
 function NewsTable() {
   const { data: session, status } = useSession();
+
   const { pathname, href } = useUrl() ?? {};
+
   const [selectedNews, setSelectedNews] = useState<News | null>(null);
 
   const [editNewsVisible, setEditNewsVisible] = useState(false);
@@ -43,8 +50,11 @@ function NewsTable() {
   const newInfo = useSelector((rootState) => news(rootState));
 
   const newList = newInfo.newData.value.companyNews;
+
   const [isSucess, setIsSucess] = useState(false);
+
   const [sucessMessage, setSucessMessage] = useState("");
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -56,19 +66,31 @@ function NewsTable() {
       if (newList.length == 0) {
         const newsCheck = await loadNews(
           role,
+
           {
             _id: 1,
+
             title: 1,
+
             titleEn: 1,
+
             image: 1,
+
             categories: 1,
+
             description: 1,
+
             meta_title: 1,
+
             content: 1,
+
             contentEn: 1,
+
             date: 1,
+
             draft: 1,
           },
+
           href,
         );
 
@@ -78,6 +100,7 @@ function NewsTable() {
     };
 
     // call the function
+
     if (status != "loading") {
       fetchNew()
         // make sure to catch any error
@@ -85,8 +108,10 @@ function NewsTable() {
         .catch(console.error);
     }
   }, []);
+
   const changeStatus = async (news) => {
     let newsStatusChange = JSON.parse(JSON.stringify(news));
+
     if (newsStatusChange["draft"]) {
       newsStatusChange["draft"] = false;
     } else {
@@ -94,38 +119,58 @@ function NewsTable() {
     }
 
     let returnResult = await updateNews(newsStatusChange, session);
+
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+
       let role = "admin";
+
       const newsCheck = await loadNews(
         role,
+
         {
           _id: 1,
+
           title: 1,
+
           titleEn: 1,
+
           image: 1,
+
           categories: 1,
+
           description: 1,
+
           meta_title: 1,
+
           content: 1,
+
           contentEn: 1,
+
           date: 1,
+
           draft: 1,
         },
+
         href,
       );
 
       dispatch(companyNew(newsCheck));
     }
   };
+
   const showToast = (msg) => {
     setIsSucess(true);
+
     setSucessMessage(msg);
+
     setTimeout(() => {
       setIsSucess(false);
+
       setSucessMessage("");
     }, 10000);
   };
+
   const rows = newList.map((news, index) => (
     <tr key={news._id}>
       <td>{index + 1}</td>
@@ -133,48 +178,70 @@ function NewsTable() {
       <td>{news.title}</td>
 
       {/* <td
+
         className=""
+
         dangerouslySetInnerHTML={{
+
           __html:
+
             news.content.length > 150
+
               ? `${news.content.slice(0, 150)}...`
+
               : news.content,
+
         }}
+
       ></td> */}
 
       <td>{news.date}</td>
 
-      <td>{news.draft ? "true" : "false"}</td>
+      <td>
+        {news.draft ? (
+          <span className="text-red-500 font-bold">Disable</span>
+        ) : (
+          <span className="text-green-500 font-bold">Active</span>
+        )}
+      </td>
 
       <td>
         <button
-          className="cursor-pointer"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mr-2"
           onClick={() => {
             setSelectedNews(news);
 
             setReadOnlyNew(true);
           }}
         >
-          View
+          Preview
         </button>
-        |
+
         <button
-          className="cursor-pointer"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 rounded mr-2"
           onClick={() => handleEditClick(news)}
         >
           Edit
         </button>
-        |
-        <button className="cursor-pointer" onClick={() => changeStatus(news)}>
-          {!news.draft ? "Disable" : "Active"}
+
+        <button
+          className={`${
+            news.draft ? "bg-yellow-500" : "bg-red-500"
+          } hover:bg-red-700 text-white font-bold py-2 px-3 rounded`}
+          onClick={() => changeStatus(news)}
+        >
+          {news.draft ? "Active" : "Disable"}
         </button>
       </td>
 
       {/* <td>
 
+ 
+
       </td> */}
     </tr>
   ));
+
   const handleEditClick = (news: News) => {
     setSelectedNews(news);
 
@@ -183,24 +250,39 @@ function NewsTable() {
 
   const refreshNews = async () => {
     let role = "admin";
+
     const newsCheck = await loadNews(
       role,
+
       {
         _id: 1,
+
         title: 1,
+
         titleEn: 1,
+
         image: 1,
+
         categories: 1,
+
         description: 1,
+
         meta_title: 1,
+
         content: 1,
+
         contentEn: 1,
+
         date: 1,
+
         draft: 1,
       },
+
       href,
     );
+
     dispatch(companyNew(newsCheck));
+
     setSelectedNews(null);
 
     setReadOnlyNew(false);
@@ -209,9 +291,11 @@ function NewsTable() {
   return (
     <div>
       {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
+
       <Popup>
         <AddNews refreshNews={refreshNews} />
       </Popup>
+
       <Table>
         <thead>
           <tr>

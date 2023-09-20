@@ -399,26 +399,6 @@ function ContentTable({ product }) {
               <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 
               <UpdateContentForm product={product} content={selectedContent} />
-
-              <div style={{ marginTop: "16px" }}>
-                {isEditMode ? (
-                  <Button
-                    type="button"
-                    onClick={handleSaveClick}
-                    style={{ backgroundColor: "#28a745", color: "white" }}
-                  >
-                    Save
-                  </Button>
-                ) : (
-                  <Button
-                    type="button"
-                    onClick={() => setIsEditMode(true)}
-                    style={{ backgroundColor: "#007bff", color: "white" }}
-                  >
-                    Edit
-                  </Button>
-                )}
-              </div>
             </div>
           </section>
         )}

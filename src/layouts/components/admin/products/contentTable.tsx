@@ -65,7 +65,9 @@ function ContentTable({ product }) {
               "content.content": 1,
 
               "content.contentEn": 1,
+              "content.description": 1,
 
+              "content.descriptionEn": 1,
               "content.status": 1,
             },
 
@@ -93,7 +95,9 @@ function ContentTable({ product }) {
               "content.content": 1,
 
               "content.contentEn": 1,
+              "content.description": 1,
 
+              "content.descriptionEn": 1,
               "content.status": 1,
             },
 
@@ -141,7 +145,9 @@ function ContentTable({ product }) {
           "content.imgSrc": 1,
 
           "content.content": 1,
+          "content.description": 1,
 
+          "content.descriptionEn": 1,
           "content.contentEn": 1,
 
           "content.status": 1,
@@ -169,7 +175,9 @@ function ContentTable({ product }) {
           "content.imgSrc": 1,
 
           "content.content": 1,
+          "content.description": 1,
 
+          "content.descriptionEn": 1,
           "content.contentEn": 1,
 
           "content.status": 1,
@@ -223,7 +231,9 @@ function ContentTable({ product }) {
             "content.imgSrc": 1,
 
             "content.content": 1,
+            "content.description": 1,
 
+            "content.descriptionEn": 1,
             "content.contentEn": 1,
 
             "content.status": 1,
@@ -251,7 +261,9 @@ function ContentTable({ product }) {
             "content.imgSrc": 1,
 
             "content.content": 1,
+            "content.description": 1,
 
+            "content.descriptionEn": 1,
             "content.contentEn": 1,
 
             "content.status": 1,

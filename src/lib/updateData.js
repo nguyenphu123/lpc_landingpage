@@ -205,17 +205,17 @@ export async function updateProduct(product, session) {
     image: product.image,
 
     pros:
-      typeof product.pros == String
+      typeof product.pros == "string"
         ? product.pros.split(/\s*,\s*/)
         : product.pros,
 
     prosEn:
-      typeof product.prosEn == String
+      typeof product.prosEn == "string"
         ? product.prosEn.split(/\s*,\s*/)
         : product.prosEn,
     status: product.status,
   };
-
+  console.log(typeof product.pros);
   const res = await fetch("api/admin/product", {
     method: "put",
     headers: {

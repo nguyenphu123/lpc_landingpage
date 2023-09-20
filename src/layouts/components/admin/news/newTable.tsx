@@ -110,17 +110,15 @@ function NewsTable() {
   }, []);
 
   const changeStatus = async (news) => {
-    let newsStatusChange = JSON.parse(JSON.stringify(news));
+    let newsStatusChange = {
+      ...news,
 
-    if (newsStatusChange["draft"]) {
-      newsStatusChange["draft"] = false;
-    } else {
-      newsStatusChange["draft"] = true;
-    }
+      draft: !news.draft,
+    };
 
     let returnResult = await updateNews(newsStatusChange, session);
 
-    if (returnResult.success != undefined) {
+    if (returnResult.success !== undefined) {
       showToast(returnResult.msg);
 
       let role = "admin";
@@ -172,28 +170,10 @@ function NewsTable() {
   };
 
   const rows = newList.map((news, index) => (
-    <tr key={news._id}>
+    <tr key={news._id} className={index % 2 === 0 ? "bg-white" : "bg-gray-100"}>
       <td>{index + 1}</td>
 
       <td>{news.title}</td>
-
-      {/* <td
-
-        className=""
-
-        dangerouslySetInnerHTML={{
-
-          __html:
-
-            news.content.length > 150
-
-              ? `${news.content.slice(0, 150)}...`
-
-              : news.content,
-
-        }}
-
-      ></td> */}
 
       <td>{news.date}</td>
 
@@ -235,6 +215,10 @@ function NewsTable() {
       </td>
 
       {/* <td>
+
+ 
+
+ 
 
  
 
@@ -302,8 +286,6 @@ function NewsTable() {
             <th>#</th>
 
             <th>Title</th>
-
-            {/* <th>Content</th> */}
 
             <th>Date</th>
 

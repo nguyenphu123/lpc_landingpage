@@ -6,29 +6,39 @@ import { useForm } from "@mantine/form";
 
 import Image from "next/image";
 
-import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
+import { Button, Box, Grid, Col, Textarea } from "@mantine/core";
 
 import { createNews } from "@/lib/createData";
 
 import { randomId } from "@mantine/hooks";
 
 import TextEditor from "../RichTextEditor";
+
 import { useSession } from "next-auth/react";
+
 import ToastGenerator from "@/lib/toast-tify";
 
 function AddNews({ refreshNews }) {
   const [content, setContent]: any = useState("");
+
   let { data: session, status } = useSession();
+
   const [contentEn, setContentEn]: any = useState("");
 
   const [selectedImage, setSelectedImage] = useState(null); // Store the selected image
 
   const [imagePreview, setImagePreview] = useState("");
+
   const currentDate = new Date();
+
   const formattedDate = currentDate.toISOString().split("T")[0]; // Định dạng thành "YYYY-MM-DD"
+
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
+
   const [isSucess, setIsSucess] = useState(false);
+
   const [sucessMessage, setSucessMessage] = useState("");
+
   const form = useForm({
     initialValues: {
       key: randomId(),
@@ -119,110 +129,67 @@ function AddNews({ refreshNews }) {
     values.contentEn = contentEn;
 
     let returnResult = await createNews(values, session);
+
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+
       refreshNews();
     }
+
     form.reset();
   };
+
   const showToast = (msg) => {
     setIsSucess(true);
+
     setSucessMessage(msg);
+
     setTimeout(() => {
       setIsSucess(false);
+
       setSucessMessage("");
     }, 10000);
   };
+
   return (
     <div style={{ maxHeight: "500px", overflowY: "auto" }}>
       {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
+
       <div className="container">
         <Box maw={"100%"} mx="auto">
           <form onSubmit={form.onSubmit((values: any) => onSubmitForm(values))}>
             <Grid gutter="lg">
               <Col span={4}>
-                <TextInput
+                <Textarea
                   label="Title"
                   placeholder="Title"
+                  radius="md"
+                  size="md"
                   {...form.getInputProps("title")}
                   maxLength={60}
                 />
               </Col>
 
               <Col span={4}>
-                <TextInput
+                <Textarea
                   label="Title (English)"
                   placeholder="Title (English)"
+                  radius="md"
+                  size="md"
                   maxLength={60}
                   {...form.getInputProps("titleEn")}
                 />
               </Col>
 
               <Col span={4}>
-                <TextInput
+                <Textarea
                   label="Categories (comma-separated)"
                   placeholder="Categories"
+                  radius="md"
+                  size="md"
                   {...form.getInputProps("categories")}
                 />
               </Col>
-
-              {/* <Col span={3}>
-
- 
-
-                <TextInput
-
- 
-
-                  label="Meta Title"
-
- 
-
-                  placeholder="Meta Title"
-
- 
-
-                  {...form.getInputProps("meta_title")}
-
- 
-
-                />
-
- 
-
-              </Col>
-
- 
-
- 
-
- 
-
-              <Col span={3}>
-
- 
-
-                <TextInput
-
- 
-
-                  label="Description"
-
- 
-
-                  placeholder="Description"
-
- 
-
-                  {...form.getInputProps("description")}
-
- 
-
-                />
-
- 
-
-              </Col> */}
 
               <Col span={12}>
                 <input type="file" accept="image/*" onChange={onImageChange} />
@@ -241,63 +208,11 @@ function AddNews({ refreshNews }) {
                 )}
               </Col>
 
-              {/* <Col span={3}>
-
- 
-
-                <TextInput
-
- 
-
-                  label="Date"
-
- 
-
-                  type="date"
-
- 
-
-                  placeholder="Date"
-
- 
-
-                  {...form.getInputProps("date")}
-
- 
-
-                />
-
- 
-
-              </Col> */}
-
-              {/* <Col span={3}>
-
- 
-
-                <TextInput
-
- 
-
-                  label="Tags (comma-separated)"
-
- 
-
-                  placeholder="Tags"
-
- 
-
-                  {...form.getInputProps("tags")}
-
- 
-
-                />
-
- 
-
-              </Col> */}
-
-              <TextEditor onChange={onHandleChange} content={content} contentEn={contentEn} />
+              <TextEditor
+                onChange={onHandleChange}
+                content={content}
+                contentEn={contentEn}
+              />
 
               <Col span={6}>
                 <label style={{ display: "flex", alignItems: "center" }}>

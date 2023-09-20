@@ -5,24 +5,46 @@ import { useState } from "react";
 import { useForm } from "@mantine/form";
 
 import Image from "next/image";
-import { TextInput, Button, Box, Code, Grid, Col } from "@mantine/core";
+
+import {
+  TextInput,
+  Button,
+  Box,
+  Code,
+  Grid,
+  Col,
+  Textarea,
+} from "@mantine/core";
+
 import { updateNews } from "@/lib/updateData";
 
 import TextEditor from "../RichTextEditor";
+
 import { useSession } from "next-auth/react";
+
 import ToastGenerator from "@/lib/toast-tify";
+
 function UpdateNew({ New, refreshNews }) {
   const [submittedValues, setSubmittedValues] = useState("");
+
   let { data: session, status } = useSession();
+
   const [content, setContent]: any = useState(New.content);
+
   const [contentEn, setContentEn]: any = useState(New.contentEn);
+
   const [isSucess, setIsSucess] = useState(false);
+
   const [sucessMessage, setSucessMessage] = useState("");
+
   const [selectedImage, setSelectedImage] = useState(null);
+
   const [selectedImageURL, setSelectedImageURL] = useState(New.image);
+
   const form = useForm({
     initialValues: JSON.parse(JSON.stringify(New)),
   });
+
   const onHandleChange = (e: any) => {
     if (e.language == "vn") {
       setContent(e.data);
@@ -32,13 +54,18 @@ function UpdateNew({ New, refreshNews }) {
 
     // form.insertListItem(`content.${e.idcontent}.description.${e.id}`, e);
   };
+
   const onImageChange = (e) => {
     const file = e.target.files[0];
+
     setSelectedImage(file);
+
     setSelectedImageURL(URL.createObjectURL(file));
   };
+
   const onSubmitForm = async (value) => {
     let updateData = { ...value };
+
     if (selectedImage && selectedImageURL != New.image) {
       const formData = new FormData();
 
@@ -64,175 +91,166 @@ function UpdateNew({ New, refreshNews }) {
         console.error(error);
       }
     }
+
     updateData["content"] = content;
+
     updateData["contentEn"] = contentEn;
+
     let returnResult = await updateNews(updateData, session);
+
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+
       refreshNews();
     }
   };
+
   const showToast = (msg) => {
     setIsSucess(true);
+
     setSucessMessage(msg);
+
     setTimeout(() => {
       setIsSucess(false);
+
       setSucessMessage("");
     }, 10000);
   };
+
   return (
-    <section className="section">
-      {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
-      <div className="container">
-        <Box maw={900} mx="auto">
-          <form onSubmit={form.onSubmit((values: any) => onSubmitForm(values))}>
-            <Grid gutter="lg">
-              <Col span={3}>
-                <TextInput
-                  label="Title"
-                  placeholder="Title"
-                  {...form.getInputProps("title")}
-                />
-              </Col>
+    <div className="container mx-auto p-4">
+      {isSucess ? <ToastGenerator message={sucessMessage} /> : null}
 
-              <Col span={3}>
-                <TextInput
-                  label="Title (English)"
-                  placeholder="Title (English)"
-                  {...form.getInputProps("titleEn")}
-                />
-              </Col>
+      <Box maw={900} mx="auto">
+        <form onSubmit={form.onSubmit((values: any) => onSubmitForm(values))}>
+          <Grid gutter="lg">
+            <Col span={4}>
+              <Textarea
+                label="Title"
+                placeholder="Title"
+                radius="md"
+                size="md"
+                {...form.getInputProps("title")}
+                maxLength={60}
+              />
+            </Col>
 
-              <Col span={3}>
-                <TextInput
-                  label="Meta Title"
-                  placeholder="Meta Title"
-                  {...form.getInputProps("meta_title")}
-                />
-              </Col>
+            <Col span={4}>
+              <Textarea
+                label="Title (English)"
+                placeholder="Title (English)"
+                radius="md"
+                size="md"
+                maxLength={60}
+                {...form.getInputProps("titleEn")}
+              />
+            </Col>
 
-              <Col span={3}>
-                <TextInput
-                  label="Description"
-                  placeholder="Description"
-                  {...form.getInputProps("description")}
-                />
-              </Col>
+            <Col span={4}>
+              <Textarea
+                label="Categories (comma-separated)"
+                placeholder="Categories"
+                radius="md"
+                size="md"
+                {...form.getInputProps("categories")}
+              />
+            </Col>
 
-              <Col span={3}>
-                <TextInput
-                  label="Date"
-                  type="date"
-                  placeholder="Date"
-                  {...form.getInputProps("date")}
-                />
-              </Col>
+            <Col span={12}>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={onImageChange}
+                style={{ display: "none" }}
+                id="imageInput"
+              />
 
-              <Col span={3}>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={onImageChange}
-                  style={{ display: "none" }}
-                  id="imageInput"
-                />
-                <label
-                  htmlFor="imageInput"
+              <label
+                htmlFor="imageInput"
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                <div
                   style={{
-                    cursor: "pointer",
+                    width: "100%",
+
+                    height: "100px",
+
+                    backgroundColor: "#f0f0f0",
+
+                    display: "flex",
+
+                    alignItems: "center",
+
+                    justifyContent: "center",
+
+                    border: "2px dashed #ccc",
+
+                    borderRadius: "8px",
                   }}
                 >
-                  <div
-                    style={{
-                      width: "100%",
+                  {selectedImageURL ? (
+                    <Image
+                      src={selectedImageURL}
+                      alt="Selected Image"
+                      width={150}
+                      height={150}
+                    />
+                  ) : (
+                    <span>Click to choose an image</span>
+                  )}
+                </div>
+              </label>
+            </Col>
 
-                      height: "100px",
+            <Col span={12}>
+              <TextEditor
+                onChange={onHandleChange}
+                content={content}
+                contentEn={contentEn}
+              />
+            </Col>
 
-                      backgroundColor: "#f0f0f0",
-
-                      display: "flex",
-
-                      alignItems: "center",
-
-                      justifyContent: "center",
-
-                      border: "2px dashed #ccc",
-
-                      borderRadius: "8px",
-                    }}
-                  >
-                    {selectedImageURL ? (
-                      <Image
-                        src={selectedImageURL}
-                        alt="Selected Image"
-                        width={150}
-                        height={150}
-                      />
-                    ) : (
-                      <span>Click to choose an image</span>
-                    )}
-                  </div>
-                </label>
-              </Col>
-
-              <Col span={3}>
-                <TextInput
-                  label="Categories (comma-separated)"
-                  placeholder="Categories"
-                  {...form.getInputProps("categories")}
+            <Col span={6}>
+              <label style={{ display: "flex", alignItems: "center" }}>
+                <input
+                  type="checkbox"
+                  style={{ marginRight: "8px" }}
+                  {...form.getInputProps("draft")}
                 />
-              </Col>
+                Draft
+              </label>
+            </Col>
+          </Grid>
 
-              <Col span={3}>
-                <TextInput
-                  label="Tags (comma-separated)"
-                  placeholder="Tags"
-                  {...form.getInputProps("tags")}
-                />
-              </Col>
+          <div
+            style={{
+              display: "flex",
 
-              <Col span={12}>
-                <TextEditor
-                  onChange={onHandleChange}
-                  content={content}
-                  contentEn={contentEn}
-                />
-              </Col>
+              justifyContent: "flex-end",
 
-              <Col span={6}>
-                <label style={{ display: "flex", alignItems: "center" }}>
-                  <input
-                    type="checkbox"
-                    style={{ marginRight: "8px" }}
-                    {...form.getInputProps("draft")}
-                  />
-                  Draft
-                </label>
-              </Col>
-            </Grid>
-
-            <div
-              style={{
-                display: "flex",
-
-                justifyContent: "flex-end",
-
-                marginTop: "16px",
-              }}
+              marginTop: "16px",
+            }}
+          >
+            <Button
+              type="submit"
+              style={{ backgroundColor: "#007bff", color: "white" }}
             >
-              <Button
-                type="submit"
-                style={{ backgroundColor: "#007bff", color: "white" }}
-              >
-                Submit
-              </Button>
-            </div>
-          </form>
+              Submit
+            </Button>
+          </div>
+        </form>
 
-          {submittedValues && <Code block>{submittedValues}</Code>}
-        </Box>
-      </div>
-    </section>
+        {sucessMessage && (
+          <div style={{ marginTop: "16px", color: "green" }}>
+            {sucessMessage}
+          </div>
+        )}
+
+        {/* {submittedValues && <Code block>{submittedValues}</Code>} */}
+      </Box>
+    </div>
   );
 }
 

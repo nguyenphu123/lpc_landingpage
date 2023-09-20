@@ -19,6 +19,7 @@ import ToastGenerator from "@/lib/toast-tify";
 import { useUrl } from "nextjs-current-url";
 
 import { loadService, loadSolutionContent } from "@/lib/loadData";
+import encryptId from "@/lib/utils/encrypt";
 
 function ContentTable({ product }) {
   const { data: session, status } = useSession();
@@ -98,10 +99,10 @@ function ContentTable({ product }) {
 
             href,
 
-            product._id,
+            encryptId(product._id),
           );
 
-          setData(solutionCheck.products[0]);
+          setData(solutionCheck.products);
         }
       } else {
       }
@@ -176,10 +177,10 @@ function ContentTable({ product }) {
 
         href,
 
-        product._id,
+        encryptId(product._id),
       );
 
-      setData(solutionCheck.products[0]);
+      setData(solutionCheck.products);
     }
 
     setIsEditMode(false); // Chuyển về chế độ xem sau khi lưu thành công
@@ -204,36 +205,65 @@ function ContentTable({ product }) {
 
     if (returnResult.success != undefined) {
       showToast(returnResult.msg);
+      if (product.type == "Service") {
+        const serviceCheck = await loadService(
+          {
+            title: 1,
 
-      const solutionCheck = await loadSolutionContent(
-        {
-          title: 1,
+            _id: 1,
 
-          _id: 1,
+            titleEn: 1,
 
-          titleEn: 1,
+            "content.title": 1,
 
-          "content.title": 1,
+            "content.titleEn": 1,
 
-          "content.titleEn": 1,
+            "content._id": 1,
 
-          "content._id": 1,
+            "content.imgSrc": 1,
 
-          "content.imgSrc": 1,
+            "content.content": 1,
 
-          "content.content": 1,
+            "content.contentEn": 1,
 
-          "content.contentEn": 1,
+            "content.status": 1,
+          },
 
-          "content.status": 1,
-        },
+          href,
+        );
 
-        href,
+        setData(serviceCheck.products[0]);
+      } else {
+        const solutionCheck = await loadSolutionContent(
+          {
+            title: 1,
 
-        product._id,
-      );
+            _id: 1,
 
-      setData(solutionCheck.products[0]);
+            titleEn: 1,
+
+            "content.title": 1,
+
+            "content.titleEn": 1,
+
+            "content._id": 1,
+
+            "content.imgSrc": 1,
+
+            "content.content": 1,
+
+            "content.contentEn": 1,
+
+            "content.status": 1,
+          },
+
+          href,
+
+          encryptId(product._id),
+        );
+
+        setData(solutionCheck.products);
+      }
     }
   };
 

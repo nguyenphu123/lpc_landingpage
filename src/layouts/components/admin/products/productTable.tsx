@@ -59,8 +59,6 @@ function ProductTable() {
 
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const [contentView, setContentView] = useState(false);
-
   const [showContent, setShowContent] = useState(false);
 
   const [showInfo, setShowInfo] = useState(false);
@@ -122,9 +120,7 @@ function ProductTable() {
   const handleEditClick = (product: Product) => {
     setSelectedProduct(product);
 
-    setIsEditMode(selectedProduct === product); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
-
-    setShowInfo(true);
+    setIsEditMode(true); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
   };
 
   const viewContent = (product: Product) => {
@@ -338,7 +334,7 @@ function ProductTable() {
           setIsEditMode(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
         }}
       >
-        {selectedProduct && showInfo ? (
+        {selectedProduct != null && isEditMode ? (
           <section className="section">
             <div className="container">
               <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
@@ -368,7 +364,11 @@ function ProductTable() {
             <h3 className="flex justify-center">Content</h3>
 
             <Box maw={800} mx="auto">
-              {showContent ? <ContentTable product={selectedProduct} /> : <></>}
+              {selectedProduct != null && showContent ? (
+                <ContentTable product={selectedProduct} />
+              ) : (
+                <></>
+              )}
             </Box>
           </div>
         </section>

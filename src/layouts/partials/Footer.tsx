@@ -146,32 +146,6 @@ const Footer = () => {
 
                     <span className="ml-2">{companyLinks.email}</span>
                   </li>
-
-                  {companyLinks.socialAccount.map((item) => (
-                    <li key={item} className="flex">
-                      <Link href={`${item}`} className=" hover:underline flex">
-                        <svg
-                          className="h-5 w-5 text-black"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          strokeWidth="2"
-                          stroke="currentColor"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                          <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
-                        </svg>
-
-                        <span className="ml-2">
-                          {" "}
-                          Lien Phat Technology Corporation
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
                 </ul>
               </div>
 
@@ -219,10 +193,32 @@ const Footer = () => {
                       </Link>
                     </span>
                   </li>
+                  {companyLinks.socialAccount.map((item) => (
+                    <li key={item} className="flex">
+                      <Link href={`${item}`} className=" hover:underline flex">
+                        <svg
+                          className="h-5 w-5 text-black"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          strokeWidth="2"
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" />{" "}
+                          <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+                        </svg>
 
-                  <li>
-                    <div className="h-6 w-full"></div>
-                  </li>
+                        <span className="ml-2">
+                          {" "}
+                          Lien Phat Technology Corporation
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                  
                 </ul>
               </div>
             </div>

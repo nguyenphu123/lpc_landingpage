@@ -122,7 +122,7 @@ function UpdateProductForm({ product, handleSaveClick }) {
                           borderRadius: "8px",
                         }}
                       >
-                        {selectedImage ? (
+                        {selectedImageURL ? (
                           <Image
                             src={selectedImageURL}
                             alt="Selected Image"

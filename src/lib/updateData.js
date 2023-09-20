@@ -204,9 +204,15 @@ export async function updateProduct(product, session) {
 
     image: product.image,
 
-    pros: product.pros,
+    pros:
+      typeof product.pros == String
+        ? product.pros.split(/\s*,\s*/)
+        : product.pros,
 
-    prosEn: product.prosEn,
+    prosEn:
+      typeof product.prosEn == String
+        ? product.prosEn.split(/\s*,\s*/)
+        : product.prosEn,
     status: product.status,
   };
 

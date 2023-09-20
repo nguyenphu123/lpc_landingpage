@@ -302,7 +302,18 @@ function ProductTable() {
         className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-3 rounded mr-2"
         onClick={(e) => refreshProduct(e)}
       >
-        Refresh
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M3.111 5.018C2.633 5.18 2.259 5.553 2.097 6.03A7.97 7.97 0 001 10c0 4.418 3.582 8 8 8s8-3.582 8-8a7.97 7.97 0 00-1.097-3.97 1.001 1.001 0 00-1.607 1.15 5.972 5.972 0 011.171 3.82 6.002 6.002 0 01-6 6 6 6 0 01-6-6c0-1.947.906-3.686 2.317-4.832a1.001 1.001 0 00-1.523-1.15z"
+            clipRule="evenodd"
+          />
+        </svg>
       </button>
 
       <Table>

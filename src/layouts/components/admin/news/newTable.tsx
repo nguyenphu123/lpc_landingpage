@@ -285,7 +285,7 @@ function NewsTable() {
 
     setSelectedNews(null);
 
-    setReadOnlyNew(false);
+    setEditNewsVisible(false);
   };
 
   return (

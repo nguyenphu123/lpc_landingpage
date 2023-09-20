@@ -28,7 +28,7 @@ export const authOptions = {
           if (!user) {
             return null;
           }
-          
+
           if (!bcrypt.compareSync(password, returnData.password)) {
             return null;
           }
@@ -42,10 +42,10 @@ export const authOptions = {
   ],
   session: {
     jwt: true,
-    maxAge: 60 * 60 * 60,
+    maxAge: 1 * 60 * 60,
   },
   jwt: {
-    maxAge: 60 * 60 * 60, // Time in seconds, similar to have you have configured it in the userFlow in Azure AD B2C
+    maxAge: 1 * 60 * 60, // Time in seconds, similar to have you have configured it in the userFlow in Azure AD B2C
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {

@@ -297,7 +297,7 @@ function AddNews({ refreshNews }) {
 
               </Col> */}
 
-              <TextEditor onChange={onHandleChange} content="" contentEn="" />
+              <TextEditor onChange={onHandleChange} content={content} contentEn={contentEn} />
 
               <Col span={6}>
                 <label style={{ display: "flex", alignItems: "center" }}>

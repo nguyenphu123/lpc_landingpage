@@ -210,8 +210,8 @@ function UpdateContentForm({ product, content }) {
                   </Col>
                   <TextEditor
                     onChange={onHandleChange}
-                    content={content.description}
-                    contentEn={content.descriptionEn}
+                    content={description}
+                    contentEn={descriptionEn}
                   />
                 </Grid>
 

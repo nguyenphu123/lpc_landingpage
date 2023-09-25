@@ -49,8 +49,9 @@ export default function RichTextEditor({
             "bold italic forecolor | alignleft aligncenter " +
             "alignright alignjustify | bullist numlist outdent indent | " +
             "removeformat | help | image",
-          images_file_types: "jpg,svg,webp,png",
+          images_file_types: "all",
           paste_data_images: true,
+          paste_retain_style_properties: "all",
         }}
         value={content}
         onEditorChange={(vn) => {
@@ -96,6 +97,7 @@ export default function RichTextEditor({
             "removeformat | help | image",
           images_file_types: "jpg,svg,webp,png",
           paste_data_images: true,
+          paste_retain_style_properties: "all",
         }}
         value={contentEn}
         onEditorChange={(en) => {

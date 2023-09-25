@@ -26,8 +26,8 @@ import ToastGenerator from "@/lib/toast-tify";
 function ContentForm({ product }) {
   const [submittedValues, setSubmittedValues] = useState("");
   let { data: session, status } = useSession();
-  const [descriptionEn, setDescriptionEn]: any = useState({});
-  const [description, setDescription]: any = useState({});
+  const [descriptionEn, setDescriptionEn]: any = useState("");
+  const [description, setDescription]: any = useState("");
 
   // Thêm state để lưu trữ hình ảnh đã chọn
 
@@ -221,8 +221,8 @@ function ContentForm({ product }) {
                   <Col span={12}>
                     <TextEditor
                       onChange={onHandleChange}
-                      content={""}
-                      contentEn={""}
+                      content={description}
+                      contentEn={descriptionEn}
                     />
                   </Col>
                 </Grid>

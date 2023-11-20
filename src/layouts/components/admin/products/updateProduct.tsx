@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { useForm } from "@mantine/form";
 
-import { TextInput, Button, Box, Grid, Col, Select } from "@mantine/core";
+import { TextInput, Button, Box, Grid,  Select } from "@mantine/core";
 
 import { updateProduct } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
@@ -82,7 +82,7 @@ function UpdateProductForm({ product, handleSaveClick }) {
             <Grid gutter="lg">
               {showCols && (
                 <>
-                  <Col span={12}>
+                  <Grid.Col span={12}>
                     <label>Choose Image</label>
 
                     {/* Trường input tệp ẩn */}
@@ -134,9 +134,9 @@ function UpdateProductForm({ product, handleSaveClick }) {
                         )}
                       </div>
                     </label>
-                  </Col>
+                  </Grid.Col>
 
-                  <Col span={4}>
+                  <Grid.Col span={4}>
                     <label>Type</label>
 
                     <Select
@@ -148,71 +148,71 @@ function UpdateProductForm({ product, handleSaveClick }) {
                       placeholder="Select Type"
                       {...form.getInputProps("type")}
                     />
-                  </Col>
+                  </Grid.Col>
 
-                  <Col span={4}>
+                  <Grid.Col span={4}>
                     <TextInput
                       label="Title"
                       placeholder="Title"
                       {...form.getInputProps("title")}
                     />
-                  </Col>
+                  </Grid.Col>
 
-                  <Col span={4}>
+                  <Grid.Col span={4}>
                     <TextInput
                       label="Title (English)"
                       placeholder="Title (English)"
                       {...form.getInputProps("titleEn")}
                     />
-                  </Col>
+                  </Grid.Col>
 
-                  <Col span={6}>
+                  <Grid.Col span={6}>
                     <TextInput
                       label="General content"
                       placeholder="General content"
                       {...form.getInputProps("description1")}
                     />
-                  </Col>
+                  </Grid.Col>
 
-                  <Col span={6}>
+                  <Grid.Col span={6}>
                     <TextInput
                       label="General content (English)"
                       placeholder="General content (English)"
                       {...form.getInputProps("descriptionEn1")}
                     />
-                  </Col>
+                  </Grid.Col>
 
-                  <Col span={6}>
+                  <Grid.Col span={6}>
                     <TextInput
                       label="Details"
                       placeholder="Details"
                       {...form.getInputProps("description2")}
                     />
-                  </Col>
+                  </Grid.Col>
 
-                  <Col span={6}>
+                  <Grid.Col span={6}>
                     <TextInput
                       label="Details (English)"
                       placeholder="Details (English)"
                       {...form.getInputProps("descriptionEn2")}
                     />
-                  </Col>
+                  </Grid.Col>
 
-                  <Col span={6}>
+                  <Grid.Col span={6}>
                     <TextInput
                       label="Pros (comma-separated)"
                       placeholder="Pros"
                       {...form.getInputProps("pros")}
                     />
-                  </Col>
+                  </Grid.Col>
 
-                  <Col span={6}>
+                  <Grid.Col span={6}>
                     <TextInput
                       label="Pros (English, comma-separated)"
                       placeholder="Pros (English)"
                       {...form.getInputProps("prosEn")}
                     />
-                  </Col>
+                  </Grid.Col>
                 </>
               )}
             </Grid>

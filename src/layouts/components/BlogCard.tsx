@@ -10,8 +10,9 @@ import DataEn from "@/config/dataEn.json";
 import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import encryptId from "@/lib/utils/encrypt";
+import languageChange from "@/models/language"
 const BlogCard = ({ data }: { data: Post }) => {
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState : languageChange) => language(rootState));
   return (
     <div className="bg-body dark:bg-darkmode-body">
       {data.image && (

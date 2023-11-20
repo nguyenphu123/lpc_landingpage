@@ -11,6 +11,7 @@ import { loadServiceContent } from "@/lib/loadData";
 import "../../../styles/scroll.scss";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
+import languageChange from "@/models/language"
 const RegularPages = () => {
   const { href } = useUrl() ?? {};
   const params: any = useParams();
@@ -50,7 +51,7 @@ const RegularPages = () => {
       .catch(console.error);
   }, [data]);
 
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState : languageChange) => language(rootState));
   return data == undefined || Object.keys(data).length == 0 ? (
     <section className="section pt-7">
       <div className="container">

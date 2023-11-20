@@ -12,17 +12,11 @@ const BlogCard = dynamic(() => import("@/components/BlogCard"));
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 const CategorySingle = () => {
   const { href } = useUrl() ?? {};
-  const newInfo = useSelector((rootState) => news(rootState));
-  let posts: any[] = newInfo.newData.value.companyNews;
+
+  let [posts, setPosts]: any[] = useState([]);
   const params: any = useParams();
-  let [filterByCategories, setFilterByCategories]: any[] = useState(
-    posts != undefined
-      ? posts.filter((product) =>
-          product.categories.some((item: string) => item === params.single),
-        )
-      : [],
-  );
-  const dispatch = useDispatch();
+  let [filterByCategories, setFilterByCategories]: any[] = useState([]);
+
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
@@ -43,20 +37,14 @@ const CategorySingle = () => {
           },
           href,
         );
-        posts = newsCheck.news;
+        setPosts(newsCheck.news);
 
         setFilterByCategories(
-          posts.filter((product) =>
+          newsCheck.news.filter((product) =>
             product.categories.some((item: string) => item === params.single),
           ),
         );
-        dispatch(companyNew(newsCheck));
       } else {
-        setFilterByCategories(
-          posts.filter((product) =>
-            product.categories.some((item: string) => item === params.single),
-          ),
-        );
       }
     };
     // call the function

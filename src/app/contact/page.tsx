@@ -13,15 +13,15 @@ import PageHeader from "@/partials/PageHeader";
 import { useState } from "react";
 
 import dynamic from "next/dynamic";
-
+import languageChange from "@/models/language"
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 
-const MapWithAMarker = dynamic(
-  () => import("../../layouts/components/googleMap"),
-);
+// const MapWithAMarker = dynamic(
+//   () => import("../../layouts/components/googleMap"),
+// );
 
 const Contact = () => {
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState : languageChange) => language(rootState));
 
   const data = {
     title: "Liên Hệ",

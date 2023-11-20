@@ -1,0 +1,71 @@
+.menu-item-text {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  -webkit-tap-highlight-color: transparent;
+  font-size: 0.875rem;
+  border: 0px;
+  background-color: transparent;
+  outline: 0px;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  box-sizing: border-box;
+  padding: 0.625rem 0.75rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  color: rgb(0, 0, 0);
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.menu-dropdown {
+  position: absolute;
+  background: rgb(255, 255, 255);
+  border: 0.0625rem solid rgb(233, 236, 239);
+  box-shadow:
+    rgba(0, 0, 0, 0.05) 0px 0.0625rem 0.1875rem,
+    rgba(0, 0, 0, 0.05) 0px 1.25rem 1.5625rem -0.3125rem,
+    rgba(0, 0, 0, 0.04) 0px 0.625rem 0.625rem -0.3125rem;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  transition-property: opacity;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+  opacity: 1;
+  z-index: 300;
+  top: 65.2px;
+  left: 1151.19px;
+  width: 12.5rem;
+}
+.menu-target {
+  padding: 0px 1.125rem 0px calc(0.75rem);
+  appearance: none;
+  text-align: left;
+  text-decoration: none;
+  box-sizing: border-box;
+  height: 2.25rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  -webkit-tap-highlight-color: transparent;
+  display: inline-block;
+  width: auto;
+  border-radius: 2rem;
+  font-weight: 600;
+  position: relative;
+  line-height: 1;
+  font-size: 0.875rem;
+  user-select: none;
+  cursor: pointer;
+  border: 0.0625rem solid transparent;
+  display: inline;
+  color: rgb(37, 38, 43);
+}
+
+.menu-target-text {
+    white-space: nowrap;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}

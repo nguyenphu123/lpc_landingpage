@@ -1,19 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { loadCustomer } from "@/lib/loadData";
 import "../../styles/slider.scss";
-
-import { customer, customerData } from "@/feature/data/customerSlice";
 import { useUrl } from "nextjs-current-url";
 // posts will be populated at build time by getStaticProps()
 export default function CustomerListForAbout() {
   // const newsCheck = await loadNews();
-  const customerInfo = useSelector((rootState) => customer(rootState));
 
-  let customerList = customerInfo.customerData.value.customerList;
-  const [customers, setCustomers] = useState(customerList || []);
-  const dispatch = useDispatch();
+  const [customers, setCustomers] = useState([]);
+
   const { pathname, href } = useUrl() ?? {};
   useEffect(() => {
     // declare the data fetching function
@@ -23,7 +18,6 @@ export default function CustomerListForAbout() {
         setCustomers(
           customerCheck.customers.filter((item) => item.status == "Active"),
         );
-        dispatch(customerData(customerCheck));
       } else {
       }
     };

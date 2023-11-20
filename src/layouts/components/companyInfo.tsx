@@ -11,14 +11,14 @@ import PartnerListForAbout from "./partnerListForAbout";
 import CustomerListForAbout from "./customerListForAbout";
 import { useUrl } from "nextjs-current-url";
 import Chart from "../../layouts/components/chart";
+import languageChange from "@/models/language";
 export default function CompanyInfo() {
   const { href } = useUrl() ?? {};
-  const curlanguage = useSelector((rootState) => language(rootState));
-  const companyInfo = useSelector((rootState) => company(rootState));
-
-  let [companyDatas, setCompanyDatas]: any = useState(
-    companyInfo.companyData.value,
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
   );
+
+  let [companyDatas, setCompanyDatas]: any = useState({});
   const [width, setWidth]: any = useState(
     typeof window !== "undefined" && window.innerWidth,
   ); // default width, detect on server.
@@ -37,9 +37,7 @@ export default function CompanyInfo() {
         const companyCheck = await loadCompanyInfo(href);
         setCompanyDatas(companyCheck.company[0]);
         setBusy(false);
-        dispatch(companyData(companyCheck));
       } else {
-        setBusy(false);
       }
     }
 

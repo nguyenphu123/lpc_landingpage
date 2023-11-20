@@ -5,7 +5,7 @@ import DataEn from "@/config/dataEn.json";
 import PageHeader from "@/partials/PageHeader";
 import PostSidebar from "@/partials/PostSidebar";
 import { Pagination } from "@mantine/core";
-
+import languageChange from "@/models/language";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { loadNews } from "@/lib/loadData";
@@ -17,7 +17,9 @@ const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 // for all regular pages
 const Posts = () => {
   const { href } = useUrl() ?? {};
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
+  );
   const [activePage, setPage] = useState(1);
   const [newList, setNewList] = useState([]);
   const [showList, setShowList] = useState([]);
@@ -129,7 +131,6 @@ const Posts = () => {
                 <div className=" w-fit ">
                   {newList.length > 4 ? (
                     <Pagination
-                      align="content-center"
                       value={activePage}
                       onChange={(page) => onpageChange(page)}
                       total={Math.ceil(newList.length / 4)}

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
-import { Button, Box, PasswordInput, Grid, Col } from "@mantine/core";
+import { Button, Box, PasswordInput, Grid } from "@mantine/core";
 import { updateUsersPassword } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
@@ -65,7 +65,7 @@ function UpdateUser({ user, handleSaveClick }) {
           <h3 className="flex justify-center">Update password</h3>
 
           <Grid gutter="lg">
-            <Col span={12}>
+            <Grid.Col span={12}>
               <PasswordInput
                 placeholder="Password"
                 label="Password"
@@ -74,8 +74,8 @@ function UpdateUser({ user, handleSaveClick }) {
                 withAsterisk
                 {...form.getInputProps("password")}
               />
-            </Col>
-            <Col span={12}>
+            </Grid.Col>
+            <Grid.Col span={12}>
               <PasswordInput
                 placeholder="Password"
                 label="Confirm password"
@@ -84,8 +84,8 @@ function UpdateUser({ user, handleSaveClick }) {
                 withAsterisk
                 {...form.getInputProps("matchPassword")}
               />
-            </Col>
-            <Col span={6} className="flex justify-end mt-6">
+            </Grid.Col>
+            <Grid.Col span={6} className="flex justify-end mt-6">
               {/* Thêm class CSS để đặt nút submit ở góc phải */}
 
               <Button
@@ -95,7 +95,7 @@ function UpdateUser({ user, handleSaveClick }) {
               >
                 Submit
               </Button>
-            </Col>
+            </Grid.Col>
           </Grid>
         </form>
 

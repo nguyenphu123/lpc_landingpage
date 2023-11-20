@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
 import Image from "next/image";
-import { Button, Box, Grid, Col } from "@mantine/core";
+import { Button, Box, Grid } from "@mantine/core";
 
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
@@ -99,10 +99,10 @@ function EditRevenue({ Revenue, language, refreshRevenue }) {
                 />
               </div>
             )}
-            <Col span={6}>
+            <Grid.Col span={6}>
               <input type="file" accept="image/*" onChange={onImageChange} />
-            </Col>
-            <Col span={6} className="flex justify-end mt-6">
+            </Grid.Col>
+            <Grid.Col span={6} className="flex justify-end mt-6">
               {/* Thêm class CSS để đặt nút submit ở góc phải */}
 
               <Button
@@ -112,7 +112,7 @@ function EditRevenue({ Revenue, language, refreshRevenue }) {
               >
                 Submit
               </Button>
-            </Col>
+            </Grid.Col>
           </Grid>
         </form>
 

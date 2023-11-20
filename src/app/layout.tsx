@@ -6,13 +6,15 @@ import { store } from "../store/store";
 import "@/styles/main.scss";
 import { AuthProvider } from "./provider";
 import { usePathname } from "next/navigation";
-
+import { MantineProvider} from "@mantine/core";
 import dynamic from "next/dynamic";
 const Header = dynamic(() => import("@/partials/Header"), { ssr: false });
 const Footer = dynamic(() => import("@/partials/Footer"), { ssr: false });
 const ScrollToTopButton = dynamic(
   () => import("@/components/scrollToTopButton"),
 );
+
+
 export default function RootLayout({
   children,
 }: {
@@ -73,9 +75,19 @@ export default function RootLayout({
         <ScrollToTopButton />
         <Provider store={store}>
           <AuthProvider>
-            {pathname == "/admin" || pathname == "/login" ? <></> : <Header />}
-            <main>{children}</main>
-            {pathname == "/admin" || pathname == "/login" ? <></> : <Footer />}
+            <MantineProvider>
+              {pathname == "/admin" || pathname == "/login" ? (
+                <></>
+              ) : (
+                <Header />
+              )}
+              <main>{children}</main>
+              {pathname == "/admin" || pathname == "/login" ? (
+                <></>
+              ) : (
+                <Footer />
+              )}
+            </MantineProvider>
           </AuthProvider>
         </Provider>
       </body>

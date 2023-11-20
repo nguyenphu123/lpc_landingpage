@@ -21,11 +21,13 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { useUrl } from "nextjs-current-url";
-
+import languageChange from "@/models/language";
 const Footer = () => {
   const { copyright } = config.params;
 
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
+  );
 
   const { footer } = curlanguage.changeLanguage.value == "en" ? menuEn : menu;
 
@@ -212,13 +214,11 @@ const Footer = () => {
                         </svg>
 
                         <span className="ml-2">
-                          {" "}
                           Lien Phat Technology Corporation
                         </span>
                       </Link>
                     </li>
                   ))}
-                  
                 </ul>
               </div>
             </div>

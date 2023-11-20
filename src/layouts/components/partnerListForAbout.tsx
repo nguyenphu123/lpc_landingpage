@@ -3,15 +3,14 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { loadPartner } from "@/lib/loadData";
 import "../../styles/slider.scss";
-import { companyPartner, partner } from "@/feature/data/partnerSlice";
+
 import { useUrl } from "nextjs-current-url";
 // posts will be populated at build time by getStaticProps()
 export default function PartnerListForAbout() {
   // const newsCheck = await loadNews();
-  const partnerInfo = useSelector((rootState) => partner(rootState));
-  let partnerList = partnerInfo.partnerData.value.partnerList;
-  const [partners, setPartners] = useState(partnerList || []);
-  const dispatch = useDispatch();
+
+  const [partners, setPartners] = useState([]);
+
   const { pathname, href } = useUrl() ?? {};
   useEffect(() => {
     // declare the data fetching function
@@ -21,7 +20,6 @@ export default function PartnerListForAbout() {
         setPartners(
           partnerCheck.partners.filter((item) => item.status == "Active"),
         );
-        dispatch(companyPartner(partnerCheck));
       } else {
       }
     };

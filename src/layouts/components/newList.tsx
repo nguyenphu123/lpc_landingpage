@@ -6,18 +6,26 @@ import { useEffect, useState } from "react";
 import { loadNews } from "@/lib/loadData";
 import dynamic from "next/dynamic";
 import { useUrl } from "nextjs-current-url";
+import languageChange from "@/models/language";
 const NewITem = dynamic(() => import("./newItem"));
 // posts will be populated at build time by getStaticProps()
 export default function Blog() {
   const { href } = useUrl() ?? {};
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector(
+    (rootState: languageChange) => language(rootState).changeLanguage.value,
+  );
   // const newsCheck = await loadNews();
 
   let [newList, setNewList]: any = useState([]);
-  const getDate = (createDate) => {
-    let date = new Date(createDate);
-    return date.getTime();
-  };
+  const [width, setWidth]: any = useState(
+    typeof window !== "undefined" && window.innerWidth,
+  ); // default width, detect on server.
+  const handleResize = () =>
+    setWidth(typeof window !== "undefined" && window.innerWidth);
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
@@ -45,7 +53,13 @@ export default function Blog() {
   return newList.length == 0 ? (
     <></>
   ) : (
-    <Grid className="w-3/4" justify="center" grow gutter="sm">
+    <div
+      className={
+        width > 1030
+          ? "w-3/4 gap-4 grid grid-cols-4"
+          : "w-3/4 gap-4 grid grid-cols-1"
+      }
+    >
       {newList
         .reverse()
         .slice(0, 4)
@@ -61,22 +75,17 @@ export default function Blog() {
             i: any,
           ) => {
             return (
-              <Grid.Col key={svc._id} md={4} lg={2.5}>
-                <NewITem
-                  src={svc.image}
-                  title={
-                    curlanguage.changeLanguage.value == "en"
-                      ? svc.titleEn
-                      : svc.title
-                  }
-                  id={svc._id}
-                  i={i}
-                />
-              </Grid.Col>
+              <NewITem
+                key={i}
+                src={svc.image}
+                title={curlanguage == "en" ? svc.titleEn : svc.title}
+                id={svc._id}
+                i={i}
+              />
             );
           },
         )}
-    </Grid>
+    </div>
   );
 }
 // This function gets called at build time on server-side.

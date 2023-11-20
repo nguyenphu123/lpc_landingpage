@@ -11,12 +11,13 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { publicIpv4 } from "public-ip";
+import languageChange from "@/models/language"
 var bcrypt = require("bcryptjs");
 
 export default function Login() {
   // Get the client's IP address from the request headers
   const { data: session }: any = useSession();
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState : languageChange) => language(rootState));
   // let loginState = useSelector(loginStatus);
   const [errorMessage, setErrorMessage] = useState(false);
   const [userIp, setUserIp] = useState("");

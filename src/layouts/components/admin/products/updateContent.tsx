@@ -12,7 +12,7 @@ import {
   Box,
   Code,
   Grid,
-  Col,
+  
   Textarea,
 } from "@mantine/core";
 
@@ -123,23 +123,23 @@ function UpdateContentForm({ product, content }) {
                 <h3>Product Overview</h3>
 
                 <Grid gutter="lg">
-                  <Col span={4}>
+                  <Grid.Col span={4}>
                     <TextInput
                       label="Title"
                       placeholder="Title"
                       {...form.getInputProps(`title`)}
                     />
-                  </Col>
+                  </Grid.Col>
 
-                  <Col span={4}>
+                  <Grid.Col span={4}>
                     <TextInput
                       label="Title (English)"
                       placeholder="Title (English)"
                       {...form.getInputProps(`titleEn`)}
                     />
-                  </Col>
+                  </Grid.Col>
 
-                  <Col span={12}>
+                  <Grid.Col span={12}>
                     <label>Choose Image</label>
 
                     {/* Trường input tệp ẩn */}
@@ -191,23 +191,23 @@ function UpdateContentForm({ product, content }) {
                         )}
                       </div>
                     </label>
-                  </Col>
+                  </Grid.Col>
 
-                  <Col span={6}>
+                  <Grid.Col span={6}>
                     <Textarea
                       label="Content"
                       placeholder="Content"
                       {...form.getInputProps(`content`)}
                     />
-                  </Col>
+                  </Grid.Col>
 
-                  <Col span={6}>
+                  <Grid.Col span={6}>
                     <Textarea
                       label="Content (English)"
                       placeholder="Content (English)"
                       {...form.getInputProps(`contentEn`)}
                     />
-                  </Col>
+                  </Grid.Col>
                   <TextEditor
                     onChange={onHandleChange}
                     content={description}

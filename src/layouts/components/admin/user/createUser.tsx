@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
-import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
+import { TextInput, Button, Box, Grid } from "@mantine/core";
 
 import { addUsers } from "@/lib/createData";
 import { useSession } from "next-auth/react";
@@ -49,15 +49,15 @@ function UserForm({ refreshUser }) {
           <h3 className="flex justify-center">Add new user</h3>
 
           <Grid gutter="lg">
-            <Col span={12}>
+            <Grid.Col span={12}>
               <TextInput
                 label="Name"
                 placeholder="Name"
                 {...form.getInputProps("email")}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={6} className="flex justify-end mt-6">
+            <Grid.Col span={6} className="flex justify-end mt-6">
               {/* Thêm class CSS để đặt nút submit ở góc phải */}
 
               <Button
@@ -67,7 +67,7 @@ function UserForm({ refreshUser }) {
               >
                 Submit
               </Button>
-            </Col>
+            </Grid.Col>
           </Grid>
         </form>
 

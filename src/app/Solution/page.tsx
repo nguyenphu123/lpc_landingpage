@@ -15,20 +15,15 @@ import { loadProduct, loadSolution } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
 import encryptId from "../../lib/utils/encrypt";
+import languageChange from "@/models/language";
 const Solutions = () => {
   let keyUtf8 = "";
   const { href } = useUrl() ?? {};
-  const curlanguage = useSelector((rootState) => language(rootState));
-  const productInfo = useSelector((rootState) => product(rootState));
-
-  let [data, setData] = useState(
-    productInfo.productData.value.product != undefined
-      ? productInfo.productData.value.product.filter(
-          (item: { type: string }) => item.type == "Solution",
-        )
-      : [],
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
   );
-  const dispatch = useDispatch();
+
+  let [data, setData] = useState([]);
 
   useEffect(() => {
     // declare the data fetching function
@@ -54,25 +49,6 @@ const Solutions = () => {
         setData(
           solutionCheck.products.filter((item) => item.status == "Active"),
         );
-        const productCheck = await loadProduct(
-          {
-            title: 1,
-            _id: 1,
-            type: 1,
-            titleEn: 1,
-            image: 1,
-            descriptionEn1: 1,
-            description1: 1,
-            pros: 1,
-            prosEn: 1,
-            content: 1,
-            description2: 1,
-            descriptionEn2: 1,
-          },
-          href,
-        );
-
-        dispatch(companyProduct(productCheck));
       } else {
       }
     };

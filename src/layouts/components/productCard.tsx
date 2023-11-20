@@ -5,8 +5,9 @@ import { useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import Image from "next/image";
+import languageChange from "@/models/language"
 export default function ProductCard({ title, content, id, link, srcImg }: any) {
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState : languageChange) => language(rootState));
   return (
     <div
       key={id}

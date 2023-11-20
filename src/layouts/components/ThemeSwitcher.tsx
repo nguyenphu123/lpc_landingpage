@@ -6,10 +6,21 @@ import {
   language,
 } from "../../feature/changeLanguage/changeLanguageSlice";
 import "../../styles/flag.scss";
-import { Menu, Button } from "@mantine/core";
+
 import { useEffect, useState } from "react";
+import languageChange from "@/models/language";
+
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+} from "@nextui-org/react";
 const ThemeSwitcher = () => {
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
+  );
   const [width, setWidth]: any = useState(
     typeof window !== "undefined" && window.innerWidth,
   ); // default width, detect on server.
@@ -21,66 +32,48 @@ const ThemeSwitcher = () => {
   }, [handleResize]);
   const dispatch = useDispatch();
   return (
-    <>
-      <Menu width={200} shadow="md">
-        <Menu.Target>
-          <Button
-            variant="white"
-            color="dark"
-            radius="xl"
-            leftIcon={
-              curlanguage.changeLanguage.value == "en" ? (
-                <span className=" flag-icon-rounded fi fi-us" />
-              ) : (
-                <span className="flag-icon-rounded fi  fi-vn" />
-              )
-            }
-          >
-            {width > 1030
-              ? curlanguage.changeLanguage.value == "en"
-                ? "English"
-                : "Vietnamese"
-              : ""}
-          </Button>
-        </Menu.Target>
-
-        <Menu.Dropdown>
-          <Menu.Item
-            component="div"
-            icon={
-              <span
-                onClick={() => dispatch(changeLanguage("vn"))}
-                className=" flag-icon-rounded fi fi-vn"
-              />
-            }
-          >
-            <button
-              className={`${width > 1030 ? "w-full" : "w-min"} text-left`}
-              onClick={() => dispatch(changeLanguage("vn"))}
-            >
-              Vietnamese
-            </button>
-          </Menu.Item>
-
-          <Menu.Item
-            component="div"
-            icon={
-              <span
-                onClick={() => dispatch(changeLanguage("en"))}
-                className="flag-icon-rounded fi fi-us"
-              />
-            }
-          >
-            <button
-              className={`${width > 1030 ? "w-full" : "w-min"} text-left`}
-              onClick={() => dispatch(changeLanguage("en"))}
-            >
-              English
-            </button>
-          </Menu.Item>
-        </Menu.Dropdown>
-      </Menu>
-    </>
+    <Dropdown showArrow shouldBlockScroll={false}>
+      <DropdownTrigger>
+        <Button
+          className="text-sm font-black text-black"
+          startContent={
+            curlanguage.changeLanguage.value == "en" ? (
+              <span className=" flag-icon-rounded fi fi-us" />
+            ) : (
+              <span className=" flag-icon-rounded fi fi-vn" />
+            )
+          }
+          variant="light"
+        >
+          {width > 1030
+            ? curlanguage.changeLanguage.value == "en"
+              ? "English"
+              : "Vietnamese"
+            : ""}
+        </Button>
+      </DropdownTrigger>
+      <DropdownMenu
+        onAction={(key) => dispatch(changeLanguage(key))}
+        className="bg-white rounded w-32 h-24 sticky top-0 z-50 transition-all "
+        aria-label="Dropdown Variants"
+        variant="shadow"
+      >
+        <DropdownItem
+          className="text-sm gap-2 items-center flow-root mt-4"
+          startContent={<span className=" flag-icon-rounded fi fi-vn" />}
+          key="vn"
+        >
+          {width > 1030 ? "Vietnamese" : ""}
+        </DropdownItem>
+        <DropdownItem
+          className="text-sm gap-2 flow-root items-center"
+          startContent={<span className="flag-icon-rounded fi fi-us" />}
+          key="en"
+        >
+          {width > 1030 ? "English" : ""}
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
   );
 };
 

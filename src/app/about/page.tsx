@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import PageHeader from "@/partials/PageHeader";
 import dynamic from "next/dynamic";
+import languageChange from "@/models/language";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 //about us page
 const About = () => {
@@ -18,7 +19,9 @@ const About = () => {
     image: "",
   };
   //language
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
+  );
   return (
     <>
       <SeoMeta

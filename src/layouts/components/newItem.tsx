@@ -5,16 +5,18 @@ import "../../styles/new.scss";
 import { useSelector } from "react-redux";
 
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-
+import languageChange from "@/models/language";
 import Data from "@/config/data.json";
 import encryptId from "../../lib/utils/encrypt";
 import DataEn from "@/config/dataEn.json";
 import Image from "next/image";
 export default function NewItem({ src, title, id, i }: any) {
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
+  );
 
   return (
-    <div className="py-4 parent-newitem">
+    <div key={i} className="py-4 parent-newitem">
       <div className=" shadow-lg group container rounded-md bg-gray-50 justify-center items-center max-w-sm flex  mx-auto content-div">
         <div className="h-5/5">
           <div className="relative max-w-xs overflow-hidden bg-cover bg-no-repeat h-3/5 w-full">

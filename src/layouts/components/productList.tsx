@@ -1,24 +1,31 @@
 "use client";
 import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import { Grid } from "@mantine/core";
+import { SimpleGrid } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { loadProduct } from "@/lib/loadData";
-import { product } from "@/feature/data/productSlice";
 import ServiceCard from "./ServiceCard";
 import { useUrl } from "nextjs-current-url";
 import encryptId from "../../lib/utils/encrypt";
+import languageChange from "@/models/language";
 // posts will be populated at build time by getStaticProps()
 export default function ProductList() {
   const { href } = useUrl() ?? {};
-  const curlanguage = useSelector((rootState) => language(rootState));
-  // const newsCheck = await loadNews();
-  const productInfo = useSelector((rootState) => product(rootState));
-  let keyUtf8 = "";
-  let [serviceList, setServiceList] = useState(
-    productInfo.productData.value.product,
+  const curlanguage = useSelector(
+    (rootState: languageChange) => language(rootState).changeLanguage.value,
   );
+  // const newsCheck = await loadNews();
 
+  let [serviceList, setServiceList] = useState([]);
+  const [width, setWidth]: any = useState(
+    typeof window !== "undefined" && window.innerWidth,
+  ); // default width, detect on server.
+  const handleResize = () =>
+    setWidth(typeof window !== "undefined" && window.innerWidth);
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
@@ -51,7 +58,13 @@ export default function ProductList() {
   return serviceList.length == 0 ? (
     <></>
   ) : (
-    <Grid className="w-3/4" justify="center" grow gutter="xs">
+    <div
+      className={
+        width > 1030
+          ? "w-3/4 gap-4 grid grid-cols-4"
+          : "w-3/4 gap-4 grid grid-cols-1"
+      }
+    >
       {serviceList.map(
         (
           svc: {
@@ -67,30 +80,23 @@ export default function ProductList() {
           },
           i: any,
         ) => (
-          <Grid.Col key={svc._id} md={6} lg={2}>
-            <ServiceCard
-              src={svc.image}
-              title={
-                curlanguage.changeLanguage.value == "en"
-                  ? svc.titleEn
-                  : svc.title
-              }
-              description={
-                curlanguage.changeLanguage.value == "en"
-                  ? svc.descriptionEn1
-                  : svc.description1
-              }
-              link={
-                svc.type == "Solution"
-                  ? `/${svc.type}/${encryptId(svc._id)}`
-                  : `/${svc.type}`
-              }
-              i={i}
-            />
-          </Grid.Col>
+          <ServiceCard
+            key={i}
+            src={svc.image}
+            title={curlanguage == "en" ? svc.titleEn : svc.title}
+            description={
+              curlanguage == "en" ? svc.descriptionEn1 : svc.description1
+            }
+            link={
+              svc.type == "Solution"
+                ? `/${svc.type}/${encryptId(svc._id)}`
+                : `/${svc.type}`
+            }
+            i={i}
+          />
         ),
       )}
-    </Grid>
+    </div>
   );
 }
 // This function gets called at build time on server-side.

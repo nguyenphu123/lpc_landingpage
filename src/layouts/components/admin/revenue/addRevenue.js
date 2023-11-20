@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { SketchPicker } from "react-color";
 import Image from "next/image";
-import { Button, Box, Grid, Col } from "@mantine/core";
+import { Button, Box, Grid} from "@mantine/core";
 
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
@@ -66,7 +66,7 @@ function AddRevenue({ refreshRevenue }) {
           <h3 className="flex justify-center">Add revenue</h3>
 
           <Grid gutter="lg">
-            <Col span={6} className="list-item ">
+            <Grid.Col span={6} className="list-item ">
               <input
                 type="text"
                 id="year"
@@ -82,15 +82,15 @@ function AddRevenue({ refreshRevenue }) {
                 placeholder="revenue"
                 onChange={(revenue) => revenueChange(revenue)}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={6} className="flex justify-end mt-6">
+            <Grid.Col span={6} className="flex justify-end mt-6">
               <SketchPicker
                 color={color}
                 onChange={(color) => colorChange(color, event)}
               />
-            </Col>
-            <Col span={6} className="flex justify-end mt-6">
+            </Grid.Col>
+            <Grid.Col span={6} className="flex justify-end mt-6">
               <div className="relative z-0 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110  duration-300">
                 <div className="-mt-16 ml-10 rounded-full absolute w-28 h-28 inset-0 flex justify-center items-center z-10 bg-white">
                   <div
@@ -121,8 +121,8 @@ function AddRevenue({ refreshRevenue }) {
                   </div>
                 </div>
               </div>
-            </Col>
-            <Col span={6} className="flex justify-end mt-6">
+            </Grid.Col>
+            <Grid.Col span={6} className="flex justify-end mt-6">
               {/* Thêm class CSS để đặt nút submit ở góc phải */}
 
               <Button
@@ -132,7 +132,7 @@ function AddRevenue({ refreshRevenue }) {
               >
                 Submit
               </Button>
-            </Col>
+            </Grid.Col>
           </Grid>
         </form>
 

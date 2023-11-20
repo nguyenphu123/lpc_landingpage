@@ -3,8 +3,9 @@ import chartData from "../../config/chartData.json";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import { language } from "../../feature/changeLanguage/changeLanguageSlice";
+import languageChange from "@/models/language"
 export default function ChartItem({ item, index }) {
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState : languageChange) => language(rootState));
 
   return (
     <div

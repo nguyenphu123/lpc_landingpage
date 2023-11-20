@@ -6,7 +6,7 @@ import {
   Button,
   Box,
   Grid,
-  Col,
+ 
   TextInput,
   Textarea,
   Group,
@@ -201,52 +201,52 @@ function ContactTable() {
                   onSubmit={form.onSubmit((values) => handleSaveClick(values))}
                 >
                   <Grid gutter="lg">
-                    <Col span={6}>
+                    <Grid.Col span={6}>
                       <label>Address: </label>
 
                       <Textarea
                         {...form.getInputProps("address")}
                         style={{ width: "100%", height: "90px" }}
                       />
-                    </Col>
+                    </Grid.Col>
 
-                    <Col span={6}>
+                    <Grid.Col span={6}>
                       <label>Address (English): </label>
 
                       <Textarea
                         style={{ width: "100%", height: "90px" }}
                         {...form.getInputProps("addressEn")}
                       />
-                    </Col>
+                    </Grid.Col>
 
-                    <Col span={6}>
+                    <Grid.Col span={6}>
                       <label>Address Link: </label>
 
                       <TextInput
                         style={{ width: "100%", height: "90px" }}
                         {...form.getInputProps("addressLink")}
                       />
-                    </Col>
+                    </Grid.Col>
 
-                    <Col span={6}>
+                    <Grid.Col span={6}>
                       <label>Link Website: </label>
 
                       <TextInput
                         {...form.getInputProps("linkWebsite")}
                         style={{ width: "100%", height: "90px" }}
                       />
-                    </Col>
+                    </Grid.Col>
 
-                    <Col span={4}>
+                    <Grid.Col span={4}>
                       <label>Email: </label>
 
                       <TextInput
                         {...form.getInputProps("email")}
                         style={{ width: "100%", height: "90px" }}
                       />
-                    </Col>
+                    </Grid.Col>
 
-                    <Col span={4}>
+                    <Grid.Col span={4}>
                       <label>Phone Number: </label>
 
                       {selectedContact.phoneNumber.map((number, index) => (
@@ -273,9 +273,9 @@ function ContactTable() {
                           Add phone number
                         </Button>
                       </Group> */}
-                    </Col>
+                    </Grid.Col>
 
-                    <Col span={4}>
+                    <Grid.Col span={4}>
                       <label>Social Account: </label>
                       {selectedContact.socialAccount.map((account, index) => (
                         <Group key={account} mt="xl">
@@ -305,8 +305,8 @@ function ContactTable() {
                           </Button>
                         </Group>
                       </Group> */}
-                    </Col>
-                    <Col span={6} className="flex justify-end mt-6">
+                    </Grid.Col>
+                    <Grid.Col span={6} className="flex justify-end mt-6">
                       {/* Thêm class CSS để đặt nút submit ở góc phải */}
 
                       <Button
@@ -316,7 +316,7 @@ function ContactTable() {
                       >
                         Submit
                       </Button>
-                    </Col>
+                    </Grid.Col>
                     {/* ... Các phần khác tương tự như trên */}
                   </Grid>
                 </form>

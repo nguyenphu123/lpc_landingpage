@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import languageChange from "@/models/language";
 const initialState = {
   value: "en",
 };
@@ -21,5 +21,5 @@ export const changeLanguge = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { changeLanguage } = changeLanguge.actions;
-export const language = (state: any) => state;
+export const language = (state: languageChange) => state;
 export default changeLanguge.reducer;

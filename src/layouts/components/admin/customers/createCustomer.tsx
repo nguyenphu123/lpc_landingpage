@@ -6,7 +6,7 @@ import { useForm } from "@mantine/form";
 
 import Image from "next/image";
 
-import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
+import { TextInput, Button, Box, Grid } from "@mantine/core";
 
 import { addCustomer } from "@/lib/createData";
 
@@ -119,19 +119,19 @@ function CustomerForm({ refreshCustomer }) {
           )}
 
           <Grid gutter="lg">
-            <Col span={12}>
+            <Grid.Col span={12}>
               <TextInput
                 label="Name"
                 placeholder="Name"
                 {...form.getInputProps("name")}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={6}>
+            <Grid.Col span={6}>
               <input type="file" accept="image/*" onChange={onImageChange} />
-            </Col>
+            </Grid.Col>
 
-            <Col span={6} className="flex justify-end mt-6">
+            <Grid.Col span={6} className="flex justify-end mt-6">
               {/* Thêm class CSS để đặt nút submit ở góc phải */}
 
               <Button
@@ -141,7 +141,7 @@ function CustomerForm({ refreshCustomer }) {
               >
                 Submit
               </Button>
-            </Col>
+            </Grid.Col>
           </Grid>
         </form>
 

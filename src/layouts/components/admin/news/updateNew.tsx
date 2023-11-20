@@ -6,15 +6,7 @@ import { useForm } from "@mantine/form";
 
 import Image from "next/image";
 
-import {
-  TextInput,
-  Button,
-  Box,
-  Code,
-  Grid,
-  Col,
-  Textarea,
-} from "@mantine/core";
+import { Button, Box, Grid, Textarea } from "@mantine/core";
 
 import { updateNews } from "@/lib/updateData";
 
@@ -124,7 +116,7 @@ function UpdateNew({ New, refreshNews }) {
       <Box maw={900} mx="auto">
         <form onSubmit={form.onSubmit((values: any) => onSubmitForm(values))}>
           <Grid gutter="lg">
-            <Col span={4}>
+            <Grid.Col span={4}>
               <Textarea
                 label="Title"
                 placeholder="Title"
@@ -133,9 +125,9 @@ function UpdateNew({ New, refreshNews }) {
                 {...form.getInputProps("title")}
                 maxLength={60}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={4}>
+            <Grid.Col span={4}>
               <Textarea
                 label="Title (English)"
                 placeholder="Title (English)"
@@ -144,9 +136,9 @@ function UpdateNew({ New, refreshNews }) {
                 maxLength={60}
                 {...form.getInputProps("titleEn")}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={4}>
+            <Grid.Col span={4}>
               <Textarea
                 label="Categories (comma-separated)"
                 placeholder="Categories"
@@ -154,9 +146,9 @@ function UpdateNew({ New, refreshNews }) {
                 size="md"
                 {...form.getInputProps("categories")}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={12}>
+            <Grid.Col span={12}>
               <input
                 type="file"
                 accept="image/*"
@@ -202,17 +194,17 @@ function UpdateNew({ New, refreshNews }) {
                   )}
                 </div>
               </label>
-            </Col>
+            </Grid.Col>
 
-            <Col span={12}>
+            <Grid.Col span={12}>
               <TextEditor
                 onChange={onHandleChange}
                 content={content}
                 contentEn={contentEn}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={6}>
+            <Grid.Col span={6}>
               <label style={{ display: "flex", alignItems: "center" }}>
                 <input
                   type="checkbox"
@@ -221,7 +213,7 @@ function UpdateNew({ New, refreshNews }) {
                 />
                 Draft
               </label>
-            </Col>
+            </Grid.Col>
           </Grid>
 
           <div

@@ -1,22 +1,21 @@
 "use client";
-import { companyNew, news } from "@/feature/data/newSlice";
 import { loadNews } from "@/lib/loadData";
 import { humanize } from "@/lib/utils/textConverter";
 import PageHeader from "@/partials/PageHeader";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 const Categories = () => {
   const { href } = useUrl() ?? {};
-  const newInfo = useSelector((rootState) => news(rootState));
-  let [posts, setPosts]: any[] = useState(newInfo.newData.value.companyNews);
+
+  let [posts, setPosts]: any[] = useState([]);
 
   const categories = ["Events", "Security"];
-  const dispatch = useDispatch();
+
   useEffect(() => {
     // declare the data fetching function
     const fetchNew = async () => {
@@ -38,7 +37,6 @@ const Categories = () => {
           href,
         );
         setPosts(newsCheck.news);
-        dispatch(companyNew(newsCheck));
       } else {
       }
     };

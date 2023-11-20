@@ -19,11 +19,13 @@ import { useUrl } from "nextjs-current-url";
 import { loadNew } from "@/lib/loadData";
 import dynamic from "next/dynamic";
 import SimilarItem from "@/components/similarItem";
-
+import languageChange from "@/models/language";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 const PostSingle = () => {
   const { href } = useUrl() ?? {};
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
+  );
   const params: any = useParams();
   const [isBusy, setBusy] = useState(true);
   let [data, setData]: any = useState({});

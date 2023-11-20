@@ -6,7 +6,7 @@ import { useForm } from "@mantine/form";
 
 import Image from "next/image";
 
-import { Button, Box, Grid, Col, Textarea } from "@mantine/core";
+import { Button, Box, Grid, Textarea } from "@mantine/core";
 
 import { createNews } from "@/lib/createData";
 
@@ -159,7 +159,7 @@ function AddNews({ refreshNews }) {
         <Box maw={"100%"} mx="auto">
           <form onSubmit={form.onSubmit((values: any) => onSubmitForm(values))}>
             <Grid gutter="lg">
-              <Col span={4}>
+              <Grid.Col span={4}>
                 <Textarea
                   label="Title"
                   placeholder="Title"
@@ -168,9 +168,9 @@ function AddNews({ refreshNews }) {
                   {...form.getInputProps("title")}
                   maxLength={60}
                 />
-              </Col>
+              </Grid.Col>
 
-              <Col span={4}>
+              <Grid.Col span={4}>
                 <Textarea
                   label="Title (English)"
                   placeholder="Title (English)"
@@ -179,9 +179,9 @@ function AddNews({ refreshNews }) {
                   maxLength={60}
                   {...form.getInputProps("titleEn")}
                 />
-              </Col>
+              </Grid.Col>
 
-              <Col span={4}>
+              <Grid.Col span={4}>
                 <Textarea
                   label="Categories (comma-separated)"
                   placeholder="Categories"
@@ -189,9 +189,9 @@ function AddNews({ refreshNews }) {
                   size="md"
                   {...form.getInputProps("categories")}
                 />
-              </Col>
+              </Grid.Col>
 
-              <Col span={12}>
+              <Grid.Col span={12}>
                 <input type="file" accept="image/*" onChange={onImageChange} />
 
                 {/* Hiển thị xem trước ảnh */}
@@ -206,7 +206,7 @@ function AddNews({ refreshNews }) {
                     />
                   </div>
                 )}
-              </Col>
+              </Grid.Col>
 
               <TextEditor
                 onChange={onHandleChange}
@@ -214,7 +214,7 @@ function AddNews({ refreshNews }) {
                 contentEn={contentEn}
               />
 
-              <Col span={6}>
+              <Grid.Col span={6}>
                 <label style={{ display: "flex", alignItems: "center" }}>
                   <input
                     type="checkbox"
@@ -223,7 +223,7 @@ function AddNews({ refreshNews }) {
                   />
                   Draft
                 </label>
-              </Col>
+              </Grid.Col>
             </Grid>
 
             <div

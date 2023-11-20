@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
-import { TextInput, Button, Box, Grid, Col, Checkbox } from "@mantine/core";
+import { TextInput, Button, Box, Grid, Checkbox } from "@mantine/core";
 
 import { addMenuItem } from "@/lib/createData";
 import { useSession } from "next-auth/react";
@@ -58,33 +58,33 @@ function AddItem({ refresh }) {
           <h3 className="flex justify-center">Add new item</h3>
 
           <Grid gutter="lg">
-            <Col span={6}>
+            <Grid.Col span={6}>
               <TextInput
                 label="name"
                 placeholder="name"
                 {...form.getInputProps("name")}
               />
-            </Col>
-            <Col span={6}>
+            </Grid.Col>
+            <Grid.Col span={6}>
               <TextInput
                 label="name"
                 placeholder="name"
                 {...form.getInputProps("nameEn")}
               />
-            </Col>
-            <Col span={6}>
+            </Grid.Col>
+            <Grid.Col span={6}>
               <TextInput
                 label="link"
                 placeholder="link"
                 {...form.getInputProps("link")}
               />
-            </Col>
+            </Grid.Col>
             <Checkbox
               mt="md"
               label="item has children?"
               {...form.getInputProps("hasChildren", { type: "checkbox" })}
             />
-            <Col span={6} className="flex justify-end mt-6">
+            <Grid.Col span={6} className="flex justify-end mt-6">
               {/* Thêm class CSS để đặt nút submit ở góc phải */}
 
               <Button
@@ -94,7 +94,7 @@ function AddItem({ refresh }) {
               >
                 Submit
               </Button>
-            </Col>
+            </Grid.Col>
           </Grid>
         </form>
 

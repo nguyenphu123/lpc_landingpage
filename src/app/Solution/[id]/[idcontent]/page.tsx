@@ -7,20 +7,17 @@ import { useParams, useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
-import { product } from "@/feature/data/productSlice";
 import { loadSolutionContentDescription } from "@/lib/loadData";
 import { useEffect, useState } from "react";
 import { useUrl } from "nextjs-current-url";
 import dynamic from "next/dynamic";
+import languageChange from "@/models/language";
 const RegularPages = () => {
   const params: any = useParams();
-  const productInfo = useSelector((rootState) => product(rootState));
-  let products = [];
+
   // let data: any = [];
   let [resultData, setResultData]: any = useState({});
-  products = productInfo.productData.value.product.filter(
-    (item: { type: string }) => item.type == "Solution",
-  );
+
   const { href } = useUrl() ?? {};
   // const dispatch = useDispatch();
   const router = useRouter();
@@ -55,7 +52,9 @@ const RegularPages = () => {
       // make sure to catch any error
       .catch(console.error);
   }, [resultData]);
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
+  );
   return resultData == undefined || Object.keys(resultData).length == 0 ? (
     <section className="section pt-7">
       <div className="container">

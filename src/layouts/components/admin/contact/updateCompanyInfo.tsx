@@ -1,6 +1,6 @@
 import { loadCompanyInfo } from "@/lib/loadData";
 import ToastGenerator from "@/lib/toast-tify";
-import { Box, Button, Col, Grid, Textarea, TextInput } from "@mantine/core";
+import { Box, Button,  Grid, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useUrl } from "nextjs-current-url";
 import { useEffect, useState } from "react";
@@ -201,14 +201,14 @@ function UpdateCompanyInfo({}) {
         <Box maw={"100%"} mx="auto">
           <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
             <Grid gutter="lg">
-              <Col span={4}>
+              <Grid.Col span={4}>
                 <TextInput
                   label="companyName"
                   placeholder="companyName"
                   {...form.getInputProps(`companyName`)}
                 />
-              </Col>
-              <Col span={6}>
+              </Grid.Col>
+              <Grid.Col span={6}>
                 <label>Choose description Image</label>
 
                 {/* Trường input tệp ẩn */}
@@ -260,13 +260,13 @@ function UpdateCompanyInfo({}) {
                     )}
                   </div>
                 </label>
-              </Col>
+              </Grid.Col>
               <TextEditor
                 onChange={onHandleDescriptionChange}
                 content={description}
                 contentEn={descriptionEn}
               />
-              <Col span={6}>
+              <Grid.Col span={6}>
                 <label>Choose core Image</label>
 
                 {/* Trường input tệp ẩn */}
@@ -318,7 +318,7 @@ function UpdateCompanyInfo({}) {
                     )}
                   </div>
                 </label>
-              </Col>
+              </Grid.Col>
               <TextEditor
                 onChange={onHandleCoreChange}
                 content={core}

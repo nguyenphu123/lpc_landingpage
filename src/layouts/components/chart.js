@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import chartData from "../../config/chartData.json";
-import { useSelector } from "react-redux";
+
 import ChartItem from "./chartItem";
-import { language } from "../../feature/changeLanguage/changeLanguageSlice";
 
 export default function Chart({}) {
-  const curlanguage = useSelector((rootState) => language(rootState));
   let data = chartData.data;
   // get current path
   const [width, setWidth] = useState(

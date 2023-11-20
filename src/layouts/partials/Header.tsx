@@ -13,22 +13,24 @@ import { IoSearch } from "react-icons/io5/index.js";
 import useScroll from "../../lib/utils/use-scroll";
 import { useSelector } from "react-redux";
 import { UrlObject } from "url";
-import { product } from "@/feature/data/productSlice";
 import { loadProduct } from "@/lib/loadData";
 import { useUrl } from "nextjs-current-url";
 import encryptId from "../../lib/utils/encrypt";
+import languageChange from "@/models/language";
 //  child navigation link interface
 const Header = () => {
   const { href } = useUrl() ?? {};
   // distructuring the main menu from menu object
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
+  );
   const { main } = curlanguage.changeLanguage.value == "en" ? menuEn : menu;
-  const productInfo = useSelector((rootState) => product(rootState));
+
   let [isLoading, setIsLoading] = useState(true);
   const pathname: any = usePathname();
   let servicesMenu: any = [];
   const scrolled = useScroll(25);
-  let [dataHeader, setDataHeader] = useState();
+
   useEffect(() => {
     // declare the data fetching function
     const fetchProduct = async () => {

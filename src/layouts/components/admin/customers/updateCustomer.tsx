@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
-import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
+import { TextInput, Button, Box, Grid } from "@mantine/core";
 
 import Image from "next/image";
 
@@ -102,15 +102,15 @@ function UpdateCustomer({ Customer, handleSaveClick }) {
           <h3 className="flex justify-center">Update customer</h3>
 
           <Grid gutter="lg">
-            <Col span={12}>
+            <Grid.Col span={12}>
               <TextInput
                 label="Name"
                 placeholder="Name"
                 {...form.getInputProps("name")}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={6}>
+            <Grid.Col span={6}>
               <input type="file" accept="image/*" onChange={onImageChange} />
 
               <Image
@@ -119,9 +119,9 @@ function UpdateCustomer({ Customer, handleSaveClick }) {
                 width={300}
                 height={300}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={6} className="flex justify-end mt-6">
+            <Grid.Col span={6} className="flex justify-end mt-6">
               {/* Thêm class CSS để đặt nút submit ở góc phải */}
 
               <Button
@@ -131,7 +131,7 @@ function UpdateCustomer({ Customer, handleSaveClick }) {
               >
                 Submit
               </Button>
-            </Col>
+            </Grid.Col>
           </Grid>
         </form>
 

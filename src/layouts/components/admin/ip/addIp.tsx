@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
 
-import { TextInput, Button, Box, Grid, Col } from "@mantine/core";
+import { TextInput, Button, Box, Grid } from "@mantine/core";
 
 import { addIp } from "@/lib/createData";
 import { useSession } from "next-auth/react";
@@ -55,15 +55,15 @@ function AddIp({ refreshIp }) {
           <h3 className="flex justify-center">Add new ip</h3>
 
           <Grid gutter="lg">
-            <Col span={12}>
+            <Grid.Col span={12}>
               <TextInput
                 label="ip"
                 placeholder="ip"
                 {...form.getInputProps("ip")}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={6} className="flex justify-end mt-6">
+            <Grid.Col span={6} className="flex justify-end mt-6">
               {/* Thêm class CSS để đặt nút submit ở góc phải */}
 
               <Button
@@ -73,7 +73,7 @@ function AddIp({ refreshIp }) {
               >
                 Submit
               </Button>
-            </Col>
+            </Grid.Col>
           </Grid>
         </form>
 

@@ -6,10 +6,13 @@ import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import Image from "next/image";
+import languageChange from "@/models/language";
 export default function ServiceCard({ src, title, description, link, i }: any) {
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
+  );
   return (
-    <div className="card-container">
+    <div key={i} className="card-container">
       <div className="card-body">
         <div className="card-side side-back">
           <div className="container-fluid">

@@ -7,7 +7,7 @@ import similerItems from "@/lib/utils/similarItems";
 import { useParams } from "next/navigation";
 
 import { useSelector } from "react-redux";
-
+import languageChange from "@/models/language";
 import { useEffect, useState } from "react";
 import { useUrl } from "nextjs-current-url";
 import { loadNews } from "@/lib/loadData";
@@ -17,7 +17,9 @@ const BlogCard = dynamic(() => import("@/components/BlogCard"));
 
 const SimilarItem = ({ data }) => {
   const { href } = useUrl() ?? {};
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
+  );
   const params: any = useParams();
   const [isBusy, setBusy] = useState(true);
 

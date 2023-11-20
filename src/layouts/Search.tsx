@@ -8,7 +8,7 @@ import { Grid } from "@mantine/core";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import dynamic from "next/dynamic";
 import { searchNews } from "@/lib/loadData";
-
+import languageChange from "@/models/language";
 const ImageFallback = dynamic(() => import("./helpers/ImageFallback"));
 const NewITem = dynamic(() => import("../layouts/components/newItem"));
 export type SearchItem = {
@@ -38,10 +38,21 @@ const Search = ({ searchList }: Props) => {
   const [inputVal, setInputVal] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 
-  const curlanguage = useSelector((rootState) => language(rootState));
+  const curlanguage = useSelector(
+    (rootState: languageChange) => language(rootState).changeLanguage.value,
+  );
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setInputVal(e.currentTarget.value);
   };
+  const [width, setWidth]: any = useState(
+    typeof window !== "undefined" && window.innerWidth,
+  ); // default width, detect on server.
+  const handleResize = () =>
+    setWidth(typeof window !== "undefined" && window.innerWidth);
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
   const onSearch = async () => {
     const searchResult = await searchNews(
       {
@@ -140,24 +151,25 @@ const Search = ({ searchList }: Props) => {
               </p>
             </div>
           ) : (
-            <Grid className="flex justify-center" justify="center">
+            <div
+              className={
+                width > 1030
+                  ? "w-3/4 gap-4 grid grid-cols-4"
+                  : "w-3/4 gap-4 grid grid-cols-1"
+              }
+            >
               {searchResults.map((svc, i) => {
                 return (
-                  <Grid.Col key={svc._id} md={4} lg={2.5}>
-                    <NewITem
-                      src={svc.image}
-                      title={
-                        curlanguage.changeLanguage.value == "en"
-                          ? svc.titleEn
-                          : svc.title
-                      }
-                      id={svc._id}
-                      i={i}
-                    />
-                  </Grid.Col>
+                  <NewITem
+                    key={i}
+                    src={svc.image}
+                    title={curlanguage == "en" ? svc.titleEn : svc.title}
+                    id={svc._id}
+                    i={i}
+                  />
                 );
               })}
-            </Grid>
+            </div>
           )}
         </div>
       </div>

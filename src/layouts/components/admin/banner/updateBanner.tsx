@@ -8,7 +8,7 @@ import Image from "next/image";
 
 import { updateBanner } from "@/lib/updateData";
 
-import { TextInput, Button, Box, Grid, Col, Textarea } from "@mantine/core";
+import { TextInput, Button, Box, Grid,  Textarea } from "@mantine/core";
 
 import { useSession } from "next-auth/react";
 
@@ -119,7 +119,7 @@ const UpdateBanner = ({ banner, handleSaveClick }) => {
           )}
 
           <Grid gutter="lg">
-            <Col span={6}>
+            <Grid.Col span={6}>
               <Textarea
                 label="Title"
                 placeholder="Enter title here..."
@@ -127,9 +127,9 @@ const UpdateBanner = ({ banner, handleSaveClick }) => {
                 size="md"
                 {...form.getInputProps("title")}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={6}>
+            <Grid.Col span={6}>
               <Textarea
                 label="Title (English)"
                 placeholder="Enter title here..."
@@ -137,9 +137,9 @@ const UpdateBanner = ({ banner, handleSaveClick }) => {
                 size="md"
                 {...form.getInputProps("titleEn")}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={6}>
+            <Grid.Col span={6}>
               <Textarea
                 label="Content"
                 placeholder="Enter content here..."
@@ -147,9 +147,9 @@ const UpdateBanner = ({ banner, handleSaveClick }) => {
                 size="md"
                 {...form.getInputProps("content")}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={6}>
+            <Grid.Col span={6}>
               <Textarea
                 label="Content (English)"
                 placeholder="Enter content here..."
@@ -157,13 +157,13 @@ const UpdateBanner = ({ banner, handleSaveClick }) => {
                 size="md"
                 {...form.getInputProps("contentEn")}
               />
-            </Col>
+            </Grid.Col>
 
-            <Col span={6}>
+            <Grid.Col span={6}>
               <input type="file" accept="image/*" onChange={onImageChange} />
-            </Col>
+            </Grid.Col>
 
-            <Col span={6} className="flex justify-end mt-6">
+            <Grid.Col span={6} className="flex justify-end mt-6">
               {/* Thêm class CSS để đặt nút submit ở góc phải */}
 
               <Button
@@ -173,7 +173,7 @@ const UpdateBanner = ({ banner, handleSaveClick }) => {
               >
                 Submit
               </Button>
-            </Col>
+            </Grid.Col>
           </Grid>
         </form>
 

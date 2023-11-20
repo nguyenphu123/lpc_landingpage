@@ -1,11 +1,6 @@
 import { slug } from "github-slugger";
 import { marked } from "marked";
 
-marked.use({
-  mangle: false,
-  headerIds: false,
-});
-
 // slugify
 export const slugify = (content: string) => {
   return slug(content);
@@ -48,7 +43,7 @@ const htmlEntityDecoder = (htmlWithEntities: string): string => {
     /(&amp;|&lt;|&gt;|&quot;|&#39;)/g,
     (entity: string): string => {
       return entityList[entity];
-    }
+    },
   );
   return htmlWithoutEntities;
 };

@@ -110,13 +110,13 @@ function UpdateNew({ New, refreshNews }) {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 overflow-auto">
       {isSucess ? <ToastGenerator message={sucessMessage} /> : null}
 
       <Box maw={900} mx="auto">
         <form onSubmit={form.onSubmit((values: any) => onSubmitForm(values))}>
           <Grid gutter="lg">
-            <Grid.Col span={4}>
+            <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
               <Textarea
                 label="Title"
                 placeholder="Title"
@@ -125,9 +125,6 @@ function UpdateNew({ New, refreshNews }) {
                 {...form.getInputProps("title")}
                 maxLength={60}
               />
-            </Grid.Col>
-
-            <Grid.Col span={4}>
               <Textarea
                 label="Title (English)"
                 placeholder="Title (English)"
@@ -136,9 +133,6 @@ function UpdateNew({ New, refreshNews }) {
                 maxLength={60}
                 {...form.getInputProps("titleEn")}
               />
-            </Grid.Col>
-
-            <Grid.Col span={4}>
               <Textarea
                 label="Categories (comma-separated)"
                 placeholder="Categories"
@@ -146,7 +140,7 @@ function UpdateNew({ New, refreshNews }) {
                 size="md"
                 {...form.getInputProps("categories")}
               />
-            </Grid.Col>
+            </div>
 
             <Grid.Col span={12}>
               <input

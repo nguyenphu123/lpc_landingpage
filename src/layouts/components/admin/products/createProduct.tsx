@@ -5,8 +5,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 import { useForm } from "@mantine/form";
-
-import { TextInput, Button, Box, Code, Grid,  Select } from "@mantine/core";
+import { Select, SelectItem } from "@nextui-org/react";
+import { TextInput, Button, Box, Code, Grid } from "@mantine/core";
 
 import { addProduct } from "@/lib/createData";
 
@@ -27,6 +27,9 @@ function ProductForm({ handleSaveClick }) {
     const file = e.target.files[0];
 
     setSelectedImage(file);
+  };
+  const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    form.setFieldValue("type", e.target.value);
   };
 
   const onSubmitForm = async (value) => {
@@ -102,143 +105,134 @@ function ProductForm({ handleSaveClick }) {
       <div className="container">
         <Box maw={"100%"} mx="auto">
           <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
-            <Grid gutter="lg">
-              {showCols && (
-                <>
-                  <Grid.Col span={12}>
-                    <label>Choose Image</label>
+            {showCols && (
+              <>
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <label>Choose Image</label>
 
-                    {/* Trường input tệp ẩn */}
+                  {/* Trường input tệp ẩn */}
 
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={onImageChange}
-                      style={{ display: "none" }}
-                      id="imageInput"
-                    />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={onImageChange}
+                    style={{ display: "none" }}
+                    id="imageInput"
+                  />
 
-                    {/* Nút thay thế */}
+                  {/* Nút thay thế */}
 
-                    <label
-                      htmlFor="imageInput"
+                  <label
+                    htmlFor="imageInput"
+                    style={{
+                      cursor: "pointer",
+                    }}
+                  >
+                    <div
                       style={{
-                        cursor: "pointer",
+                        width: "100%",
+
+                        height: "100px",
+
+                        backgroundColor: "#f0f0f0",
+
+                        display: "flex",
+
+                        alignItems: "center",
+
+                        justifyContent: "center",
+
+                        border: "2px dashed #ccc",
+
+                        borderRadius: "8px",
                       }}
                     >
-                      <div
-                        style={{
-                          width: "100%",
+                      {selectedImage ? (
+                        <Image
+                          src={URL.createObjectURL(selectedImage)}
+                          alt="Selected Image"
+                          width={150}
+                          height={150}
+                        />
+                      ) : (
+                        <span>Click to choose an image</span>
+                      )}
+                    </div>
+                  </label>
+                </div>
 
-                          height: "100px",
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <label>Type</label>
 
-                          backgroundColor: "#f0f0f0",
+                  <Select
+                    placeholder="Select Type"
+                    onChange={handleSelectionChange}
+                  >
+                    {[
+                      { label: "Solution", value: "Solution" },
 
-                          display: "flex",
+                      { label: "Service", value: "Service" },
+                    ].map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </Select>
+                </div>
 
-                          alignItems: "center",
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <TextInput
+                    label="Title"
+                    placeholder="Title"
+                    {...form.getInputProps("title")}
+                  />
+                  <TextInput
+                    label="Title (English)"
+                    placeholder="Title (English)"
+                    {...form.getInputProps("titleEn")}
+                  />
+                </div>
 
-                          justifyContent: "center",
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <TextInput
+                    label="General content"
+                    placeholder="General content"
+                    {...form.getInputProps("description1")}
+                  />
+                  <TextInput
+                    label="General content (English)"
+                    placeholder="General content (English)"
+                    {...form.getInputProps("descriptionEn1")}
+                  />
+                </div>
 
-                          border: "2px dashed #ccc",
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <TextInput
+                    label="Details"
+                    placeholder="Details"
+                    {...form.getInputProps("description2")}
+                  />
+                  <TextInput
+                    label="Details (English)"
+                    placeholder="Details (English)"
+                    {...form.getInputProps("descriptionEn2")}
+                  />
+                </div>
 
-                          borderRadius: "8px",
-                        }}
-                      >
-                        {selectedImage ? (
-                          <Image
-                            src={URL.createObjectURL(selectedImage)}
-                            alt="Selected Image"
-                            width={150}
-                            height={150}
-                          />
-                        ) : (
-                          <span>Click to choose an image</span>
-                        )}
-                      </div>
-                    </label>
-                  </Grid.Col>
-
-                  <Grid.Col span={4}>
-                    <label>Type</label>
-
-                    <Select
-                      data={[
-                        { label: "Solution", value: "Solution" },
-
-                        { label: "Service", value: "Service" },
-                      ]}
-                      placeholder="Select Type"
-                      {...form.getInputProps("type")}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={4}>
-                    <TextInput
-                      label="Title"
-                      placeholder="Title"
-                      {...form.getInputProps("title")}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={4}>
-                    <TextInput
-                      label="Title (English)"
-                      placeholder="Title (English)"
-                      {...form.getInputProps("titleEn")}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={6}>
-                    <TextInput
-                      label="General content"
-                      placeholder="General content"
-                      {...form.getInputProps("description1")}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={6}>
-                    <TextInput
-                      label="General content (English)"
-                      placeholder="General content (English)"
-                      {...form.getInputProps("descriptionEn1")}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={6}>
-                    <TextInput
-                      label="Details"
-                      placeholder="Details"
-                      {...form.getInputProps("description2")}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={6}>
-                    <TextInput
-                      label="Details (English)"
-                      placeholder="Details (English)"
-                      {...form.getInputProps("descriptionEn2")}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={6}>
-                    <TextInput
-                      label="Pros (comma-separated)"
-                      placeholder="Pros"
-                      {...form.getInputProps("pros")}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={6}>
-                    <TextInput
-                      label="Pros (English, comma-separated)"
-                      placeholder="Pros (English)"
-                      {...form.getInputProps("prosEn")}
-                    />
-                  </Grid.Col>
-                </>
-              )}
-            </Grid>
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <TextInput
+                    label="Pros (comma-separated)"
+                    placeholder="Pros"
+                    {...form.getInputProps("pros")}
+                  />
+                  <TextInput
+                    label="Pros (English, comma-separated)"
+                    placeholder="Pros (English)"
+                    {...form.getInputProps("prosEn")}
+                  />
+                </div>
+              </>
+            )}
 
             <div
               style={{

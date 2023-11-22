@@ -7,8 +7,8 @@ import { useForm } from "@mantine/form";
 import Image from "next/image";
 
 import { updateBanner } from "@/lib/updateData";
-
-import { TextInput, Button, Box, Grid,  Textarea } from "@mantine/core";
+import { Button } from "@nextui-org/react";
+import { TextInput, Box, Grid, Textarea } from "@mantine/core";
 
 import { useSession } from "next-auth/react";
 
@@ -118,63 +118,56 @@ const UpdateBanner = ({ banner, handleSaveClick }) => {
             </div>
           )}
 
-          <Grid gutter="lg">
-            <Grid.Col span={6}>
-              <Textarea
-                label="Title"
-                placeholder="Enter title here..."
-                radius="md"
-                size="md"
-                {...form.getInputProps("title")}
-              />
-            </Grid.Col>
+          <div className="flex w-full flex-wrap md:flex-nowrap gap-8 justify-center">
+            <Textarea
+              label="Title"
+              placeholder="Enter title here..."
+              radius="md"
+              size="xl"
+              autosize
+              minRows={2}
+              {...form.getInputProps("title")}
+            />
+            <Textarea
+              label="Title (English)"
+              placeholder="Enter title here..."
+              radius="md"
+              size="xl"
+              autosize
+              minRows={2}
+              {...form.getInputProps("titleEn")}
+            />
+          </div>
 
-            <Grid.Col span={6}>
-              <Textarea
-                label="Title (English)"
-                placeholder="Enter title here..."
-                radius="md"
-                size="md"
-                {...form.getInputProps("titleEn")}
-              />
-            </Grid.Col>
-
-            <Grid.Col span={6}>
-              <Textarea
-                label="Content"
-                placeholder="Enter content here..."
-                radius="md"
-                size="md"
-                {...form.getInputProps("content")}
-              />
-            </Grid.Col>
-
-            <Grid.Col span={6}>
-              <Textarea
-                label="Content (English)"
-                placeholder="Enter content here..."
-                radius="md"
-                size="md"
-                {...form.getInputProps("contentEn")}
-              />
-            </Grid.Col>
-
-            <Grid.Col span={6}>
-              <input type="file" accept="image/*" onChange={onImageChange} />
-            </Grid.Col>
-
-            <Grid.Col span={6} className="flex justify-end mt-6">
-              {/* Thêm class CSS để đặt nút submit ở góc phải */}
-
-              <Button
-                type="submit"
-                style={{ backgroundColor: "blue" }}
-                size="md"
-              >
-                Submit
-              </Button>
-            </Grid.Col>
-          </Grid>
+          <div className="flex w-full flex-wrap md:flex-nowrap gap-8 justify-center">
+            <Textarea
+              label="Content"
+              placeholder="Enter content here..."
+              radius="md"
+              size="xl"
+              autosize
+              minRows={2}
+              {...form.getInputProps("content")}
+            />
+            <Textarea
+              label="Content (English)"
+              placeholder="Enter content here..."
+              radius="md"
+              size="xl"
+              autosize
+              minRows={2}
+              {...form.getInputProps("contentEn")}
+            />
+          </div>
+          <div className="flex w-full flex-wrap md:flex-nowrap gap-8 justify-center">
+            <input type="file" accept="image/*" onChange={onImageChange} />
+          </div>
+          {/* Thêm class CSS để đặt nút submit ở góc phải */}
+          <div className="flex w-full flex-wrap md:flex-nowrap gap-8 justify-center">
+            <Button type="submit" color="primary" variant="shadow">
+              Submit
+            </Button>
+          </div>
         </form>
 
         {successMessage && (

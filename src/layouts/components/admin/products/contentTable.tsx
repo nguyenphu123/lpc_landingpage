@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import { Table, Modal, Button } from "@mantine/core";
-
+import { Table } from "@mantine/core";
+import { Modal, Button, useDisclosure, ModalContent } from "@nextui-org/react";
 import Image from "next/image";
 
 import Popup from "@/components/popup";
@@ -27,7 +27,7 @@ function ContentTable({ product }) {
   const [selectedContent, setSelectedContent] = useState(null);
 
   const [isEditMode, setIsEditMode] = useState(false);
-
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isSucess, setIsSucess] = useState(false);
 
   const [sucessMessage, setSucessMessage] = useState("");
@@ -38,7 +38,7 @@ function ContentTable({ product }) {
 
   const handleEditClick = (content) => {
     setSelectedContent(content);
-
+    onOpen();
     setIsEditMode(selectedContent === content); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
   };
 
@@ -385,23 +385,28 @@ function ContentTable({ product }) {
       </Table>
 
       <Modal
-        size="1000px"
-        opened={Boolean(selectedContent)}
+        size="full"
+        backdrop="blur"
+        isOpen={isOpen}
+        style={{ background: "#FFFFFF" }}
+        onOpenChange={onOpenChange}
+        placement="bottom-center"
+        scrollBehavior="outside"
         onClose={() => {
           setSelectedContent(null);
 
           setIsEditMode(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
         }}
       >
-        {selectedContent && (
-          <section>
-            <div className="container">
+        <ModalContent>
+          {selectedContent && (
+            <div>
               <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 
               <UpdateContentForm product={product} content={selectedContent} />
             </div>
-          </section>
-        )}
+          )}
+        </ModalContent>
       </Modal>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import { Table, Modal } from "@mantine/core"; // Import thêm Button
-
+import { Table } from "@mantine/core"; // Import thêm Button
+import { Modal, Button, useDisclosure, ModalContent } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { companyNew, news } from "@/feature/data/newSlice";
@@ -50,6 +50,7 @@ function NewsTable() {
   const newInfo = useSelector((rootState) => news(rootState));
 
   const newList = newInfo.newData.value.companyNews;
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const [isSucess, setIsSucess] = useState(false);
 
@@ -196,13 +197,13 @@ function NewsTable() {
         >
           Preview
         </button>
-
-        <button
+        <Button
+          onPress={onOpen}
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 rounded mr-2"
           onClick={() => handleEditClick(news)}
         >
           Edit
-        </button>
+        </Button>
 
         <button
           className={`${
@@ -280,7 +281,7 @@ function NewsTable() {
         <AddNews refreshNews={refreshNews} />
       </Popup>
 
-      <Table>
+      <Table className="w-full">
         <thead>
           <tr>
             <th>#</th>
@@ -299,33 +300,37 @@ function NewsTable() {
       </Table>
 
       <Modal
-        size="1000px"
-        opened={Boolean(selectedNews)}
+        size="full"
+        backdrop="blur"
+        scrollBehavior="inside"
+        isOpen={isOpen}
+        style={{ background: "#FFFFFF" }}
+        onOpenChange={onOpenChange}
         onClose={() => {
           setSelectedNews(null);
 
           setReadOnlyNew(false);
         }}
       >
-        {selectedNews != null &&
-        readOnlyNew == true &&
-        editNewsVisible == false ? (
-          <div>
-            <h2>{selectedNews.title}</h2>
+        <ModalContent>
+          {selectedNews != null &&
+          readOnlyNew == true &&
+          editNewsVisible == false ? (
+            <div>
+              <h2>{selectedNews.title}</h2>
 
-            <p dangerouslySetInnerHTML={{ __html: selectedNews.content }}></p>
+              <p dangerouslySetInnerHTML={{ __html: selectedNews.content }}></p>
 
-            {/* Thêm các thông tin khác của bài viết */}
-          </div>
-        ) : selectedNews != null &&
-          editNewsVisible == true &&
-          readOnlyNew == false ? (
-          <div>
+              {/* Thêm các thông tin khác của bài viết */}
+            </div>
+          ) : selectedNews != null &&
+            editNewsVisible == true &&
+            readOnlyNew == false ? (
             <UpdateNew New={selectedNews} refreshNews={refreshNews} />
-          </div>
-        ) : (
-          <></>
-        )}
+          ) : (
+            <></>
+          )}
+        </ModalContent>
       </Modal>
     </div>
   );

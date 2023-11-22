@@ -9,6 +9,7 @@ import { useUrl } from "nextjs-current-url";
 import { useSession } from "next-auth/react";
 
 interface Message {
+  date: string;
   phoneNumber: string;
 
   _id: string;
@@ -56,6 +57,7 @@ function MessageTable() {
         className={counter % 2 === 0 ? "bg-white" : "bg-gray-100"}
       >
         <td>{counter}</td> {/* Sử dụng giá trị của biến đếm */}
+        <td>{partner.date}</td>
         <td>{partner.name}</td>
         <td>{partner.email}</td>
         <td>{partner.phoneNumber}</td>
@@ -70,7 +72,7 @@ function MessageTable() {
         <thead>
           <tr>
             <th style={{ width: "5%" }}>#</th>
-
+            <th style={{ width: "20%" }}>Date</th>
             <th style={{ width: "20%" }}>Name</th>
 
             <th style={{ width: "25%" }}>From</th>

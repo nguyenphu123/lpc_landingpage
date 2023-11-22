@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-import { Table, Modal } from "@mantine/core"; // Import thêm Button
-
+import { Table } from "@mantine/core"; // Import thêm Button
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@nextui-org/react";
 import Image from "next/image";
 
 import { loadBanner } from "@/lib/loadData";
@@ -40,7 +48,7 @@ interface Banner {
 
 function BannerTable() {
   const { data: session } = useSession();
-
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { href } = useUrl() ?? {};
 
   const [bannerData, setBannerData] = useState<Banner[]>([]);
@@ -154,19 +162,21 @@ function BannerTable() {
       </td>
 
       <td>
-        <button
+        <Button
+          onPress={onOpen}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mr-2"
           onClick={() => setSelectedBanner(banner)}
         >
           Preview
-        </button>
+        </Button>
 
-        <button
+        <Button
+          onPress={onOpen}
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 rounded mr-2"
           onClick={() => handleEditClick(banner)}
         >
           Edit
-        </button>
+        </Button>
 
         <button
           className={`${
@@ -209,74 +219,80 @@ function BannerTable() {
       </Table>
 
       <Modal
-        size="1000px"
-        opened={Boolean(selectedBanner)}
+        size="5xl"
+        backdrop="blur"
+        isOpen={isOpen}
+        style={{ background: "#FFFFFF" }}
+        onOpenChange={onOpenChange}
+        scrollBehavior="normal"
         onClose={() => {
           setSelectedBanner(null);
 
           setIsEditMode(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
         }}
       >
-        {selectedBanner != null && isEditMode == true ? (
-          <section>
-            <div className="container">
-              <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
+        <ModalContent>
+          {selectedBanner != null && isEditMode == true ? (
+            <section>
+              <div className="container">
+                <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 
-              <UpdateBanner
-                banner={selectedBanner}
-                handleSaveClick={handleSaveClick}
-              />
-            </div>
-          </section>
-        ) : selectedBanner != null && isEditMode == false ? (
-          <section>
-            <div className="container">
-              <div className="slideshow">
-                <div
-                  className="slideshowSlider"
-                  style={{ transform: `0, 0, 0)` }}
-                >
-                  <div className="slide">
-                    <Image
-                      fill
-                      className={`bg-cover bg-center bg-no-repeat `}
-                      src={`${selectedBanner.image}`}
-                      alt={""}
-                      priority
-                    />
+                <UpdateBanner
+                  banner={selectedBanner}
+                  handleSaveClick={handleSaveClick}
+                />
+              </div>
+            </section>
+          ) : selectedBanner != null && isEditMode == false ? (
+            <section>
+              <div className="container">
+                <div className="slideshow">
+                  <div
+                    className="slideshowSlider"
+                    style={{ transform: `0, 0, 0)` }}
+                  >
+                    <div className="slide">
+                      <Image
+                        fill
+                        className={`bg-cover bg-center bg-no-repeat `}
+                        src={`${selectedBanner.image}`}
+                        alt={""}
+                        priority
+                      />
 
-                    <div className="relative w-3xl whitespace-normal mx-auto max-w-screen-xl px-4 py-52 sm:px-6 lg:flex lg:h-max lg:items-center lg:px-5 containerbanner">
-                      <div className=" whitespace-normal ltr:sm:text-left rtl:sm:text-right">
-                        <h1
-                          className="text-3xl whitespace-normal font-extrabold sm:text-3xl"
-                          style={{ width: "550px" }}
-                        >
-                          {selectedBanner.titleEn}
-                        </h1>
+                      <div className="relative w-3xl whitespace-normal mx-auto max-w-screen-xl px-4 py-52 sm:px-6 lg:flex lg:h-max lg:items-center lg:px-5 containerbanner">
+                        <div className=" whitespace-normal ltr:sm:text-left rtl:sm:text-right">
+                          <h1
+                            className="text-3xl whitespace-normal font-extrabold sm:text-3xl"
+                            style={{ width: "550px" }}
+                          >
+                            {selectedBanner.titleEn}
+                          </h1>
 
-                        <p className="mt-4 whitespace-normal max-w-lg sm:text-xl/relaxed">
-                          {selectedBanner.contentEn}
-                        </p>
+                          <p className="mt-4 whitespace-normal max-w-lg sm:text-xl/relaxed">
+                            {selectedBanner.contentEn}
+                          </p>
 
-                        <div className="mt-8 whitespace-normal flex flex-wrap gap-4 text-center">
-                          <a className="block w-full rounded bg-blue-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto">
-                            {DataEn["bannertext1"].name}
-                          </a>
+                          <div className="mt-8 whitespace-normal flex flex-wrap gap-4 text-center">
+                            <a className="block w-full rounded bg-blue-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto">
+                              {DataEn["bannertext1"].name}
+                            </a>
 
-                          <a className="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-blue-600 shadow hover:blue-rose-700 focus:outline-none focus:ring active:text-blue-500 sm:w-auto">
-                            {DataEn["bannertext2"].name}
-                          </a>
+                            <a className="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-blue-600 shadow hover:blue-rose-700 focus:outline-none focus:ring active:text-blue-500 sm:w-auto">
+                              {DataEn["bannertext2"].name}
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
-        ) : (
-          <></>
-        )}
+            </section>
+          ) : (
+            <></>
+          )}
+        </ModalContent>
       </Modal>
     </div>
   );

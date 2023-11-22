@@ -6,15 +6,7 @@ import Image from "next/image";
 
 import { useForm } from "@mantine/form";
 
-import {
-  TextInput,
-  Button,
-  Box,
-  Code,
-  Grid,
-  
-  Textarea,
-} from "@mantine/core";
+import { TextInput, Button, Box, Code, Grid, Textarea } from "@mantine/core";
 
 import { randomId } from "@mantine/hooks";
 
@@ -132,100 +124,93 @@ function ContentForm({ product }) {
               >
                 <h3>Product Overview</h3>
 
-                <Grid gutter="lg">
-                  <Grid.Col span={4}>
-                    <TextInput
-                      label="Title"
-                      placeholder="Title"
-                      {...form.getInputProps(`title`)}
-                    />
-                  </Grid.Col>
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <TextInput
+                    label="Title"
+                    placeholder="Title"
+                    {...form.getInputProps(`title`)}
+                  />
+                  <TextInput
+                    label="Title (English)"
+                    placeholder="Title (English)"
+                    {...form.getInputProps(`titleEn`)}
+                  />
+                </div>
 
-                  <Grid.Col span={4}>
-                    <TextInput
-                      label="Title (English)"
-                      placeholder="Title (English)"
-                      {...form.getInputProps(`titleEn`)}
-                    />
-                  </Grid.Col>
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <label>Choose Image</label>
 
-                  <Grid.Col span={12}>
-                    <label>Choose Image</label>
+                  {/* Trường input tệp ẩn */}
 
-                    {/* Trường input tệp ẩn */}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={onImageChange}
+                    style={{ display: "none" }}
+                    id="imageInput"
+                  />
 
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={onImageChange}
-                      style={{ display: "none" }}
-                      id="imageInput"
-                    />
+                  {/* Nút thay thế */}
 
-                    {/* Nút thay thế */}
-
-                    <label
-                      htmlFor="imageInput"
+                  <label
+                    htmlFor="imageInput"
+                    style={{
+                      cursor: "pointer",
+                    }}
+                  >
+                    <div
                       style={{
-                        cursor: "pointer",
+                        width: "100%",
+
+                        height: "100px",
+
+                        backgroundColor: "#f0f0f0",
+
+                        display: "flex",
+
+                        alignItems: "center",
+
+                        justifyContent: "center",
+
+                        border: "2px dashed #ccc",
+
+                        borderRadius: "8px",
                       }}
                     >
-                      <div
-                        style={{
-                          width: "100%",
+                      {selectedImage ? (
+                        <Image
+                          src={URL.createObjectURL(selectedImage)}
+                          alt="Selected Image"
+                          width={150}
+                          height={150}
+                        />
+                      ) : (
+                        <span>Click to choose an image</span>
+                      )}
+                    </div>
+                  </label>
+                </div>
 
-                          height: "100px",
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
+                  <Textarea
+                    label="Content"
+                    placeholder="Content"
+                    {...form.getInputProps(`content`)}
+                  />
+                  <Textarea
+                    label="Content (English)"
+                    placeholder="Content (English)"
+                    {...form.getInputProps(`contentEn`)}
+                  />
+                </div>
 
-                          backgroundColor: "#f0f0f0",
-
-                          display: "flex",
-
-                          alignItems: "center",
-
-                          justifyContent: "center",
-
-                          border: "2px dashed #ccc",
-
-                          borderRadius: "8px",
-                        }}
-                      >
-                        {selectedImage ? (
-                          <Image
-                            src={URL.createObjectURL(selectedImage)}
-                            alt="Selected Image"
-                            width={150}
-                            height={150}
-                          />
-                        ) : (
-                          <span>Click to choose an image</span>
-                        )}
-                      </div>
-                    </label>
-                  </Grid.Col>
-
-                  <Grid.Col span={6}>
-                    <Textarea
-                      label="Content"
-                      placeholder="Content"
-                      {...form.getInputProps(`content`)}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={6}>
-                    <Textarea
-                      label="Content (English)"
-                      placeholder="Content (English)"
-                      {...form.getInputProps(`contentEn`)}
-                    />
-                  </Grid.Col>
-                  <Grid.Col span={12}>
-                    <TextEditor
-                      onChange={onHandleChange}
-                      content={description}
-                      contentEn={descriptionEn}
-                    />
-                  </Grid.Col>
-                </Grid>
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <TextEditor
+                    onChange={onHandleChange}
+                    content={description}
+                    contentEn={descriptionEn}
+                  />
+                </div>
 
                 {/* ... Input fields for content */}
               </div>

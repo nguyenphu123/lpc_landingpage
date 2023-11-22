@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import { Modal, Table } from "@mantine/core";
-
+import { Table } from "@mantine/core";
+import { Modal, Button, useDisclosure, ModalContent } from "@nextui-org/react";
 import Image from "next/image";
 
 import { loadCustomer } from "@/lib/loadData";
@@ -41,7 +41,7 @@ function CustomerTable() {
 
   const [selectedCustomer, setSelectedCustomer] = useState(null);
 
-  const [showCustomer, setShowCustomer] = useState(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const [isSucess, setIsSucess] = useState(false);
 
@@ -145,12 +145,13 @@ function CustomerTable() {
       </td>
 
       <td>
-        <button
+        <Button
+          onPress={onOpen}
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 rounded mr-2"
           onClick={() => handleEditClick(customer)}
         >
           Edit
-        </button>
+        </Button>
 
         <button
           className={`${
@@ -172,7 +173,7 @@ function CustomerTable() {
         <CustomerForm refreshCustomer={refreshCustomer} />
       </Popup>
 
-      <Table>
+      <Table className="w-full">
         <thead>
           <tr>
             <th className="w-1/20">#</th>
@@ -191,17 +192,21 @@ function CustomerTable() {
       </Table>
 
       <Modal
-        size="1000px"
-        opened={Boolean(selectedCustomer)}
+        size="xs"
+        backdrop="blur"
+        isOpen={isOpen}
+        style={{ background: "#FFFFFF" ,height:"50%"}}
+        onOpenChange={onOpenChange}
+        scrollBehavior="normal"
         onClose={() => {
           setSelectedCustomer(null);
 
           setIsEditMode(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
         }}
       >
-        {selectedCustomer && (
-          <section>
-            <div className="container">
+        <ModalContent>
+          {selectedCustomer && (
+            <div>
               <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 
               <UpdateCustomer
@@ -209,8 +214,8 @@ function CustomerTable() {
                 handleSaveClick={handleSaveClick}
               />
             </div>
-          </section>
-        )}
+          )}
+        </ModalContent>
       </Modal>
     </div>
   );

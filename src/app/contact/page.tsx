@@ -13,7 +13,7 @@ import PageHeader from "@/partials/PageHeader";
 import { useState } from "react";
 
 import dynamic from "next/dynamic";
-import languageChange from "@/models/language"
+import languageChange from "@/models/language";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 
 // const MapWithAMarker = dynamic(
@@ -21,7 +21,9 @@ const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 // );
 
 const Contact = () => {
-  const curlanguage = useSelector((rootState : languageChange) => language(rootState));
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
+  );
 
   const data = {
     title: "Liên Hệ",
@@ -37,7 +39,12 @@ const Contact = () => {
 
   async function onsubmit(e: any) {
     e.preventDefault();
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, "0");
+    let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    let yyyy = today.getFullYear();
 
+    let getToday = mm + "/" + dd + "/" + yyyy;
     if (e.target.email.value == "" && e.target.phoneNumber.value == "") {
       setSuccessMessage(
         curlanguage.changeLanguage.value == "en"
@@ -60,6 +67,7 @@ const Contact = () => {
           message: e.target.message.value,
 
           phoneNumber: e.target.phoneNumber.value,
+          date: getToday,
         };
 
         try {
@@ -161,8 +169,7 @@ const Contact = () => {
               {/* <MapWithAMarker /> */}
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7839.140298694166!2d106.70068435239256!3d10.767573902897034!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f40068b5a77%3A0xf80e4fdadaba9c43!2zTGllbiBQaGF0IFRlY2hub2xvZ3kgQ29ycG9yYXRpb24gKEPDtG5nIFR5IEPhu5UgUGjhuqduIEPDtG5nIE5naOG7hyBMacOqbiBQaMOhdCk!5e0!3m2!1svi!2s!4v1694760510427!5m2!1svi!2s"
-               
-                style={{ border: 0, width:"95%", height:"90%" }}
+                style={{ border: 0, width: "95%", height: "90%" }}
                 allowFullScreen={false}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

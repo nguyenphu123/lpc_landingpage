@@ -6,8 +6,8 @@ import Image from "next/image";
 
 import { useForm } from "@mantine/form";
 
-import { TextInput, Button, Box, Grid,  Select } from "@mantine/core";
-
+import { TextInput, Button, Box, Grid } from "@mantine/core";
+import { Select, SelectItem } from "@nextui-org/react";
 import { updateProduct } from "@/lib/updateData";
 import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
@@ -136,83 +136,76 @@ function UpdateProductForm({ product, handleSaveClick }) {
                     </label>
                   </Grid.Col>
 
-                  <Grid.Col span={4}>
-                    <label>Type</label>
+                  <Select
+                    label="Type"
+                    placeholder="Select Type"
+                    defaultSelectedKeys={[form.getInputProps("type").value]}
+                    onChange={(value) =>
+                      (form.getInputProps("type").value = value)
+                    }
+                  >
+                    {[
+                      { label: "Solution", value: "Solution" },
 
-                    <Select
-                      data={[
-                        { label: "Solution", value: "Solution" },
+                      { label: "Service", value: "Service" },
+                    ].map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </Select>
 
-                        { label: "Service", value: "Service" },
-                      ]}
-                      placeholder="Select Type"
-                      {...form.getInputProps("type")}
-                    />
-                  </Grid.Col>
-
-                  <Grid.Col span={4}>
+                  <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
                     <TextInput
                       label="Title"
                       placeholder="Title"
                       {...form.getInputProps("title")}
                     />
-                  </Grid.Col>
-
-                  <Grid.Col span={4}>
                     <TextInput
                       label="Title (English)"
                       placeholder="Title (English)"
                       {...form.getInputProps("titleEn")}
                     />
-                  </Grid.Col>
+                  </div>
 
-                  <Grid.Col span={6}>
+                  <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
                     <TextInput
                       label="General content"
                       placeholder="General content"
                       {...form.getInputProps("description1")}
                     />
-                  </Grid.Col>
-
-                  <Grid.Col span={6}>
                     <TextInput
                       label="General content (English)"
                       placeholder="General content (English)"
                       {...form.getInputProps("descriptionEn1")}
                     />
-                  </Grid.Col>
+                  </div>
 
-                  <Grid.Col span={6}>
+                  <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
                     <TextInput
                       label="Details"
                       placeholder="Details"
                       {...form.getInputProps("description2")}
                     />
-                  </Grid.Col>
-
-                  <Grid.Col span={6}>
                     <TextInput
                       label="Details (English)"
                       placeholder="Details (English)"
                       {...form.getInputProps("descriptionEn2")}
                     />
-                  </Grid.Col>
+                  </div>
 
-                  <Grid.Col span={6}>
+                  <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
                     <TextInput
                       label="Pros (comma-separated)"
                       placeholder="Pros"
                       {...form.getInputProps("pros")}
                     />
-                  </Grid.Col>
-
-                  <Grid.Col span={6}>
                     <TextInput
                       label="Pros (English, comma-separated)"
                       placeholder="Pros (English)"
                       {...form.getInputProps("prosEn")}
                     />
-                  </Grid.Col>
+                  </div>
                 </>
               )}
             </Grid>

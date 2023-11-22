@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import { Modal, Table } from "@mantine/core";
+import { Table } from "@mantine/core";
 
 import Image from "next/image";
 
 import { loadPartner } from "@/lib/loadData";
-
+import { Modal, Button, useDisclosure, ModalContent } from "@nextui-org/react";
 import { useUrl } from "nextjs-current-url";
 
 import UpdatePartner from "./updatePartner";
@@ -41,8 +41,7 @@ function PartnerTable() {
 
   const [selectedPartner, setSelectedPartner] = useState(null);
 
-  const [showPartner, setShowPartner] = useState(false);
-
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [isSucess, setIsSucess] = useState(false);
 
   const [sucessMessage, setSucessMessage] = useState("");
@@ -141,12 +140,13 @@ function PartnerTable() {
       </td>
 
       <td>
-        <button
+        <Button
+          onPress={onOpen}
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-3 rounded mr-2"
           onClick={() => handleEditClick(partner)}
         >
           Edit
-        </button>
+        </Button>
 
         <button
           className={`${
@@ -168,7 +168,7 @@ function PartnerTable() {
         <PartnerForm refreshPartner={refreshPartner} />
       </Popup>
 
-      <Table>
+      <Table className="w-full">
         <thead>
           <tr>
             <th className="w-1/20">#</th>
@@ -187,26 +187,32 @@ function PartnerTable() {
       </Table>
 
       <Modal
-        size="1000px"
-        opened={Boolean(selectedPartner)}
+        size="xs"
+        backdrop="blur"
+        isOpen={isOpen}
+        style={{ background: "#FFFFFF", height: "50%" }}
+        onOpenChange={onOpenChange}
+        scrollBehavior="normal"
         onClose={() => {
           setSelectedPartner(null);
 
           setIsEditMode(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
         }}
       >
-        {selectedPartner && (
-          <section>
-            <div className="container">
-              <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
+        <ModalContent>
+          {selectedPartner && (
+            <section>
+              <div>
+                <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 
-              <UpdatePartner
-                partner={selectedPartner}
-                handleSaveClick={handleSaveClick}
-              />
-            </div>
-          </section>
-        )}
+                <UpdatePartner
+                  partner={selectedPartner}
+                  handleSaveClick={handleSaveClick}
+                />
+              </div>
+            </section>
+          )}
+        </ModalContent>
       </Modal>
     </div>
   );

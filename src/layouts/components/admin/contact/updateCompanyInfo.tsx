@@ -195,7 +195,7 @@ function UpdateCompanyInfo({}) {
       </div>
     </section>
   ) : (
-    <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+    <div style={{ maxHeight: "700px", overflowY: "auto" }}>
       {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
       <div className="container">
         <Box maw={"100%"} mx="auto">

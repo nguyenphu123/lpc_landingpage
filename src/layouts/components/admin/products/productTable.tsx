@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import { Table, Modal, Box } from "@mantine/core";
-
+import { Table, Box } from "@mantine/core";
+import { Modal, Button, useDisclosure, ModalContent } from "@nextui-org/react";
 import { loadProduct } from "@/lib/loadData";
 
 import { companyProduct, product } from "@/feature/data/productSlice";
@@ -54,7 +54,7 @@ function ProductTable() {
   const { data: session, status } = useSession();
 
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { href } = useUrl() ?? {};
 
   const [isEditMode, setIsEditMode] = useState(false);
@@ -119,13 +119,13 @@ function ProductTable() {
 
   const handleEditClick = (product: Product) => {
     setSelectedProduct(product);
-
+    onOpen();
     setIsEditMode(true); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
   };
 
   const viewContent = (product: Product) => {
     setSelectedProduct(product);
-
+    onOpen();
     setShowContent(true); // Chỉ thiết lập isEditMode thành true nếu sản phẩm đã được chọn đang được chỉnh sửa
   };
 
@@ -337,52 +337,64 @@ function ProductTable() {
       </Table>
 
       <Modal
-        size="1000px"
-        opened={Boolean(selectedProduct)}
+        size="full"
+        backdrop="blur"
+        isOpen={isOpen && isEditMode}
+        style={{ background: "#FFFFFF" }}
+        onOpenChange={onOpenChange}
+        scrollBehavior="outside"
         onClose={() => {
           setSelectedProduct(null);
 
           setIsEditMode(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
         }}
       >
-        {selectedProduct != null && isEditMode ? (
-          <section className="section">
-            <div className="container">
-              <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
+        <ModalContent>
+          {selectedProduct != null && isEditMode ? (
+            <section className="section">
+              <div className="container">
+                <h3 className="flex justify-center">{isEditMode ? "" : ""}</h3>
 
-              <UpdateProductForm
-                product={selectedProduct}
-                handleSaveClick={handleSaveClick}
-              />
-            </div>
-          </section>
-        ) : (
-          <></>
-        )}
+                <UpdateProductForm
+                  product={selectedProduct}
+                  handleSaveClick={handleSaveClick}
+                />
+              </div>
+            </section>
+          ) : (
+            <></>
+          )}
+        </ModalContent>
       </Modal>
 
       <Modal
-        size="1000px"
-        opened={Boolean(showContent)}
+        size="full"
+        backdrop="blur"
+        isOpen={isOpen && showContent}
+        style={{ background: "#FFFFFF" }}
+        onOpenChange={onOpenChange}
+        scrollBehavior="outside"
         onClose={() => {
           setSelectedProduct(null);
 
           setShowContent(false); // Đảm bảo rằng sau khi đóng modal, chế độ xem lại được kích hoạt
         }}
       >
-        <section className="section">
-          <div className="container">
-            <h3 className="flex justify-center">Content</h3>
+        <ModalContent>
+          <section className="section">
+            <div className="container">
+              <h3 className="flex justify-center">Content</h3>
 
-            <Box maw={800} mx="auto">
-              {selectedProduct != null && showContent ? (
-                <ContentTable product={selectedProduct} />
-              ) : (
-                <></>
-              )}
-            </Box>
-          </div>
-        </section>
+              <Box maw={800} mx="auto">
+                {selectedProduct != null && showContent ? (
+                  <ContentTable product={selectedProduct} />
+                ) : (
+                  <></>
+                )}
+              </Box>
+            </div>
+          </section>
+        </ModalContent>
       </Modal>
     </div>
   );

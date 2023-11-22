@@ -14,6 +14,7 @@ export async function POST(req, res) {
       email,
       phoneNumber,
       message,
+      date,
     });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {

@@ -7,7 +7,7 @@ import {
 } from "../../feature/changeLanguage/changeLanguageSlice";
 import "../../styles/flag.scss";
 
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import languageChange from "@/models/language";
 
 import {
@@ -32,7 +32,7 @@ const ThemeSwitcher = () => {
   }, [handleResize]);
   const dispatch = useDispatch();
   return (
-    <Dropdown showArrow shouldBlockScroll={false}>
+    <Dropdown showArrow shouldBlockScroll={true}>
       <DropdownTrigger>
         <Button
           className="text-sm font-black text-black"
@@ -54,7 +54,7 @@ const ThemeSwitcher = () => {
       </DropdownTrigger>
       <DropdownMenu
         onAction={(key) => dispatch(changeLanguage(key))}
-        className="bg-white rounded w-32 h-24 sticky top-0 z-50 transition-all "
+        className="bg-white rounded w-32 h-24 "
         aria-label="Dropdown Variants"
         variant="shadow"
       >

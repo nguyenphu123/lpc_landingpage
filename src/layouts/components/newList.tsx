@@ -2,14 +2,14 @@
 import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { Grid } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { loadNews } from "@/lib/loadData";
 import dynamic from "next/dynamic";
 import { useUrl } from "nextjs-current-url";
 import languageChange from "@/models/language";
 const NewITem = dynamic(() => import("./newItem"));
 // posts will be populated at build time by getStaticProps()
-export default function Blog() {
+function Blog() {
   const { href } = useUrl() ?? {};
   const curlanguage = useSelector(
     (rootState: languageChange) => language(rootState).changeLanguage.value,
@@ -88,6 +88,4 @@ export default function Blog() {
     </div>
   );
 }
-// This function gets called at build time on server-side.
-// It won't be called on client-side, so you can even do
-// direct database queries.
+export default memo(Blog);

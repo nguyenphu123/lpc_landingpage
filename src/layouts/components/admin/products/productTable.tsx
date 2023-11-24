@@ -381,19 +381,17 @@ function ProductTable() {
         }}
       >
         <ModalContent>
-          <section className="section">
-            <div className="container">
-              <h3 className="flex justify-center">Content</h3>
+          <div>
+            <h3 className="flex justify-center">Content</h3>
 
-              <Box maw={800} mx="auto">
-                {selectedProduct != null && showContent ? (
-                  <ContentTable product={selectedProduct} />
-                ) : (
-                  <></>
-                )}
-              </Box>
-            </div>
-          </section>
+            <Box maw={800} mx="auto">
+              {selectedProduct != null && showContent ? (
+                <ContentTable product={selectedProduct} />
+              ) : (
+                <></>
+              )}
+            </Box>
+          </div>
         </ModalContent>
       </Modal>
     </div>

@@ -16,7 +16,7 @@ import { markdownify } from "@/lib/utils/textConverter";
 
 import Link from "next/link";
 
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 
@@ -235,4 +235,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);

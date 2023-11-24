@@ -8,7 +8,7 @@ import menu from "@/config/menu.json";
 import menuEn from "@/config/menuEn.json";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5/index.js";
 import useScroll from "../../lib/utils/use-scroll";
 import { useSelector } from "react-redux";
@@ -266,4 +266,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

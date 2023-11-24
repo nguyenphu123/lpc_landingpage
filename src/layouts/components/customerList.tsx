@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { loadCustomer } from "@/lib/loadData";
 import "../../styles/slider.scss";
 import { useUrl } from "nextjs-current-url";
 // posts will be populated at build time by getStaticProps()
-export default function CustomerList() {
+function CustomerList() {
   // const newsCheck = await loadNews();
 
   const [customers, setCustomers] = useState([]);
@@ -56,6 +56,4 @@ export default function CustomerList() {
     </div>
   );
 }
-// This function gets called at build time on server-side.
-// It won't be called on client-side, so you can even do
-// direct database queries.
+export default memo(CustomerList);

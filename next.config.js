@@ -6,7 +6,13 @@ const nextConfig = {
   basePath: config.base_path !== "/" ? config.base_path : "/",
   trailingSlash: config.site.trailing_slash,
   images: {
-    domains: ["res.cloudinary.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "**",
+      },
+    ],
   },
   async headers() {
     return [

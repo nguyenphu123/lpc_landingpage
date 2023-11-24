@@ -2,9 +2,12 @@ import Data from "@/config/data.json";
 import DataEn from "@/config/dataEn.json";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { useSelector } from "react-redux";
-import languageChange from "@/models/language"
-export default function BannerContent({ banner }) {
-  const curlanguage = useSelector((rootState : languageChange) => language(rootState));
+import languageChange from "@/models/language";
+import { memo } from "react";
+function BannerContent({ banner }) {
+  const curlanguage = useSelector((rootState: languageChange) =>
+    language(rootState),
+  );
   return (
     <div className="relative w-3xl whitespace-normal mx-auto max-w-screen-xl px-4 py-52 sm:px-6 lg:flex lg:h-max lg:items-center lg:px-5 containerbanner">
       <div
@@ -49,3 +52,4 @@ export default function BannerContent({ banner }) {
     </div>
   );
 }
+export default memo(BannerContent);

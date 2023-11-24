@@ -2,14 +2,14 @@
 import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import { SimpleGrid } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { loadProduct } from "@/lib/loadData";
 import ServiceCard from "./ServiceCard";
 import { useUrl } from "nextjs-current-url";
 import encryptId from "../../lib/utils/encrypt";
 import languageChange from "@/models/language";
 // posts will be populated at build time by getStaticProps()
-export default function ProductList() {
+function ProductList() {
   const { href } = useUrl() ?? {};
   const curlanguage = useSelector(
     (rootState: languageChange) => language(rootState).changeLanguage.value,
@@ -99,6 +99,4 @@ export default function ProductList() {
     </div>
   );
 }
-// This function gets called at build time on server-side.
-// It won't be called on client-side, so you can even do
-// direct database queries.
+export default memo(ProductList);

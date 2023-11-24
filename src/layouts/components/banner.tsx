@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import BannerContent from "./bannerContent";
 import { loadBanner } from "@/lib/loadData";
 import Image from "next/image";
@@ -75,4 +75,4 @@ const Banner = () => {
     </div>
   );
 };
-export default Banner;
+export default memo(Banner);

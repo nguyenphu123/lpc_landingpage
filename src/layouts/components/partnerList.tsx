@@ -1,14 +1,14 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { loadPartner } from "@/lib/loadData";
 import "../../styles/slider2.scss";
 
 import { useUrl } from "nextjs-current-url";
 
 // posts will be populated at build time by getStaticProps()
-export default function PartnerList() {
+function PartnerList() {
   const { pathname, href } = useUrl() ?? {};
   // const newsCheck = await loadNews();
 
@@ -59,6 +59,4 @@ export default function PartnerList() {
     </div>
   );
 }
-// This function gets called at build time on server-side.
-// It won't be called on client-side, so you can even do
-// direct database queries.
+export default memo(PartnerList);

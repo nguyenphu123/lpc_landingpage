@@ -41,7 +41,7 @@ function Blog() {
           },
           href,
         );
-        setNewList(newsCheck.news);
+        setNewList(newsCheck.news.reverse().slice(0, 4));
       } else {
       }
     };
@@ -60,31 +60,28 @@ function Blog() {
           : "w-3/4 gap-4 grid grid-cols-1"
       }
     >
-      {newList
-        .reverse()
-        .slice(0, 4)
-        .map(
-          (
-            svc: {
-              [x: string]: any;
-              titleEn: any;
-              image: any;
-              title: any;
-              id: any;
-            },
-            i: any,
-          ) => {
-            return (
-              <NewITem
-                key={i}
-                src={svc.image}
-                title={curlanguage == "en" ? svc.titleEn : svc.title}
-                id={svc._id}
-                i={i}
-              />
-            );
+      {newList.map(
+        (
+          svc: {
+            [x: string]: any;
+            titleEn: any;
+            image: any;
+            title: any;
+            id: any;
           },
-        )}
+          i: any,
+        ) => {
+          return (
+            <NewITem
+              key={i}
+              src={svc.image}
+              title={curlanguage == "en" ? svc.titleEn : svc.title}
+              id={svc._id}
+              i={i}
+            />
+          );
+        },
+      )}
     </div>
   );
 }

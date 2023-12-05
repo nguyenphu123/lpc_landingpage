@@ -4,16 +4,17 @@ import theme from "@/config/theme.json";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 import "@/styles/main.scss";
+
 import { AuthProvider } from "./provider";
 import { usePathname } from "next/navigation";
-import { MantineProvider} from "@mantine/core";
+import { MantineProvider } from "@mantine/core";
 import dynamic from "next/dynamic";
+
 const Header = dynamic(() => import("@/partials/Header"), { ssr: false });
 const Footer = dynamic(() => import("@/partials/Footer"), { ssr: false });
 const ScrollToTopButton = dynamic(
   () => import("@/components/scrollToTopButton"),
 );
-
 
 export default function RootLayout({
   children,
@@ -32,9 +33,23 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
+        <meta name="description" content="Welcome to LPC" />
+        <meta property="og:url" content="https://lp.com.vn/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Home page" />
+        <meta property="og:description" content="Welcome to LPC" />
         <meta
           property="og:image"
-          content="https://res.cloudinary.com/demo/image/upload/turtles.jpg"
+          content="https://res.cloudinary.com/derjssgq9/image/upload/v1701763583/Logo_Lien_Phat_R_Daytona_Update_31.10.22_pjwlkv.png"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="lp.com.vn" />
+        <meta property="twitter:url" content="https://lp.com.vn/" />
+        <meta name="twitter:title" content="Home page" />
+        <meta name="twitter:description" content="Welcome to LPC" />
+        <meta
+          name="twitter:image"
+          content="https://res.cloudinary.com/derjssgq9/image/upload/v1701763583/Logo_Lien_Phat_R_Daytona_Update_31.10.22_pjwlkv.png"
         />
         {/* favicon */}
         <link rel="shortcut icon preload" href={config.site.favicon} />

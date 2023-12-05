@@ -1,0 +1,14 @@
+.snowflake {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: #ffffff; /* Snowflake color */
+  border-radius: 50%;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(calc(100vh + 5px));
+  }
+}

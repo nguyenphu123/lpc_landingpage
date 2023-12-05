@@ -26,7 +26,7 @@ const Home = () => {
 
       <div
         // className={`flex flex-col justify-between`}
-        style={{ height: "90vh" }}
+        style={{ height: "90dvh" }}
       >
         <Banner />
       </div>

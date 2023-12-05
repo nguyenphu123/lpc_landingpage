@@ -4,7 +4,9 @@ import BannerContent from "./bannerContent";
 import { loadBanner } from "@/lib/loadData";
 import Image from "next/image";
 import "@/styles/main.scss";
+import Snowfall from "@/components/season/snow";
 import { useUrl } from "nextjs-current-url";
+
 const delay = 5000;
 const Banner = () => {
   const { href } = useUrl() ?? {};
@@ -54,7 +56,7 @@ const Banner = () => {
   return banners.length == 0 ? (
     <></>
   ) : (
-    <div className="slideshow">
+    <div className="slideshow ">
       <div
         className="slideshowSlider"
         style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
@@ -72,6 +74,7 @@ const Banner = () => {
           </div>
         ))}
       </div>
+      <Snowfall numberOfSnowflakes={50} />
     </div>
   );
 };

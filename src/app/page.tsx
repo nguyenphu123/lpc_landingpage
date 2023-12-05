@@ -14,14 +14,39 @@ import CustomerList from "@/components/customerList";
 import dynamic from "next/dynamic";
 import languageChange from "@/models/language";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@nextui-org/react";
 const Home = () => {
   const curlanguage = useSelector(
     (rootState: languageChange) => language(rootState).changeLanguage.value,
   );
-
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <div className="container-snap">
+      <Modal defaultOpen={true} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Modal Title
+              </ModalHeader>
+              <ModalBody></ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
       <SeoMeta title="Home page" />
 
       <div

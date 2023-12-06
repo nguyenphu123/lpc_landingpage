@@ -25,12 +25,12 @@ const Home = () => {
     <div className="container-snap">
       <Popup>
         <Image
-          width={600}
-          height={400}
+          width={700}
+          height={500}
           loading="lazy"
           objectFit="cover"
           src="https://res.cloudinary.com/derjssgq9/image/upload/v1701826947/merrychristmaslpc_lo3pmn.jpg"
-          className="transition duration-300 ease-in-out group-hover:scale-110 img-newitem w-full"
+          className="transition duration-300 ease-in-out group-hover:scale-110 img-newitem w-full rounded"
           alt="Louvre"
         />
         

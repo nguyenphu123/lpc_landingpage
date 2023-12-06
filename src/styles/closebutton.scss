@@ -52,7 +52,20 @@
   align-items: center;
   cursor: pointer;
   transition: all 150ms;
+  right: 365px;
+  top: 80px;
 
+  @media screen and (max-width: 768px) {
+    /* Adjust styles for screens up to 768px width */
+    right: 15px;
+    top: 225px;
+  }
+
+  @media screen and (max-width: 480px) {
+    /* Adjust styles for screens up to 480px width */
+    right: 10px;
+    top: 285px;
+  }
   .icon-cross {
     @include cross(20px, #fff, 0.2px);
   }
@@ -74,12 +87,11 @@
   @include cross(80px, #000);
 }
 .visually-hidden {
-    position: absolute !important;
-    clip: rect(1px, 1px, 1px, 1px);
-    padding: 0 !important;
-    border: 0 !important;
-    height: 1px !important;
-    width: 1px !important;
-    overflow: hidden;
-  }
-  
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
+}

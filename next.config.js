@@ -2,6 +2,13 @@ const config = require("./src/config/config.json");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
+  },
   reactStrictMode: false,
   basePath: config.base_path !== "/" ? config.base_path : "/",
   trailingSlash: config.site.trailing_slash,

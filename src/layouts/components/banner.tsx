@@ -74,7 +74,6 @@ const Banner = () => {
           </div>
         ))}
       </div>
-      <Snowfall numberOfSnowflakes={50} />
     </div>
   );
 };

@@ -6,8 +6,8 @@ import Image from "next/image";
 
 import { useForm } from "@mantine/form";
 import { Select, SelectItem } from "@nextui-org/react";
-import { TextInput, Button, Box, Code, Grid } from "@mantine/core";
-
+import { TextInput, Box, Code, Grid } from "@mantine/core";
+import { Button } from "@nextui-org/react";
 import { addProduct } from "@/lib/createData";
 
 import { useSession } from "next-auth/react";
@@ -160,7 +160,6 @@ function ProductForm({ handleSaveClick }) {
                     </div>
                   </label>
                 </div>
-
                 <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
                   <label>Type</label>
 
@@ -179,8 +178,7 @@ function ProductForm({ handleSaveClick }) {
                     ))}
                   </Select>
                 </div>
-
-                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                <div className="mt-12 flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
                   <TextInput
                     label="Title"
                     placeholder="Title"
@@ -192,7 +190,6 @@ function ProductForm({ handleSaveClick }) {
                     {...form.getInputProps("titleEn")}
                   />
                 </div>
-
                 <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
                   <TextInput
                     label="General content"
@@ -205,7 +202,6 @@ function ProductForm({ handleSaveClick }) {
                     {...form.getInputProps("descriptionEn1")}
                   />
                 </div>
-
                 <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
                   <TextInput
                     label="Details"
@@ -218,16 +214,15 @@ function ProductForm({ handleSaveClick }) {
                     {...form.getInputProps("descriptionEn2")}
                   />
                 </div>
-
                 <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
                   <TextInput
-                    label="Pros (comma-separated)"
-                    placeholder="Pros"
+                    label="Benefits"
+                    placeholder="Benefits, comma-separated"
                     {...form.getInputProps("pros")}
                   />
                   <TextInput
-                    label="Pros (English, comma-separated)"
-                    placeholder="Pros (English)"
+                    label="Benefits(English)"
+                    placeholder="Benefits, comma-separated (English)"
                     {...form.getInputProps("prosEn")}
                   />
                 </div>
@@ -243,12 +238,12 @@ function ProductForm({ handleSaveClick }) {
                 justifyContent: "flex-end",
               }}
             >
-              <Button
+              <button
                 type="submit"
-                style={{ backgroundColor: "#007bff", color: "white" }}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mr-2"
               >
                 Submit
-              </Button>
+              </button>
             </div>
           </form>
 

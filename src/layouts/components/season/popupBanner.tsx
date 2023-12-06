@@ -14,7 +14,7 @@ const Popup = ({ children }) => {
           <div className=" p-8 rounded ">
             <div className="flex justify-end">
               <button
-                className="bg-blue-500 text-white px-4 py-2 mt-10 rounded"
+                className="bg-slate-400 text-white px-4 py-2 mt-10 flag-icon-rounded"
                 onClick={togglePopup}
               >
                 X

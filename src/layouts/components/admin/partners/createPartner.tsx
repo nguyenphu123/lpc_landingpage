@@ -134,13 +134,12 @@ function PartnerForm({ refreshPartner }) {
             <Grid.Col span={6} className="flex justify-end mt-6">
               {/* Thêm class CSS để đặt nút submit ở góc phải */}
 
-              <Button
+              <button
                 type="submit"
-                style={{ backgroundColor: "blue" }}
-                size="md"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mr-2"
               >
                 Submit
-              </Button>
+              </button>
             </Grid.Col>
           </Grid>
         </form>

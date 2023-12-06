@@ -79,63 +79,62 @@ function UpdateProductForm({ product, handleSaveClick }) {
       <div className="container">
         <Box maw={"100%"} mx="auto">
           <form onSubmit={form.onSubmit((values) => onSubmitForm(values))}>
-            <Grid gutter="lg">
-              {showCols && (
-                <>
-                  <Grid.Col span={12}>
-                    <label>Choose Image</label>
+            {showCols && (
+              <>
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <label>Choose Image</label>
 
-                    {/* Trường input tệp ẩn */}
+                  {/* Trường input tệp ẩn */}
 
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={onImageChange}
-                      style={{ display: "none" }}
-                      id="imageInput"
-                    />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={onImageChange}
+                    style={{ display: "none" }}
+                    id="imageInput"
+                  />
 
-                    {/* Nút thay thế */}
+                  {/* Nút thay thế */}
 
-                    <label
-                      htmlFor="imageInput"
+                  <label
+                    htmlFor="imageInput"
+                    style={{
+                      cursor: "pointer",
+                    }}
+                  >
+                    <div
                       style={{
-                        cursor: "pointer",
+                        width: "100%",
+
+                        height: "100px",
+
+                        backgroundColor: "#f0f0f0",
+
+                        display: "flex",
+
+                        alignItems: "center",
+
+                        justifyContent: "center",
+
+                        border: "2px dashed #ccc",
+
+                        borderRadius: "8px",
                       }}
                     >
-                      <div
-                        style={{
-                          width: "100%",
-
-                          height: "100px",
-
-                          backgroundColor: "#f0f0f0",
-
-                          display: "flex",
-
-                          alignItems: "center",
-
-                          justifyContent: "center",
-
-                          border: "2px dashed #ccc",
-
-                          borderRadius: "8px",
-                        }}
-                      >
-                        {selectedImageURL ? (
-                          <Image
-                            src={selectedImageURL}
-                            alt="Selected Image"
-                            width={150}
-                            height={150}
-                          />
-                        ) : (
-                          <span>Click to choose an image</span>
-                        )}
-                      </div>
-                    </label>
-                  </Grid.Col>
-
+                      {selectedImageURL ? (
+                        <Image
+                          src={selectedImageURL}
+                          alt="Selected Image"
+                          width={150}
+                          height={150}
+                        />
+                      ) : (
+                        <span>Click to choose an image</span>
+                      )}
+                    </div>
+                  </label>
+                </div>
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
                   <Select
                     label="Type"
                     placeholder="Select Type"
@@ -154,61 +153,57 @@ function UpdateProductForm({ product, handleSaveClick }) {
                       </SelectItem>
                     ))}
                   </Select>
-
-                  <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
-                    <TextInput
-                      label="Title"
-                      placeholder="Title"
-                      {...form.getInputProps("title")}
-                    />
-                    <TextInput
-                      label="Title (English)"
-                      placeholder="Title (English)"
-                      {...form.getInputProps("titleEn")}
-                    />
-                  </div>
-
-                  <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
-                    <TextInput
-                      label="General content"
-                      placeholder="General content"
-                      {...form.getInputProps("description1")}
-                    />
-                    <TextInput
-                      label="General content (English)"
-                      placeholder="General content (English)"
-                      {...form.getInputProps("descriptionEn1")}
-                    />
-                  </div>
-
-                  <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
-                    <TextInput
-                      label="Details"
-                      placeholder="Details"
-                      {...form.getInputProps("description2")}
-                    />
-                    <TextInput
-                      label="Details (English)"
-                      placeholder="Details (English)"
-                      {...form.getInputProps("descriptionEn2")}
-                    />
-                  </div>
-
-                  <div className="flex w-full flex-wrap md:flex-nowrap gap-4 justify-center">
-                    <TextInput
-                      label="Pros (comma-separated)"
-                      placeholder="Pros"
-                      {...form.getInputProps("pros")}
-                    />
-                    <TextInput
-                      label="Pros (English, comma-separated)"
-                      placeholder="Pros (English)"
-                      {...form.getInputProps("prosEn")}
-                    />
-                  </div>
-                </>
-              )}
-            </Grid>
+                </div>
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <TextInput
+                    label="Title"
+                    placeholder="Title"
+                    {...form.getInputProps("title")}
+                  />
+                  <TextInput
+                    label="Title (English)"
+                    placeholder="Title (English)"
+                    {...form.getInputProps("titleEn")}
+                  />
+                </div>
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <TextInput
+                    label="General content"
+                    placeholder="General content"
+                    {...form.getInputProps("description1")}
+                  />
+                  <TextInput
+                    label="General content (English)"
+                    placeholder="General content (English)"
+                    {...form.getInputProps("descriptionEn1")}
+                  />
+                </div>
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <TextInput
+                    label="Details"
+                    placeholder="Details"
+                    {...form.getInputProps("description2")}
+                  />
+                  <TextInput
+                    label="Details (English)"
+                    placeholder="Details (English)"
+                    {...form.getInputProps("descriptionEn2")}
+                  />
+                </div>
+                <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+                  <TextInput
+                    label="Benefits"
+                    placeholder="Benefits, comma-separated"
+                    {...form.getInputProps("pros")}
+                  />
+                  <TextInput
+                    label="Benefits(English)"
+                    placeholder="Benefits, comma-separated (English)"
+                    {...form.getInputProps("prosEn")}
+                  />
+                </div>
+              </>
+            )}
 
             <div
               style={{
@@ -219,12 +214,12 @@ function UpdateProductForm({ product, handleSaveClick }) {
                 justifyContent: "flex-end",
               }}
             >
-              <Button
+              <button
                 type="submit"
-                style={{ backgroundColor: "#007bff", color: "white" }}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mr-2"
               >
                 Submit
-              </Button>
+              </button>
             </div>
           </form>
         </Box>

@@ -164,9 +164,12 @@ const UpdateBanner = ({ banner, handleSaveClick }) => {
           </div>
           {/* Thêm class CSS để đặt nút submit ở góc phải */}
           <div className="flex w-full flex-wrap md:flex-nowrap gap-8 justify-center">
-            <Button type="submit" color="primary" variant="shadow">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mr-2"
+            >
               Submit
-            </Button>
+            </button>
           </div>
         </form>
 

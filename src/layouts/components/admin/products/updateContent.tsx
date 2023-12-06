@@ -215,12 +215,12 @@ function UpdateContentForm({ product, content }) {
                 justifyContent: "flex-end",
               }}
             >
-              <Button
+              <button
                 type="submit"
-                style={{ backgroundColor: "#007bff", color: "white" }}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mr-2"
               >
                 Submit
-              </Button>
+              </button>
             </div>
           </form>
 

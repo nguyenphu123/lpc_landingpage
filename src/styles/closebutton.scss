@@ -3,7 +3,7 @@
 // $size  : px or em
 // $color : color
 // $thickness : px
-@mixin cross($size: 10px, $color: currentColor, $thickness: 0.2px) {
+@mixin cross($size: 15px, $color: currentColor, $thickness: 1px) {
   margin: 0;
   padding: 0;
   border: 0;
@@ -54,25 +54,16 @@
   transition: all 150ms;
 
   .icon-cross {
-    @include cross(20px, #fff, 0.2px);
+    @include cross(15px, #000, 1px);
   }
 
   &:hover,
   &:focus {
     transform: rotateZ(90deg);
-    background: hsl(216, 100, 40);
+    background: #70c7fc;
   }
 }
 
-// Example 2.
-.cross-stand-alone {
-  @include cross(40px, #000, 4px);
-}
-
-// Example 3.
-.cross-1px {
-  @include cross(80px, #000);
-}
 .visually-hidden {
   position: absolute !important;
   clip: rect(1px, 1px, 1px, 1px);

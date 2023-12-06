@@ -36,7 +36,7 @@ const Popup = ({ children }) => {
               <button
                 type="button"
                 onClick={togglePopup}
-                className="btn-close absolute top-0 right-0  text-black px-4 py-2"
+                className="btn-close absolute hover:text-cyan-400 top-auto right-auto px-4 py-2"
               >
                 <span className="icon-cross"></span>
                 <span className="visually-hidden">Close</span>

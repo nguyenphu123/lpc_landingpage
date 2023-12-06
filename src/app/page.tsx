@@ -13,7 +13,7 @@ import PartnerList from "@/components/partnerList";
 import CustomerList from "@/components/customerList";
 import dynamic from "next/dynamic";
 import languageChange from "@/models/language";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
+import Image from "next/image";
 import {
   Modal,
   ModalContent,
@@ -30,14 +30,29 @@ const Home = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <div className="container-snap">
-      <Modal defaultOpen={true} onOpenChange={onOpenChange}>
+      <Modal
+        backdrop="opaque"
+        defaultOpen={true}
+        size="3xl"
+        onOpenChange={onOpenChange}
+      >
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
                 Modal Title
               </ModalHeader>
-              <ModalBody></ModalBody>
+              <ModalBody>
+                <Image
+                  width={300}
+                  height={300}
+                  loading="lazy"
+                  objectFit="cover"
+                  src="https://res.cloudinary.com/derjssgq9/image/upload/v1701826947/merrychristmaslpc_lo3pmn.jpg"
+                  className="transition duration-300 ease-in-out group-hover:scale-110 img-newitem w-full"
+                  alt="Louvre"
+                />
+              </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close

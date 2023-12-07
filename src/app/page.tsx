@@ -16,24 +16,47 @@ import languageChange from "@/models/language";
 import Image from "next/image";
 
 import Popup from "@/components/season/popupBanner";
+import { useEffect, useState } from "react";
 const Home = () => {
   const curlanguage = useSelector(
     (rootState: languageChange) => language(rootState).changeLanguage.value,
   );
+  const [isScaledUp, setIsScaledUp]: any = useState(
+    typeof window !== "undefined" &&
+      window.innerWidth / window.screen.width === 1.5,
+  ); // default width, detect on server.
 
+  const handleResize = () => {
+    setIsScaledUp(
+      typeof window !== "undefined" &&
+        window.innerWidth / window.screen.width === 1.5,
+    );
+    const imageElement = document.querySelector(
+      ".img-newitem",
+    ) as HTMLImageElement;
+    if (isScaledUp) {
+      imageElement.style.height = "10%"; // Double the height for 150% scaling
+    } else {
+      imageElement.style.height = "10%"; // Reset the height to 100% for other scales
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
   return (
     <div className="container-snap">
       <Popup>
         <Image
-          width={700}
-          height={500}
+          width={650}
+          height={450}
           loading="lazy"
           objectFit="cover"
           src="https://res.cloudinary.com/derjssgq9/image/upload/v1701826947/merrychristmaslpc_lo3pmn.jpg"
           className="transition duration-300 ease-in-out group-hover:scale-110 img-newitem w-full rounded"
           alt="Louvre"
         />
-        
       </Popup>
       <SeoMeta title="Home page" />
 

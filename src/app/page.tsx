@@ -53,6 +53,7 @@ const Home = () => {
           height={450}
           loading="lazy"
           objectFit="cover"
+          sizes="(min-width: 300px) 50vw, 100vw"
           src="https://res.cloudinary.com/derjssgq9/image/upload/v1701826947/merrychristmaslpc_lo3pmn.jpg"
           className="transition duration-300 ease-in-out group-hover:scale-110 img-newitem w-full rounded"
           alt="Louvre"

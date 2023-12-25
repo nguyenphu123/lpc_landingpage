@@ -51,7 +51,7 @@ const Popup = ({ children }) => {
         <>
           <audio autoPlay loop>
             <source
-              src="https://drive.google.com/file/d/1fAaoJjeQ1iby8-wMqBHpQvY4TN7E4cR2/view?usp=drive_link"
+              src="https://docs.google.com/uc?export=download&id=1fAaoJjeQ1iby8-wMqBHpQvY4TN7E4cR2"
               type="audio/mp3"
             ></source>
           </audio>

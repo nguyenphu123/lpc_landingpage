@@ -44,19 +44,19 @@ const Popup = ({ children }) => {
               </button>
             </div>
             {children}
+            <audio
+              id="audio"
+              style={{ display: "none" }}
+              controls
+              autoPlay
+              loop
+              src="https://res.cloudinary.com/derjssgq9/video/upload/v1703497713/xuan_Kh%C3%B4ng_B%E1%BA%A3n_Quy%E1%BB%81n_wxguhm.mp3?autoplay=1&loop=1&autopause=0&muted=1"
+            ></audio>
           </div>
         </div>
       )}
       {isOpen && (
-        <>
-          <audio autoPlay loop>
-            <source
-              src="https://docs.google.com/uc?export=download&id=1fAaoJjeQ1iby8-wMqBHpQvY4TN7E4cR2"
-              type="audio/mp3"
-            ></source>
-          </audio>
-          <Firework></Firework>
-        </>
+        <Firework></Firework>
 
         // <Snowfall //for winter only
         //   color="#fff"

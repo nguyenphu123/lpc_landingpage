@@ -64,19 +64,19 @@
   -webkit-animation:
     1.5s bang ease-out infinite backwards,
     1.5s gravity ease-in infinite backwards,
-    6s position linear infinite backwards;
+    6.5s position linear infinite backwards;
   -o-animation:
     1.5s bang ease-out infinite backwards,
     1.5s gravity ease-in infinite backwards,
-    6s position linear infinite backwards;
+    6.5s position linear infinite backwards;
   -ms-animation:
     1.5s bang ease-out infinite backwards,
     1.5s gravity ease-in infinite backwards,
-    6s position linear infinite backwards;
+    6.5s position linear infinite backwards;
   animation:
     1.5s bang ease-out infinite backwards,
     1.5s gravity ease-in infinite backwards,
-    6s position linear infinite backwards;
+    6.5s position linear infinite backwards;
 }
 
 .pyro > .after {
@@ -85,11 +85,11 @@
   -o-animation-delay: 1.55s, 1.55s, 1.55s;
   -ms-animation-delay: 1.55s, 1.55s, 1.55s;
   animation-delay: 1.55s, 1.55s, 1.55s;
-  -moz-animation-duration: 1.55s, 1.55s, 6.55s;
-  -webkit-animation-duration: 1.55s, 1.55s, 6.55s;
-  -o-animation-duration: 1.55s, 1.55s, 6.55s;
-  -ms-animation-duration: 1.55s, 1.55s, 6.55s;
-  animation-duration: 1.55s, 1.55s, 6.55s;
+  -moz-animation-duration: 1.55s, 1.55s, 7s;
+  -webkit-animation-duration: 1.55s, 1.55s, 7s;
+  -o-animation-duration: 1.55s, 1.55s, 7s;
+  -ms-animation-duration: 1.55s, 1.55s, 7s;
+  animation-duration: 1.55s, 1.55s, 7s;
 }
 
 @-webkit-keyframes bang {

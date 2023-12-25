@@ -48,7 +48,16 @@ const Popup = ({ children }) => {
         </div>
       )}
       {isOpen && (
-        <Firework></Firework>
+        <>
+          <audio autoPlay loop>
+            <source
+              src="https://drive.google.com/file/d/1fAaoJjeQ1iby8-wMqBHpQvY4TN7E4cR2/view?usp=drive_link"
+              type="audio/mp3"
+            ></source>
+          </audio>
+          <Firework></Firework>
+        </>
+
         // <Snowfall //for winter only
         //   color="#fff"
         //   style={{

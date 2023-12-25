@@ -1,6 +1,6 @@
 .pyro > .before,
 .pyro > .after {
-  position: absolute;
+  position: fixed;
   width: 5px;
   height: 5px;
   z-index: 100;
@@ -425,8 +425,8 @@
 @-webkit-keyframes position {
   0%,
   19.9% {
-    margin-top: 5%;
-    margin-left: 10%;
+    margin-top: 10%;
+    margin-left: 20%;
   }
 
   20%,
@@ -436,9 +436,14 @@
   }
 
   40%,
-  59.9% {
+  49.9% {
     margin-top: 20%;
     margin-left: 70%;
+  }
+  50%,
+  59.9% {
+    margin-top: 40%;
+    margin-left: 80%;
   }
 
   60%,
@@ -448,21 +453,16 @@
   }
 
   80%,
-  89.9% {
+  99.9% {
     margin-top: 20%;
     margin-left: 90%;
-  }
-  90%,
-  100% {
-    margin-top: 90%;
-    margin-left: 20%;
   }
 }
 @-moz-keyframes position {
   0%,
   19.9% {
-    margin-top: 5%;
-    margin-left: 10%;
+    margin-top: 10%;
+    margin-left: 20%;
   }
 
   20%,
@@ -472,9 +472,14 @@
   }
 
   40%,
-  59.9% {
+  49.9% {
     margin-top: 20%;
     margin-left: 70%;
+  }
+  50%,
+  59.9% {
+    margin-top: 40%;
+    margin-left: 80%;
   }
 
   60%,
@@ -484,21 +489,16 @@
   }
 
   80%,
-  89.9% {
+  99.9% {
     margin-top: 20%;
     margin-left: 90%;
-  }
-  90%,
-  100% {
-    margin-top: 90%;
-    margin-left: 20%;
   }
 }
 @-o-keyframes position {
   0%,
   19.9% {
-    margin-top: 5%;
-    margin-left: 10%;
+    margin-top: 10%;
+    margin-left: 20%;
   }
 
   20%,
@@ -508,9 +508,14 @@
   }
 
   40%,
-  59.9% {
+  49.9% {
     margin-top: 20%;
     margin-left: 70%;
+  }
+  50%,
+  59.9% {
+    margin-top: 40%;
+    margin-left: 80%;
   }
 
   60%,
@@ -520,21 +525,16 @@
   }
 
   80%,
-  89.9% {
+  99.9% {
     margin-top: 20%;
     margin-left: 90%;
-  }
-  90%,
-  100% {
-    margin-top: 90%;
-    margin-left: 20%;
   }
 }
 @-ms-keyframes position {
   0%,
   19.9% {
-    margin-top: 5%;
-    margin-left: 10%;
+    margin-top: 10%;
+    margin-left: 20%;
   }
 
   20%,
@@ -544,9 +544,14 @@
   }
 
   40%,
-  59.9% {
+  49.9% {
     margin-top: 20%;
     margin-left: 70%;
+  }
+  50%,
+  59.9% {
+    margin-top: 40%;
+    margin-left: 80%;
   }
 
   60%,
@@ -556,21 +561,16 @@
   }
 
   80%,
-  89.9% {
+  99.9% {
     margin-top: 20%;
     margin-left: 90%;
-  }
-  90%,
-  100% {
-    margin-top: 90%;
-    margin-left: 20%;
   }
 }
 @keyframes position {
   0%,
   19.9% {
-    margin-top: 5%;
-    margin-left: 10%;
+    margin-top: 10%;
+    margin-left: 20%;
   }
 
   20%,
@@ -580,11 +580,15 @@
   }
 
   40%,
-  59.9% {
+  49.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
-
+  50%,
+  59.9% {
+    margin-top: 40%;
+    margin-left: 80%;
+  }
   60%,
   79.9% {
     margin-top: 30%;
@@ -592,13 +596,8 @@
   }
 
   80%,
-  89.9% {
+  99.9% {
     margin-top: 20%;
     margin-left: 90%;
-  }
-  90%,
-  100% {
-    margin-top: 90%;
-    margin-left: 20%;
   }
 }

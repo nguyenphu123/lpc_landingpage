@@ -54,7 +54,8 @@ const Home = () => {
           loading="lazy"
           objectFit="cover"
           sizes="(min-width: 300px) 50vw, 100vw"
-          src="https://res.cloudinary.com/derjssgq9/image/upload/v1701826947/merrychristmaslpc_lo3pmn.jpg"
+          //src="https://res.cloudinary.com/derjssgq9/image/upload/v1701826947/merrychristmaslpc_lo3pmn.jpg"// winter image
+          src="https://res.cloudinary.com/derjssgq9/image/upload/v1703488552/Official_Thi%E1%BB%87p_t%E1%BA%BFt_t%C3%A2y_2024_b%E1%BA%A3n_post_fb_-01_vhq15h.png"
           className="transition duration-300 ease-in-out group-hover:scale-110 img-newitem w-full rounded"
           alt="Louvre"
         />

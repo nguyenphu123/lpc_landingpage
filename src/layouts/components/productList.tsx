@@ -1,7 +1,7 @@
 "use client";
 import { useSelector } from "react-redux";
 import { language } from "@/feature/changeLanguage/changeLanguageSlice";
-import { SimpleGrid } from "@mantine/core";
+
 import { memo, useEffect, useState } from "react";
 import { loadProduct } from "@/lib/loadData";
 import ServiceCard from "./ServiceCard";

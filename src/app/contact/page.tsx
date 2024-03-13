@@ -39,6 +39,12 @@ const Contact = () => {
 
   async function onsubmit(e: any) {
     e.preventDefault();
+    if (e.target.bottrap.value != "") {
+      return;
+    }
+    if (e.target.email.value.includes("testing@example.com")) {
+      return;
+    }
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, "0");
     let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
@@ -204,6 +210,12 @@ const Contact = () => {
                       className="form-input"
                       placeholder="nguyenvana@email.com"
                       type="email"
+                    />
+                    <input
+                      id="bottrap"
+                      name="bottrap"
+                      className="form-input hidden"
+                      type="text"
                     />
                   </div>
 

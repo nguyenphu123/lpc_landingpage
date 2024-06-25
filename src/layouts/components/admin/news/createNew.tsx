@@ -43,11 +43,9 @@ function AddNews({ refreshNews }) {
     initialValues: {
       key: randomId(),
 
-      title: (value) =>
-        value.length > 60 ? "Title cannot exceed 60 characters" : null,
+      title: "",
 
-      titleEn: (value) =>
-        value.length > 60 ? "Title cannot exceed 60 characters" : null,
+      titleEn: "",
 
       meta_title: "",
 
@@ -166,7 +164,6 @@ function AddNews({ refreshNews }) {
                   radius="md"
                   size="md"
                   {...form.getInputProps("title")}
-                  maxLength={60}
                 />
               </Grid.Col>
 
@@ -176,7 +173,6 @@ function AddNews({ refreshNews }) {
                   placeholder="Title (English)"
                   radius="md"
                   size="md"
-                  maxLength={60}
                   {...form.getInputProps("titleEn")}
                 />
               </Grid.Col>

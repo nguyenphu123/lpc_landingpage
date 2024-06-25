@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 
 import { useDispatch, useSelector } from "react-redux";
-
+import parse from "html-react-parser";
 import Data from "@/config/data.json";
 
 import DataEn from "@/config/dataEn.json";
@@ -20,6 +20,7 @@ import { loadNew } from "@/lib/loadData";
 import dynamic from "next/dynamic";
 import SimilarItem from "@/components/similarItem";
 import languageChange from "@/models/language";
+import { Editor } from "@tinymce/tinymce-react";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 const PostSingle = () => {
   const { href } = useUrl() ?? {};
@@ -150,13 +151,31 @@ const PostSingle = () => {
 
               <div
                 className="content mb-10"
-                dangerouslySetInnerHTML={{
-                  __html:
+                // dangerouslySetInnerHTML={{
+                //   __html:
+                //     curlanguage.changeLanguage.value == "en"
+                //       ? data.contentEn
+                //       : data.content,
+                // }}
+              >
+                <Editor
+                  apiKey="8jo1uligpkc7y1v598qze63nfgfvcflmy7ifyfqt9ah17l7m"
+                  init={{
+                    height: 1500,
+                    width: 850,
+                    plugins: [],
+                    readonly: true,
+                    images_file_types: "jpg,svg,webp,png",
+                    paste_data_images: true,
+                    paste_retain_style_properties: "all",
+                  }}
+                  value={
                     curlanguage.changeLanguage.value == "en"
                       ? data.contentEn
-                      : data.content,
-                }}
-              ></div>
+                      : data.content
+                  }
+                />
+              </div>
 
               <div className="row items-start justify-between">
                 <div className="flex items-center lg:col-4">

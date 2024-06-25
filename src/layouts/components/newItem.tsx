@@ -33,7 +33,7 @@ export default function NewItem({ src, title, id, i }: any) {
 
           <div className="py-8 px-4 bg-gray-50 w-60 h-32  rounded-b-md fd-cl group-hover:opacity-25 new-title">
             <span className="overflow-hidden block text-lg text-gray-800 font-bold tracking-wide">
-              {title}
+              {title.length > 60 ? title.substring(0, 59) + "..." : title}
             </span>
           </div>
         </div>

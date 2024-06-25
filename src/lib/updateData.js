@@ -329,3 +329,23 @@ export async function UpdateRevenue(item, session) {
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
 }
+export async function UpdateRecruitBanners(item, session) {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  // const posts = await loadNews()
+
+  const res = await fetch("api/admin/recruit_banners", {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
+      "cache-control": "no-store",
+    },
+    body: JSON.stringify(item),
+  });
+  const returnResult = await res.json();
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return returnResult;
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+}

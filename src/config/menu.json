@@ -89,6 +89,11 @@
         "name": "Về Liên Phát",
 
         "link": "/about"
+      },
+      {
+        "name": "Tuyển dụng",
+
+        "link": "/recruitment"
       }
     ]
   }

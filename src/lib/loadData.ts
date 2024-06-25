@@ -493,3 +493,28 @@ export async function loadContact(href) {
   // will receive `posts` as a prop at build time
   return contacts;
 }
+export async function loadRecruitBanners(href) {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  // const posts = await loadNews()
+  const res = await fetch(
+    window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":" +
+      window.location.port +
+      "/" +
+      "api/admin/RecruitBanner",
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "cache-control": "no-store",
+      },
+    },
+  );
+  const recruitBanners = await res.json();
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return recruitBanners;
+}

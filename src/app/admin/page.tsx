@@ -51,6 +51,7 @@ import ToastGenerator from "@/lib/toast-tify";
 import MenuTable from "@/components/admin/menu/menuTable";
 
 import RevenueTable from "@/components/admin/revenue/revenueTable";
+import RecruitmentTable from "@/components/admin/recruit_banners/recruit_bannersTable";
 
 //admin page
 
@@ -86,6 +87,7 @@ const Home = () => {
   //show user table
 
   const [showUser, setShowUser] = useState("hidden");
+  const [showRecruitment, setShowRecruitment] = useState("hidden");
   const [showOther, setShowOther] = useState("hidden");
   //show change password page
 
@@ -136,7 +138,7 @@ const Home = () => {
           setShowPartner("hidden");
 
           setShowProduct("hidden");
-
+          setShowRecruitment("hidden")
           setShowUser("hidden");
           setShowOther("hidden");
         } else {
@@ -230,7 +232,7 @@ const Home = () => {
         setShowPartner("hidden");
 
         setShowProduct("hidden");
-
+        setShowRecruitment("hidden")
         setShowUser("hidden");
         setShowOther("hidden");
         break;
@@ -249,7 +251,7 @@ const Home = () => {
         setShowPartner("hidden");
 
         setShowProduct("hidden");
-
+        setShowRecruitment("hidden")
         setShowUser("hidden");
         setShowOther("hidden");
         break;
@@ -268,7 +270,7 @@ const Home = () => {
         setShowPartner("hidden");
 
         setShowProduct("hidden");
-
+        setShowRecruitment("hidden")
         setShowUser("hidden");
         setShowOther("hidden");
         break;
@@ -287,7 +289,7 @@ const Home = () => {
         setShowPartner("hidden");
 
         setShowProduct("hidden");
-
+        setShowRecruitment("hidden")
         setShowUser("hidden");
         setShowOther("hidden");
         break;
@@ -306,7 +308,7 @@ const Home = () => {
         setShowPartner("hidden");
 
         setShowProduct("hidden");
-
+        setShowRecruitment("hidden")
         setShowUser("hidden");
         setShowOther("hidden");
         break;
@@ -325,7 +327,7 @@ const Home = () => {
         setShowPartner("visible");
 
         setShowProduct("hidden");
-
+        setShowRecruitment("hidden")
         setShowUser("hidden");
         setShowOther("hidden");
         break;
@@ -344,7 +346,7 @@ const Home = () => {
         setShowPartner("hidden");
 
         setShowProduct("visible");
-
+        setShowRecruitment("hidden")
         setShowUser("hidden");
         setShowOther("hidden");
         break;
@@ -363,8 +365,26 @@ const Home = () => {
         setShowPartner("hidden");
 
         setShowProduct("hidden");
-
+        setShowRecruitment("hidden")
         setShowUser("visible");
+        setShowOther("hidden");
+        break;
+      case "recruitment": //user tab
+        setShowBanner("hidden");
+
+        setShowContact("hidden");
+
+        setShowCustomer("hidden");
+
+        setShowNew("hidden");
+
+        setShowMessage("hidden");
+
+        setShowPartner("hidden");
+
+        setShowProduct("hidden");
+        setShowRecruitment("visible");
+        setShowUser("hidden");
         setShowOther("hidden");
         break;
       case "other": //user tab
@@ -381,7 +401,7 @@ const Home = () => {
         setShowPartner("hidden");
 
         setShowProduct("hidden");
-
+        setShowRecruitment("hidden")
         setShowUser("hidden");
         setShowOther("visible");
         break;
@@ -539,7 +559,24 @@ const Home = () => {
                 Product
               </button>
             </li>
-
+            <li role="presentation">
+              <button
+                className={`${
+                  showRecruitment == "visible"
+                    ? "text-gray-900"
+                    : "text-gray-500 "
+                } inline-block active:text-gray-600 active:border-gray-300 text-gray-500 hover:text-gray-600 hover:border-gray-300 rounded-t-lg py-4 px-4 text-sm font-medium text-center border-transparent border-b-2 dark:text-gray-400 dark:hover:text-gray-300`}
+                id="recruiment-tab"
+                data-tabs-target="#recruiment"
+                type="button"
+                role="tab"
+                aria-controls="recruiment"
+                aria-selected="false"
+                onClick={(e) => onClick("recruiment", e)}
+              >
+                Recruiment
+              </button>
+            </li>
             {status != "loading" && session.user.role == "sysadmin" ? (
               <li role="presentation">
                 <button
@@ -642,7 +679,14 @@ const Home = () => {
           >
             <ProductTable />
           </div>
-
+          <div
+            className={`bg-gray-50 p-4 rounded-lg dark:bg-gray-800 ${showRecruitment}`}
+            id="recruitmentTable"
+            role="tabpanel"
+            aria-labelledby="recruitmentTable-tab"
+          >
+            <RecruitmentTable />
+          </div>
           <div
             className={`bg-gray-50 p-4 rounded-lg dark:bg-gray-800 ${showUser}`}
             id="user"

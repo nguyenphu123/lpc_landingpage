@@ -89,6 +89,11 @@
         "name": "About Us",
 
         "link": "/about"
+      },
+      {
+        "name": "Recruitment",
+
+        "link": "/recruitment"
       }
     ]
   }

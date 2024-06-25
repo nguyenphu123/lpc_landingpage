@@ -25,9 +25,11 @@ interface RecruitBanner {
 
   _id: string;
 
-  name: string;
+  title: string;
 
-  src: string;
+  description: string;
+  numberOfRecruitment: string;
+  salary: string;
 }
 
 function RecruitmentTable() {
@@ -35,7 +37,9 @@ function RecruitmentTable() {
 
   const { href } = useUrl() ?? {};
 
-  const [recruitBannerData, setRecruitBannerData] = useState<RecruitBanner[]>([]);
+  const [recruitBannerData, setRecruitBannerData] = useState<RecruitBanner[]>(
+    [],
+  );
 
   const [isEditMode, setIsEditMode] = useState(false);
 
@@ -51,7 +55,7 @@ function RecruitmentTable() {
       if (recruitBannerData.length == 0) {
         const recruitBannersCheck = await loadRecruitBanners(href);
 
-        setRecruitBannerData(recruitBannersCheck.recruitBanners);
+        setRecruitBannerData(recruitBannersCheck.RecruitBanner);
       } else {
       }
     };
@@ -128,11 +132,14 @@ function RecruitmentTable() {
     >
       <td>{index + 1}</td>
 
-      <td>{recruitBanner.name}</td>
-
+      <td>{recruitBanner.title}</td>
       <td>
-        <Image src={recruitBanner.src} alt={recruitBanner.src} width={100} height={100} />
+        {recruitBanner.description.length > 150
+          ? `${recruitBanner.description.slice(0, 150)}...`
+          : recruitBanner.description}
       </td>
+      <td>{recruitBanner.numberOfRecruitment}</td>
+      <td>{recruitBanner.salary}</td>
 
       <td>
         {recruitBanner.status === "Active" ? (
@@ -176,10 +183,11 @@ function RecruitmentTable() {
           <tr>
             <th className="w-1/20">#</th>
 
-            <th className="w-1/3">Name</th>
+            <th className="w-1/3">Title</th>
 
-            <th className="w-2/6">Logo</th>
-
+            <th className="w-2/6">Description</th>
+            <th className="w-2/6">Number of Recruitment</th>
+            <th className="w-2/6">Salary</th>
             <th className="w-1/20">Status</th>
 
             <th className="w-3/10">Action</th>

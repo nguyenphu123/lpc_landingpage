@@ -9,15 +9,13 @@ import { TextInput, Button, Box, Grid } from "@mantine/core";
 import Image from "next/image";
 
 import { UpdateRecruitBanners } from "@/lib/updateData";
-
+import TextEditor from "../RichTextEditor";
 import { useSession } from "next-auth/react";
 
 import ToastGenerator from "@/lib/toast-tify";
 
 function UpdateRecruitBannersForm({ recruitBanner, handleSaveClick }) {
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const [selectedImageURL, setSelectedImageURL] = useState(recruitBanner.src);
+ 
 
   let { data: session, status } = useSession();
 
@@ -26,45 +24,19 @@ function UpdateRecruitBannersForm({ recruitBanner, handleSaveClick }) {
   const [isSucess, setIsSucess] = useState(false);
 
   const [sucessMessage, setSucessMessage] = useState("");
-
+  const [descriptionEn, setDescriptionEn]: any = useState(
+    recruitBanner.descriptionEn,
+  );
+  const [description, setDescription]: any = useState(
+    recruitBanner.description,
+  );
   const form = useForm({
     initialValues: JSON.parse(JSON.stringify(recruitBanner)),
   });
 
-  const onImageChange = (e) => {
-    const file = e.target.files[0];
-
-    setSelectedImage(file);
-
-    setSelectedImageURL(URL.createObjectURL(file));
-  };
-
   const onSubmitForm = async (values) => {
-    if (selectedImage && selectedImageURL != recruitBanner.src) {
-      const formData = new FormData();
-
-      formData.append("file", selectedImage);
-
-      formData.append("upload_preset", "ml_default");
-
-      try {
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/derjssgq9/image/upload",
-
-          {
-            method: "POST",
-
-            body: formData,
-          },
-        );
-
-        const data = await response.json();
-
-        values.src = data.secure_url; // Save the uploaded image URL to the form data
-      } catch (error) {
-        console.error(error);
-      }
-    }
+    values["description"] = description.toString();
+    values["descriptionEn"] = descriptionEn.toString();
 
     // Continue with the rest of the form submission
 
@@ -88,7 +60,15 @@ function UpdateRecruitBannersForm({ recruitBanner, handleSaveClick }) {
       setSucessMessage("");
     }, 10000);
   };
+  const onHandleChange = (e: any) => {
+    if (e.language == "vn") {
+      setDescription(e.data);
+    } else {
+      setDescriptionEn(e.data);
+    }
 
+    // form.insertListItem(`content.${e.idcontent}.description.${e.id}`, e);
+  };
   return (
     // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
@@ -102,23 +82,47 @@ function UpdateRecruitBannersForm({ recruitBanner, handleSaveClick }) {
           <Grid gutter="lg">
             <Grid.Col span={12}>
               <TextInput
-                label="Name"
-                placeholder="Name"
-                {...form.getInputProps("name")}
+                label="Title"
+                placeholder="Title"
+                {...form.getInputProps("title")}
+              />
+              <TextInput
+                label="Title (English)"
+                placeholder="Title (English)"
+                {...form.getInputProps("titleEn")}
               />
             </Grid.Col>
-
-            <Grid.Col span={6}>
-              <input type="file" accept="image/*" onChange={onImageChange} />
-
-              <Image
-                src={selectedImageURL}
-                alt="Selected Image"
-                width={300}
-                height={300}
+            <Grid.Col span={12}>
+              <TextInput
+                label="numberOfRecruitment"
+                placeholder="numberOfRecruitment"
+                {...form.getInputProps("numberOfRecruitment")}
+              />
+              <TextInput
+                label="numberOfRecruitment (English)"
+                placeholder="numberOfRecruitment (English)"
+                {...form.getInputProps("numberOfRecruitmentEn")}
               />
             </Grid.Col>
-
+            <Grid.Col span={12}>
+              <TextInput
+                label="salary"
+                placeholder="salary"
+                {...form.getInputProps("salary")}
+              />
+              <TextInput
+                label="salary (English)"
+                placeholder="salary (English)"
+                {...form.getInputProps("salaryEn")}
+              />
+            </Grid.Col>
+            <div className="flex w-full flex-wrap md:flex-nowrap gap-6 justify-center">
+              <TextEditor
+                onChange={onHandleChange}
+                content={description}
+                contentEn={descriptionEn}
+              />
+            </div>
             <Grid.Col span={6} className="flex justify-end mt-6">
               {/* Thêm class CSS để đặt nút submit ở góc phải */}
 

@@ -4,7 +4,7 @@ import { Table } from "@mantine/core";
 
 import Image from "next/image";
 
-import { loadRecruitBanners } from "@/lib/loadData";
+import { loadRecruitBannersAdmin } from "@/lib/loadData";
 import { Modal, Button, useDisclosure, ModalContent } from "@nextui-org/react";
 import { useUrl } from "nextjs-current-url";
 
@@ -53,7 +53,7 @@ function RecruitmentTable() {
   useEffect(() => {
     const fetchNew = async () => {
       if (recruitBannerData.length == 0) {
-        const recruitBannersCheck = await loadRecruitBanners(href);
+        const recruitBannersCheck = await loadRecruitBannersAdmin(href);
 
         setRecruitBannerData(recruitBannersCheck.RecruitBanner);
       } else {
@@ -77,7 +77,7 @@ function RecruitmentTable() {
   const handleSaveClick = async () => {
     // Thực hiện lưu thay đổi vào cơ sở dữ liệu (gọi API, ...)
 
-    const recruitBannerCheck = await loadRecruitBanners(href);
+    const recruitBannerCheck = await loadRecruitBannersAdmin(href);
 
     setRecruitBannerData(recruitBannerCheck.RecruitBanner);
 
@@ -101,14 +101,14 @@ function RecruitmentTable() {
     if (returnResult.success !== undefined) {
       showToast(returnResult.msg);
 
-      const recruitBannerCheck = await loadRecruitBanners(href);
+      const recruitBannerCheck = await loadRecruitBannersAdmin(href);
 
       setRecruitBannerData(recruitBannerCheck.RecruitBanner);
     }
   };
 
   const refreshRecruitBanners = async () => {
-    const recruitBannerCheck = await loadRecruitBanners(href);
+    const recruitBannerCheck = await loadRecruitBannersAdmin(href);
 
     setRecruitBannerData(recruitBannerCheck.RecruitBanner);
   };

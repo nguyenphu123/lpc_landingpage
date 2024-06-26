@@ -55,7 +55,7 @@ function RecruitmentTable() {
       if (recruitBannerData.length == 0) {
         const recruitBannersCheck = await loadRecruitBannersAdmin(href);
 
-        setRecruitBannerData(recruitBannersCheck.RecruitBanner);
+        setRecruitBannerData(recruitBannersCheck.RecruitBanner || []);
       } else {
       }
     };

@@ -572,7 +572,7 @@ const Home = () => {
                 role="tab"
                 aria-controls="recruiment"
                 aria-selected="false"
-                onClick={(e) => onClick("recruiment", e)}
+                onClick={(e) => onClick("recruitment", e)}
               >
                 Recruiment
               </button>

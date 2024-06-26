@@ -125,7 +125,7 @@ function RecruitmentTable() {
     }, 10000);
   };
 
-  const rows = recruitBannerData.map((recruitBanner, index) => (
+  const rows = recruitBannerData?.map((recruitBanner, index) => (
     <tr
       key={recruitBanner._id}
       className={index % 2 === 0 ? "bg-white" : "bg-gray-100"}

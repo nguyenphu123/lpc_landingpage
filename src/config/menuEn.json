@@ -48,6 +48,12 @@
       "name": "About Us",
 
       "link": "/about"
+    },
+    {
+      "id": "51ca928e-cd99-4918-98f6-78275332f456",
+      "name": "Recruitment",
+
+      "link": "/recruitment"
     }
   ],
 

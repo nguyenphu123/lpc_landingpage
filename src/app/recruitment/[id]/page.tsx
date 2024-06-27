@@ -9,7 +9,7 @@ import { language } from "@/feature/changeLanguage/changeLanguageSlice";
 import PageHeader from "@/partials/PageHeader";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-
+import { useSearchParams, useParams } from "next/navigation";
 const SeoMeta = dynamic(() => import("@/partials/SeoMeta"));
 interface RecruitBanner {
   status: string;
@@ -23,11 +23,13 @@ interface RecruitBanner {
   salary: string;
 }
 
-export default function Recruitment() {
+export default function RecruitmentDetail() {
   const [recruitBannerData, setRecruitBannerData] = useState<RecruitBanner[]>(
     [],
   );
+  const [recruitBannerDetail, setRecruitBannerDetail]: any = useState();
   const [isMounted, setIsMounted] = useState(false);
+  const searchParams = useParams();
 
   useEffect(() => {
     setIsMounted(true);
@@ -48,7 +50,10 @@ export default function Recruitment() {
     const fetchNew = async () => {
       if (recruitBannerData.length == 0) {
         const recruitBannersCheck = await loadRecruitBanners(href);
-        console.log(recruitBannersCheck.recruitBanners);
+        let indexOf = recruitBannersCheck.recruitBanners
+          .map((item) => item._id)
+          .indexOf(searchParams.id);
+        setRecruitBannerDetail(recruitBannersCheck.recruitBanners[indexOf]);
         setRecruitBannerData(recruitBannersCheck.recruitBanners);
       } else {
       }
@@ -61,6 +66,7 @@ export default function Recruitment() {
 
       .catch(console.error);
   }, []);
+  console.log(recruitBannerDetail);
   return (
     <>
       <SeoMeta
@@ -72,19 +78,35 @@ export default function Recruitment() {
       <PageHeader
         title={
           curlanguage.changeLanguage.value === "en"
-            ? DataEn["recruitment"].name
-            : Data["recruitment"].name
+            ? "Recruitment detail"
+            : "Chi tiết"
         }
       />
+
       <div>
-        {/* Banner Tuyển Dụng */}
-        <div className="bg-cover bg-center h-64 flex items-center justify-center bg-recruitment-banner">
-          <h1 className="text-white text-4xl font-bold">Tuyển Dụng</h1>
+        <div>
+          {recruitBannerDetail != null || recruitBannerDetail != undefined ? (
+            <>
+              {curlanguage.changeLanguage.value === "en"
+                ? recruitBannerDetail.titleEn
+                : recruitBannerDetail.title}
+              <div
+                dangerouslySetInnerHTML={{
+                  __html:
+                    curlanguage.changeLanguage.value === "en"
+                      ? recruitBannerDetail.descriptionEn
+                      : recruitBannerDetail.description,
+                }}
+              ></div>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
 
         {/* Job Hot Title */}
         <div className="mt-8">
-          <h2 className="text-2xl font-bold text-center">Công việc hot</h2>
+          <h2 className="text-2xl font-bold text-center">Công việc khác</h2>
         </div>
 
         {/* Job Listings */}
@@ -106,7 +128,7 @@ export default function Recruitment() {
                 <p>Lương: {job.salary}</p>
                 <Link
                   className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-                  href={`/recruitment/${job._id.toString()}`}
+                  href={`/recruitment/${job._id}`}
                 >
                   {curlanguage.changeLanguage.value === "en"
                     ? "Details"

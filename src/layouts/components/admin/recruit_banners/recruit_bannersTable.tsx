@@ -55,7 +55,7 @@ function RecruitmentTable() {
       if (recruitBannerData.length == 0) {
         const recruitBannersCheck = await loadRecruitBannersAdmin(href);
 
-        setRecruitBannerData(recruitBannersCheck.RecruitBanner || []);
+        setRecruitBannerData(recruitBannersCheck.recruitBanners);
       } else {
       }
     };
@@ -79,7 +79,7 @@ function RecruitmentTable() {
 
     const recruitBannerCheck = await loadRecruitBannersAdmin(href);
 
-    setRecruitBannerData(recruitBannerCheck.RecruitBanner);
+    setRecruitBannerData(recruitBannerCheck.recruitBanners);
 
     setSelectedRecruitBanner(null);
 
@@ -103,14 +103,14 @@ function RecruitmentTable() {
 
       const recruitBannerCheck = await loadRecruitBannersAdmin(href);
 
-      setRecruitBannerData(recruitBannerCheck.RecruitBanner);
+      setRecruitBannerData(recruitBannerCheck.recruitBanners);
     }
   };
 
   const refreshRecruitBanners = async () => {
     const recruitBannerCheck = await loadRecruitBannersAdmin(href);
 
-    setRecruitBannerData(recruitBannerCheck.RecruitBanner);
+    setRecruitBannerData(recruitBannerCheck.recruitBanners);
   };
 
   const showToast = (msg) => {
@@ -183,11 +183,11 @@ function RecruitmentTable() {
           <tr>
             <th className="w-1/20">#</th>
 
-            <th className="w-1/3">Title</th>
+            <th className="w-1/6">Title</th>
 
             <th className="w-2/6">Description</th>
-            <th className="w-2/6">Number of Recruitment</th>
-            <th className="w-2/6">Salary</th>
+            <th className="w-1/6">Number of Recruitment</th>
+            <th className="w-1/6">Salary</th>
             <th className="w-1/20">Status</th>
 
             <th className="w-3/10">Action</th>

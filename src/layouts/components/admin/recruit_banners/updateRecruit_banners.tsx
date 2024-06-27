@@ -72,7 +72,7 @@ function UpdateRecruitBannersForm({ recruitBanner, handleSaveClick }) {
   return (
     // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
-    <div className="container">
+    <div style={{ maxHeight: "500px", overflowY: "auto" }}>
       {isSucess ? <ToastGenerator message={sucessMessage} /> : null}
 
       <Box maw={"100%"} mx="auto">
@@ -93,14 +93,14 @@ function UpdateRecruitBannersForm({ recruitBanner, handleSaveClick }) {
               />
             </Grid.Col>
             <Grid.Col span={12}>
-              <TextInput
-                label="numberOfRecruitment"
-                placeholder="numberOfRecruitment"
+            <TextInput
+                label="number of recruitment"
+                placeholder="number of recruitment"
                 {...form.getInputProps("numberOfRecruitment")}
               />
               <TextInput
-                label="numberOfRecruitment (English)"
-                placeholder="numberOfRecruitment (English)"
+                label="number of recruitment (English)"
+                placeholder="number of recruitment (English)"
                 {...form.getInputProps("numberOfRecruitmentEn")}
               />
             </Grid.Col>

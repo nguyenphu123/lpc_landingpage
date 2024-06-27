@@ -32,7 +32,7 @@ function RecruitBannersForm({ refreshRecruitBanners }) {
       numberOfRecruitmentEn: "",
       salary: "",
       salaryEn: "",
-      status: "Active",
+      status: "Inactive",
     },
   });
   const onHandleChange = (e: any) => {
@@ -74,7 +74,7 @@ function RecruitBannersForm({ refreshRecruitBanners }) {
   return (
     // <div style={{ maxHeight: "500px", overflowY: "auto" }}>
 
-    <div className="container">
+    <div style={{ maxHeight: "500px", overflowY: "auto" }}>
       {isSucess ? <ToastGenerator message={sucessMessage} /> : <></>}
 
       <Box maw={"100%"} mx="auto">
@@ -96,13 +96,13 @@ function RecruitBannersForm({ refreshRecruitBanners }) {
             </Grid.Col>
             <Grid.Col span={12}>
               <TextInput
-                label="numberOfRecruitment"
-                placeholder="numberOfRecruitment"
+                label="number of recruitment"
+                placeholder="number of recruitment"
                 {...form.getInputProps("numberOfRecruitment")}
               />
               <TextInput
-                label="numberOfRecruitment (English)"
-                placeholder="numberOfRecruitment (English)"
+                label="number of recruitment (English)"
+                placeholder="number of recruitment (English)"
                 {...form.getInputProps("numberOfRecruitmentEn")}
               />
             </Grid.Col>

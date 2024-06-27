@@ -22,62 +22,7 @@ interface RecruitBanner {
   numberOfRecruitment: string;
   salary: string;
 }
-const jobs = [
-  {
-    id: 1,
-    title: "Frontend Developer",
-    quantity: 3,
-    location: "Hồ Chí Minh",
-    salary: "Thỏa thuận",
-    image: "/images/frontend-developer.jpg",
-    description: "Mô tả công việc cho vị trí Frontend Developer...",
-  },
-  {
-    id: 2,
-    title: "Backend Developer",
-    quantity: 2,
-    location: "Hồ Chí Minh",
-    salary: "Thỏa thuận",
-    image: "/images/backend-developer.jpg",
-    description: "Mô tả công việc cho vị trí Backend Developer...",
-  },
-  {
-    id: 3,
-    title: "UI/UX Designer",
-    quantity: 1,
-    location: "Hồ Chí Minh",
-    salary: "Thỏa thuận",
-    image: "/images/ui-ux-designer.jpg",
-    description: "Mô tả công việc cho vị trí UI/UX Designer...",
-  },
-  {
-    id: 4,
-    title: "Mobile Developer",
-    quantity: 2,
-    location: "Hồ Chí Minh",
-    salary: "Thỏa thuận",
-    image: "/images/mobile-developer.jpg",
-    description: "Mô tả công việc cho vị trí Mobile Developer...",
-  },
-  {
-    id: 5,
-    title: "Data Scientist",
-    quantity: 1,
-    location: "Hồ Chí Minh",
-    salary: "Thỏa thuận",
-    image: "/images/data-scientist.jpg",
-    description: "Mô tả công việc cho vị trí Data Scientist...",
-  },
-  {
-    id: 6,
-    title: "DevOps Engineer",
-    quantity: 1,
-    location: "Hồ Chí Minh",
-    salary: "Thỏa thuận",
-    image: "/images/devops-engineer.jpg",
-    description: "Mô tả công việc cho vị trí DevOps Engineer...",
-  },
-];
+
 export default function Recruitment() {
   const [recruitBannerData, setRecruitBannerData] = useState<RecruitBanner[]>(
     [],
@@ -104,7 +49,7 @@ export default function Recruitment() {
       if (recruitBannerData.length == 0) {
         const recruitBannersCheck = await loadRecruitBanners(href);
 
-        setRecruitBannerData(recruitBannersCheck.RecruitBanner);
+        setRecruitBannerData(recruitBannersCheck.recruitBanners);
       } else {
       }
     };
@@ -144,14 +89,14 @@ export default function Recruitment() {
 
         {/* Job Listings */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
-          {jobs.map((job: any) => {
+          {recruitBannerData.map((job: any) => {
             return (
               <div
                 key={job.id}
                 className="flex flex-col border rounded-lg p-4 shadow-lg"
               >
                 <img
-                  src={job.image}
+                  src={"/images/devops-engineer.jpg"}
                   alt={job.title}
                   className="w-full h-40 object-cover rounded-md"
                 />
@@ -159,12 +104,13 @@ export default function Recruitment() {
                 <p>Số lượng: {job.quantity}</p>
                 <p>Vị trí: {job.location}</p>
                 <p>Lương: {job.salary}</p>
-                <Link href={`/recruitment/${job.id}`}>
-                  <a className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
-                    {curlanguage.changeLanguage.value === "en"
-                      ? "Details"
-                      : "Xem chi tiết"}
-                  </a>
+                <Link
+                  className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                  href={`/recruitment/${job.id}`}
+                >
+                  {curlanguage.changeLanguage.value === "en"
+                    ? "Details"
+                    : "Xem chi tiết"}
                 </Link>
               </div>
             );

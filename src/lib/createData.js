@@ -288,7 +288,7 @@ export async function CreateRecruitBanners(item, session) {
   // You can use any data fetching library
   // const posts = await loadNews()
 
-  const res = await fetch("api/admin/recruit_banners", {
+  const res = await fetch("api/admin/RecruitBanner", {
     method: "post",
     headers: {
       "Content-Type": "application/json",

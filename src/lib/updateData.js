@@ -334,8 +334,8 @@ export async function UpdateRecruitBanners(item, session) {
   // You can use any data fetching library
   // const posts = await loadNews()
 
-  const res = await fetch("api/admin/recruit_banners", {
-    method: "put",
+  const res = await fetch("api/admin/RecruitBanner", {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       "cache-control": "no-store",

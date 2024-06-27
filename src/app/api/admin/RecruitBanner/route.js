@@ -2,6 +2,7 @@ import connectDB from "@/lib/mongodb";
 import RecruitBanner from "@/models/recruit_banners";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
+import { getServerSession } from "next-auth";
 export async function GET(request) {
   console.log(request.url);
   try {
@@ -22,11 +23,14 @@ export async function GET(request) {
 }
 export async function POST(req) {
   const {
-    src,
-
-    type,
-
-    name,
+    title,
+    titleEn,
+    description,
+    descriptionEn,
+    numberOfRecruitment,
+    numberOfRecruitmentEn,
+    salary,
+    salaryEn,
     status,
   } = await req.json();
   const session = await getServerSession({ req }); //get server side session
@@ -36,11 +40,14 @@ export async function POST(req) {
       await connectDB(); //connect to database
       //create a record
       await RecruitBanner.create({
-        src,
-
-        type,
-
-        name,
+        title,
+        titleEn,
+        description,
+        descriptionEn,
+        numberOfRecruitment,
+        numberOfRecruitmentEn,
+        salary,
+        salaryEn,
         status,
       });
       return NextResponse.json({
@@ -67,14 +74,17 @@ export async function POST(req) {
   }
 }
 //update a partner
-export async function PUT(req) {
+export async function PATCH(req) {
   const {
     _id,
-    src,
-
-    type,
-
-    name,
+    title,
+    titleEn,
+    description,
+    descriptionEn,
+    numberOfRecruitment,
+    numberOfRecruitmentEn,
+    salary,
+    salaryEn,
     status,
   } = await req.json();
   const session = await getServerSession({ req }); //get server side session
@@ -86,11 +96,14 @@ export async function PUT(req) {
       await RecruitBanner.findOneAndUpdate(
         { _id: _id },
         {
-          src,
-
-          type,
-
-          name,
+          title,
+          titleEn,
+          description,
+          descriptionEn,
+          numberOfRecruitment,
+          numberOfRecruitmentEn,
+          salary,
+          salaryEn,
           status,
         },
         { new: true },

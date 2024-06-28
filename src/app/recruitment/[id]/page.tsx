@@ -53,8 +53,10 @@ export default function RecruitmentDetail() {
         let indexOf = recruitBannersCheck.recruitBanners
           .map((item) => item._id)
           .indexOf(searchParams.id);
+
+        recruitBannersCheck.recruitBanners.splice(indexOf, 1);
         setRecruitBannerDetail(recruitBannersCheck.recruitBanners[indexOf]);
-        setRecruitBannerData(recruitBannersCheck.recruitBanners.slice(indexOf));
+        setRecruitBannerData(recruitBannersCheck.recruitBanners);
       } else {
       }
     };

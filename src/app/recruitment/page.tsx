@@ -96,7 +96,11 @@ export default function Recruitment() {
                 className="flex flex-col border rounded-lg p-4 shadow-lg"
               >
                 <img
-                  src={"/images/devops-engineer.jpg"}
+                  src={
+                    job.src != "" && job.src != null
+                      ? job.src
+                      : "/images/devops-engineer.jpg"
+                  }
                   alt={job.title}
                   className="w-full h-40 object-cover rounded-md"
                 />

@@ -15,12 +15,12 @@ import { useSession } from "next-auth/react";
 import ToastGenerator from "@/lib/toast-tify";
 
 function UpdateRecruitBannersForm({ recruitBanner, handleSaveClick }) {
- 
-
   let { data: session, status } = useSession();
 
   const [successMessage, setSuccessMessage] = useState<string | null>(null); // Updated type declaration
+  const [selectedImage, setSelectedImage] = useState(null); // Store the selected image
 
+  const [imagePreview, setImagePreview] = useState("");
   const [isSucess, setIsSucess] = useState(false);
 
   const [sucessMessage, setSucessMessage] = useState("");
@@ -35,6 +35,33 @@ function UpdateRecruitBannersForm({ recruitBanner, handleSaveClick }) {
   });
 
   const onSubmitForm = async (values) => {
+    if (selectedImage) {
+      // If an image is selected, upload it first
+
+      const formData = new FormData();
+
+      formData.append("file", selectedImage);
+
+      formData.append("upload_preset", "ml_default");
+
+      try {
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/derjssgq9/image/upload",
+
+          {
+            method: "POST",
+
+            body: formData,
+          },
+        );
+
+        const data = await response.json();
+
+        values.src = data.secure_url; // Store the uploaded image URL in the form data
+      } catch (error) {
+        console.error(error);
+      }
+    }
     values["description"] = description.toString();
     values["descriptionEn"] = descriptionEn.toString();
 
@@ -48,7 +75,17 @@ function UpdateRecruitBannersForm({ recruitBanner, handleSaveClick }) {
       handleSaveClick();
     }
   };
+  const onImageChange = (e) => {
+    const file = e.target.files[0];
 
+    setSelectedImage(file);
+
+    // Tạo URL xem trước ảnh và đặt nó vào trạng thái
+
+    const imageUrl = URL.createObjectURL(file);
+
+    setImagePreview(imageUrl);
+  };
   const showToast = (msg) => {
     setIsSucess(true);
 
@@ -81,6 +118,22 @@ function UpdateRecruitBannersForm({ recruitBanner, handleSaveClick }) {
 
           <Grid gutter="lg">
             <Grid.Col span={12}>
+              <input type="file" accept="image/*" onChange={onImageChange} />
+
+              {/* Hiển thị xem trước ảnh */}
+
+              {imagePreview && (
+                <div className="flex justify-center">
+                  <Image
+                    src={imagePreview}
+                    alt="Preview"
+                    width="200"
+                    height="200"
+                  />
+                </div>
+              )}
+            </Grid.Col>
+            <Grid.Col span={12}>
               <TextInput
                 label="Title"
                 placeholder="Title"
@@ -93,7 +146,7 @@ function UpdateRecruitBannersForm({ recruitBanner, handleSaveClick }) {
               />
             </Grid.Col>
             <Grid.Col span={12}>
-            <TextInput
+              <TextInput
                 label="number of recruitment"
                 placeholder="number of recruitment"
                 {...form.getInputProps("numberOfRecruitment")}

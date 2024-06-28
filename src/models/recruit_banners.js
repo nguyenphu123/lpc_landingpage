@@ -12,6 +12,7 @@ const recruitBannerSchema = new Schema({
   salary: String,
   salaryEn: String,
   status: String,
+  src:String,
 });
 
 const RecruitBanner =

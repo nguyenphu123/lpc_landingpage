@@ -48,7 +48,7 @@ export default function Recruitment() {
     const fetchNew = async () => {
       if (recruitBannerData.length == 0) {
         const recruitBannersCheck = await loadRecruitBanners(href);
-        console.log(recruitBannersCheck.recruitBanners);
+
         setRecruitBannerData(recruitBannersCheck.recruitBanners);
       } else {
       }

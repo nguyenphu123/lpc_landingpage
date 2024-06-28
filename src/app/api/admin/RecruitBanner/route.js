@@ -32,6 +32,7 @@ export async function POST(req) {
     salary,
     salaryEn,
     status,
+    src,
   } = await req.json();
   const session = await getServerSession({ req }); //get server side session
   try {
@@ -49,6 +50,7 @@ export async function POST(req) {
         salary,
         salaryEn,
         status,
+        src,
       });
       return NextResponse.json({
         msg: ["Recruit Banner Added"],
@@ -86,6 +88,7 @@ export async function PATCH(req) {
     salary,
     salaryEn,
     status,
+    src,
   } = await req.json();
   const session = await getServerSession({ req }); //get server side session
   try {
@@ -105,6 +108,7 @@ export async function PATCH(req) {
           salary,
           salaryEn,
           status,
+          src,
         },
         { new: true },
       );

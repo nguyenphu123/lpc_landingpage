@@ -54,7 +54,7 @@ export default function RecruitmentDetail() {
           .map((item) => item._id)
           .indexOf(searchParams.id);
         setRecruitBannerDetail(recruitBannersCheck.recruitBanners[indexOf]);
-        setRecruitBannerData(recruitBannersCheck.recruitBanners);
+        setRecruitBannerData(recruitBannersCheck.recruitBanners.splice(indexOf, 1));
       } else {
       }
     };

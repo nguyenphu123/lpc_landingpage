@@ -58,6 +58,10 @@ const Contact = () => {
           : "Vui lòng để lại email hoặc số điện thoại",
       );
     } else {
+      // Check if the phone number contains "/etc/passwd"
+      if (e.target.phoneNumber.value.includes("/etc/passwd")) {
+        return false;
+      }
       let phoneNumberRegex =
         /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 

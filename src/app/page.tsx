@@ -47,7 +47,7 @@ const Home = () => {
   }, [handleResize]);
   return (
     <div className="container-snap">
-      <Popup>
+      {/* <Popup>
         <Image
           width={650}
           height={450}
@@ -59,7 +59,7 @@ const Home = () => {
           className="transition duration-300 ease-in-out group-hover:scale-110 img-newitem w-full rounded"
           alt="Louvre"
         />
-      </Popup>
+      </Popup> */}
       <SeoMeta title="Home page" />
 
       <div

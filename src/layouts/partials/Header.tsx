@@ -99,14 +99,13 @@ const Header = () => {
       }
     }
   }
-
   return isLoading ? (
     <></>
   ) : (
     <header
       className={`fixed top-0 w-full flex justify-center ${
-        scrolled || width < 1030
-          ? "border-b border-gray-200 bg-white/50 backdrop-blur-xl"
+        scrolled || width < 1030 || pathname == "/event"
+          ? "border-b border-gray-200 bg-white/100 backdrop-blur-xl"
           : "bg-white/0"
       } z-30 transition-all`}
     >

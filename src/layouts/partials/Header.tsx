@@ -103,7 +103,7 @@ const Header = () => {
     <></>
   ) : (
     <header
-      className={`fixed top-0 w-full flex justify-center ${
+      className={`fixed top-0 w-screen flex justify-center ${
         scrolled || width < 1030 || pathname == "/event"
           ? "border-b border-gray-200 bg-white/100 backdrop-blur-xl"
           : "bg-white/0"

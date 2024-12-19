@@ -57,7 +57,7 @@ const Footer = () => {
   return Object.keys(companyLinks).length == 0 ? (
     <></>
   ) : (
-    <footer className="bg-theme-light dark:bg-darkmode-theme-light">
+    <footer className="bg-theme-light dark:bg-darkmode-theme-light w-screen">
       <div className="container">
         <div className="row items-center py-2">
           <div className="w-fit max-w-screen-xl content-end">

@@ -63,17 +63,30 @@ const Home = () => {
         />
       </Popup> */}
       <SeoMeta title="Home page" />
-      <video autoPlay loop muted className="w-screen h-screen object-cover">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        controls={false}
+        className="w-screen h-screen object-cover md:mt-[76px] mt-20"
+      >
         <source
-          className="w-screen h-screen"
           media="(max-width: 768px)"
-          src="/videos/Video Christmas 2024.mp4"
+          src={
+            curlanguage == "en"
+              ? "/videos/Video Christmas 2024.mp4"
+              : "/videos/Video Christmas 2024.mp4"
+          }
           type="video/mp4"
         />
         <source
-          className="w-screen h-screen"
           media="(min-width: 768px)"
-          src="/videos/IMG_4684.mp4"
+          src={
+            curlanguage == "en"
+              ? "/videos/IMG_4684.mp4"
+              : "/videos/IMG_4684.mp4"
+          }
           type="video/mp4"
         />
       </video>
@@ -92,7 +105,7 @@ const Home = () => {
               ? DataEn["service_title1"].name
               : Data["service_title1"].name}
           </h2>
-          {isMobile}
+
           <h2 className="text-center leading-9 text-4xl tracking-wide font-semibold  text-gray-900 mt-10">
             {curlanguage == "en"
               ? DataEn["service_title"].name
